@@ -1,0 +1,10 @@
+<LinkTo @route={{@route}}
+        @currentWhen={{@currentWhen}}
+        @tagName="li" @activeClass="vl-tab--active" class="vl-tab"
+>
+  <LinkTo @route={{@route}}
+          class="vl-tab__link" role="tab" aria-selected="true"
+  >
+    {{yield}}
+  </LinkTo>
+</LinkTo>

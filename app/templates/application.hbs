@@ -1,5 +1,18 @@
-{{!-- The following component displays Ember's default welcome message. --}}
-<WelcomePage />
-{{!-- Feel free to remove this! --}}
-
+<div class="vl-u-display-block">
+  <div class="vlc-navbar vlc-navbar--bordered-bottom vlc-navbar--no-padding vlc-navbar--bg-alt vlc-navbar--auto" id="c-main-nav">
+    <div class="vlc-toolbar vlc-toolbar--auto">
+      <div class="vlc-toolbar__left">
+        <div class="vlc-toolbar__item">
+          <Wu::Tabs class="vl-u-reset-margin" as |tabs|>
+            <tabs.tab @route="meetings">Vergaderingen</tabs.tab >
+            <tabs.tab @route="cases">Dossiers</tabs.tab >
+          </Wu::Tabs>
+        </div>
+      </div>
+      <div class="vlc-toolbar__right">
+        <Kaleidos::User @name="Test" @logoutRoute="index" />
+      </div>
+    </div>
+  </div>
+</div>
 {{outlet}}
