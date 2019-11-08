@@ -14,7 +14,7 @@
       <div class="grid grid--align-right">
         <div class="col--1-1 col--10-12--m col--6-12--l">
           <h2 class="h4 u-spacer">Kies een gebruiker om mee in te loggen.</h2>
-          <input class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound" placeholder="Gebruikersnaam..." value={{role}} autofocus oninput={{perform updateSearch value='target.value'}}>
+          <!-- <input class="input-field input-field--block u-spacer--tiny js-js-input-pattern-bound" placeholder="Gebruikersnaam..." value={{role}} autofocus oninput={{perform updateSearch value='target.value'}}> -->
           {{#mock-login as |login|}}
             {{#if queryStore.isRunning}}
               <div class="loader-wrapper">

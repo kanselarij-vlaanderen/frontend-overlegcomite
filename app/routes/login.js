@@ -4,8 +4,8 @@ import ENV from 'frontend-overlegcomite/config/environment';
 export default Route.extend({
 
   beforeModel() {
-    if (ENV.environment === 'development') {
-      this.transitionTo('mock-login');
+    if (this.routeName !== ENV.APP.defaultLoginRouteName) {
+      this.transitionTo(ENV.APP.defaultLoginRouteName);
     }
   }
 });

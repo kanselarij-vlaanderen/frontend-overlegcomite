@@ -13,7 +13,7 @@ export default Controller.extend({
     if (this.role)
       filter.user = { 'last-name': this.role };
     const accounts = yield this.store.query('account', {
-      include: 'user,user.groups',
+      include: 'user,user.group',
       filter: filter,
       page: { size: this.size, number: this.page },
       sort: 'user.last-name'
