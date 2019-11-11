@@ -1,0 +1,17 @@
+<div class="vl-alert {{this.typeClass}}" role="alert">
+  <div class="vl-alert__icon">
+    <i class="vl-vi vl-vi-alert-circle" aria-hidden="true"></i>
+  </div>
+  {{#if @closeable}}
+    <button class="vl-alert__close" type="button" {{action "close"}}>
+      <i class="vl-vi vl-vi-cross" aria-hidden="true"></i>
+      <span class="vl-u-visually-hidden">Sluiten</span>
+    </button>
+  {{/if}}
+  <div class="vl-alert__content">
+    <p class="vl-alert__title">{{@title}}</p>
+    <div class="vl-alert__message">
+      {{yield}}
+    </div>
+  </div>
+</div>
