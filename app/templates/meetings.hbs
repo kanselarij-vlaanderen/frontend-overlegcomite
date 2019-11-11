@@ -1,1 +1,116 @@
+<div class="vl-u-bg-alt">
+  <div class="vlc-page-header">
+    <div class="vlc-toolbar vlc-toolbar--auto">
+      <div class="vlc-toolbar__left">
+        <div class="vlc-toolbar__item">
+          <h1 class="vlc-page-header__title">
+            Vergaderingen
+          </h1>
+        </div>
+      </div>
+      <div class="vlc-toolbar__right">
+        {{#if currentSession.canEditAgenda}}
+          <div class="vlc-toolbar__item">
+            {{#link-to
+              "meetings.new"
+              tagName="button"
+              class="vl-button vl-button--narrow vl-button--icon-before"
+            }}
+              <i
+                class="vl-button__icon vl-button__icon--before vl-vi vl-vi-add"
+              ></i>
+              Nieuwe vergadering
+            {{/link-to}}
+          </div>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</div>
+{{#if (gt model.length 0)}}
+  <div class="vlc-scroll-wrapper">
+    <div class="vlc-scroll-wrapper__body">
+      <div class="vl-u-spacer-extended-l">
+        <div class="vl-u-spacer--large">
+          <div class="vl-u-display-flex vl-u-flex-space-between">
+            <h2 class="vl-title vl-title--h3">
+              Vergadering
+            </h2>
+            <div class="vl-u-spacer-extended-bottom-s">
+              <div
+                class="vlc-input-field-group-wrapper vlc-input-field-group-wrapper--inline"
+              >
+                <div
+                  class="vlc-input-field-group vlc-input-field-group--gmeeting"
+                >
+                  <input class="vl-input-field" type="search">
+                </div>
+                <div class="vlc-input-field-group">
+                  <button
+                    class="vl-button vl-button--secondary vl-button--icon"
+                    type="submit"
+                  >
+                    <i class="vl-vi vl-vi-magnifier"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="vl-u-spacer-extended-bottom-l">
+            {{!-- TODO: data-table style doesn't render properly. Has something to do with ember-data-table vs ember-vo-webuniversum-data-table? --}}
+            {{#data-table
+              content=model
+              class="vl-data-table vl-data-table--zebra vl-data-table--align-middle"
+              page=page
+              size=size
+              sort=sort
+              isLoading=isLoadingModel
+              onClickRow=(action "selectMeeting") as |table|
+            }}
+              {{#table.content as |c|}}
+                {{#c.header}}
+                  {{th-sortable
+                    class="vl-data-table-col-6 vl-data-table__header-title"
+                    currentSorting=sort
+                    field="startedAt"
+                    label="Vergadering"
+                  }}
+                  {{th-sortable
+                    class="vl-data-table-col-5 vl-data-table__header-title"
+                    currentSorting=sort
+                    field="modified"
+                    label="Laatst gewijzigd op"
+                  }}
+                  <th class="vl-data-table-col-1"></th>
+                {{/c.header}}
+                {{#c.body as |meeting|}}
+                  <td>
+                    {{moment-format meeting.startedAt}}
+                  </td>
+                  <td>
+                    {{moment-format meeting.modified}}
+                  </td>
+                  <td class="vl-u-align-center">
+                    <button
+                      class="vl-button vl-button--link vl-button--icon"
+                      {{action "selectMeeting" meeting}}
+                    >
+                      <i class="vl-button__icon vl-vi vl-vi-nav-right"></i>
+                    </button>
+                  </td>
+                {{/c.body}}
+              {{/table.content}}
+            {{/data-table}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{{else}}
+  <div class="vl-u-spacer-extended-l">
+    <Wu::Alert>
+      <p>Er zijn nog geen vergaderingen.</p>
+    </Wu::Alert>
+  </div>
+{{/if}}
 {{outlet}}
