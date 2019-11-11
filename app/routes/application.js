@@ -8,13 +8,13 @@ import ENV from 'frontend-overlegcomite/config/environment';
 
 export default Route.extend(ApplicationRouteMixin, {
   currentSession: service(),
-  // moment: service(),
+  moment: service(),
 
   beforeModel() {
-    // const moment = this.moment;
-    // moment.setLocale('nl-be');
-    // moment.setTimeZone('Europe/Brussels');
-    // moment.set('defaultFormat', 'DD MMM YYYY, HH:mm');
+    const moment = this.moment;
+    moment.setLocale('nl-be');
+    moment.setTimeZone('Europe/Brussels');
+    moment.set('defaultFormat', 'DD-MM-YYYY, HH:mm');
 
     return this._loadCurrentSession();
   },
