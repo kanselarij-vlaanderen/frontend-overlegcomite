@@ -1,0 +1,42 @@
+{{#if (not await dateObjectsToEnable)}}
+  {{ember-flatpickr
+    classNames="vl-input-field vl-input-field--block"
+    locale="nl"
+    dateFormat="d-m-Y H:i"
+    enableTime=enableTime
+    time_24hr=true
+    date=(readonly selectedDate)
+    onChange=(action "dateChanged")
+    defaultHour=defaultHour
+    defaultMinute=defaultMinute
+    getFlatpickrRef=(action (mut flatpickrRef))
+  }}
+  <button
+    class="vl-input-addon js-vl-datepicker-toggle js-vl-tooltip"
+    type="button"
+    {{action "toggleCalendar"}}
+  >
+    <i class="vl-vi vl-vi-calendar" aria-hidden="true"></i>
+  </button>
+{{else}}
+  {{ember-flatpickr
+    classNames="vl-input-field vl-input-field--block"
+    locale="nl"
+    dateFormat="d-m-Y H:i"
+    enable=datesToEnable
+    enableTime=enableTime
+    time_24hr=true
+    date=(readonly selectedDate)
+    onChange=(action "dateChanged")
+    defaultHour=defaultHour
+    defaultMinute=defaultMinute
+    getFlatpickrRef=(action (mut flatpickrRef))
+  }}
+  <button
+    class="vl-input-addon js-vl-datepicker-toggle js-vl-tooltip"
+    type="button"
+    {{action "toggleCalendar"}}
+  >
+    <i class="vl-vi vl-vi-calendar" aria-hidden="true"></i>
+  </button>
+{{/if}}

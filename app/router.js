@@ -9,7 +9,9 @@ const Router = EmberRouter.extend({
 
 Router.map(function() {
   this.route('cases');
-  this.route('meetings');
+  this.route('meetings', { path: '/vergaderingen' }, function() {
+    this.route('new', { path: '/nieuw' });
+  });
   if (ENV.APP.defaultLoginRouteName === 'mock-login') {
     this.route('mock-login');
   }
