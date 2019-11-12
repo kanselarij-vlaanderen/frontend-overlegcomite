@@ -1,0 +1,5 @@
+<ul class="vlc-agenda-items {{if (eq @mode "main") "vlc-agenda-items--spaced"}}">
+  {{yield (hash
+    agenda-items-group=(component "kaleidos/agenda-items-list/agenda-items-group-list" mode=@mode)
+  )}}
+</ul>

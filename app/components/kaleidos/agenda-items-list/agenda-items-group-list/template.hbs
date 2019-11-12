@@ -1,0 +1,10 @@
+<li class="vlc-agenda-items__item">
+  <h3 class="vlc-list-section-header">
+    {{@title}}
+  </h3>
+  <ol>
+    {{yield (hash
+      agenda-item=(component "kaleidos/agenda-items-list/agenda-items-group-list/agenda-item" mode=@mode)
+    )}}
+  </ol>
+</li>

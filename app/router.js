@@ -9,6 +9,8 @@ const Router = EmberRouter.extend({
 
 Router.map(function() {
   this.route('cases');
+  this.route('agendaitems', { path: '/vergaderingen/:meeting_id/agendapunten' }, function() {
+  });
   this.route('meetings', { path: '/vergaderingen' }, function() {
     this.route('new', { path: '/nieuw' });
   });

@@ -82,12 +82,12 @@
                     {{moment-format meeting.startedAt}}
                   </td>
                   <td class="vl-u-align-center">
-                    <button
-                      class="vl-button vl-button--link vl-button--icon"
-                      {{action "selectMeeting" meeting}}
+                    <LinkTo @route="agendaitems"
+                            @model={{meeting}}
+                            class="vl-button vl-button--link vl-button--icon"
                     >
                       <i class="vl-button__icon vl-vi vl-vi-nav-right"></i>
-                    </button>
+                    </LinkTo>
                   </td>
                 {{/c.body}}
               {{/table.content}}

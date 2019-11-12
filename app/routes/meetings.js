@@ -27,7 +27,7 @@ export default Route.extend(AuthenticatedRouteMixin, DataTableRouteMixin, {
     },
 
     selectMeeting(meeting) {
-      this.transitionToRoute("oc.meetings.meeting", meeting);
+      this.transitionToRoute("meetings.meeting", meeting);
     }
   }
 });
