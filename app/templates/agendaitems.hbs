@@ -1,0 +1,69 @@
+{{!-- TODO: Header (component?)}}
+{{!-- <div class="vl-u-bg-alt">
+  {{imported/oc/agenda-header meeting=model}}
+</div> --}}
+{{#if (await agendaItemGroups)}}
+  <div class="vlc-panel-layout">
+    <div class={{agendaitemsClass}}>
+      <div class="vlc-scroll-wrapper">
+
+        {{!-- TODO: search bar in detail view (component?)}}
+        {{!--<div class="vlc-scroll-wrapper__header">
+          <div class="vlc-navbar vlc-navbar--bordered-bottom">
+            <div class="vlc-input-field-group-wrapper vlc-input-field-group-wrapper--inline">
+              <div class="vlc-input-field-group vlc-input-field-group--grow">
+                <input class="vl-input-field" type="search" placeholder="Zoeken">
+              </div>
+              <div class="vlc-input-field-group">
+                <button class="vl-button vl-button--tertiary vl-button--icon" type="submit">
+                  <i class="vl-vi vl-vi-magnifier vl-button__icon" aria-hidden="true"></i>
+                  <span class="vl-u-visually-hidden">Zoeken</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>--}}
+
+        <div class="vlc-scroll-wrapper__body">
+          <div class={{if (eq agendaItemListMode "main") "vl-u-spacer-extended-l"}}>
+            <div class={{if (eq agendaItemListMode "main") "vl-u-spacer-extended-bottom-l"}}>
+              <Kaleidos::AgendaItemsList @mode={{agendaItemListMode}} as |itemsList|>
+                {{#each (await agendaItemGroups) as |agendaItemGroup|}}
+
+                  <itemsList.agenda-items-group @title={{format-submitter-names agendaItemGroup.firstObject.submitters}}
+                  as |itemsGroup|>
+                    {{#each agendaItemGroup as |agendaItem|}}
+                      <Link
+                        @route="agendaitems.agendaitem"
+                        @model={{agendaItem}}
+                      as |l|>
+                        <itemsGroup.agenda-item
+                          @active={{l.isActiveWithoutQueryParams}}
+                          @url={{l.href}}
+                          @number={{concat agendaItem.priority agendaItem.subPriority "."}}
+                          @title={{agendaItem.subject}}
+                          @content={{undefined}}
+                          @times-passed={{agendaItem.case.identifier}}
+                          {{on "click" l.transitionTo}}
+                        />
+                      </Link>
+                    {{/each}}
+                  </itemsList.agenda-items-group>
+                {{/each}}
+              </Kaleidos::AgendaItemsList>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="vlc-panel-layout__main-content">
+      {{outlet}}
+    </div>
+  </div>
+{{/if}}
+{{#if (is-pending agendaItemGroups)}}
+  {{imported/web-components/vl-loader
+    text="Agenda laden ..."
+  }}
+{{/if}}
+{{outlet "modal"}}
