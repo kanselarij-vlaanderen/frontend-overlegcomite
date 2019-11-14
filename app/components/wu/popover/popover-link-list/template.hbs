@@ -1,0 +1,10 @@
+<ul class="vl-popover__link-list">
+  {{yield (hash
+    item=(component "wu/popover/popover-link-list/item")
+    separator=(component "wu/popover/popover-link-list/separator" class="vl-link vl-link--block")
+  )}}
+</ul>
+<button class="vl-popover__close-btn vl-vi vl-vi-cross" tabindex="0"
+  {{!--action close--}}>
+  <span class="vl-u-visually-hidden">Sluit popup</span>
+</button>

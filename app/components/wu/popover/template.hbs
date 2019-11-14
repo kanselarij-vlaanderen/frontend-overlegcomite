@@ -1,0 +1,22 @@
+<div class="vl-popover {{if @alignment (concat "vl-popover--align-" @alignment)}}" data-vl-popover="" id={{this.uniqueId}}>
+  <button class="vl-button vl-button--link vl-button--icon js-vl-popover__toggle">
+    {{@button-text}}
+    <i class="vl-vi vl-vi-nav-{{@button-icon}} vl-button__icon" aria-hidden="true"></i>
+    {{#unless @button-text}}
+      <span class="vl-u-visually-hidden">Meer opties</span>
+    {{/unless}}
+  </button>
+  {{#attach-popover
+    class="vl-popover"
+    hideOn="click clickout"
+    showOn="click"
+    placement=@placement
+    popperContainer=(concat "#" this.uniqueId)
+  }}
+    <div class="vl-popover__content vl-popover__content--close"  id={{this.uniqueId}}>
+      {{yield (hash
+        link-list=(component "wu/popover/popover-link-list")
+      )}}
+    </div>
+  {{/attach-popover}}
+</div>
