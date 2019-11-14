@@ -1,29 +1,31 @@
 <li class="vlc-agenda-items-sub-item {{if @active "vlc-agenda-items-sub-item--active"}}">
-  <div class="vlc-agenda-items-sub-item__block-{{if (eq @mode "main") "non-"}}clickable" href={{@url}}>
-    <h4 class="vlc-agenda-items-sub-item__subject">
-      <span class="vlc-agenda-items-sub-item__numbering">{{@number}}</span>
+  {{#let (element this.tagName) as |Tag|}}
+    <Tag class="vlc-agenda-items-sub-item__block-{{if (eq @mode "main") "non-"}}clickable" href={{@url}}>
+      <h4 class="vlc-agenda-items-sub-item__subject">
+        <span class="vlc-agenda-items-sub-item__numbering">{{@number}}</span>
+        {{#if (eq @mode "main")}}
+          <a href={{@url}}>{{@title}}</a>
+        {{else if (eq @mode "sidebar")}}
+          {{@title}}
+        {{/if}}
+      </h4>
       {{#if (eq @mode "main")}}
-        <a href={{@url}}>{{@title}}</a>
-      {{else if (eq @mode "sidebar")}}
-        {{@title}}
+        <p class="vlc-agenda-items-sub-item__content">{{@content}}</p>
       {{/if}}
-    </h4>
-    {{#if (eq @mode "main")}}
-      <p class="vlc-agenda-items-sub-item__content">{{@content}}</p>
-    {{/if}}
-    <div class="vlc-agenda-meta">
-      <p class="vlc-agenda-meta__times-passed">{{@times-passed}}</p>
-      {{!-- Meta status currently not needed for OC --}}
-      {{!-- <div class="vlc-agenda-meta__status-holder">
-        <p class="vlc-agenda-meta__status vlc-agenda-meta__status--warning">Gewijzigd
-          <i class="vl-vi vl-vi-alert-triangle" aria-hidden="true"></i>
-        </p>
-      </div> --}}
-    </div>
-    {{!-- Divider should be used on component implementor --}}
-    {{!-- <div class="vlc-hr"></div> --}}
-    {{yield (hash
-      document-list=(component "kaleidos/document-list")
-    )}}
-  </div>
+      <div class="vlc-agenda-meta">
+        <p class="vlc-agenda-meta__times-passed">{{@times-passed}}</p>
+          {{!-- Meta status currently not needed for OC --}}
+          {{!-- <div class="vlc-agenda-meta__status-holder">
+            <p class="vlc-agenda-meta__status vlc-agenda-meta__status--warning">Gewijzigd
+              <i class="vl-vi vl-vi-alert-triangle" aria-hidden="true"></i>
+            </p>
+          </div> --}}
+      </div>
+      {{!-- Divider should be used on component implementor --}}
+      {{!-- <div class="vlc-hr"></div> --}}
+      {{yield (hash
+        document-list=(component "kaleidos/document-list")
+      )}}
+    </Tag>
+  {{/let}}
 </li>
