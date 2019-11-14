@@ -1,0 +1,94 @@
+<div class="vl-u-spacer--small">
+  <div class="vl-action-group vl-action-group--align-right">
+    <LinkTo
+      @route="agendaitems.agendaitem.delete"
+      @tagName="button"
+      class="vl-button vl-button--tertiary vl-button--narrow">
+      Wijzigen
+    </LinkTo>
+    <LinkTo
+      @route="agendaitems.agendaitem.delete"
+      @tagName="button"
+      class="vl-button vl-button--tertiary vl-button--narrow">
+      Verwijderen
+    </LinkTo>
+  </div>
+</div>
+<div class="vl-u-spacer--small">
+  <div class="vl-u-spacer-extended-bottom-l">
+    <div class="vl-u-spacer-extended-bottom-l">
+      <div class="vl-u-spacer-extended-bottom-s">
+        <h4 class="vl-title vl-title--h4">
+          {{model.subject}}
+        </h4>
+      </div>
+      <div class="vlc-hr"></div>
+      <div class="vl-u-spacer-extended-bottom-s">
+        <h4 class="vl-title vl-title--h4">
+          Notificatie
+        </h4>
+      </div>
+      <div class="vl-u-spacer-extended-bottom-s">
+        {{#if (is-pending model.notification)}}
+          {{imported/web-components/vl-loader
+            text="Notificatie laden"
+          }}
+        {{else if model.notification}}
+          <Kaleidos::DocumentCard/>
+        {{else}}
+          <Wu::Alert>Nog geen notificatie beschikbaar</Wu::Alert>
+        {{/if}}
+      </div>
+      <div class="vl-u-spacer-extended-bottom-s">
+        {{#if currentSession.canEditAgenda}}
+          <button
+            class={{concat
+              "vl-button vl-button--tertiary vl-button--narrow vl-button--icon-before"
+              (if model.notification " vl-button--disabled" "")
+            }}
+            disabled={{if model.notification true null}}
+            {{action "showAddNotification"}}
+          >
+            <i
+              aria-hidden="true"
+              class="vl-button__icon vl-button__icon--before vl-vi vl-vi-add"
+            ></i>
+            Notificatie toevoegen
+          </button>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+  <div class="vl-u-spacer-extended-bottom-l">
+    <div class="vl-u-spacer-extended-bottom-s">
+      <h4 class="vl-title vl-title--h4">
+        Documenten
+      </h4>
+    </div>
+    {{#if (is-pending model.documents)}}
+      {{imported/web-components/vl-loader text="Documenten laden"}}
+    {{else if model.documents}}
+      {{#each (await model.documents)}}
+        <div class="vl-u-spacer-extended-bottom-s">
+          <Kaleidos::DocumentCard/>
+        </div>
+      {{/each}}
+    {{else}}
+      <div class="vl-u-spacer-extended-bottom-s">
+        <Wu::Alert>Nog geen documenten beschikbaar</Wu::Alert>
+      </div>
+    {{/if}}
+    {{#if currentSession.canEditAgenda}}
+      <button
+        class="vl-button vl-button--tertiary vl-button--narrow vl-button--icon-before"
+        {{action "showAddDocuments"}}
+      >
+        <i
+          aria-hidden="true"
+          class="vl-button__icon vl-button__icon--before vl-vi vl-vi-add"
+        ></i>
+        Documenten toevoegen
+      </button>
+    {{/if}}
+  </div>
+</div>

@@ -1,0 +1,48 @@
+<div class="vl-modal vl-modal--padding-custom">
+  <div class="vl-modal__backdrop"></div>
+  <dialog class="vl-modal-dialog vl-modal-dialog--medium" style="display: block;" data-vl-modal="" data-vl-modal-closable="" tabindex="-1" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modal-toggle-1-title" aria-describedby="modal-toggle-1-description">
+    <!-- Modal header-->
+    <div class="vlc-navbar vlc-navbar--no-padding vlc-navbar--medium">
+      <div class="vlc-toolbar vlc-toolbar--auto">
+        <div class="vlc-toolbar__left">
+          <div class="vlc-toolbar__item">
+            <h4 class="vl-title vl-title--h4">{{@title}}</h4>
+          </div>
+        </div>
+        <div class="vlc-toolbar__right">
+          <div class="vlc-toolbar__item">
+            <button class="vl-button vl-button--link-muted vl-button--icon" {{action close}}>
+              <i class="vl-button__icon vl-vi vl-vi-close-light" aria-hidden="true"></i>
+              <span class="vl-u-visually-hidden">Sluiten</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal content-->
+    <div class="vl-modal-dialog__content">
+      {{yield}}
+    </div>
+    <!-- Modal footer-->
+    <div class="vlc-toolbar">
+      <div class="vlc-toolbar__left">
+        <div class="vlc-toolbar__item">
+          <a class="vl-link" href="" {{action cancel}} data-vl-modal-close="">Annuleer</a>
+        </div>
+      </div>
+      <div class="vlc-toolbar__right">
+        <div class="vlc-toolbar__item">
+          <button
+          class={{this.buttonClass}}
+          disabled={{or @disabled @loading}}
+          onclick={{action confirm}}>
+            {{#if @buttonIcon}}
+              <i class="vl-button__icon vl-button__icon--before vl-vi vl-vi-{{@buttonIcon}}" aria-hidden="true"></i>
+            {{/if}}
+            {{@buttonText}}
+          </button>
+        </div>
+      </div>
+    </div>
+  </dialog>
+</div>

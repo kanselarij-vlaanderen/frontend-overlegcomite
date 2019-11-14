@@ -1,0 +1,35 @@
+<div class="vlc-scroll-wrapper">
+  <div class="vlc-scroll-wrapper__header">
+    <div class="vlc-navbar vlc-navbar--bordered-bottom vlc-navbar--tabs vlc-navbar--tabs-bottom">
+      <div class="vl-tabs__wrapper">
+        <Wu::Tabs class="vl-u-reset-margin" as |tabs|>
+          <tabs.tab @route="agendaitems.agendaitem.index">Detail</tabs.tab>
+          <tabs.tab @route="agendaitems.agendaitem.index">Notificatie</tabs.tab>
+        </Wu::Tabs>
+      </div>
+    </div>
+  </div>
+  <div class="vlc-scroll-wrapper__body">
+    <div class="vl-u-spacer-extended-l">
+      <div class="vlc-container">
+        {{outlet}}
+      </div>
+    </div>
+  </div>
+</div>
+{{#if showAddNotification}}
+  {{imported/oc/file-uploader
+    save=(action "saveNotification")
+    onCancel=(action "cancel")
+    onClose=(action "cancel")
+    multipleFiles=false
+  }}
+{{/if}}
+{{#if showAddDocuments}}
+  {{imported/oc/file-uploader
+    save=(action "saveDocuments")
+    onCancel=(action "cancel")
+    onClose=(action "cancel")
+    multipleFiles=true
+  }}
+{{/if}}
