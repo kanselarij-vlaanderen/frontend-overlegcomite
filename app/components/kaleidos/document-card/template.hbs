@@ -1,0 +1,60 @@
+<div class="vlc-document-card">
+  <div class="vlc-document-card__summary">
+    <div class="vlc-document-card__badge">
+      <div class="vl-badge vl-badge--icon vl-badge--icon-light vl-badge--alt vl-badge--small-medium vl-icon-wrapper">
+        <i class="vl-badge__icon vl-vi vl-vi-file" aria-hidden="true"></i>
+      </div>
+    </div>
+    <div class="vlc-document-card__content">
+      <div class="vlc-toolbar vlc-toolbar--auto">
+        <div class="vlc-toolbar__left">
+          <div class="vlc-toolbar__item">
+            <p class="vlc-subline">{{@document-type}}</p>
+          </div>
+        </div>
+        <div class="vlc-toolbar__right">
+          <div class="vlc-toolbar__item">
+            {{#if @access-level}}
+              <WuExt::Pill @style="success">{{@access-level}}</WuExt::Pill>
+            {{/if}}
+          </div>
+          <div class="vlc-toolbar__item">
+            <button class="vl-button vl-button--link-muted vl-button--icon">
+              <i class="vl-button__icon vl-vi {{if @locked "vl-vi-lock vl-u-text--error" "vl-vi-lock-unlock"}}" aria-hidden="true" aria-active="true"></i>
+              <span class="vl-u-visually-hidden">Wissel openbaarheid</span>
+            </button>
+          </div>
+          <div class="vlc-toolbar__item">
+            <Wu::Popover @alignment="center" @placement="bottom" @button-icon="show-more-horizontal" as |popover|>
+              <popover.link-list as |link-list|>
+                <link-list.item><LinkTo @route="meetings" class="vl-link vl-link--block">Nieuwe versie</LinkTo></link-list.item>
+                <link-list.item><LinkTo @route="meetings" class="vl-link vl-link--block">Documentnaam wijzigen</LinkTo></link-list.item>
+                <link-list.separator/>
+                <link-list.item><LinkTo @route="meetings" class="vl-link vl-link--block vl-u-text--error">Document verwijderen</LinkTo></link-list.item>
+              </popover.link-list>
+            </Wu::Popover>
+          </div>
+        </div>
+      </div>
+      <h6 class="vl-title vl-title--h6">{{@title}}</h6>
+      <div class="vlc-document-card-content__meta">Geupload op {{moment-format @time "DD.MM.YYYY o\m HH:mm"}}</div>
+    </div>
+  </div>
+  {{#if (has-block)}}
+    <div class="vlc-document-card__more">
+      <div class="js-vl-accordion {{if this.accordionOpen "js-vl-accordion--open"}}" data-vl-accordion="">
+        <button class="vl-toggle vl-link vl-link--bold" data-vl-accordion-toggle="" data-vl-accordion-dressed="true" aria-expanded="true"
+          {{action this.toggleAccordion}}>
+          <i class="vl-link__icon vl-link__icon--before vl-toggle__icon vl-vi vl-vi-arrow-right-fat" aria-hidden="true"></i>Documenten
+        </button>
+        <div class="vl-accordion__content js-vl-accordion__content" aria-hidden="false">
+          <div class="vl-accordion__panel">
+            {{yield (hash
+              item=(component "kaleidos/document-card/item")
+            )}}
+          </div>
+        </div>
+      </div>
+    </div>
+  {{/if}}
+</div>

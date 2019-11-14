@@ -1,0 +1,44 @@
+<div class="vlc-document-card-item">
+  <div class="vlc-document-card-item__title">
+    <div class="vlc-toolbar vlc-toolbar--auto">
+      <div class="vlc-toolbar__left">
+        <div class="vlc-toolbar__item">
+          <h6 class="vl-title vl-title--h6">{{@title}}</h6>
+        </div>
+        <div class="vlc-toolbar__item">
+          {{#if @access-level}}
+            <WuExt::Pill @style="success">{{@access-level}}</WuExt::Pill>
+          {{/if}}
+        </div>
+        <div class="vlc-toolbar__item">
+          <div class="vlc-button-toolbar">
+            <!-- Unlocked state-->
+            <button class="vl-button vl-button--link-muted vl-button--icon"
+              {{action toggleLock}}>
+              <i class="vl-button__icon vl-vi {{if @locked "vl-vi-lock vl-u-text--error" "vl-vi-lock-unlock"}}" aria-hidden="true"></i>
+              <span class="vl-u-visually-hidden">Wissel openbaarheid</span>
+            </button>
+            <a class="vl-button vl-button--link vl-button--icon" href="#" target="_blank"
+              {{action view}}>
+              <i class="vl-vi vl-vi-content-book vl-button__icon" aria-hidden="true"></i>
+              <span class="vl-u-visually-hidden">Lees document</span>
+            </a>
+            <!-- @note Popover z-index broken in prototype; fixed in implementation so not necessary to fix here-->
+            <Wu::Popover @alignment="left" @placement="bottom" @button-icon="show-more-horizontal" as |popover|>
+              <popover.link-list as |link-list|>
+                <link-list.item><LinkTo @route="meetings" class="vl-link vl-link--block">Nieuwe versie</LinkTo></link-list.item>
+                <link-list.item><LinkTo @route="meetings" class="vl-link vl-link--block">Documentnaam wijzigen</LinkTo></link-list.item>
+                <link-list.separator/>
+                <link-list.item><LinkTo @route="meetings" class="vl-link vl-link--block vl-u-text--error">Document verwijderen</LinkTo></link-list.item>
+              </popover.link-list>
+            </Wu::Popover>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="vlc-document-card-item__meta">{{moment-format @time "DD MMM YYYY - HH:mm"}}</div>
+  <div class="vlc-document-card-item__icon">
+    <span class="vl-icon vl-icon--large vl-vi vl-vi-timeline" aria-hidden="true"></span>
+  </div>
+</div>
