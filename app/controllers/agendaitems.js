@@ -72,7 +72,7 @@ export default Controller.extend({
     },
 
     updateModel() {
-      this.get('model').update();
+      this.get('model').reload();
     },
 
   }
