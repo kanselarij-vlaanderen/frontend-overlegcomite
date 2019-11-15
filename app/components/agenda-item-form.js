@@ -9,14 +9,14 @@ export default class AgendaItemFormComponent extends Component {
   caseIdentifierRegex = /^\d{4}[A-Z]\d{5}\.\d{3}$/;
 
   @tracked agendaItem = null;
-  @tracked caseIdentifier = "";
+  @tracked caseIdentifier = '';
 
   constructor() {
     super(...arguments);
     this.agendaItem = this.args.agendaItem;
     const that = this;
     this.args.agendaItem.get('case').then(function(_case) {
-      that.caseIdentifier = _case.identifier;
+      that.caseIdentifier = _case.identifier ? _case.identifier : '';
     });
   }
 
@@ -25,7 +25,7 @@ export default class AgendaItemFormComponent extends Component {
   }
 
   fetchCase(identifier) {
-    return this.store.findRecord('case', {
+    return this.store.query('case', {
       filter: {
         ':exact:identifier': identifier
       }
