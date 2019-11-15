@@ -1,0 +1,47 @@
+<div class="vlc-input-field-block">
+  <div class="vl-grid vl-grid--is-stacked">
+    <div class="vl-col--6-12">
+      <div class="vlc-input-field-block">
+        {{imported/web-components/vl-form-label value="prioriteit"}}
+        <div class="vl-form__input">
+          <Input class="vl-input-field vl-input-field--block" @type="number" @value={{this.agendaItem.priority}}/>
+        </div>
+      </div>
+    </div>
+    <div class="vl-col--6-12">
+      <div class="vlc-input-field-block">
+        {{imported/web-components/vl-form-label value="sub-prioriteit"}}
+        <div class="vl-form__input">
+          <Input class="vl-input-field vl-input-field--block" @value={{this.agendaItem.subPriority}}/>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="vlc-input-field-block">
+  {{imported/web-components/vl-form-label value="Dossier"}}
+  <div class="vl-form__input">
+    <Input class="vl-input-field vl-input-field--block" value={{this.caseIdentifier}} {{on "input" this.updateCase}}/>
+  </div>
+</div>
+<div class="vlc-input-field-block">
+  {{imported/web-components/vl-form-label value="Indiener"}}
+  {{!-- TODO: fix power select: no matter what, @options seems empty ... bug in power select? --}}
+  <PowerSelectMultiple
+    @options={{@submitterOptions}}
+    @selected={{agendaItem.submitters}}
+    class="vl-form__input vl-col--4-4"
+    @tagName="div"
+    @onChange={{action (mut agendaItem.submitters)}} as |governmentBody|
+  >
+    {{governmentBody.name}}
+  </PowerSelectMultiple>
+</div>
+<div class="vlc-input-field-block">
+  {{imported/web-components/vl-form-label value="onderwerp"}}
+  <Textarea
+    class="vl-textarea vl-textarea--block"
+    @rows="3"
+    @value={{this.agendaItem.subject}}
+  />
+</div>

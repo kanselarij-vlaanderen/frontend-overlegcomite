@@ -8,15 +8,25 @@ const Router = EmberRouter.extend({
 });
 
 Router.map(function() {
-  this.route('cases');
   this.route('agendaitems', { path: '/vergaderingen/:meeting_id/agendapunten' }, function() {
     this.route('agendaitem', { path: '/:agendaitem_id' }, function() {
       this.route('index', { path: '/' });
+      this.route('edit', { path: '/wijzig' });
+      this.route('delete', { path: '/verwijder' });
     });
-  });
-  this.route('meetings', { path: '/vergaderingen' }, function() {
     this.route('new', { path: '/nieuw' });
   });
+  this.route('meetings', { path: '/vergaderingen' }, function() {
+    this.route('meeting', { path: '/:meeting_id' });
+    this.route('new', { path: '/nieuw' });
+  });
+  this.route('cases', { path: '/dossiers' }, function() {
+    this.route('case', { path: '/:id' }, function() {
+      this.route('agendaitems', { path: '/agendapunten' });
+    });
+  });
+  this.route('search', { path: 'agendapunten/zoeken' });
+
   if (ENV.APP.defaultLoginRouteName === 'mock-login') {
     this.route('mock-login');
   }
