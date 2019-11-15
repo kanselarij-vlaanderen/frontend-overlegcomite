@@ -1,9 +1,10 @@
 <Kaleidos::CreationModal
 @title="Agendapunt wijzigen"
 @buttonText="Wijzigingen opslaan"
-@loading={{@isLoading}}
+@loading={{this.isLoading}}
 @onSave={{action "save"}}
 @onClose={{action "cancel"}}
+@onCancel={{action "cancel"}}
 >
   <AgendaItemForm
     @agendaItem={{this.model}}
