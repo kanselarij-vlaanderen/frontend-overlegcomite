@@ -3,8 +3,10 @@ import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-rout
 
 export default Route.extend(AuthenticatedRouteMixin, {
   model() {
-    const newItem = this.store.createRecord('agendaitem');
-    this.modelFor('agendaitems').get('agendaItems').pushObject(newItem);
+    const agendaItems = this.modelFor('agendaitems').get('agendaItems');
+    const nextNumber = agendaItems.sortBy('priority').get('lastObject.priority') + 1 || 1;
+    const newItem = this.store.createRecord('agendaitem', {priority: nextNumber});
+    agendaItems.pushObject(newItem);
     return newItem;
   },
 
