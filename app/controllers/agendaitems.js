@@ -45,16 +45,16 @@ export default Controller.extend({
 
   agendaItemListMode: computed('routing.currentRouteName', function () {
     const { routing } = this;
-    if (routing.get('currentRouteName') === 'agendaitems.index') {
-      return "main";
+    if (routing.get('currentRouteName').startsWith('agendaitems.agendaitem')) {
+      return 'sidebar';
     } else  {
-      return "sidebar";
+      return 'main';
     }
   }),
 
-  agendaitemsClass: computed('routing.currentRouteName', function () {
-    const { routing } = this;
-    if (routing.get('currentRouteName') === 'agendaitems.index') {
+  agendaitemsClass: computed('agendaItemListMode', function () {
+    const { agendaItemListMode } = this;
+    if (agendaItemListMode === 'main') {
       return "vlc-panel-layout-agenda__detail vl-u-bg-porcelain";
     } else  {
       return "vlc-panel-layout__agenda-items";
