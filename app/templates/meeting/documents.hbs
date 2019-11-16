@@ -1,0 +1,28 @@
+<div class="vl-u-spacer-extended">
+  <div class="vlc-container">
+    <div class="vl-u-display-flex vl-u-flex-align-baseline">
+      <h2 class="vl-title vl-title--h3">Documenten</h2>
+    </div>
+    <div class="vl-u-spacer--large">
+      <div class="vl-u-spacer-extended-bottom">
+        {{#if model.documents}}
+          {{#each model.documents as |document|}}
+            <div class="vl-u-spacer-extended-bottom-s">
+              {{!-- Documents will go here --}}
+            </div>
+          {{/each}}
+        {{else}}
+        <Wu::Alert>
+          <p>Er zijn nog geen documenten.</p>
+        </Wu::Alert>
+        {{/if}}
+      </div>
+      {{#if currentSession.canEditAgenda}}
+        <button class="vl-button vl-button--tertiary vl-button--narrow vl-button--icon-before">
+          <i class="vl-button__icon vl-button__icon--before vl-vi vl-vi-add" aria-hidden="true"></i>
+          Document toevoegen
+        </button>
+      {{/if}}
+    </div>
+  </div>
+</div>
