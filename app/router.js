@@ -17,10 +17,10 @@ Router.map(function() {
     this.route('new', { path: '/nieuw' });
   });
   this.route('meetings', { path: '/vergaderingen' }, function() {
-    this.route('meeting', { path: '/:meeting_id' }, function() {
-      this.route('index', { path: '/' });
-    });
     this.route('new', { path: '/nieuw' });
+  });
+  this.route('meeting', { path: '/vergaderingen/:meeting_id' }, function() {
+    this.route('index', { path: '/' });
   });
   this.route('cases', { path: '/dossiers' }, function() {
     this.route('case', { path: '/:id' }, function() {

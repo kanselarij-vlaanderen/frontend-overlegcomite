@@ -3,6 +3,6 @@ import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-rout
 
 export default Route.extend(AuthenticatedRouteMixin, {
   beforeModel() {
-    this.transitionTo('agendaitems', this.modelFor('meetings.meeting').get('id'));
+    this.transitionTo('agendaitems', this.modelFor('meeting').get('id'));
   }
 });
