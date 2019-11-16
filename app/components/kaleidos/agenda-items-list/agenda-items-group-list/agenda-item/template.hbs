@@ -1,10 +1,15 @@
 <li class="vlc-agenda-items-sub-item {{if @active "vlc-agenda-items-sub-item--active"}}">
   {{#let (element this.tagName) as |Tag|}}
-    <Tag class="vlc-agenda-items-sub-item__block-{{if (eq @mode "main") "non-"}}clickable" href={{@url}}>
+    {{!-- putting an href down here breaks things. Because of the dynamic tag, the on click handler doesn't seem to prevent a page reload --}}
+    <Tag class="vlc-agenda-items-sub-item__block-{{if (eq @mode "main") "non-"}}clickable" {{on "click" (action this.onClick)}}>
       <h4 class="vlc-agenda-items-sub-item__subject">
         <span class="vlc-agenda-items-sub-item__numbering">{{@number}}</span>
         {{#if (eq @mode "main")}}
-          <a href={{@url}}>{{@title}}</a>
+          <a href={{@url}}
+            {{on "click" @onClick}}
+          >
+            {{@title}}
+          </a>
         {{else if (eq @mode "sidebar")}}
           {{@title}}
         {{/if}}

@@ -9,4 +9,12 @@ export default class extends Component {
     }
     return 'div'
   }
+
+  onClick() {
+    if (this.args.onClick) {
+      if (this.args.mode === 'sidebar') {
+        this.args.onClick();
+      }
+    }
+  }
 }

@@ -37,11 +37,11 @@
                         <itemsGroup.agenda-item
                           @active={{l.isActiveWithoutQueryParams}}
                           @url={{l.href}}
+                          @onClick={{l.transitionTo}}
                           @number={{concat agendaItem.priority agendaItem.subPriority "."}}
                           @title={{agendaItem.subject}}
                           @content={{undefined}}
                           @times-passed={{agendaItem.case.identifier}}
-                          {{on "click" l.transitionTo}}
                         />
                       </Link>
                     {{/each}}
