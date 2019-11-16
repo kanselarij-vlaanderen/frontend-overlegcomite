@@ -69,15 +69,17 @@
                 </div>
               </div>
               {{#if (is-before meeting.startedAt)}}
-                <button class="vl-button vl-button--narrow vl-button--icon-before">
+                <button {{action "releaseAgenda" meeting}} class="vl-button vl-button--narrow vl-button--icon-before">
                   <i class="vl-button__icon vl-button__icon--before vl-vi vl-vi-share" aria-hidden="true"></i>
                   Agenda Vrijgeven
                 </button>
               {{else}}
-                <button class="vl-button vl-button--narrow vl-button--icon-before">
-                  <i class="vl-button__icon vl-button__icon--before vl-vi vl-vi-share" aria-hidden="true"></i>
-                  Notificaties Vrijgeven
-                </button>
+                {{#if (not meeting.notificationReleaseTime)}}
+                  <button {{action "releaseNotifications" meeting}} class="vl-button vl-button--narrow vl-button--icon-before">
+                    <i class="vl-button__icon vl-button__icon--before vl-vi vl-vi-share" aria-hidden="true"></i>
+                    Notificaties Vrijgeven
+                  </button>
+                {{/if}}
               {{/if}}
             </div>
           </div>

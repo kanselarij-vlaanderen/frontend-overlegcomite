@@ -1,9 +1,9 @@
 import Controller from '@ember/controller';
 import { computed } from '@ember/object';
-import { sort } from '@ember/object/computed';
+import { alias, sort } from '@ember/object/computed';
 import { A } from '@ember/array';
 import { inject as service } from '@ember/service';
-
+import moment from 'moment';
 
 let equalContentArrays = function(a, b) {
   if (a.length === b.length) {
@@ -16,12 +16,10 @@ let equalContentArrays = function(a, b) {
 export default Controller.extend({
   routing: service('-routing'),
   currentSession: service(),
-  itemsSortDefinition: ['priority:asc', 'subPriority:asc'],  // eslint-disable-line ember/avoid-leaking-state-in-ember-objects
-  agendaItemsSorted: sort('model.agendaItems', 'itemsSortDefinition'),
-  meeting: null,
+  meeting: alias('model'),
 
-  agendaItemGroups: computed('agendaItemsSorted.@each.submitters', async function () {
-    let agendaItems = this.get('agendaItemsSorted');
+  agendaItemGroups: computed('meeting.sortedAgendaItems.@each.submitters', async function () {
+    let agendaItems = this.get('meeting.sortedAgendaItems');
     if (agendaItems.length === 0) {
       return [];
     } else {
@@ -63,6 +61,15 @@ export default Controller.extend({
   }),
 
   actions: {
+    releaseAgenda(meeting) {
+      meeting.set('agendaReleaseTime', moment());
+      meeting.save();
+    },
+
+    releaseNotifications(meeting) {
+      meeting.set('notificationReleaseTime', moment());
+      meeting.save();
+  },
 
     selectAgendaItem(agendaitem) {
       this.transitionToRoute('agendaitems.agendaitem', agendaitem);
