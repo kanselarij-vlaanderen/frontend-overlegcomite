@@ -23,6 +23,7 @@
                       <LinkTo
                         @route="agendaitems"
                         @model={{meeting}}
+                        @current-when="agendaitems.index"
                         class="vlc-tabs-reverse__link"
                         @activeClass="vlc-tabs-reverse__link--active"
                         role="tab"
@@ -32,9 +33,32 @@
                       </LinkTo>
                     </li>
                     <li class="vlc-tabs-reverse__item">
+                      {{#if meeting.sortedAgendaItems}}
+                        <Link
+                          @route="agendaitems.agendaitem"
+                          @model={{meeting.sortedAgendaItems.firstObject}} as |l|>
+                          {{#if l.isActiveWithoutModels}}
+                            <a
+                              href="#"
+                              class="vlc-tabs-reverse__link vlc-tabs-reverse__link--active"
+                            >
+                              Detail
+                            </a>
+                          {{else}}
+                            <a
+                              href={{l.href}}
+                              class="vlc-tabs-reverse__link"
+                              {{on "click" l.transitionTo}}
+                            >
+                              Detail
+                            </a>
+                          {{/if}}
+                        </Link>
+                      {{/if}}
+                    </li>
+                    {{!-- <li class="vlc-tabs-reverse__item">
                       <LinkTo
-                        @route="agendaitems.agendaitem"
-                        @model={{meeting.agendaItems.firstObject}}
+                        @route="meetings.meeting.documents"
                         class="vlc-tabs-reverse__link"
                         @activeClass="vlc-tabs-reverse__link--active"
                         role="tab"
@@ -42,7 +66,7 @@
                       >
                         Detail
                       </LinkTo>
-                    </li>
+                    </li> --}}
                   </ul>
                 </div>
               </div>
