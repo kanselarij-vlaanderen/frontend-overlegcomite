@@ -1,0 +1,88 @@
+<div class="vl-u-bg-alt">
+  <div class="vlc-page-header">
+    <div class="vlc-toolbar">
+      <div class="vlc-toolbar__left">
+        <div class="vlc-toolbar__item">
+          <h1 class="vlc-page-header__title vlc-page-header__title--bordered">
+            Agenda van {{moment-format meeting.startedAt "DD MMMM YYYY HH:mm"}}
+          </h1>
+          <div class="vlc-page-header__sub">
+            <div class="vlc-toolbar vlc-toolbar--auto">
+              <div class="vlc-toolbar__left">
+                {{!-- "Terug"-button yields more confusion than anything else
+                <div class="vlc-toolbar__item">
+                  <a class="vlc-backlink vl-link vl-link--bold" href="/agenda/index.html">
+                    <i class="vl-link__icon vl-link__icon--before vl-vi vl-vi-arrow-left-fat" aria-hidden="true"></i>
+                    Terug
+                  </a>
+                </div>
+                --}}
+                <div class="vlc-toolbar__item">
+                  <ul class="vlc-tabs-reverse" role="tablist">
+                    <li class="vlc-tabs-reverse__item">
+                      <LinkTo
+                        @route="agendaitems"
+                        @model={{meeting}}
+                        class="vlc-tabs-reverse__link"
+                        @activeClass="vlc-tabs-reverse__link--active"
+                        role="tab"
+                        aria-selected="true"
+                      >
+                        Overzicht
+                      </LinkTo>
+                    </li>
+                    <li class="vlc-tabs-reverse__item">
+                      <LinkTo
+                        @route="agendaitems.agendaitem"
+                        @model={{meeting.agendaItems.firstObject}}
+                        class="vlc-tabs-reverse__link"
+                        @activeClass="vlc-tabs-reverse__link--active"
+                        role="tab"
+                        aria-selected="true"
+                      >
+                        Detail
+                      </LinkTo>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {{#if currentSession.canEditAgenda}}
+        <div class="vlc-toolbar__right">
+          <div class="vlc-toolbar__item">
+            <div class="vl-action-group">
+              <div class="vl-popover vl-popover--align-left" data-vl-popover="">
+                <button class="vl-button vl-button--secondary vl-button--narrow vl-button--icon-after js-vl-popover__toggle" type="button" aria-expanded="false">
+                  Acties
+                  <i class="vl-button__icon vl-button__icon--after vl-vi vl-vi-nav-down" aria-hidden="true"></i>
+                </button>
+                <div class="vl-popover__content vl-popover__content--close" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 45px, 0px);">
+                  <ul class="vl-popover__link-list">
+                    ...
+                  </ul>
+                  <button class="vl-popover__close-btn vl-vi vl-vi-cross" tabindex="0">
+                    <span class="vl-u-visually-hidden">Sluit menu</span>
+                  </button>
+                </div>
+              </div>
+              {{#if (is-before meeting.startedAt)}}
+                <button class="vl-button vl-button--narrow vl-button--icon-before">
+                  <i class="vl-button__icon vl-button__icon--before vl-vi vl-vi-share" aria-hidden="true"></i>
+                  Agenda Vrijgeven
+                </button>
+              {{else}}
+                <button class="vl-button vl-button--narrow vl-button--icon-before">
+                  <i class="vl-button__icon vl-button__icon--before vl-vi vl-vi-share" aria-hidden="true"></i>
+                  Notificaties Vrijgeven
+                </button>
+              {{/if}}
+            </div>
+          </div>
+        </div>
+      {{/if}}
+    </div>
+  </div>
+</div>

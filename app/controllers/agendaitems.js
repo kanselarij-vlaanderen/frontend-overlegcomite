@@ -1,8 +1,8 @@
 import Controller from '@ember/controller';
 import { computed } from '@ember/object';
-import { inject } from '@ember/service';
 import { sort } from '@ember/object/computed';
 import { A } from '@ember/array';
+import { inject as service } from '@ember/service';
 
 
 let equalContentArrays = function(a, b) {
@@ -14,7 +14,8 @@ let equalContentArrays = function(a, b) {
 };
 
 export default Controller.extend({
-  routing: inject('-routing'),
+  routing: service('-routing'),
+  currentSession: service(),
   itemsSortDefinition: ['priority:asc', 'subPriority:asc'],  // eslint-disable-line ember/avoid-leaking-state-in-ember-objects
   agendaItemsSorted: sort('model.agendaItems', 'itemsSortDefinition'),
   meeting: null,

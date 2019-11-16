@@ -1,7 +1,4 @@
-{{!-- TODO: Header (component?)}}
-{{!-- <div class="vl-u-bg-alt">
-  {{imported/oc/agenda-header meeting=model}}
-</div> --}}
+{{outlet "header"}}
 {{#if (await agendaItemGroups)}}
   <div class="vlc-panel-layout">
     <div class={{agendaitemsClass}}>
