@@ -1,6 +1,6 @@
 import Controller from '@ember/controller';
 import { computed } from '@ember/object';
-import { alias, sort } from '@ember/object/computed';
+import { alias } from '@ember/object/computed';
 import { A } from '@ember/array';
 import { inject as service } from '@ember/service';
 import moment from 'moment';
