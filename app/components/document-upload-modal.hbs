@@ -1,0 +1,44 @@
+<Kaleidos::CreationModal
+@title="{{if @allowMultiple "Documenten" "Document"}} opladen"
+@buttonText="Aanmaken"
+@onClose={{action this.cancel}}
+@onCancel={{action this.cancel}}
+@onSave={{action this.save this.documents}}
+>
+  {{#if (or @allowMultiple (not this.documents.length))}}
+    {{imported/file-uploader
+      uploadedFile=(action this.createDocument)
+      multipleFiles=@allowMultiple
+    }}
+  {{/if}}
+  <div class="upload-container">
+    {{#each this.documents as |document|}}
+      {{#imported/ember-kaleidos-webuniversum/vl-uploaded-document
+        name=document.documentVersions.firstObject.file.filename
+        extension=document.documentVersions.firstObject.file.extension
+        size=document.documentVersions.firstObject.file.size
+        downloadLink=(concat document.documentVersions.firstObject.file.downloadLink "?name=" document.documentVersions.firstObject.file.filename)
+        delete=(action this.deleteDocument document)
+      }}
+        <div class="metadata-container">
+          <div class="vlc-input-field-block">
+            {{imported/web-components/vl-form-label value="Naam"}}
+            <Input class="vl-input-field vl-input-field--block" @value={{document.name}}/>
+          </div>
+        </div>
+        <div class="vlc-input-field-block">
+          {{imported/web-components/vl-form-label value="Type"}}
+          <PowerSelect
+            @options={{@documentTypeOptions}}
+            @selected={{@defaultDocumentType}}
+            class="vl-form__input vl-col--4-4"
+            @tagName="div"
+            @onChange={{action (mut document.type)}} as |type|
+          >
+            {{type.label}}
+          </PowerSelect>
+        </div>
+      {{/imported/ember-kaleidos-webuniversum/vl-uploaded-document}}
+    {{/each}}
+  </div>
+</Kaleidos::CreationModal>

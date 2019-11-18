@@ -81,7 +81,7 @@
     {{#if currentSession.canEditAgenda}}
       <button
         class="vl-button vl-button--tertiary vl-button--narrow vl-button--icon-before"
-        {{action "showAddDocuments"}}
+        {{action "toggleAddingDocuments"}}
       >
         <i
           aria-hidden="true"
@@ -92,3 +92,8 @@
     {{/if}}
   </div>
 </div>
+{{#if this.addingDocuments}}
+  <DocumentUploadModal
+    @allowMultiple={{true}}
+    @didCancel={{action "toggleAddingDocuments"}}/>
+{{/if}}
