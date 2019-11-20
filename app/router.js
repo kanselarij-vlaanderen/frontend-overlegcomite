@@ -21,6 +21,7 @@ Router.map(function() {
   });
   this.route('meeting', { path: '/vergaderingen/:meeting_id' }, function() {
     this.route('index', { path: '/' });
+    this.route('documents', { path: '/documenten' });
   });
   this.route('cases', { path: '/dossiers' }, function() {
     this.route('case', { path: '/:id' }, function() {
