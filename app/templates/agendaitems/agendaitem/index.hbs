@@ -95,5 +95,7 @@
 {{#if this.addingDocuments}}
   <DocumentUploadModal
     @allowMultiple={{true}}
-    @didCancel={{action "toggleAddingDocuments"}}/>
+    @didCancel={{action "toggleAddingDocuments"}}
+    @didSave={{action "addDocuments"}}
+  />
 {{/if}}

@@ -8,6 +8,12 @@ export default Controller.extend({
   actions: {
     toggleAddingDocuments() {
       this.toggleProperty('addingDocuments');
+    },
+
+    async addDocuments(documents) {
+      this.get('model.documents').pushObjects(documents);
+      await this.get('model').save();
+      this.set('addingDocuments', false);
     }
   }
 });

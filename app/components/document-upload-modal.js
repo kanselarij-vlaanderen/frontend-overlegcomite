@@ -48,9 +48,9 @@ export default class extends Component {
       return document.save();
     });
     const savedDocuments = await Promise.all(savingDocuments);
-    this.isLoading = false;
     if (this.args.didSave) {
-      this.args.didSave(savedDocuments);
+      await this.args.didSave(savedDocuments);
+      this.isLoading = false;
     }
   }
 
