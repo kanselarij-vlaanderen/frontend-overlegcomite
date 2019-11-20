@@ -5,8 +5,8 @@
         <div class="vlc-toolbar__left">
           <div class="vlc-toolbar__item">
             <Wu::Tabs class="vl-u-reset-margin" as |tabs|>
-              <tabs.tab @route="meetings">Vergaderingen</tabs.tab >
-              <tabs.tab @route="cases">Dossiers</tabs.tab >
+              <tabs.tab @route="meetings" @current-when="meetings agendaitems">Vergaderingen</tabs.tab>
+              <tabs.tab @route="cases">Dossiers</tabs.tab>
             </Wu::Tabs>
           </div>
         </div>
