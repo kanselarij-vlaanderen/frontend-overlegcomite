@@ -1,0 +1,11 @@
+{{#if @clickable}}
+  <button
+    class="vl-pill vl-pill--clickable {{if @style (concat "vl-pill--" @style)}}"
+    type="button"
+    {{on "click" @onclick}}
+  >
+    {{yield}}
+  </button>
+{{else}}
+  <span class="vl-pill {{if @style (concat "vl-pill--" @style)}}">{{yield}}</span>
+{{/if}}

@@ -1,0 +1,45 @@
+{{#if this.editing}}
+<div class="vlc-button-toolbar">
+  <PowerSelect
+  @options={{@options}}
+  @selected={{this.selectedLevel}}
+  @tagName="div"
+  @onChange={{action (mut this.selectedLevel)}} as |level|
+  >
+  {{get level this.labelKey}}
+</PowerSelect>
+  <!-- <div class="vl-form__input" style="width:75%"> -->
+  <!-- </div> -->
+  <button
+    class="vl-button vl-button--link vl-button--icon js-vl-popover__toggle"
+    {{action "save"}}
+  >
+    <i class="vl-vi vl-vi-save vl-button__icon" aria-hidden="true"></i>
+    <span class="vl-u-visually-hidden">
+      Opslaan
+    </span>
+  </button>
+  <button
+    class="vl-button vl-button--link vl-button--icon js-vl-popover__toggle"
+    {{action "cancel"}}
+  >
+    <i class="vl-vi vl-vi-cross vl-button__icon" aria-hidden="true"></i>
+    <span class="vl-u-visually-hidden">
+      Annuleren
+    </span>
+  </button>
+</div>
+{{else}}
+  <Wu::Pill
+    @clickable={{true}}
+    @style={{if @selected @style}}
+    @onclick={{action this.toggleEditing}}
+    style="border: none;"
+  >
+    {{#if @selected}}
+      {{this.label}}
+    {{else}}
+      Geen toegangsniveau
+    {{/if}}
+  </Wu::Pill>
+{{/if}}
