@@ -1,0 +1,86 @@
+{{#if (eq this.document.documentVersions.length 1)}}
+{{#if (not this.loading)}}
+  <Kaleidos::DocumentCard
+    @name={{this.selectedVersion.name}}
+    @locked={{this.selectedVersion.confidential}}
+    @time={{this.selectedVersion.created}}
+    @accessLevel={{this.selectedVersion.accessLevel}}
+    @downloadLink={{this.selectedVersion.downloadLink}}
+    @onDeleteDocument={{action deleteDocument document}}
+    @onDeleteVersion={{action deleteVersion version}}
+    @onUploadVersion={{action uploadVersion}}
+    @accessLevelOptions={{this.accessLevels}}
+    @editable={{@editable}}
+  />
+{{/if}}
+{{else}}
+  <Kaleidos::DocumentCard
+    @name={{await this.selectedVersion.name}}
+    @locked={{this.selectedVersion.confidential}}
+    @time={{this.selectedVersion.created}}
+    @accessLevel={{this.selectedVersion.accessLevel}}
+    @downloadLink={{this.selectedVersion.downloadLink}}
+    @onDeleteDocument={{action deleteDocument document}}
+    @onDeleteVersion={{action deleteVersion version}}
+    @onUploadVersion={{action uploadVersion}}
+    @accessLevelOptions={{this.accessLevels}}
+    @editable={{@editable}}
+  as |VersionCard|>
+    {{#each this.document.sortedDocumentVersions as |version|}}
+      <VersionCard
+        @name={{version.name}}
+        @locked={{version.confidential}}
+        @time={{version.file.created}}
+        @accessLevel={{version.accessLevel}}
+        @downloadLink={{version.downloadLink}}
+        @selected={{eq version this.selectedVersion}}
+        @onDelete={{action deleteVersion version}}
+        @accessLevelOptions={{this.accessLevels}}
+      />
+    {{/each}}
+  </Kaleidos::DocumentCard>
+{{/if}}
+
+{{#if this.addingVersion}}
+  <Kaleidos::ConfirmationModal
+    @title="Document verwijderen"
+    @loading={{this.isLoading}}
+    @onCancel={{action (mut deletingVersion false)}}
+    @onClose={{action (mut deletingVersion false)}}
+    @onConfirm={{action "save"}}
+    @buttonStyle="error"
+    @buttonIcon="bin"
+    @buttonText="verwijderen"
+    >
+    Weet u zeker dat u deze versie wil verwijderen?
+  </Kaleidos::ConfirmationModal>
+{{/if}}
+{{#if this.deletingDocument}}
+  <Kaleidos::ConfirmationModal
+    @title="Document verwijderen"
+    @loading={{this.isLoading}}
+    @onCancel={{action (mut deletingDocument false)}}
+    @onClose={{action (mut deletingDocument false)}}
+    @onConfirm={{action "save"}}
+    @buttonStyle="error"
+    @buttonIcon="bin"
+    @buttonText="verwijderen"
+    >
+    Weet u zeker dat u dit document wil verwijderen?
+    <strong>Elke versie van dit document zal verwijderd worden!</strong>
+  </Kaleidos::ConfirmationModal>
+{{/if}}
+{{#if this.deletingVersion}}
+  <Kaleidos::ConfirmationModal
+    @title="Document verwijderen"
+    @loading={{this.isLoading}}
+    @onCancel={{action (mut deletingVersion false)}}
+    @onClose={{action (mut deletingVersion false)}}
+    @onConfirm={{action "save"}}
+    @buttonStyle="error"
+    @buttonIcon="bin"
+    @buttonText="verwijderen"
+    >
+    Weet u zeker dat u deze versie wil verwijderen?
+  </Kaleidos::ConfirmationModal>
+{{/if}}
