@@ -9,7 +9,7 @@ module.exports = function(environment) {
 
     moment: {
       includeLocales: ['nl-be'],
-      includeTimezone: '2010-2020'
+      includeTimezone: 'subset'
     },
 
     EmberENV: {
