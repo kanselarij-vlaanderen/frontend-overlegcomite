@@ -12,7 +12,7 @@ export default Model.extend({
 
   submitters: hasMany('government-body'),
   meetingRecord: belongsTo('file'),
-  notification: belongsTo('file'),
+  notification: belongsTo('document'),
 
-  documents: hasMany('file')
+  documents: hasMany('document')
 });

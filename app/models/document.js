@@ -5,18 +5,38 @@ const { Model, attr, hasMany, belongsTo } = DS;
 import { sort } from '@ember/object/computed';
 
 export default Model.extend({
-  title: attr('string'),
-  name: alias('title'),
+  name: attr('string'),
   created: attr('datetime'),
 
-  type: belongsTo('document-type'),
+  type: belongsTo('document-type', {async: false}),
 
-  documentVersions: hasMany('document-version'),
-  sortedDocumentVersions: sort('documentVersions', 'versionNumber')  ,
+  documentVersions: hasMany('document-version', {async: false}),
+  sortDefinition: ['versionNumber'],
+  sortedDocumentVersions: sort('documentVersions', 'sortDefinition'),
 
   reverseSortedDocumentVersions: computed('sortedDocumentVersions.[]', function() {
     return this.get('sortedDocumentVersions').reverse();
   }),
 
   lastDocumentVersion: alias('sortedDocumentVersions.lastObject'),
+
+  loadDocumentVersions: function() {
+    const versions = this.store.query('document-version', {
+      filter: { document: { id: this.get('id') } },
+      include: ['access-level', 'file']
+    });
+    const type = this.store.query(type)
+  },
+  loadType: function() {
+    const versions = this.store.query('document-type', {
+      filter: { document: { id: this.get('id') } }
+    });
+    const type = this.store.query(type)
+  },
+  loadRelations: function() {
+    return this.store.findRecord('document', this.get('id'), {
+      include: 'document-versions,document-versions.access-level,document-versions.file',
+      reload: true
+    });
+  }
 });

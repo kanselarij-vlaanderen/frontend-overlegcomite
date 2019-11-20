@@ -14,17 +14,16 @@ export default Model.extend({
   file: belongsTo('file'),
   document: belongsTo('document', { inverse: null }),
 
-  name: computed('document.name', async function() {
-    const documentName = await this.get('document.name');
-    return formatVersionedDocumentName(documentName, this.get('versionNumber'));
+  name: computed('document.name', function() {
+    return formatVersionedDocumentName(this.get('document.name'), this.get('versionNumber'));
   }),
 
-  downloadFilename: computed('name', 'file.extension', async function() {
-    const filename = `${await this.get('name')}.${await this.get('file.extension')}`;
+  downloadFilename: computed('name', 'file.extension', function() {
+    const filename = `${this.get('name')}.${this.get('file.extension')}`;
     return sanitize(filename, {replacement: '_'});
   }),
 
-  downloadLink: computed('file.downloadLink', 'downloadFilename', async function() {
-    return `${await this.get('file.downloadLink')}&name=${await this.get('downloadFilename')}`;
+  downloadLink: computed('file.downloadLink', 'downloadFilename', function() {
+    return `${this.get('file.downloadLink')}&name=${this.get('downloadFilename')}`;
   })
 });
