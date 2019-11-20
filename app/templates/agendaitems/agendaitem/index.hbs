@@ -68,9 +68,12 @@
     {{#if (is-pending model.documents)}}
       {{imported/web-components/vl-loader text="Documenten laden"}}
     {{else if model.documents}}
-      {{#each (await model.documents)}}
+      {{#each (await model.documents) as |document|}}
         <div class="vl-u-spacer-extended-bottom-s">
-          <Kaleidos::DocumentCard/>
+          <DocumentCard
+            @document={{document}}
+            @editable={{true}}
+          />
         </div>
       {{/each}}
     {{else}}
