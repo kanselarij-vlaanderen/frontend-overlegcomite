@@ -1,0 +1,64 @@
+/* ==========================================================================
+  vlc-agenda-items-sub-item
+  The sub item is a child of the list of agenda items
+  The main item in agenda items is the speaker, the child is the subjects of the speaker
+  i.e. a minister has 3 topics to talk about
+   ========================================================================== */
+
+// We specifically write selectors for spans or <a> so we don't get into trouble down the selector chain
+.vlc-agenda-items-sub-item__block-clickable,
+.vlc-agenda-items-sub-item__block-non-clickable {
+  display: block;
+  position: relative;
+  padding: 2rem 1.5rem 2rem 3.5rem;
+  font-size: 1.3rem;
+  color: $black;
+  background: #FFF;
+}
+
+.vlc-agenda-items-sub-item__block-clickable {
+  text-decoration: none;
+}
+
+.vlc-agenda-items-sub-item__block-clickable {
+  &:hover,
+  &:focus {
+    background: $porcelain;
+  }
+}
+
+/* Sub item content
+   ========================================================================== */
+
+// Subject: the “short title”
+.vlc-agenda-items-sub-item__subject {
+  font-size: 1.6rem;
+  line-height: 1.1;
+  margin: 0 0 0.6rem;
+  font-weight: 500;
+}
+
+// Content: the longer description
+.vlc-agenda-items-sub-item__content {
+  font-size: 1.4rem;
+  opacity: 0.65;
+  line-height: 1.3;
+  margin: 1rem 0;
+}
+
+// Active state used on the detail view
+.vlc-agenda-items-sub-item--active a,
+.vlc-agenda-items-sub-item--active a:hover,
+.vlc-agenda-items-sub-item--active a:active {
+  background: $science-blue;
+  color: #FFF;
+}
+
+.vlc-agenda-items-sub-item--active a:focus {
+  background: darken($science-blue, 5%);
+}
+
+.vlc-agenda-items-sub-item__numbering {
+  position: absolute;
+  left: 1.5rem;
+}

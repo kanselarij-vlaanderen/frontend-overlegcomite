@@ -1,0 +1,88 @@
+/* ==========================================================================
+  vlc-procedure-step
+   ========================================================================== */
+
+.vlc-procedure-step {
+  &:before {
+    content: " ";
+    background: $border-color;
+    height: calc(100% + 2.2rem);
+    width: 1px;
+    position: absolute;
+    left: -3rem;
+    top: 0;
+    z-index: -1;
+  }
+  &:last-child {
+    &:before {
+      height: 50%;
+    }
+  }
+
+  margin-left: 5rem;
+  margin-bottom: 2rem;
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  // Code from “info tile” (equivalent of a card)
+  display: block;
+  position: relative;
+  border: 1px solid $border-color;
+  padding: map-get($info-tile, "padding-small");
+
+  @include respond-to(small) {
+    padding: map-get($info-tile, "padding-small--s");
+  }
+
+  a.vl-title {
+    text-decoration: none;
+  }
+}
+
+.vlc-procedure-step__meta {
+  font-size: 1.3rem;
+  color: $gray;
+}
+
+.vlc-procedure-step__badge-wrapper {
+  position: absolute;
+  left: -4.5rem;
+  top: calc(50% - 1.7rem);
+}
+
+/* Minimal proceduresteps version
+  ========================================================================== */
+
+.vlc-procedure-step--minimal {
+  margin: 0 4.2rem 0;
+  padding: 0 0 4rem;
+  border: none;
+
+  .vlc-procedure-step__badge-wrapper {
+    position: absolute;
+    left: -4.2rem;
+    top: 0;
+  }
+
+  &:before {
+    left: -2.7rem;
+  }
+
+  &:last-child {
+    padding: 0;
+    &:before {
+      height: 100%;
+    }
+  }
+
+  .vlc-status-timeline {
+    position: relative;
+    left: - 3.2rem;
+
+    .vlc-status-timeline__text {
+      margin-left: 1.6rem;
+    }
+  }
+}
+

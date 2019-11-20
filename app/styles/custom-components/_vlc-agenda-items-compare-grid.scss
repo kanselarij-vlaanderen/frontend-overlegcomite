@@ -1,0 +1,72 @@
+/* Agenda items compare view
+========================================================================== */
+
+// @todo this code is too specific, it doesn't scale to an infinite amount of items
+.vlc-agenda-items-compare-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: minmax(10px, auto);
+  grid-column-gap: 4.8rem;
+  grid-template-areas:
+      "agenda-1 agenda-2"
+      "speaker-1 speaker-2"
+      "agenda-1-item-1 agenda-2-item-1"
+      "agenda-1-item-2 agenda-2-item-2"
+      "agenda-1-item-3 agenda-2-item-3"
+      "agenda-1-item-4 agenda-2-item-4"
+      "empty agenda-2-item-5"
+      "agenda-1-item-5 agenda-2-item-6";
+}
+
+.vlc-agenda-items-compare__item  {
+    border-bottom: 1px solid $border-color;
+}
+
+// Grid area empty cell
+.vlc-agenda-items-compare__item--empty {
+  grid-area: empty;
+}
+
+// Grid areas agenda 1
+
+.vlc-agenda-items-compare-grid__agenda-1 {
+  grid-area: agenda-1;
+}
+
+.vlc-agenda-items-compare-grid__agenda-speaker-header-1 {
+  grid-area: speaker-1;
+}
+
+$i: 0;
+
+@while($i < 6) {
+  .vlc-agenda-items-compare-grid__agenda-1-item-#{$i} {
+    grid-area: agenda-1-item-#{$i};
+  }
+  $i: $i + 1;
+}
+
+// Grid areas agenda 2
+
+// @todo these selectors are not scoped to the component
+.vlc-agenda-items-compare-grid__agenda-2 {
+  grid-area: agenda-2;
+}
+
+.vlc-agenda-items-compare-grid__agenda-speaker-header-2 {
+  grid-area: speaker-2;
+}
+
+$i: 0;
+
+@while($i < 7) {
+  .vlc-agenda-items-compare-grid__agenda-2-item-#{$i} {
+    grid-area: agenda-2-item-#{$i};
+  }
+  $i: $i + 1;
+}
+
+// Why is 1 of the item specifically made opaque? Why is this not a modifier class?
+//.vlc-agenda-items-compare__item.vlc-agenda-items-compare-grid__agenda-2-item-3 {
+//  opacity: 0.30;
+//}
