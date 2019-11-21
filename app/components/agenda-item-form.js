@@ -16,7 +16,7 @@ export default class AgendaItemFormComponent extends Component {
     this.agendaItem = this.args.agendaItem;
     const that = this;
     this.args.agendaItem.get('case').then(function(_case) {
-      that.caseIdentifier = _case.identifier ? _case.identifier : '';
+      that.caseIdentifier = _case ? _case.identifier : '';
     });
   }
 
