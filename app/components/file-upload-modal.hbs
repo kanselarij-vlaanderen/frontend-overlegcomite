@@ -1,0 +1,11 @@
+<Kaleidos::CreationModal
+@title="Bestand opladen"
+@buttonText="Opslaan"
+@onClose={{@onClose}}
+@onCancel={{@onCancel}}
+>
+  {{imported/file-uploader
+    multipleFiles=false
+    uploadedFile=(action @didUpload)
+  }}
+</Kaleidos::CreationModal>
