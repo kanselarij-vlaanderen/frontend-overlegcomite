@@ -14,9 +14,7 @@
     popperContainer=(concat "#" this.uniqueId)
   }}
     <div class="vl-popover__content vl-popover__content--close"  id={{this.uniqueId}}>
-      {{yield (hash
-        link-list=(component "wu/popover/popover-link-list")
-      )}}
+      {{yield "wu/popover/popover-link-list"}}
     </div>
   {{/attach-popover}}
 </div>

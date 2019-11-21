@@ -20,24 +20,4 @@ export default class KaleidosDocumentCardComponent extends Component {
   toggleEditingName() {
     this.editingName = !this.editingName;
   }
-
-
-  uploadVersion() {
-    if (this.args.onUploadVersion) {
-      this.args.onUploadVersion();
-    }
-  }
-
-  deleteVersion() {
-    if (this.args.onDeleteVersion) {
-      this.args.onDeleteVersion();
-    }
-  }
-
-  deleteDocument() {
-    if (this.args.onDeleteDocument) {
-      this.args.onDeleteDocument();
-    }
-  }
-
 }

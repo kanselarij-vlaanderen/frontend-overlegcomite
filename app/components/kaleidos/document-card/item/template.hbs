@@ -9,11 +9,13 @@
           {{#if this.editable}}
             <Kaleidos::DocumentCard::ToolbarItems
               @editable={{this.editable}}
+              @locked={{@locked}}
               @downloadLink={{@downloadLink}}
               @accessLevel={{@accessLevel}}
               @accessLevelOptions={{@accessLevelOptions}}
-            as |link-list|>
-              <link-list.item><a class="vl-link vl-link--block" {{action this.delete}}>Versie verwijderen</a></link-list.item>
+              @onToggleLock={{@onToggleLock}}
+            >
+              <!-- <link-list.item><a class="vl-link vl-link--block" {{action this.delete}}>Versie verwijderen</a></link-list.item> -->
             </Kaleidos::DocumentCard::ToolbarItems>
           {{else}}
             <Kaleidos::DocumentCard::ToolbarItems

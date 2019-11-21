@@ -9,10 +9,10 @@ export default Model.extend({
   created: attr('datetime'),
   versionNumber: attr('number'),
   confidential: attr('boolean'),
-  accessLevel: belongsTo('access-level'),
+  accessLevel: belongsTo('access-level', { async: false }),
 
-  file: belongsTo('file'),
-  document: belongsTo('document', { inverse: null }),
+  file: belongsTo('file', { async: false }),
+  document: belongsTo('document', { async:false }),
 
   name: computed('document.name', function() {
     return formatVersionedDocumentName(this.get('document.name'), this.get('versionNumber'));

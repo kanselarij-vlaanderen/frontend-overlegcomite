@@ -14,6 +14,11 @@ export default Controller.extend({
       this.get('model.documents').pushObjects(documents);
       await this.get('model').save();
       this.set('addingDocuments', false);
+    },
+
+    async deleteDocument(document) {
+      this.get('model.documents').popObject(document);
+      await this.get('model').save();
     }
   }
 });

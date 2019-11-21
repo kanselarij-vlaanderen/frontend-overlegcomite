@@ -16,22 +16,25 @@
           </div>
         </div>
         <div class="vlc-toolbar__right">
-          {{#if this.editable}}
-            <Kaleidos::DocumentCard::ToolbarItems
-              @editable={{this.editable}}
-              @downloadLink={{@downloadLink}}
-            as |link-list|>
-              <link-list.item><a class="vl-link vl-link--block" {{action this.uploadVersion}}>Nieuwe versie uploaden</a></link-list.item>
-              <link-list.item><a class="vl-link vl-link--block" {{action this.toggleEditingName}}>Documentnaam wijzigen</a></link-list.item>
-              <link-list.separator/>
-              <link-list.item><a class="vl-link vl-link--block vl-u-text--error" {{action this.deleteVersion}}>Versie verwijderen</a></link-list.item>
-              <link-list.item><a class="vl-link vl-link--block vl-u-text--error" {{action this.deleteDocument}}>Document verwijderen</a></link-list.item>
-            </Kaleidos::DocumentCard::ToolbarItems>
-          {{else}}
-            <Kaleidos::DocumentCard::ToolbarItems
-              @downloadLink={{@downloadLink}}
-            />
-          {{/if}}
+          <Kaleidos::DocumentCard::ToolbarItems
+            @editable={{this.editable}}
+            @locked={{@locked}}
+            @onToggleLock={{@onToggleLock}}
+            @accessLevel={{null}}
+            @accessLevelOptions={{@accessLevelOptions}}
+            @downloadLink={{@downloadLink}}
+          />
+          <div class="vlc-toolbar__item">
+            <Wu::Popover @alignment="center" @placement="bottom" @button-icon="show-more-horizontal">
+              <Wu::Popover::PopoverLinkList as |ll|>
+                <ll.item><a class="vl-link vl-link--block" {{action @onUploadVersion}}>Nieuwe versie uploaden</a></ll.item>
+                <!-- <ll.item><a class="vl-link vl-link--block" {{this.toggleEditingName}}>Documentnaam wijzigen</a></ll.item> -->
+                <ll.separator/>
+                <ll.item><a class="vl-link vl-link--block vl-u-text--error" {{action @onDeleteVersion}}>Versie verwijderen</a></ll.item>
+                <ll.item><a class="vl-link vl-link--block vl-u-text--error" {{action @onDeleteDocument}}>Document verwijderen</a></ll.item>
+              </Wu::Popover::PopoverLinkList>
+            </Wu::Popover>
+          </div>
         </div>
       </div>
       {{#if this.editingName}}

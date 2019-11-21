@@ -1,5 +1,6 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
 
 export default class extends Component {
   @tracked locked = false;
@@ -15,14 +16,14 @@ export default class extends Component {
     }
   }
 
+  @action
   toggleLock() {
-    this.locked = !this.locked;
     if (this.args.onToggleLock) {
-      this.args.onToggleLock(this.locked);
+      this.args.onToggleLock();
     }
-    console.log("lock toggled");
   }
 
+  @action
   view() {
     if (this.args.onView) {
       this.args.onView();

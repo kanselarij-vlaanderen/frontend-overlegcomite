@@ -1,26 +1,34 @@
-<div class="vlc-toolbar__item">
-  {{#if this.editable}}
-    <Kaleidos::DocumentCard::EditableAccessLevelPill
-      @selectedLevel={{@accessLevel}}
-      @options={{@accessLevelOptions}}/>
-  {{else}}
-    {{#if @accessLevel}}
-      <WuExt::Pill>{{get @accessLevel "label"}}</WuExt::Pill>
+{{#unless @locked}}
+  <div class="vlc-toolbar__item">
+    {{#if this.editable}}
+      <Kaleidos::DocumentCard::EditableAccessLevelPill
+        @selectedLevel={{@accessLevel}}
+        @options={{@accessLevelOptions}}/>
+    {{else}}
+      <WuExt::Pill
+        @style={{if @selected @style}}
+      >
+        {{#if @accessLevel}}
+          {{get @accessLevel "label"}}
+        {{else}}
+          Geen toegangsniveau
+        {{/if}}
+      </WuExt::Pill>
     {{/if}}
-  {{/if}}
-</div>
+  </div>
+{{/unless}}
 <div class="vlc-toolbar__item">
   <button
     class="vl-button vl-button--link-muted vl-button--icon"
     disabled={{not this.editable}}
-    {{action toggleLock}}
+    {{on "click" this.toggleLock}}
   >
     <i class="vl-button__icon vl-vi {{if @locked "vl-vi-lock vl-u-text--error" "vl-vi-lock-unlock"}}" aria-hidden="true" aria-active="true"></i>
     <span class="vl-u-visually-hidden">Wissel openbaarheid</span>
   </button>
   {{#if this.viewable}}
     <a class="vl-button vl-button--link vl-button--icon" href="#" target="_blank" rel="noopener"
-      {{action view}}>
+      {{this.view}}>
       <i class="vl-vi vl-vi-content-book vl-button__icon" aria-hidden="true"></i>
       <span class="vl-u-visually-hidden">Lees document</span>
     </a>
@@ -36,12 +44,4 @@
     </a>
   {{/if}}
 </div>
-{{#if (has-block)}}
-  <div class="vlc-toolbar__item">
-    <Wu::Popover @alignment="center" @placement="bottom" @button-icon="show-more-horizontal" as |popover|>
-      <popover.link-list as |link-list|>
-        {{yield (component link-list)}}
-      </popover.link-list>
-    </Wu::Popover>
-  </div>
-{{/if}}
+{{yield}}
