@@ -71,6 +71,7 @@
         <div class="vlc-toolbar__right">
           <div class="vlc-toolbar__item">
             <div class="vl-action-group">
+              {{!-- TODO: implement actions menu and put "create agendaitem" action in it
               <div class="vl-popover vl-popover--align-left" data-vl-popover="">
                 <button class="vl-button vl-button--secondary vl-button--narrow vl-button--icon-after js-vl-popover__toggle" type="button" aria-expanded="false">
                   Acties
@@ -84,7 +85,17 @@
                     <span class="vl-u-visually-hidden">Sluit menu</span>
                   </button>
                 </div>
-              </div>
+              </div>--}}
+              <LinkTo
+                @route="agendaitems.new"
+                @tagName="button"
+                class="vl-button vl-button--narrow vl-button--icon-before"
+              >
+                <i
+                  class="vl-button__icon vl-button__icon--before vl-vi vl-vi-add"
+                ></i>
+                Nieuw agendapunt
+              </LinkTo>
               {{#if (is-before meeting.startedAt)}}
                 <button {{action "releaseAgenda" meeting}} class="vl-button vl-button--narrow vl-button--icon-before">
                   <i class="vl-button__icon vl-button__icon--before vl-vi vl-vi-share" aria-hidden="true"></i>
