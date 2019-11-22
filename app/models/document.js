@@ -11,7 +11,7 @@ export default Model.extend({
   type: belongsTo('document-type', {async: false}),
 
   documentVersions: hasMany('document-version', {async: false}),
-  sortDefinition: ['versionNumber'],
+  sortDefinition: ['versionNumber'], // eslint-disable-line ember/avoid-leaking-state-in-ember-objects
   sortedDocumentVersions: sort('documentVersions', 'sortDefinition'),
 
   reverseSortedDocumentVersions: computed('sortedDocumentVersions.[]', function() {

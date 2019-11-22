@@ -42,7 +42,15 @@
                 {{/if}}
                 {{#if this.editable}}
                   <ll.separator/>
-                  <ll.item><a class="vl-link vl-link--block vl-u-text--error" {{action @onDeleteVersion}}>Versie verwijderen</a></ll.item>
+                  <ll.item>
+                    <a
+                      role="button"
+                      class="vl-link vl-link--block vl-u-text--error"
+                      {{action @onDeleteVersion}}
+                    >
+                      Versie verwijderen
+                    </a>
+                  </ll.item>
                 {{/if}}
               </Wu::Popover::PopoverLinkList>
             </Wu::Popover>

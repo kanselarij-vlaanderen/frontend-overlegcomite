@@ -36,6 +36,5 @@ export default class extends Component {
     if (this.args.onView) {
       this.args.onView();
     }
-    console.debug("view clicked");
   }
 }

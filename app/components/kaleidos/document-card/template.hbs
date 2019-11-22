@@ -41,11 +41,43 @@
                   </ll.item>
                 {{/if}}
                 {{#if this.editable}}
-                  <ll.item><a class="vl-link vl-link--block" {{action @onUploadVersion}}>Nieuwe versie uploaden</a></ll.item>
-                  <ll.item><a class="vl-link vl-link--block" {{action (fn (mut this.editingName)) true}}>Documentnaam wijzigen</a></ll.item>
+                  <ll.item>
+                    <a
+                      class="vl-link vl-link--block"
+                      role="button"
+                      {{action @onUploadVersion}}
+                    >
+                      Nieuwe versie uploaden
+                    </a>
+                  </ll.item>
+                  <ll.item>
+                    <a
+                      class="vl-link vl-link--block"
+                      role="button"
+                       {{action (fn (mut this.editingName)) true}}
+                    >
+                      Documentnaam wijzigen
+                    </a>
+                  </ll.item>
                   <ll.separator/>
-                  <ll.item><a class="vl-link vl-link--block vl-u-text--error" {{action @onDeleteVersion}}>Versie verwijderen</a></ll.item>
-                  <ll.item><a class="vl-link vl-link--block vl-u-text--error" {{action @onDeleteDocument}}>Document verwijderen</a></ll.item>
+                  <ll.item>
+                    <a
+                      class="vl-link vl-link--block vl-u-text--error"
+                      role="button"
+                      {{action @onDeleteVersion}}
+                    >
+                      Versie verwijderen
+                    </a>
+                  </ll.item>
+                  <ll.item>
+                    <a
+                      class="vl-link vl-link--block vl-u-text--error"
+                      role="button"
+                      {{action @onDeleteDocument}}
+                    >
+                      Document verwijderen
+                    </a>
+                  </ll.item>
                 {{/if}}
               </Wu::Popover::PopoverLinkList>
             </Wu::Popover>
