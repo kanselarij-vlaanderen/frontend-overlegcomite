@@ -17,7 +17,7 @@ export default class extends Component {
   }
 
   get viewable() {
-    if (this.args.viewable === 'boolean') {
+    if (typeof this.args.viewable === 'boolean') {
       return this.args.viewable;
     } else {
       return Boolean(this.args.onView);

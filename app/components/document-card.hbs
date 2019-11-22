@@ -7,6 +7,7 @@
       @accessLevel={{this.selectedVersion.accessLevel}}
       @downloadLink={{this.selectedVersion.downloadLink}}
       @onView={{fn this.view this.selectedVersion}}
+      @viewable={{eq this.selectedVersion.file.extension "pdf"}}
       @onToggleLock={{fn this.toggleAccessLevel this.selectedVersion}}
       @onDeleteDocument={{fn this.deleteDocument document}}
       @onDeleteVersion={{fn this.deleteVersion this.selectedVersion}}
@@ -22,6 +23,7 @@
       @accessLevel={{this.selectedVersion.accessLevel}}
       @downloadLink={{this.selectedVersion.downloadLink}}
       @onView={{fn this.view this.selectedVersion}}
+      @viewable={{eq this.selectedVersion.file.extension "pdf"}}
       @onToggleLock={{fn this.toggleAccessLevel this.selectedVersion}}
       @onDeleteDocument={{fn this.deleteDocument document}}
       @onDeleteVersion={{fn this.deleteVersion this.selectedVersion}}
@@ -37,6 +39,7 @@
           @accessLevel={{version.accessLevel}}
           @downloadLink={{version.downloadLink}}
           @onView={{fn this.view version}}
+          @viewable={{eq this.selectedVersion.file.extension "pdf"}}
           @onToggleLock={{fn this.toggleAccessLevel version}}
           @selected={{eq version this.selectedVersion}}
           @onDeleteVersion={{fn this.deleteVersion version}}
