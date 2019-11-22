@@ -13,6 +13,15 @@ export default class KaleidosDocumentCardComponent extends Component {
     }
   }
 
+  get downloadable() {
+    debugger;
+    if (typeof this.args.downloadable === 'boolean') {
+      return this.args.downloadable;
+    } else {
+      return Boolean(this.args.downloadLink);
+    }
+  }
+
   toggleAccordion() {
     this.accordionOpen = !this.accordionOpen;
   }

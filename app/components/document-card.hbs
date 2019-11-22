@@ -36,7 +36,7 @@
           @downloadLink={{version.downloadLink}}
           @onToggleLock={{fn this.toggleAccessLevel version}}
           @selected={{eq version this.selectedVersion}}
-          @onDelete={{fn this.deleteVersion version}}
+          @onDeleteVersion={{fn this.deleteVersion version}}
           @accessLevelOptions={{this.accessLevelOptions}}
           @editable={{@editable}}
         />

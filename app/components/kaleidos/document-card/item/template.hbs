@@ -11,6 +11,7 @@
               @editable={{this.editable}}
               @locked={{@locked}}
               @downloadLink={{@downloadLink}}
+              @downloadable={{@downloadable}}
               @accessLevel={{@accessLevel}}
               @accessLevelOptions={{@accessLevelOptions}}
               @onToggleLock={{@onToggleLock}}
@@ -23,6 +24,28 @@
               @accessLevel={{@accessLevel}}
             />
           {{/if}}
+          <div class="vlc-toolbar__item">
+            <Wu::Popover @alignment="center" @placement="bottom" @button-icon="show-more-horizontal">
+              <Wu::Popover::PopoverLinkList as |ll|>
+                {{#if this.downloadable}}
+                  <ll.item>
+                    <a
+                      class="vl-link vl-link--block"
+                      href={{@downloadLink}}
+                      download
+                    >
+                      Document downloaden
+                    </a>
+                  </ll.item>
+                {{/if}}
+                {{#if this.editable}}
+                  <ll.separator/>
+                  <ll.item><a class="vl-link vl-link--block vl-u-text--error" {{action @onDeleteVersion}}>Versie verwijderen</a></ll.item>
+                {{/if}}
+              </Wu::Popover::PopoverLinkList>
+            </Wu::Popover>
+          </div>
+
         {{/unless}}
       </div>
     </div>

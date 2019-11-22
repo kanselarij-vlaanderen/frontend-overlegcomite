@@ -11,6 +11,14 @@ export default class extends Component {
     }
   }
 
+  get downloadable() {
+    if (typeof this.args.downloadable === 'boolean') {
+      return this.args.downloadable;
+    } else {
+      return Boolean(this.args.downloadLink);
+    }
+  }
+
   delete() {
     if (this.args.onDelete) {
       this.args.onDelete();

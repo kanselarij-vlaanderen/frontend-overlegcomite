@@ -27,11 +27,24 @@
           <div class="vlc-toolbar__item">
             <Wu::Popover @alignment="center" @placement="bottom" @button-icon="show-more-horizontal">
               <Wu::Popover::PopoverLinkList as |ll|>
-                <ll.item><a class="vl-link vl-link--block" {{action @onUploadVersion}}>Nieuwe versie uploaden</a></ll.item>
-                <!-- <ll.item><a class="vl-link vl-link--block" {{this.toggleEditingName}}>Documentnaam wijzigen</a></ll.item> -->
-                <ll.separator/>
-                <ll.item><a class="vl-link vl-link--block vl-u-text--error" {{action @onDeleteVersion}}>Versie verwijderen</a></ll.item>
-                <ll.item><a class="vl-link vl-link--block vl-u-text--error" {{action @onDeleteDocument}}>Document verwijderen</a></ll.item>
+                {{#if this.downloadable}}
+                  <ll.item>
+                    <a
+                      class="vl-link vl-link--block"
+                      href={{@downloadLink}}
+                      download
+                    >
+                      Document downloaden
+                    </a>
+                  </ll.item>
+                {{/if}}
+                {{#if this.editable}}
+                  <ll.item><a class="vl-link vl-link--block" {{action @onUploadVersion}}>Nieuwe versie uploaden</a></ll.item>
+                  <ll.item><a class="vl-link vl-link--block" {{action (fn (mut this.editingName)) true}}>Documentnaam wijzigen</a></ll.item>
+                  <ll.separator/>
+                  <ll.item><a class="vl-link vl-link--block vl-u-text--error" {{action @onDeleteVersion}}>Versie verwijderen</a></ll.item>
+                  <ll.item><a class="vl-link vl-link--block vl-u-text--error" {{action @onDeleteDocument}}>Document verwijderen</a></ll.item>
+                {{/if}}
               </Wu::Popover::PopoverLinkList>
             </Wu::Popover>
           </div>
