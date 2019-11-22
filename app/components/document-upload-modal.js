@@ -8,12 +8,17 @@ import { action } from '@ember/object';
 export default class extends Component {
   @service store;
   @tracked documents = A([]);
+  @tracked documentTypeOptions = A([]);
 
   constructor() {
     super(...arguments);
     if (this.args.editable !== undefined) {
       this.editable = this.args.editable;
     }
+    let that = this;
+    this.store.findAll('document-type').then(function(documentTypes) {
+      that.documentTypeOptions = documentTypes;
+    });
   }
 
   @action

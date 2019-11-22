@@ -25,18 +25,16 @@
             {{imported/web-components/vl-form-label value="Naam"}}
             <Input class="vl-input-field vl-input-field--block" @value={{document.name}}/>
           </div>
-        </div>
-        <div class="vlc-input-field-block">
-          {{imported/web-components/vl-form-label value="Type"}}
-          <PowerSelect
-            @options={{@documentTypeOptions}}
-            @selected={{@defaultDocumentType}}
-            class="vl-form__input vl-col--4-4"
-            @tagName="div"
-            @onChange={{action (mut document.type)}} as |type|
-          >
-            {{type.label}}
-          </PowerSelect>
+          <div class="vlc-input-field-block">
+            {{imported/web-components/vl-form-label value="Type"}}
+            <PowerSelect
+              @options={{this.documentTypeOptions}}
+              @selected={{document.type}}
+              @onChange={{fn (mut document.type)}} as |type|
+              >
+              {{type.label}}
+            </PowerSelect>
+          </div>
         </div>
       {{/imported/ember-kaleidos-webuniversum/vl-uploaded-document}}
     {{/each}}
