@@ -26,12 +26,14 @@
     <i class="vl-button__icon vl-vi {{if @locked "vl-vi-lock vl-u-text--error" "vl-vi-lock-unlock"}}" aria-hidden="true" aria-active="true"></i>
     <span class="vl-u-visually-hidden">Wissel openbaarheid</span>
   </button>
-  {{#if @viewable}}
-    <a class="vl-button vl-button--link vl-button--icon" href="#" target="_blank" rel="noopener"
-      {{this.view}}>
+  {{#if this.viewable}}
+    <button
+      class="vl-button vl-button--link vl-button--icon"
+      {{on "click" this.view}}
+    >
       <i class="vl-vi vl-vi-content-book vl-button__icon" aria-hidden="true"></i>
       <span class="vl-u-visually-hidden">Lees document</span>
-    </a>
+    </button>
   {{/if}}
 </div>
 {{yield}}

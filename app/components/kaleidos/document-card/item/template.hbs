@@ -15,13 +15,15 @@
               @accessLevel={{@accessLevel}}
               @accessLevelOptions={{@accessLevelOptions}}
               @onToggleLock={{@onToggleLock}}
-            >
-              <!-- <link-list.item><a class="vl-link vl-link--block" {{action this.delete}}>Versie verwijderen</a></link-list.item> -->
-            </Kaleidos::DocumentCard::ToolbarItems>
+              @viewable={{@viewable}}
+              @onView={{action @onView}}
+            />
           {{else}}
             <Kaleidos::DocumentCard::ToolbarItems
               @downloadLink={{@downloadLink}}
               @accessLevel={{@accessLevel}}
+              @viewable={{@viewable}}
+              @onView={{action @onView}}
             />
           {{/if}}
           <div class="vlc-toolbar__item">

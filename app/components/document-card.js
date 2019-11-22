@@ -6,6 +6,7 @@ import { action } from '@ember/object';
 import { A } from '@ember/array';
 
 export default class extends Component {
+  @service router;
   @service store;
 
   @tracked document = null;
@@ -77,5 +78,11 @@ export default class extends Component {
   toggleAccessLevel(documentVersion) {
     documentVersion.confidential = !documentVersion.confidential;
     documentVersion.save();
+  }
+
+  @action
+  view(documentVersion) {
+    const url = this.router.urlFor('view-document', documentVersion);
+    window.open(url, '_blank');
   }
 }

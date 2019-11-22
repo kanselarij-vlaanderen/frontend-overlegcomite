@@ -29,6 +29,7 @@ Router.map(function() {
     });
   });
   this.route('search', { path: 'agendapunten/zoeken' });
+  this.route('view-document', { path: '/documenten/:document_id/versies/:version_number/bekijken'});
 
   if (ENV.APP.defaultLoginRouteName === 'mock-login') {
     this.route('mock-login');
