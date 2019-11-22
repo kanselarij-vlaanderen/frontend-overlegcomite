@@ -21,7 +21,7 @@
                   <ul class="vlc-tabs-reverse" role="tablist">
                     <li class="vlc-tabs-reverse__item">
                       <LinkTo
-                        @route="agendaitems"
+                        @route="agendaitems.index"
                         @model={{meeting}}
                         @current-when="agendaitems.index"
                         class="vlc-tabs-reverse__link"
@@ -32,41 +32,34 @@
                         Overzicht
                       </LinkTo>
                     </li>
-                    <li class="vlc-tabs-reverse__item">
-                      {{#if meeting.sortedAgendaItems}}
-                        <Link
-                          @route="agendaitems.agendaitem"
-                          @model={{meeting.sortedAgendaItems.firstObject}} as |l|>
-                          {{#if l.isActiveWithoutModels}}
+                    {{#if meeting.sortedAgendaItems}}
+                      <Link
+                      @route="agendaitems.agendaitem.index"
+                      @model={{meeting.sortedAgendaItems.firstObject}} as |l|>
+                        {{#if l.isActiveWithoutModels}}
+                          <li class="vlc-tabs-reverse__item">
                             <a
                               href="#"
                               class="vlc-tabs-reverse__link vlc-tabs-reverse__link--active"
                             >
                               Detail
                             </a>
-                          {{else}}
-                            <a
-                              href={{l.href}}
-                              class="vlc-tabs-reverse__link"
-                              {{on "click" l.transitionTo}}
-                            >
-                              Detail
-                            </a>
-                          {{/if}}
-                        </Link>
-                      {{/if}}
-                    </li>
-                    {{!-- <li class="vlc-tabs-reverse__item">
+                          </li>
+                        {{/if}}
+                      </Link>
+                    {{/if}}
+                    <li class="vlc-tabs-reverse__item">
                       <LinkTo
-                        @route="meetings.meeting.documents"
+                        @route="meeting.documents"
+                        @model={{meeting}}
                         class="vlc-tabs-reverse__link"
                         @activeClass="vlc-tabs-reverse__link--active"
                         role="tab"
                         aria-selected="true"
                       >
-                        Detail
+                        Documenten
                       </LinkTo>
-                    </li> --}}
+                    </li>
                   </ul>
                 </div>
               </div>
