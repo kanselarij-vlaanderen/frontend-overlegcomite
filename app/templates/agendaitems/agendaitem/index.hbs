@@ -73,6 +73,7 @@
           <DocumentCard
             @document={{document}}
             @editable={{true}}
+            @didDeleteDocument={{action "deleteDocument"}}
           />
         </div>
       {{/each}}
