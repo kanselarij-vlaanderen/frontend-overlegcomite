@@ -12,8 +12,8 @@ export default Controller.extend({
       this.set('isLoading', true);
       this.get('model')
         .save()
-        .catch((error) => {
-          // Handle error
+        .catch(() => {
+          // TODO: Handle error
         })
         .finally(() => {
           this.set('isLoading', false);

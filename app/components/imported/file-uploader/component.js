@@ -20,7 +20,7 @@ export default Component.extend({
     this.set('fileQueue.files', A([]));
   },
 
-  isNotLoading: observer('fileQueue.files.@each', function() {
+  isNotLoading: observer('fileQueue.files.@each', function() {  // eslint-disable-line ember/no-observers
     const length = this.fileQueue.get('files.length');
     if (length === 0) {
       this.set('isLoading', false);

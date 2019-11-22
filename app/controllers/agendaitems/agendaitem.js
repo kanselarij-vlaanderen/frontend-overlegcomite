@@ -31,8 +31,8 @@ export default Controller.extend({
               this.set('showAddDocuments', false);
             });
         })
-        .catch(error => {
-          // Handle error
+        .catch(() => {
+          // TODO: Handle error
         });
     },
 
@@ -49,8 +49,8 @@ export default Controller.extend({
               this.set('showAddNotification', false);
             });
         })
-        .catch(error => {
-          // Handle error
+        .catch(() => {
+          // TODO: Handle error
         });
     },
 
