@@ -1,8 +1,17 @@
 import Route from '@ember/routing/route';
 import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 import moment from 'moment';
+import { inject as service } from '@ember/service';
 
 export default Route.extend(AuthenticatedRouteMixin, {
+  currentSession: service(),
+
+  beforeModel() {
+    if (!this.currentSession.canEditAgenda) {
+      this.transitionTo('meetings.index');
+    }
+  },
+
   model() {
     const nextSessionDate = moment().day(3 + 7 + 7) // Wednesday in two weeks
                                     .hours(8) // 8 AM

@@ -1,7 +1,16 @@
 import Route from '@ember/routing/route';
 import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
+import { inject as service } from '@ember/service';
 
 export default Route.extend(AuthenticatedRouteMixin, {
+  currentSession: service(),
+
+  beforeModel() {
+    if (!this.currentSession.canEditAgenda) {
+      this.transitionTo('agendaitems');
+    }
+  },
+
   model() {
     const agendaItems = this.modelFor('agendaitems').get('agendaItems');
     const nextNumber = agendaItems.sortBy('priority').get('lastObject.priority') + 1 || 1;
