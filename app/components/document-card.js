@@ -41,8 +41,7 @@ export default class extends Component {
     // Cascade delete versions
     const versionDeletes = document.documentVersions.map(async (documentVersion) => {
       await documentVersion.get('file').destroyRecord();
-      await documentVersion.destroyRecord();
-      return;
+      return await documentVersion.destroyRecord();
     });
     await Promise.all(versionDeletes);
     return document.destroyRecord();
@@ -68,10 +67,9 @@ export default class extends Component {
       accessLevel: this.args.defaultAccessLevel,
       versionNumber: this.document.sortedDocumentVersions.lastObject.versionNumber + 1,
       file,
+      document: this.document
     });
-    this.document.documentVersions.pushObject(version);
     await version.save();
-    await this.document.save();
     this.loading = false;
   }
 

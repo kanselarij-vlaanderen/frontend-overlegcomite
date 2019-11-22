@@ -7,7 +7,7 @@
 >
   {{#if (or @allowMultiple (not this.documents.length))}}
     {{imported/file-uploader
-      uploadedFile=(action this.createDocument)
+      uploadedFile=this.createDocument
       multipleFiles=@allowMultiple
     }}
   {{/if}}
@@ -18,7 +18,7 @@
         extension=document.documentVersions.firstObject.file.extension
         size=document.documentVersions.firstObject.file.size
         downloadLink=(concat document.documentVersions.firstObject.file.downloadLink "?name=" document.documentVersions.firstObject.file.filename)
-        delete=(action this.deleteDocument document)
+        delete=(fn this.deleteDocument document)
       }}
         <div class="metadata-container">
           <div class="vlc-input-field-block">

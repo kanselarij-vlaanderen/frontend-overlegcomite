@@ -17,18 +17,18 @@ export default class extends Component {
   }
 
   @action
-  createDocument(file) {
+  async createDocument(file) {
     const creationTime = moment().toDate();
-    const version = this.store.createRecord('document-version', {
+    const document = this.store.createRecord('document', {
+      created: creationTime,
+      type: this.args.defaultDocumentType,
+    });
+    this.store.createRecord('document-version', {
       created: creationTime,
       accessLevel: this.args.defaultAccessLevel,
       versionNumber: 1,
       file,
-    });
-    const document = this.store.createRecord('document', {
-      created: creationTime,
-      type: this.args.defaultDocumentType,
-      documentVersions: A([version]),
+      document
     });
     this.documents.pushObject(document);
   }
@@ -38,14 +38,16 @@ export default class extends Component {
     await document.documentVersions.firstObject.file.destroyRecord();
     await document.documentVersions.firstObject.deleteRecord();
     await document.deleteRecord();
+    return this.documents.popObject(document);
   }
 
   @action
   async save(documents) {
     this.isLoading = true;
     const savingDocuments = documents.map(async (document) => {
+      await document.save();
       await document.documentVersions.firstObject.save();
-      return document.save();
+      return document;
     });
     const savedDocuments = await Promise.all(savingDocuments);
     if (this.args.didSave) {
