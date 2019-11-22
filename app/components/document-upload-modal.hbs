@@ -1,6 +1,7 @@
 <Kaleidos::CreationModal
 @title="{{if @allowMultiple "Documenten" "Document"}} opladen"
 @buttonText="Aanmaken"
+@disabled={{not this.documents}}
 @onClose={{action this.cancel}}
 @onCancel={{action this.cancel}}
 @onSave={{action this.save this.documents}}
