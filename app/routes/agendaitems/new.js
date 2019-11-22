@@ -27,11 +27,4 @@ export default Route.extend(AuthenticatedRouteMixin, {
       model: model
     });
   },
-
-  setupController(controller, model) {
-    const governmentBodies = this.store.query('government-body', { sort: '-name'});
-    controller.set('governmentBodies', governmentBodies);
-    controller.set('model', model);
-    controller.set('meeting', model.get('meeting'));
-  }
 });
