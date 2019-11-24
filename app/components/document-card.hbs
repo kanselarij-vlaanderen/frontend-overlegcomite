@@ -51,6 +51,14 @@
       {{/each}}
     </Kaleidos::DocumentCard>
   {{/if}}
+{{else}}
+  {{!-- TODO: proper css for document-card loading state --}}
+  {{!-- template-lint-disable no-inline-styles --}}
+  <div class="vlc-document-card" style="min-height: 85.2pt;">
+    <div class="vl-u-align-center"  style="padding-top: 21pt;">
+      <div class="vl-loader" role="alert" aria-busy="true"></div>
+    </div>
+  </div>
 {{/if}}
 
 {{#if this.addingVersion}}
