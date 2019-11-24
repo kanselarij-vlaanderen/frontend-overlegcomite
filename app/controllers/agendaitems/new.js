@@ -1,8 +1,21 @@
+import { alias } from '@ember/object/computed';
 import { inject as controller } from '@ember/controller';
 import AgendaItemEditController from 'frontend-overlegcomite/controllers/agendaitems/agendaitem/edit';
 
 export default AgendaItemEditController.extend({
   parentController: controller('agendaitems'),
+
+  meeting: alias("model.meeting"),
+
+  init() {
+    this._super(...arguments);
+    const governmentBodies = this.store.query('government-body', {
+      sort: '-name'
+    }).then((governmentBodies) => {
+      return governmentBodies.toArray(); // ember-power-select 4.0.0-beta.3 only supports POJ Arrays, see https://github.com/cibernox/ember-power-select/issues/1296
+    });
+    this.set('governmentBodies', governmentBodies);
+  },
 
   actions: {
     async save() {
