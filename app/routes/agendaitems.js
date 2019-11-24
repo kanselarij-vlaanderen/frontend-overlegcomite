@@ -3,7 +3,10 @@ import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-rout
 
 export default Route.extend(AuthenticatedRouteMixin, {
   model(params) {
-    return this.store.findRecord('meeting', params.meeting_id, {include: 'agenda-items.submitters' });
+    return this.store.findRecord('meeting', params.meeting_id, {include: 'agenda-items.submitters' }).then((meeting) => {
+      meeting.get('sortedAgendaItems'); // Prime computed property cache before returning
+      return meeting;
+    });
   },
 
   renderTemplate(controller, model) {

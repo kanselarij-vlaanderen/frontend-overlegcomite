@@ -1,29 +1,33 @@
 {{outlet "header"}}
-{{#if (await agendaItemGroups)}}
-  <div class="vlc-panel-layout">
-    <div class={{agendaitemsClass}}>
-      <div class="vlc-scroll-wrapper">
+<div class="vlc-panel-layout">
+  <div class={{agendaitemsClass}}>
+    <div class="vlc-scroll-wrapper">
 
-        {{!-- TODO: search bar in detail view (component?)}}
-        {{!--<div class="vlc-scroll-wrapper__header">
-          <div class="vlc-navbar vlc-navbar--bordered-bottom">
-            <div class="vlc-input-field-group-wrapper vlc-input-field-group-wrapper--inline">
-              <div class="vlc-input-field-group vlc-input-field-group--grow">
-                <input class="vl-input-field" type="search" placeholder="Zoeken">
-              </div>
-              <div class="vlc-input-field-group">
-                <button class="vl-button vl-button--tertiary vl-button--icon" type="submit">
-                  <i class="vl-vi vl-vi-magnifier vl-button__icon" aria-hidden="true"></i>
-                  <span class="vl-u-visually-hidden">Zoeken</span>
-                </button>
-              </div>
+      {{!-- TODO: search bar in detail view (component?)}}
+      {{!--<div class="vlc-scroll-wrapper__header">
+        <div class="vlc-navbar vlc-navbar--bordered-bottom">
+          <div class="vlc-input-field-group-wrapper vlc-input-field-group-wrapper--inline">
+            <div class="vlc-input-field-group vlc-input-field-group--grow">
+              <input class="vl-input-field" type="search" placeholder="Zoeken">
+            </div>
+            <div class="vlc-input-field-group">
+              <button class="vl-button vl-button--tertiary vl-button--icon" type="submit">
+                <i class="vl-vi vl-vi-magnifier vl-button__icon" aria-hidden="true"></i>
+                <span class="vl-u-visually-hidden">Zoeken</span>
+              </button>
             </div>
           </div>
-        </div>--}}
+        </div>
+      </div>--}}
 
-        <div class="vlc-scroll-wrapper__body">
-          <div class={{if (eq agendaItemListMode "main") "vl-u-spacer-extended-l"}}>
-            <div class={{if (eq agendaItemListMode "main") "vl-u-spacer-extended-bottom-l"}}>
+      <div class="vlc-scroll-wrapper__body">
+        <div class={{if (eq agendaItemListMode "main") "vl-u-spacer-extended-l"}}>
+          <div class={{if (eq agendaItemListMode "main") "vl-u-spacer-extended-bottom-l"}}>
+            {{#if (is-pending model)}}
+              {{imported/web-components/vl-loader
+                text="Agenda laden ..."
+              }}
+            {{else}}
               <Kaleidos::AgendaItemsList @mode={{agendaItemListMode}} as |itemsList|>
                 {{#each (await agendaItemGroups) as |agendaItemGroup|}}
 
@@ -41,26 +45,25 @@
                           @number={{concat agendaItem.priority agendaItem.subPriority "."}}
                           @title={{agendaItem.subject}}
                           @content={{undefined}}
-                          @times-passed={{agendaItem.case.identifier}}
+                          @times-passed={{if (is-pending agendaItem.case.identifier) "..." agendaItem.case.identifier}}
                         />
                       </Link>
                     {{/each}}
                   </itemsList.agenda-items-group>
+                {{else}}
+                  <Wu::Alert>
+                    <p>Er zijn nog geen agendapunten.</p>
+                  </Wu::Alert>
                 {{/each}}
               </Kaleidos::AgendaItemsList>
-            </div>
+            {{/if}}
           </div>
         </div>
       </div>
     </div>
-    <div class="vlc-panel-layout__main-content">
-      {{outlet}}
-    </div>
   </div>
-{{/if}}
-{{#if (is-pending agendaItemGroups)}}
-  {{imported/web-components/vl-loader
-    text="Agenda laden ..."
-  }}
-{{/if}}
+  <div class="vlc-panel-layout__main-content">
+    {{outlet}}
+  </div>
+</div>
 {{outlet "modal"}}
