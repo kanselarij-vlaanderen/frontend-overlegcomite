@@ -17,7 +17,7 @@ export default class extends Component {
     }
     let that = this;
     this.store.findAll('document-type').then(function(documentTypes) {
-      that.documentTypeOptions = documentTypes;
+      that.documentTypeOptions = documentTypes.toArray();  // ember-power-select 4.0.0-beta.3 only supports POJ Arrays, see https://github.com/cibernox/ember-power-select/issues/1296
     });
   }
 
