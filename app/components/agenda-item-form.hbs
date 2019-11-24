@@ -26,13 +26,10 @@
 </div>
 <div class="vlc-input-field-block">
   {{imported/web-components/vl-form-label value="Indiener"}}
-  {{!-- TODO: fix power select: no matter what, @options seems empty ... bug in power select? --}}
   <PowerSelectMultiple
     @options={{@submitterOptions}}
-    @selected={{agendaItem.submitters}}
-    class="vl-form__input vl-col--4-4"
-    @tagName="div"
-    @onChange={{action (mut agendaItem.submitters)}} as |governmentBody|
+    @selected={{this.agendaItem.submitters}}
+    @onChange={{fn (mut this.agendaItem.submitters)}} as |governmentBody|
   >
     {{governmentBody.name}}
   </PowerSelectMultiple>

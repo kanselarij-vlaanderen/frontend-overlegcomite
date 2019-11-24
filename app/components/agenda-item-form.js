@@ -70,8 +70,4 @@ export default class AgendaItemFormComponent extends Component {
   change() {
     this.args.onChange(this.agendaItem);
   }
-
-  updateSubmitters(governmentBodies) {
-    this.agendaItems.submitters = governmentBodies;
-  }
 }
