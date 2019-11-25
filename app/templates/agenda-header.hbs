@@ -97,10 +97,12 @@
                 Nieuw agendapunt
               </LinkTo>
               {{#if (is-before meeting.startedAt)}}
-                <button {{action "releaseAgenda" meeting}} class="vl-button vl-button--narrow vl-button--icon-before">
-                  <i class="vl-button__icon vl-button__icon--before vl-vi vl-vi-share" aria-hidden="true"></i>
-                  Agenda Vrijgeven
-                </button>
+                {{#if (not meeting.agendaReleaseTime)}}
+                  <button {{action "releaseAgenda" meeting}} class="vl-button vl-button--narrow vl-button--icon-before">
+                    <i class="vl-button__icon vl-button__icon--before vl-vi vl-vi-share" aria-hidden="true"></i>
+                    Agenda Vrijgeven
+                  </button>
+                {{/if}}
               {{else}}
                 {{#if (not meeting.notificationReleaseTime)}}
                   <button {{action "releaseNotifications" meeting}} class="vl-button vl-button--narrow vl-button--icon-before">
