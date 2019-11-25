@@ -21,11 +21,17 @@ export default class extends Component {
 
   constructor() {
     super(...arguments);
-    this.loading = true;
-    this.args.document.loadRelations().then((document) => {
-      this.document = document;
-      this.loading = false;
-    })
+    if (this.args.document.type === null ||
+      this.args.document.documentVersions === null
+    ) {
+      this.loading = true;
+      this.args.document.loadRelations().then((document) => {
+        this.document = document;
+        this.loading = false;
+      });
+    } else {
+      this.document = this.args.document;
+    }
     this.store.findAll('access-level').then((als) => this.accessLevelOptions = als.toArray()); // ember-power-select 4.0.0-beta.3 only supports POJ Arrays, see https://github.com/cibernox/ember-power-select/issues/1296
   }
 
