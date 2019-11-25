@@ -66,6 +66,24 @@
             </div>
           </div>
         </div>
+        <div class="vlc-toolbar__item">
+          {{#if (is-after meeting.agendaReleaseTime)}}
+            <div class="vlc-agenda-meta">
+              <p class="vlc-agenda-meta__status vlc-agenda-meta__status--positive">
+                Agenda Vrijgegeven
+                <i class="vl-vi vl-vi-check-small" aria-hidden="true"></i>
+              </p>
+            </div>
+          {{/if}}
+          {{#if (is-after meeting.notificationReleaseTime)}}
+            <div class="vlc-agenda-meta">
+              <p class="vlc-agenda-meta__status vlc-agenda-meta__status--positive">
+                Notificaties Vrijgegeven
+                <i class="vl-vi vl-vi-check-small" aria-hidden="true"></i>
+              </p>
+            </div>
+          {{/if}}
+        </div>
       </div>
       {{#if currentSession.canEditAgenda}}
         <div class="vlc-toolbar__right">
