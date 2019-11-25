@@ -1,6 +1,7 @@
 import Route from '@ember/routing/route';
 import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 import { inject as service } from '@ember/service';
+import { A } from '@ember/array';
 
 export default Route.extend(AuthenticatedRouteMixin, {
   currentSession: service(),
@@ -12,10 +13,14 @@ export default Route.extend(AuthenticatedRouteMixin, {
   },
 
   model() {
-    const agendaItems = this.modelFor('agendaitems').get('agendaItems');
-    const nextNumber = agendaItems.sortBy('priority').get('lastObject.priority') + 1 || 1;
-    const newItem = this.store.createRecord('agendaitem', {priority: nextNumber});
-    agendaItems.pushObject(newItem);
+    const lastAgendaItem = this.modelFor('agendaitems').get('sortedAgendaItems.lastObject');
+    const nextNumber = lastAgendaItem ? lastAgendaItem.get('priority') + 1 : 1;
+    const previousSubmitters = lastAgendaItem ? lastAgendaItem.get('submitters') : A([]);
+    const newItem = this.store.createRecord('agendaitem', {
+      priority: nextNumber,
+      submitters: previousSubmitters
+    });
+    this.modelFor('agendaitems').get('agendaItems').pushObject(newItem);
     return newItem;
   },
 
