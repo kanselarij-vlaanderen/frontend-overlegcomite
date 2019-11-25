@@ -188,3 +188,17 @@ $icon-font-location: "/fonts/";
 }
 
 @import "ember-power-select";
+.vl-modal-dialog {
+  display: block;
+  z-index: 41;
+  width: 80rem;
+}
+
+.vl-modal {
+  .vl-modal__backdrop {
+    z-index: 40;
+  }
+  tbody {
+    background-color:white;
+  }
+}
