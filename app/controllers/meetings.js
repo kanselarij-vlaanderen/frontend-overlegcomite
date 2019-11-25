@@ -12,10 +12,6 @@ export default Controller.extend(DefaultQueryParamsMixin, {
   actions: {
     updateModel() {
       this.get("model").update();
-    },
-
-    selectMeeting(meeting) {
-      this.transitionToRoute("meetings.meeting", meeting);
     }
   }
 }

@@ -58,14 +58,14 @@
           </div>
           <div class="vl-u-spacer-extended-bottom-l">
             {{!-- TODO: data-table style doesn't render properly. Has something to do with ember-data-table vs ember-vo-webuniversum-data-table? --}}
+            {{!-- TODO: implement "onClickRow" handler, making sure it *doesn't* fire when the link button is clicked --}}
             {{#data-table
               content=model
               class="vl-data-table vl-data-table--zebra vl-data-table--align-middle"
               page=page
               size=size
               sort=sort
-              isLoading=isLoadingModel
-              onClickRow=(action "selectMeeting") as |table|
+              isLoading=isLoadingModel as |table|
             }}
               {{#table.content as |c|}}
                 {{#c.header}}
