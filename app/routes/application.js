@@ -37,7 +37,12 @@ export default Route.extend(ApplicationRouteMixin, {
   },
 
   _loadCurrentSession() {
-    return this.currentSession.load().catch((e) => {
+    return this.currentSession.load().then(() => {
+      if (this.currentSession.session.isAuthenticated &&
+        !this.currentSession.canAccessApplication) {
+        this.transitionTo('rightless-user');
+      }
+    }).catch((e) => {
       warn(e, { id: 'session-load-failure' });
       this.session.invalidate();
     });

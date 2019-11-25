@@ -2,6 +2,7 @@ import Service from '@ember/service';
 import { inject as service } from '@ember/service';
 import { get, computed } from '@ember/object';
 import { task, waitForProperty } from 'ember-concurrency';
+import rolesByGroupId from 'frontend-overlegcomite/config/roles';
 
 export default Service.extend({
   session: service('session'),
@@ -12,12 +13,12 @@ export default Service.extend({
       const account = await this.store.find('account', get(session, 'data.authenticated.relationships.account.data.id'));
       const user = await account.get('user');
       // TODO: group management
-      // const group = await this.store.find('bestuurseenheid', get(session, 'data.authenticated.relationships.group.data.id'));
+      const group = await this.store.find('account-group', get(session, 'data.authenticated.relationships.group.data.id'));
       const roles = await get(session, 'data.authenticated.data.attributes.roles');
       this.set('_account', account);
       this.set('_user', user);
       this.set('_roles', roles);
-      // this.set('_group', group);
+      this.set('_group', group);
 
       // The naming is off, but account,user,roles are taken for the
       // promises in a currently public API.
@@ -28,12 +29,14 @@ export default Service.extend({
         // groupContent: group
       });
 
-      this.set('canAccessAgenda', true); // TODO: Should be based on roles through canAccess()
-      this.set('canEditAgenda', true);
+      this.set('canAccessApplication', this.canAccess('canAccessApplication')); // TODO: Should be based on roles through canAccess()
+      this.set('canEditAgenda',  this.canAccess('canEditAgenda'));
+      this.set('canAccessSettings',  this.canAccess('canAccessSettings'));
     }
   },
   canAccess(role) {
-    return this._roles.includes(role);
+    // TODO: Should be based on roles acquired trough openId
+    return rolesByGroupId[this.get('_group.id')][role];
   },
   // constructs a task which resolves in the promise
   makePropertyPromise: task(function * (property) {

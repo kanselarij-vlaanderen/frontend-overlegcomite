@@ -3,12 +3,14 @@
     <div class="vlc-navbar vlc-navbar--bordered-bottom vlc-navbar--no-padding vlc-navbar--bg-alt vlc-navbar--auto" id="c-main-nav">
       <div class="vlc-toolbar vlc-toolbar--auto">
         <div class="vlc-toolbar__left">
-          <div class="vlc-toolbar__item">
-            <Wu::Tabs class="vl-u-reset-margin" as |tabs|>
-              <tabs.tab @route="meetings" @current-when="meetings agendaitems">Vergaderingen</tabs.tab>
-              {{!-- Hide until implemented <tabs.tab @route="cases">Dossiers</tabs.tab> --}}
-            </Wu::Tabs>
-          </div>
+          {{#if this.currentSession.canAccessApplication}}
+            <div class="vlc-toolbar__item">
+              <Wu::Tabs class="vl-u-reset-margin" as |tabs|>
+                <tabs.tab @route="meetings" @current-when="meetings agendaitems">Vergaderingen</tabs.tab>
+                {{!-- Hide until implemented <tabs.tab @route="cases">Dossiers</tabs.tab> --}}
+              </Wu::Tabs>
+            </div>
+          {{/if}}
         </div>
         <div class="vlc-toolbar__right">
           <Kaleidos::User @name="Test" @logoutRoute="index" />
