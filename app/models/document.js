@@ -35,7 +35,7 @@ export default Model.extend({
   },
   loadRelations: function() {
     return this.store.findRecord('document', this.get('id'), {
-      include: 'document-versions,document-versions.access-level,document-versions.file',
+      include: 'type,document-versions,document-versions.access-level,document-versions.file',
       reload: true
     });
   }
