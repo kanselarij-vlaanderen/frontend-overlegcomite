@@ -17,6 +17,10 @@
 
 @import 'custom-application/power-select4';
 
+// Change non-interactive icons from blue to grey
+.vlc-document-card-item__icon {
+  color: #666;
+}
 
 .ember-attacher-show {
   @extend .js-vl-popover--open;
