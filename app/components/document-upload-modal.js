@@ -27,6 +27,7 @@ export default class extends Component {
     const document = this.store.createRecord('document', {
       created: creationTime,
       type: this.args.defaultDocumentType,
+      name: file.filenameWithoutExtension
     });
     this.store.createRecord('document-version', {
       created: creationTime,
