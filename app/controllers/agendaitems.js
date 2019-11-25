@@ -61,14 +61,14 @@ export default Controller.extend({
   }),
 
   actions: {
-    releaseAgenda(meeting) {
-      meeting.set('agendaReleaseTime', moment());
-      meeting.save();
+    releaseAgenda() {
+      this.meeting.set('agendaReleaseTime', moment().toDate());
+      this.meeting.save();
     },
 
-    releaseNotifications(meeting) {
-      meeting.set('notificationReleaseTime', moment());
-      meeting.save();
+    releaseNotifications() {
+      this.meeting.set('notificationReleaseTime', moment().toDate());
+      this.meeting.save();
   },
 
     selectAgendaItem(agendaitem) {
