@@ -10,6 +10,8 @@ export default class extends Component {
   @tracked documents = A([]);
   @tracked documentTypeOptions = A([]);
 
+  @tracked loading = false;
+
   constructor() {
     super(...arguments);
     if (this.args.editable !== undefined) {
@@ -49,7 +51,7 @@ export default class extends Component {
 
   @action
   async save(documents) {
-    this.isLoading = true;
+    this.loading = true;
     const savingDocuments = documents.map(async (document) => {
       await document.save();
       await document.documentVersions.firstObject.save();
@@ -58,14 +60,13 @@ export default class extends Component {
     const savedDocuments = await Promise.all(savingDocuments);
     if (this.args.didSave) {
       await this.args.didSave(savedDocuments);
-      this.isLoading = false;
     }
+    this.loading = false;
   }
 
   @action
   async cancel() {
     const documents = this.documents;
-    this.isLoading = true;
     const deletingDocuments = documents.map(async (document) => {
       const file = await document.documentVersions.firstObject.file;
       await file.destroyRecord(); // File has already been persisted, others haven't

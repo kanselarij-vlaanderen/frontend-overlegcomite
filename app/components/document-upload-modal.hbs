@@ -2,6 +2,7 @@
 @title="{{if @allowMultiple "Documenten" "Document"}} opladen"
 @buttonText="Aanmaken"
 @disabled={{not this.documents}}
+@loading={{or @loading this.loading}}
 @onClose={{action this.cancel}}
 @onCancel={{action this.cancel}}
 @onSave={{action this.save this.documents}}

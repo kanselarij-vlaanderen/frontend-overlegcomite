@@ -109,6 +109,7 @@
 {{#if this.addingDocuments}}
   <DocumentUploadModal
     @allowMultiple={{true}}
+    @loading={{this.loading}}
     @didCancel={{fn (mut this.addingDocuments) false}}
     @didSave={{action "addDocuments"}}
   />
@@ -116,6 +117,7 @@
 {{#if this.addingNotification}}
   <DocumentUploadModal
     @allowMultiple={{false}}
+    @loading={{this.loading}}
     @defaultDocumentType={{this.notificationType}}
     @didCancel={{fn (mut this.addingNotification) false}}
     @didSave={{action "addNotification"}}
