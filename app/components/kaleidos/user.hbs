@@ -1,5 +1,7 @@
 <div class="vlc-user">
-  <div class="vlc-user__username">{{@name}}</div>
+  <div class="vlc-user__username">
+    {{@userName}} ({{@groupName}})
+  </div>
   {{!-- Also works when logged in with mock-login. Both call session.invalidate() --}}
   {{#acmidm-logout tagName="a" class="vlc-user__action"}}
     Afmelden

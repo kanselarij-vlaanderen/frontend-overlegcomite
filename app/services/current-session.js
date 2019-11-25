@@ -26,7 +26,7 @@ export default Service.extend({
         accountContent: account,
         userContent: user,
         rolesContent: roles,
-        // groupContent: group
+        groupContent: group
       });
 
       this.set('canAccessApplication', this.canAccess('canAccessApplication')); // TODO: Should be based on roles through canAccess()
