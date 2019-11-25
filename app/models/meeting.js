@@ -9,6 +9,7 @@ export default Model.extend({
 
   agendaItems: hasMany('agendaitem'),
   agendaItemSortProperties: ['priority:asc', 'subPriority:asc'], // eslint-disable-line ember/avoid-leaking-state-in-ember-objects
-  sortedAgendaItems: sort('agendaItems', 'agendaItemSortProperties')
+  sortedAgendaItems: sort('agendaItems', 'agendaItemSortProperties'),
 
+  documents: hasMany('document')
 });

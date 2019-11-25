@@ -8,7 +8,10 @@
         {{#if model.documents}}
           {{#each model.documents as |document|}}
             <div class="vl-u-spacer-extended-bottom-s">
-              {{!-- Documents will go here --}}
+              <DocumentCard
+                @document={{document}}
+                @editable={{currentSession.canEditAgenda}}
+              />
             </div>
           {{/each}}
         {{else}}
@@ -18,7 +21,10 @@
         {{/if}}
       </div>
       {{#if currentSession.canEditAgenda}}
-        <button class="vl-button vl-button--tertiary vl-button--narrow vl-button--icon-before">
+        <button
+          class="vl-button vl-button--tertiary vl-button--narrow vl-button--icon-before"
+        {{action (mut this.addingDocuments) true}}
+          >
           <i class="vl-button__icon vl-button__icon--before vl-vi vl-vi-add" aria-hidden="true"></i>
           Document toevoegen
         </button>
@@ -26,3 +32,12 @@
     </div>
   </div>
 </div>
+{{#if this.addingDocuments}}
+  <DocumentUploadModal
+    @allowMultiple={{true}}
+    @loading={{this.loading}}
+    @defaultDocumentType={{this.defaultDocumentType}}
+    @didCancel={{fn (mut this.addingDocuments) false}}
+    @didSave={{action "addDocuments"}}
+  />
+{{/if}}

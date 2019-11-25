@@ -32,6 +32,8 @@
             <PowerSelect
               @options={{this.documentTypeOptions}}
               @selected={{document.type}}
+              @allowClear={{true}}
+              @placeholder="Geen documenttype"
               @onChange={{fn (mut document.type)}} as |type|
               >
               {{type.label}}
