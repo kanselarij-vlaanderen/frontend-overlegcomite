@@ -116,6 +116,7 @@
 {{#if this.addingNotification}}
   <DocumentUploadModal
     @allowMultiple={{false}}
+    @defaultDocumentType={{this.notificationType}}
     @didCancel={{fn (mut this.addingNotification) false}}
     @didSave={{action "addNotification"}}
   />
