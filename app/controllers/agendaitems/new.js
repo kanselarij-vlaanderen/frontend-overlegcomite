@@ -42,7 +42,7 @@ export default AgendaItemEditController.extend({
       }
       this.get('model').rollbackAttributes();
       this.parentController.send('updateModel');
-      this.transitionToRoute('agendaitems.agendaitem', this.get('model'));
+      history.back()
     }
   }
 });
