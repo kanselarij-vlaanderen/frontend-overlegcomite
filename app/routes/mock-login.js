@@ -10,7 +10,6 @@ export default Route.extend({
   session: service(),
   store: service(),
   beforeModel() {
-    console.log('Authenticated?', this.session.isAuthenticated, this.session);
     if (this.session.isAuthenticated)
       this.transitionTo('index');
   },

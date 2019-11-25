@@ -1,6 +1,5 @@
 import Controller from '@ember/controller';
 import { inject as controller } from '@ember/controller';
-import moment from 'moment';
 import { computed } from '@ember/object';
 
 
@@ -25,9 +24,8 @@ export default Controller.extend({
       this.set('isLoading', true);
       this.model
         .save()
-        .catch((error) => {
-          console.error('Failed to save meeting', error);
-          // Handle
+        .catch(() => {
+          // TODO: Handle error
         })
         .finally(() => {
           this.set('isLoading', false);
