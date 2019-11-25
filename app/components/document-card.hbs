@@ -6,6 +6,8 @@
       @time={{this.selectedVersion.created}}
       @type={{this.document.type.label}}
       @accessLevel={{this.selectedVersion.accessLevel}}
+      @accessLevelStyle={{get-access-level-style this.selectedVersion.accessLevel}}
+      @onSaveAccessLevel={{fn this.saveAccessLevel this.selectedVersion}}
       @downloadLink={{this.selectedVersion.downloadLink}}
       @onView={{fn this.view this.selectedVersion}}
       @viewable={{eq this.selectedVersion.file.extension "pdf"}}
@@ -23,6 +25,8 @@
       @time={{this.selectedVersion.created}}
       @type={{this.document.type.label}}
       @accessLevel={{this.selectedVersion.accessLevel}}
+      @accessLevelStyle={{get-access-level-style this.selectedVersion.accessLevel}}
+      @onSaveAccessLevel={{fn this.saveAccessLevel this.selectedVersion}}
       @downloadLink={{this.selectedVersion.downloadLink}}
       @onView={{fn this.view this.selectedVersion}}
       @viewable={{eq this.selectedVersion.file.extension "pdf"}}
@@ -39,6 +43,8 @@
           @locked={{version.confidential}}
           @time={{version.file.created}}
           @accessLevel={{version.accessLevel}}
+          @accessLevelStyle={{get-access-level-style version.accessLevel}}
+          @onSaveAccessLevel={{fn this.saveAccessLevel version}}
           @downloadLink={{version.downloadLink}}
           @onView={{fn this.view version}}
           @viewable={{eq this.selectedVersion.file.extension "pdf"}}

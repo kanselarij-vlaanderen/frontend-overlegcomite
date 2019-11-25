@@ -3,10 +3,13 @@
     {{#if this.editable}}
       <Kaleidos::DocumentCard::EditableAccessLevelPill
         @selectedLevel={{@accessLevel}}
-        @options={{@accessLevelOptions}}/>
+        @style={{@accessLevelStyle}}
+        @options={{@accessLevelOptions}}
+        @onSave={{action @onSaveAccessLevel}}
+      />
     {{else}}
       <WuExt::Pill
-        @style={{if @selected @style}}
+        @style={{@accessLevelStyle}}
       >
         {{#if @accessLevel}}
           {{get @accessLevel "label"}}
@@ -26,7 +29,9 @@
     <i class="vl-button__icon vl-vi {{if @locked "vl-vi-lock vl-u-text--error" "vl-vi-lock-unlock"}}" aria-hidden="true" aria-active="true"></i>
     <span class="vl-u-visually-hidden">Wissel openbaarheid</span>
   </button>
-  {{#if this.viewable}}
+</div>
+{{#if this.viewable}}
+  <div class="vlc-toolbar__item">
     <button
       class="vl-button vl-button--link vl-button--icon"
       {{on "click" this.view}}
@@ -34,6 +39,6 @@
       <i class="vl-vi vl-vi-content-book vl-button__icon" aria-hidden="true"></i>
       <span class="vl-u-visually-hidden">Lees document</span>
     </button>
-  {{/if}}
-</div>
+  </div>
+{{/if}}
 {{yield}}

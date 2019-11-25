@@ -81,6 +81,12 @@ export default class extends Component {
   }
 
   @action
+  saveAccessLevel(documentVersion, accessLevel) {
+    documentVersion.accessLevel = accessLevel;
+    return documentVersion.save();
+  }
+
+  @action
   view(documentVersion) {
     const url = this.router.urlFor('view-document', documentVersion);
     window.open(url, '_blank');

@@ -1,16 +1,22 @@
 {{#if this.editing}}
   <div class="vlc-button-toolbar">
-    <PowerSelect
-    @options={{@options}}
-    @selected={{this.selectedLevel}}
-    @tagName="div"
-    @onChange={{action (mut this.selectedLevel)}} as |level|
-    >
-      {{get level this.labelKey}}
-    </PowerSelect>
+    <div class="vl-form__input" style="width:200px">
+      <PowerSelect
+        @options={{@options}}
+        @selected={{this.selectedLevel}}
+        @tagName="div"
+        @allowClear={{true}}
+        @placeholder="Geen toegangsniveau"
+        @onChange={{action (mut this.selectedLevel)}} as |level|
+        >
+        {{get level this.labelKey}}
+      </PowerSelect>
+    </div>
+
     <button
-      class="vl-button vl-button--link vl-button--icon js-vl-popover__toggle"
-      {{action "save"}}
+      class="vl-button vl-button--link vl-button--icon js-vl-popover__toggle{{if this.loading " vl-button--loading"}}"
+      disabled={{this.loading}}
+      {{on "click" this.save}}
     >
       <i class="vl-vi vl-vi-save vl-button__icon" aria-hidden="true"></i>
       <span class="vl-u-visually-hidden">
@@ -18,8 +24,9 @@
       </span>
     </button>
     <button
-      class="vl-button vl-button--link vl-button--icon js-vl-popover__toggle"
-      {{action "cancel"}}
+      class="vl-button vl-button--link vl-button--icon js-vl-popover__toggle{{if this.loading " vl-button--loading"}}"
+      disabled={{this.loading}}
+      {{on "click" this.cancel}}
     >
       <i class="vl-vi vl-vi-cross vl-button__icon" aria-hidden="true"></i>
       <span class="vl-u-visually-hidden">
@@ -30,11 +37,11 @@
 {{else}}
   <Wu::Pill
     @clickable={{true}}
-    @style={{if @selected @style}}
+    @style={{if this.selectedLevel @style}}
     @onclick={{action this.toggleEditing}}
   >
-    {{#if @selected}}
-      {{this.label}}
+    {{#if this.selectedLevel}}
+      {{get this.selectedLevel this.labelKey}}
     {{else}}
       Geen toegangsniveau
     {{/if}}

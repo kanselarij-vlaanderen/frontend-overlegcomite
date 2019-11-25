@@ -6,6 +6,7 @@ import { action } from '@ember/object';
 export default class extends Component {
   @tracked selectedLevel;
 
+  @tracked loading = false;
   @tracked editing = false;
   @tracked labelKey;
 
@@ -24,6 +25,7 @@ export default class extends Component {
     this.editing = !this.editing;
   }
 
+  @action
   cancel() {
     if (this.args.onCancel) {
       this.args.onCancel();
@@ -31,9 +33,13 @@ export default class extends Component {
     this.editing = false;
   }
 
-  save() {
+  @action
+  async save() {
     if (this.args.onSave) {
-      this.args.onSave();
+      this.loading = true;
+      await this.args.onSave(this.selectedLevel);
+      this.loading = false;
+      this.editing = false;
     }
   }
 }
