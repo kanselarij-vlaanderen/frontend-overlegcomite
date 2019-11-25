@@ -26,7 +26,7 @@ export default class extends Component {
       this.document = document;
       this.loading = false;
     })
-    this.store.findAll('access-level').then((als) => this.accessLevelOptions = als);
+    this.store.findAll('access-level').then((als) => this.accessLevelOptions = als.toArray()); // ember-power-select 4.0.0-beta.3 only supports POJ Arrays, see https://github.com/cibernox/ember-power-select/issues/1296
   }
 
   get selectedVersion() {
