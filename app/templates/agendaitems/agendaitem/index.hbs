@@ -36,27 +36,35 @@
             text="Notificatie laden"
           }}
         {{else if model.notification}}
-          <Kaleidos::DocumentCard/>
+          {{!-- TODO: we get proxy "content" of notification here.
+                Because of this, the document card internally re-fetches the document and its relations every time
+          --}}
+          <DocumentCard
+            @document={{get model.notification "content"}}
+            @editable={{currentSession.canEditAgenda}}
+          />
         {{else}}
           <Wu::Alert>Nog geen notificatie beschikbaar</Wu::Alert>
         {{/if}}
       </div>
       <div class="vl-u-spacer-extended-bottom-s">
         {{#if currentSession.canEditAgenda}}
-          <button
-            class={{concat
-              "vl-button vl-button--tertiary vl-button--narrow vl-button--icon-before"
-              (if model.notification " vl-button--disabled" "")
-            }}
-            disabled={{if model.notification true null}}
-            {{action "showAddNotification"}}
-          >
-            <i
-              aria-hidden="true"
-              class="vl-button__icon vl-button__icon--before vl-vi vl-vi-add"
-            ></i>
-            Notificatie toevoegen
-          </button>
+          {{#if (not model.notification)}}
+            <button
+              class={{concat
+                "vl-button vl-button--tertiary vl-button--narrow vl-button--icon-before"
+                (if model.notification " vl-button--disabled" "")
+              }}
+              disabled={{if model.notification true null}}
+              {{action (mut this.addingNotification) true}}
+            >
+              <i
+                aria-hidden="true"
+                class="vl-button__icon vl-button__icon--before vl-vi vl-vi-add"
+              ></i>
+              Notificatie toevoegen
+            </button>
+          {{/if}}
         {{/if}}
       </div>
     </div>
@@ -74,7 +82,7 @@
         <div class="vl-u-spacer-extended-bottom-s">
           <DocumentCard
             @document={{document}}
-            @editable={{true}}
+            @editable={{currentSession.canEditAgenda}}
             @didDeleteDocument={{action "deleteDocument"}}
           />
         </div>
@@ -87,7 +95,7 @@
     {{#if currentSession.canEditAgenda}}
       <button
         class="vl-button vl-button--tertiary vl-button--narrow vl-button--icon-before"
-        {{action "toggleAddingDocuments"}}
+        {{action (mut this.addingDocuments) true}}
       >
         <i
           aria-hidden="true"
@@ -101,7 +109,14 @@
 {{#if this.addingDocuments}}
   <DocumentUploadModal
     @allowMultiple={{true}}
-    @didCancel={{action "toggleAddingDocuments"}}
+    @didCancel={{fn (mut this.addingDocuments) false}}
     @didSave={{action "addDocuments"}}
+  />
+{{/if}}
+{{#if this.addingNotification}}
+  <DocumentUploadModal
+    @allowMultiple={{false}}
+    @didCancel={{fn (mut this.addingNotification) false}}
+    @didSave={{action "addNotification"}}
   />
 {{/if}}

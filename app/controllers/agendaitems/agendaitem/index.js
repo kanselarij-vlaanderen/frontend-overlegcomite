@@ -3,17 +3,20 @@ import { inject as service } from '@ember/service';
 
 export default Controller.extend({
   addingDocuments: false,
+  addingNotification: false,
   currentSession: service(),
 
   actions: {
-    toggleAddingDocuments() {
-      this.toggleProperty('addingDocuments');
-    },
-
     async addDocuments(documents) {
       this.get('model.documents').pushObjects(documents);
       await this.get('model').save();
       this.set('addingDocuments', false);
+    },
+
+    async addNotification([document]) {
+      this.set('model.notification', document);
+      await this.get('model').save();
+      this.set('addingNotification', false);
     },
 
     async deleteDocument(document) {
