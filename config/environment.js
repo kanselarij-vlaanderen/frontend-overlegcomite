@@ -54,6 +54,9 @@ module.exports = function(environment) {
 
   if (environment === 'production') {
     // here you can enable a production-specific feature
+    if (!process.env.DEPLOY_ENV) {
+      ENV.APP.defaultLoginRouteName = 'mock-login';
+    }
   }
 
   return ENV;
