@@ -1,19 +1,21 @@
-<div class="vl-u-spacer--small">
-  <div class="vl-action-group vl-action-group--align-right">
-    <LinkTo
-      @route="agendaitems.agendaitem.edit"
-      @tagName="button"
-      class="vl-button vl-button--tertiary vl-button--narrow">
-      Wijzigen
-    </LinkTo>
-    <LinkTo
-      @route="agendaitems.agendaitem.delete"
-      @tagName="button"
-      class="vl-button vl-button--tertiary vl-button--narrow">
-      Verwijderen
-    </LinkTo>
+{{#if currentSession.canEditAgenda}}
+  <div class="vl-u-spacer--small">
+    <div class="vl-action-group vl-action-group--align-right">
+      <LinkTo
+        @route="agendaitems.agendaitem.edit"
+        @tagName="button"
+        class="vl-button vl-button--tertiary vl-button--narrow">
+        Wijzigen
+      </LinkTo>
+      <LinkTo
+        @route="agendaitems.agendaitem.delete"
+        @tagName="button"
+        class="vl-button vl-button--tertiary vl-button--narrow">
+        Verwijderen
+      </LinkTo>
+    </div>
   </div>
-</div>
+{{/if}}
 <div class="vl-u-spacer--small">
   <div class="vl-u-spacer-extended-bottom-l">
     <div class="vl-u-spacer-extended-bottom-l">
