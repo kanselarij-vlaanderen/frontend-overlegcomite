@@ -2,7 +2,7 @@
   <div class="vl-grid vl-grid--is-stacked">
     <div class="vl-col--6-12">
       <div class="vlc-input-field-block">
-        {{imported/web-components/vl-form-label value="prioriteit"}}
+        {{imported/web-components/vl-form-label value="Volgnummer"}}
         <div class="vl-form__input">
           <Input class="vl-input-field vl-input-field--block" @type="number" @value={{this.agendaItem.priority}}/>
         </div>
@@ -10,18 +10,18 @@
     </div>
     <div class="vl-col--6-12">
       <div class="vlc-input-field-block">
-        {{imported/web-components/vl-form-label value="sub-prioriteit"}}
+        {{imported/web-components/vl-form-label value="Onderdeel"}}
         <div class="vl-form__input">
-          <Input class="vl-input-field vl-input-field--block" @value={{this.agendaItem.subPriority}}/>
+          <Input class="vl-input-field vl-input-field--block" placeholder="bv. b" @value={{this.agendaItem.subPriority}}/>
         </div>
       </div>
     </div>
   </div>
 </div>
 <div class="vlc-input-field-block">
-  {{imported/web-components/vl-form-label value="Dossier"}}
+  {{imported/web-components/vl-form-label value="Dossiernummer"}}
   <div class="vl-form__input">
-    <Input class="vl-input-field vl-input-field--block" value={{this.caseIdentifier}} {{on "input" this.updateCase}}/>
+    <Input class="vl-input-field vl-input-field--block" placeholder="bv. 2015C80030.002" value={{this.caseIdentifier}} {{on "input" this.updateCase}}/>
   </div>
 </div>
 <div class="vlc-input-field-block">
@@ -35,7 +35,7 @@
   </PowerSelectMultiple>
 </div>
 <div class="vlc-input-field-block">
-  {{imported/web-components/vl-form-label value="onderwerp"}}
+  {{imported/web-components/vl-form-label value="Titel"}}
   <Textarea
     class="vl-textarea vl-textarea--block"
     @rows="3"
