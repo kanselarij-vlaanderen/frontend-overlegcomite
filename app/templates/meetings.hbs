@@ -28,71 +28,69 @@
   </div>
 </div>
 {{#if (gt model.length 0)}}
-  <div class="vlc-scroll-wrapper">
-    <div class="vlc-scroll-wrapper__body">
-      <div class="vl-u-spacer-extended-l">
-        <div class="vl-u-spacer--large">
-          <div class="vl-u-display-flex vl-u-flex-space-between">
-            <h2 class="vl-title vl-title--h3">
-              Vergadering
-            </h2>
-            <div class="vl-u-spacer-extended-bottom-s">
+  <div class="vlc-scroll-wrapper__body">
+    <div class="vl-u-spacer-extended-l">
+      <div class="vl-u-spacer--large">
+        <div class="vl-u-display-flex vl-u-flex-space-between">
+          <h2 class="vl-title vl-title--h3">
+            Vergadering
+          </h2>
+          <div class="vl-u-spacer-extended-bottom-s">
+            <div
+              class="vlc-input-field-group-wrapper vlc-input-field-group-wrapper--inline"
+            >
               <div
-                class="vlc-input-field-group-wrapper vlc-input-field-group-wrapper--inline"
+                class="vlc-input-field-group vlc-input-field-group--gmeeting"
               >
-                <div
-                  class="vlc-input-field-group vlc-input-field-group--gmeeting"
+                <input class="vl-input-field" type="search">
+              </div>
+              <div class="vlc-input-field-group">
+                <button
+                  class="vl-button vl-button--secondary vl-button--icon"
+                  type="submit"
                 >
-                  <input class="vl-input-field" type="search">
-                </div>
-                <div class="vlc-input-field-group">
-                  <button
-                    class="vl-button vl-button--secondary vl-button--icon"
-                    type="submit"
-                  >
-                    <i class="vl-vi vl-vi-magnifier"></i>
-                  </button>
-                </div>
+                  <i class="vl-vi vl-vi-magnifier"></i>
+                </button>
               </div>
             </div>
           </div>
-          <div class="vl-u-spacer-extended-bottom-l">
-            {{!-- TODO: data-table style doesn't render properly. Has something to do with ember-data-table vs ember-vo-webuniversum-data-table? --}}
-            {{!-- TODO: implement "onClickRow" handler, making sure it *doesn't* fire when the link button is clicked --}}
-            {{#data-table
-              content=model
-              class="vl-data-table vl-data-table--zebra vl-data-table--align-middle"
-              page=page
-              size=size
-              sort=sort
-              isLoading=isLoadingModel as |table|
-            }}
-              {{#table.content as |c|}}
-                {{#c.header}}
-                  {{th-sortable
-                    class="vl-data-table-col-11 vl-data-table__header-title"
-                    currentSorting=sort
-                    field="startedAt"
-                    label="Vergadering"
-                  }}
-                  <th class="vl-data-table-col-1"></th>
-                {{/c.header}}
-                {{#c.body as |meeting|}}
-                  <td>
-                    {{moment-format meeting.startedAt}}
-                  </td>
-                  <td class="vl-u-align-center">
-                    <LinkTo @route="agendaitems"
-                            @model={{meeting.id}}
-                            class="vl-button vl-button--link vl-button--icon"
-                    >
-                      <i class="vl-button__icon vl-vi vl-vi-nav-right"></i>
-                    </LinkTo>
-                  </td>
-                {{/c.body}}
-              {{/table.content}}
-            {{/data-table}}
-          </div>
+        </div>
+        <div class="vl-u-spacer-extended-bottom-l">
+          {{!-- TODO: data-table style doesn't render properly. Has something to do with ember-data-table vs ember-vo-webuniversum-data-table? --}}
+          {{!-- TODO: implement "onClickRow" handler, making sure it *doesn't* fire when the link button is clicked --}}
+          {{#data-table
+            content=model
+            class="vl-data-table vl-data-table--zebra vl-data-table--align-middle"
+            page=page
+            size=size
+            sort=sort
+            isLoading=isLoadingModel as |table|
+          }}
+            {{#table.content as |c|}}
+              {{#c.header}}
+                {{th-sortable
+                  class="vl-data-table-col-11 vl-data-table__header-title"
+                  currentSorting=sort
+                  field="startedAt"
+                  label="Vergadering"
+                }}
+                <th class="vl-data-table-col-1"></th>
+              {{/c.header}}
+              {{#c.body as |meeting|}}
+                <td>
+                  {{moment-format meeting.startedAt}}
+                </td>
+                <td class="vl-u-align-center">
+                  <LinkTo @route="agendaitems"
+                          @model={{meeting.id}}
+                          class="vl-button vl-button--link vl-button--icon"
+                  >
+                    <i class="vl-button__icon vl-vi vl-vi-nav-right"></i>
+                  </LinkTo>
+                </td>
+              {{/c.body}}
+            {{/table.content}}
+          {{/data-table}}
         </div>
       </div>
     </div>
