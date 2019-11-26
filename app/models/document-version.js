@@ -24,6 +24,6 @@ export default Model.extend({
   }),
 
   downloadLink: computed('file.downloadLink', 'downloadFilename', function() {
-    return `${this.get('file.downloadLink')}&name=${this.get('downloadFilename')}`;
+    return `${this.get('file.downloadLink')}?name=${this.get('downloadFilename')}`;
   })
 });
