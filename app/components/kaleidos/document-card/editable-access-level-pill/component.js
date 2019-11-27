@@ -27,6 +27,7 @@ export default class extends Component {
 
   @action
   cancel() {
+    this.selectedLevel = this.args.selectedLevel;
     if (this.args.onCancel) {
       this.args.onCancel();
     }
