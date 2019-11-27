@@ -47,7 +47,7 @@
           @onSaveAccessLevel={{fn this.saveAccessLevel version}}
           @downloadLink={{version.downloadLink}}
           @onView={{fn this.view version}}
-          @viewable={{eq this.selectedVersion.file.extension "pdf"}}
+          @viewable={{eq version.file.extension "pdf"}}
           @onToggleLock={{fn this.toggleAccessLevel version}}
           @selected={{eq version this.selectedVersion}}
           @onDeleteVersion={{fn this.deleteVersion version}}
