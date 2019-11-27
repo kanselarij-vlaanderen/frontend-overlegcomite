@@ -46,12 +46,14 @@ export default class extends Component {
   @action
   async deleteDocument(document) {
     // Cascade delete versions
+    this.loading = true;
     const versionDeletes = document.documentVersions.map(async (documentVersion) => {
       await documentVersion.get('file').destroyRecord();
       return await documentVersion.destroyRecord();
     });
     await Promise.all(versionDeletes);
-    return document.destroyRecord();
+    await document.destroyRecord();
+    this.loading = false;
   }
 
   @action
@@ -59,8 +61,9 @@ export default class extends Component {
     await documentVersion.get('file').destroyRecord();
     await documentVersion.destroyRecord();
     if (this.document.documentVersions.length === 0) {
-      this.document.destroyRecord();
-      this.didDeleteDocument(this.document);
+      this.loading = true;
+      await this.document.destroyRecord();
+      this.loading = false;
     }
   }
 
