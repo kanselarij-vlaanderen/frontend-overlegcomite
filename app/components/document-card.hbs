@@ -37,7 +37,7 @@
       @accessLevelOptions={{this.accessLevelOptions}}
       @editable={{@editable}}
       as |VersionCard|>
-      {{#each this.document.sortedDocumentVersions as |version|}}
+      {{#each this.document.reverseSortedDocumentVersions as |version|}}
         <VersionCard
           @name={{version.name}}
           @locked={{version.confidential}}
