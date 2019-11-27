@@ -27,6 +27,15 @@ module.exports = function(environment) {
       defaultLoginRouteName: 'login'
       // Here you can pass flags/options to your application instance
       // when it is created
+    },
+
+    torii: {
+      disableRedirectInitializer: true,
+      providers: {
+        'acmidm-oauth2': {
+          scope: 'vo profile openid dkboverlegcomite'
+        }
+      }
     }
   };
 
@@ -53,9 +62,27 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-    // here you can enable a production-specific feature
     if (!process.env.DEPLOY_ENV) {
       ENV.APP.defaultLoginRouteName = 'mock-login';
+
+      ENV['torii']['providers']['acmidm-oauth2']['apiKey'] = '';
+      ENV['torii']['providers']['acmidm-oauth2']['baseUrl'] = 'https://authenticatie-ti.vlaanderen.be/op/v1/auth';
+      ENV['torii']['providers']['acmidm-oauth2']['redirectUri'] = 'https://overlegcomite-dev.vlaanderen.be/authorization/callback';
+      ENV['torii']['providers']['acmidm-oauth2']['logoutUrl'] = 'https://authenticatie-ti.vlaanderen.be/op/v1/logout';
+    }
+
+    if (process.env.DEPLOY_ENV === 'test') {
+      ENV['torii']['providers']['acmidm-oauth2']['apiKey'] = '';
+      ENV['torii']['providers']['acmidm-oauth2']['baseUrl'] = 'https://authenticatie-ti.vlaanderen.be/op/v1/auth';
+      ENV['torii']['providers']['acmidm-oauth2']['redirectUri'] = 'https://overlegcomite-test.vlaanderen.be/authorization/callback';
+      ENV['torii']['providers']['acmidm-oauth2']['logoutUrl'] = 'https://authenticatie-ti.vlaanderen.be/op/v1/logout';
+    }
+
+    if (process.env.DEPLOY_ENV === 'production') {
+      ENV['torii']['providers']['acmidm-oauth2']['apiKey'] = '';
+      ENV['torii']['providers']['acmidm-oauth2']['baseUrl'] = 'https://authenticatie.vlaanderen.be/op/v1/auth';
+      ENV['torii']['providers']['acmidm-oauth2']['redirectUri'] = 'https://overlegcomite.vlaanderen.be/authorization/callback';
+      ENV['torii']['providers']['acmidm-oauth2']['logoutUrl'] = 'https://authenticatie.vlaanderen.be/op/v1/logout';
     }
   }
 

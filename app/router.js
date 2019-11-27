@@ -35,7 +35,7 @@ Router.map(function() {
     this.route('mock-login');
   }
   this.route('rightless-user', { path: '/geen-gebruikersrechten'});
-  this.route('login');
+  this.route('login', { path: '/aanmelden'});
 
   this.route('route-not-found', {
     path: '/*wildcard'
