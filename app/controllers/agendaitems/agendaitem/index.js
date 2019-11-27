@@ -1,10 +1,13 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
 import { NOTIFICATION_TYPE_ID } from 'frontend-overlegcomite/config/constants';
+import { alias } from '@ember/object/computed';
 
 export default Controller.extend({
   addingDocuments: false,
   addingNotification: false,
+
+  meeting: alias('model.meeting'),
 
   loading: false,
 

@@ -7,8 +7,8 @@ export default Model.extend({
   subject: attr('string'),
   distributionDate: attr('date'),
 
-  meeting: belongsTo('meeting', { inverse: null }),
-  case: belongsTo('case', { inverse: null }),
+  meeting: belongsTo('meeting'),
+  case: belongsTo('case'),
 
   submitters: hasMany('government-body'),
   meetingRecord: belongsTo('file'),

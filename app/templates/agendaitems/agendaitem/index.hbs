@@ -112,6 +112,7 @@
   <DocumentUploadModal
     @allowMultiple={{true}}
     @loading={{this.loading}}
+    @defaultDocumentName={{format-item-document-name meeting.startedAt model.priority}}
     @didCancel={{fn (mut this.addingDocuments) false}}
     @didSave={{action "addDocuments"}}
   />
@@ -120,6 +121,7 @@
   <DocumentUploadModal
     @allowMultiple={{false}}
     @loading={{this.loading}}
+    @defaultDocumentName={{format-notification-document-name meeting.startedAt model.priority}}
     @defaultDocumentType={{this.notificationType}}
     @didCancel={{fn (mut this.addingNotification) false}}
     @didSave={{action "addNotification"}}
