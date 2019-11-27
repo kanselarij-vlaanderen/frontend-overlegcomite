@@ -72,10 +72,12 @@ export default class extends Component {
     this.addingVersion = false;
     this.loading = true;
     const creationTime = moment().toDate();
+    const lastVersion = this.document.sortedDocumentVersions.lastObject;
     const version = this.store.createRecord('document-version', {
       created: creationTime,
-      accessLevel: this.args.defaultAccessLevel,
-      versionNumber: this.document.sortedDocumentVersions.lastObject.versionNumber + 1,
+      confidential: lastVersion.confidential,
+      accessLevel: lastVersion.accessLevel,
+      versionNumber: lastVersion.versionNumber + 1,
       file,
       document: this.document
     });
