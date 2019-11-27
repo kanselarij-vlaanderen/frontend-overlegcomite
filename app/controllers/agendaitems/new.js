@@ -10,7 +10,8 @@ export default AgendaItemEditController.extend({
   init() {
     this._super(...arguments);
     const governmentBodies = this.store.query('government-body', {
-      sort: '-name'
+      sort: '-name',
+      filter: { 'deprecated': false }
     }).then((governmentBodies) => {
       return governmentBodies.toArray(); // ember-power-select 4.0.0-beta.3 only supports POJ Arrays, see https://github.com/cibernox/ember-power-select/issues/1296
     });
