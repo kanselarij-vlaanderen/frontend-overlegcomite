@@ -19,6 +19,12 @@
   color: #666;
 }
 
+// Make custom pill clickable (for access-level select)
+// TODO: Color-wise hinting that it is editable
+.vlc-pill--clickable {
+  cursor: pointer;
+}
+
 .ember-attacher-show {
   @extend .js-vl-popover--open;
 }

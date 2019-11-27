@@ -35,15 +35,15 @@
     </button>
   </div>
 {{else}}
-  <Wu::Pill
+  <WuExt::Pill
     @clickable={{true}}
     @style={{if this.selectedLevel @style}}
-    @onclick={{action this.toggleEditing}}
+    {{on "click" this.toggleEditing}}
   >
     {{#if this.selectedLevel}}
       {{get this.selectedLevel this.labelKey}}
     {{else}}
       Geen toegangsniveau
     {{/if}}
-  </Wu::Pill>
+  </WuExt::Pill>
 {{/if}}
