@@ -32,7 +32,9 @@ export default class extends Component {
     } else {
       this.document = this.args.document;
     }
-    this.store.findAll('access-level').then((als) => this.accessLevelOptions = als.toArray()); // ember-power-select 4.0.0-beta.3 only supports POJ Arrays, see https://github.com/cibernox/ember-power-select/issues/1296
+    this.store.findAll('access-level', { sort: 'priority' }).then((als) => {
+      this.accessLevelOptions = als.toArray(); // ember-power-select 4.0.0-beta.3 only supports POJ Arrays, see https://github.com/cibernox/ember-power-select/issues/1296
+    });
   }
 
   get selectedVersion() {
