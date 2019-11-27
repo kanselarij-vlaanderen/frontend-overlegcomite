@@ -57,7 +57,7 @@ export default class extends Component {
   @action
   async deleteVersion(documentVersion) {
     await documentVersion.get('file').destroyRecord();
-    await this.document.documentVersions.popObject(documentVersion).destroyRecord();
+    await documentVersion.destroyRecord();
     if (this.document.documentVersions.length === 0) {
       this.document.destroyRecord();
       this.didDeleteDocument(this.document);
