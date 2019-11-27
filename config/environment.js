@@ -27,15 +27,6 @@ module.exports = function(environment) {
       defaultLoginRouteName: 'login'
       // Here you can pass flags/options to your application instance
       // when it is created
-    },
-
-    torii: {
-      disableRedirectInitializer: true,
-      providers: {
-        'acmidm-oauth2': {
-          scope: 'vo profile openid dkboverlegcomite'
-        }
-      }
     }
   };
 
@@ -62,6 +53,15 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
+    ENV['torii'] = {
+      disableRedirectInitializer: true,
+      providers: {
+        'acmidm-oauth2': {
+          scope: 'vo profile openid dkboverlegcomite'
+        }
+      }
+    };
+
     if (!process.env.DEPLOY_ENV) {
       ENV.APP.defaultLoginRouteName = 'mock-login';
 
