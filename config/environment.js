@@ -65,14 +65,14 @@ module.exports = function(environment) {
     if (!process.env.DEPLOY_ENV) {
       ENV.APP.defaultLoginRouteName = 'mock-login';
 
-      ENV['torii']['providers']['acmidm-oauth2']['apiKey'] = '';
+      ENV['torii']['providers']['acmidm-oauth2']['apiKey'] = 'b882fde4-56e4-4423-be1a-6b424ea6f7b1';
       ENV['torii']['providers']['acmidm-oauth2']['baseUrl'] = 'https://authenticatie-ti.vlaanderen.be/op/v1/auth';
       ENV['torii']['providers']['acmidm-oauth2']['redirectUri'] = 'https://overlegcomite-dev.vlaanderen.be/authorization/callback';
       ENV['torii']['providers']['acmidm-oauth2']['logoutUrl'] = 'https://authenticatie-ti.vlaanderen.be/op/v1/logout';
     }
 
     if (process.env.DEPLOY_ENV === 'test') {
-      ENV['torii']['providers']['acmidm-oauth2']['apiKey'] = '';
+      ENV['torii']['providers']['acmidm-oauth2']['apiKey'] = 'caa9d378-e882-4530-9564-0f9ac2c3d4d3';
       ENV['torii']['providers']['acmidm-oauth2']['baseUrl'] = 'https://authenticatie-ti.vlaanderen.be/op/v1/auth';
       ENV['torii']['providers']['acmidm-oauth2']['redirectUri'] = 'https://overlegcomite-test.vlaanderen.be/authorization/callback';
       ENV['torii']['providers']['acmidm-oauth2']['logoutUrl'] = 'https://authenticatie-ti.vlaanderen.be/op/v1/logout';
