@@ -43,3 +43,8 @@
     background-color:white;
   }
 }
+
+// A sub-item nr for a 2-digit itemnr (eg. '12b') demands extra padding
+.vlc-agenda-items-sub-item__block-clickable, .vlc-agenda-items-sub-item__block-non-clickable {
+  padding-left: 4.5rem;
+}
