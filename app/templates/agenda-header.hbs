@@ -67,21 +67,17 @@
           </div>
         </div>
         <div class="vlc-toolbar__item">
-          {{#if (is-after meeting.agendaReleaseTime)}}
-            <div class="vlc-agenda-meta">
-              <p class="vlc-agenda-meta__status vlc-agenda-meta__status--positive">
-                Agenda Vrijgegeven
-                <i class="vl-vi vl-vi-check-small" aria-hidden="true"></i>
-              </p>
-            </div>
+          {{#if startedAgendaDistribution}}
+            <DistributionStatus
+              @entity="Agenda"
+              @endpoint={{agendaDistributionEndpoint}}
+            />
           {{/if}}
-          {{#if (is-after meeting.notificationReleaseTime)}}
-            <div class="vlc-agenda-meta">
-              <p class="vlc-agenda-meta__status vlc-agenda-meta__status--positive">
-                Notificaties Vrijgegeven
-                <i class="vl-vi vl-vi-check-small" aria-hidden="true"></i>
-              </p>
-            </div>
+          {{#if startedNotificationsDistribution}}
+            <DistributionStatus
+              @entity="Notificaties"
+              @endpoint={{this.notificationsDistributionEndpoint}}
+            />
           {{/if}}
         </div>
       </div>
@@ -115,14 +111,14 @@
                 Nieuw agendapunt
               </LinkTo>
               {{#if (is-before meeting.startedAt)}}
-                {{#if (not meeting.agendaReleaseTime)}}
+                {{#if (not startedAgendaDistribution)}}
                   <button {{action "releaseAgenda" meeting}} class="vl-button vl-button--narrow vl-button--icon-before">
                     <i class="vl-button__icon vl-button__icon--before vl-vi vl-vi-share" aria-hidden="true"></i>
                     Agenda Vrijgeven
                   </button>
                 {{/if}}
               {{else}}
-                {{#if (not meeting.notificationReleaseTime)}}
+                {{#if (not startedNotificationsDistribution)}}
                   <button {{action "releaseNotifications" meeting}} class="vl-button vl-button--narrow vl-button--icon-before">
                     <i class="vl-button__icon vl-button__icon--before vl-vi vl-vi-share" aria-hidden="true"></i>
                     Notificaties Vrijgeven

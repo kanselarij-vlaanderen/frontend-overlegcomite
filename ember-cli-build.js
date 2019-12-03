@@ -11,6 +11,9 @@ module.exports = function(defaults) {
       outputFormat: 'L',
       includeLocales: ['nl']
     },
+    'ember-fetch': {
+      preferNative: true
+    }
     // Add options here
   });
 

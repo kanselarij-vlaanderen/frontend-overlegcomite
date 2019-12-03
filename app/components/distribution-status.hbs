@@ -1,0 +1,13 @@
+{{#if this.distributionStatus}}
+  <div class="vlc-agenda-meta">
+    <p class="vlc-agenda-meta__status {{this.statusStyle}}">
+      {{@entity}} {{this.statusText}}
+      {{#if this.icon}}
+        <i class="vl-vi vl-vi-{{this.icon}}" aria-hidden="true"></i>
+      {{/if}}
+    </p>
+    {{#if this.loading}}
+      <div class="vl-loader" role="alert" aria-busy="true"></div>
+    {{/if}}
+  </div>
+{{/if}}

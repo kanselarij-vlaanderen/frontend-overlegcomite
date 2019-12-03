@@ -45,7 +45,7 @@
     "ember-data": "~3.14.0-beta.0",
     "ember-element-helper": "^0.2.0",
     "ember-export-application-global": "^2.0.0",
-    "ember-fetch": "^6.7.0",
+    "ember-fetch": "^6.7.2",
     "ember-file-upload": "^2.7.1",
     "ember-flatpickr": "^2.13.0",
     "ember-link": "^1.0.2",
