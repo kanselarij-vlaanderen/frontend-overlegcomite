@@ -5,7 +5,6 @@ export default Model.extend({
   priority: attr('number'),
   subPriority: attr('string'),
   subject: attr('string'),
-  distributionDate: attr('date'),
 
   meeting: belongsTo('meeting'),
   case: belongsTo('case'),
