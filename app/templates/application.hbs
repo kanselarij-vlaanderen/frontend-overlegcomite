@@ -8,6 +8,9 @@
               <Wu::Tabs class="vl-u-reset-margin" as |tabs|>
                 <tabs.tab @route="meetings" @current-when="meetings agendaitems">Vergaderingen</tabs.tab>
                 {{!-- Hide until implemented <tabs.tab @route="cases">Dossiers</tabs.tab> --}}
+                {{#if this.currentSession.canAccessSettings}}
+                  <tabs.tab @route="user-management">Gebruikersbeheer</tabs.tab>
+                {{/if}}
               </Wu::Tabs>
             </div>
           {{/if}}
