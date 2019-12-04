@@ -1,7 +1,6 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import fetch from 'fetch';
-import { isNotFoundResponse } from 'ember-fetch/errors';
 import { task, timeout } from 'ember-concurrency';
 
 export default class extends Component {

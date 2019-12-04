@@ -1,10 +1,7 @@
-import Controller from '@ember/controller';
 import { computed } from '@ember/object';
-import { alias } from '@ember/object/computed';
 import { A } from '@ember/array';
 import { inject as service } from '@ember/service';
-import fetch from 'fetch';
-import { isNotFoundResponse } from 'ember-fetch/errors';
+import MeetingController from 'frontend-overlegcomite/controllers/meeting';
 
 let equalContentArrays = function(a, b) {
   if (a.length === b.length) {
@@ -14,16 +11,8 @@ let equalContentArrays = function(a, b) {
   }
 };
 
-export default Controller.extend({
+export default MeetingController.extend({
   routing: service('-routing'),
-  currentSession: service(),
-  meeting: alias('model'),
-
-  startedAgendaDistribution: false,
-  startedNotificationsDistribution: false,
-
-  agendaDistributionEndpoint: null,
-  notificationsDistributionEndpoint: null,
 
   agendaItemGroups: computed('meeting.sortedAgendaItems.@each.submitters', async function () {
     let agendaItems = this.get('meeting.sortedAgendaItems');
@@ -65,42 +54,5 @@ export default Controller.extend({
     } else  {
       return "vlc-panel-layout__agenda-items";
     }
-  }),
-
-  createDistributionJob: async function (endpoint) {
-    let res = await fetch(endpoint);
-    if ([200, 406].includes(res.status)) {
-      return (await res.json()).data;
-    } else if (isNotFoundResponse(res)) {
-      res = await fetch(endpoint, { method: 'POST' });
-      return (await res.json()).data;
-    } else {
-      // TODO: handle error
-    }
-  },
-
-  actions: {
-    async releaseAgenda() {
-      await this.createDistributionJob(this.get('agendaDistributionEndpoint'));
-      this.set('startedAgendaDistribution', true);
-    },
-
-    async releaseNotifications() {
-      await this.createDistributionJob(this.get('notificationsDistributionEndpoint'));
-      this.set('startedNotificationsDistribution', true);
-    },
-
-    selectAgendaItem(agendaitem) {
-      this.transitionToRoute('agendaitems.agendaitem', agendaitem);
-    },
-
-    searchAgendaItems(value) {
-      this.set('filter', value);
-    },
-
-    updateModel() {
-      this.get('model').reload();
-    },
-
-  }
+  })
 });
