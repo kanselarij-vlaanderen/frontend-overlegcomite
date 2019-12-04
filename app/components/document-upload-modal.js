@@ -17,10 +17,7 @@ export default class extends Component {
     if (this.args.editable !== undefined) {
       this.editable = this.args.editable;
     }
-    let that = this;
-    this.store.findAll('document-type').then(function(documentTypes) {
-      that.documentTypeOptions = documentTypes.toArray();  // ember-power-select 4.0.0-beta.3 only supports POJ Arrays, see https://github.com/cibernox/ember-power-select/issues/1296
-    });
+    this.documentTypeOptions = this.store.findAll('document-type');
   }
 
   @action
