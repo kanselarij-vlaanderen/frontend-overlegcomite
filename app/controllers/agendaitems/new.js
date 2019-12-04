@@ -12,8 +12,6 @@ export default AgendaItemEditController.extend({
     const governmentBodies = this.store.query('government-body', {
       sort: '-name',
       filter: { 'deprecated': false }
-    }).then((governmentBodies) => {
-      return governmentBodies.toArray(); // ember-power-select 4.0.0-beta.3 only supports POJ Arrays, see https://github.com/cibernox/ember-power-select/issues/1296
     });
     this.set('governmentBodies', governmentBodies);
   },
@@ -22,19 +20,21 @@ export default AgendaItemEditController.extend({
     async save() {
       this.set('isLoading', true);
       await this.saveCase();
+
       this.get('model').save().then((agendaItem) => {
-        this.parentController.get('model').save().then(() => {
-          this.parentController.send('updateModel');
+        // this.parentController.get('model').save().then(() => {
+        //   this.parentController.send('updateModel');
           this.transitionToRoute('agendaitems.agendaitem', agendaItem);
-        }).catch(() => {
-          // TODO: Handle error
-        }).finally(() => {
-          this.set('isLoading', false);
-        });
+        // }).catch(() => {
+        //   // TODO: Handle error
+        // }).finally(() => {
+        //   this.set('isLoading', false);
+        // });
       }).catch(() => {
         // TODO: Handle error
+      }).finally(() => {
         this.set('isLoading', false);
-      })
+      });
     },
 
     cancel() {

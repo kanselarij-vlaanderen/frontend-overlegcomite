@@ -13,15 +13,22 @@ export default Route.extend(AuthenticatedRouteMixin, {
   },
 
   model() {
-    const lastAgendaItem = this.modelFor('agendaitems').get('sortedAgendaItems.lastObject');
-    const nextNumber = lastAgendaItem ? lastAgendaItem.get('priority') + 1 : 1;
-    const previousSubmitters = lastAgendaItem ? lastAgendaItem.get('submitters') : A([]);
-    const newItem = this.store.createRecord('agendaitem', {
-      priority: nextNumber,
-      submitters: previousSubmitters
+    const queryParams = {
+      'filter[meeting][:id:]': this.modelFor('agendaitems').get('id'),
+      sort: '-priority,-sub-priority',
+      page: { size: 1 }
+    };
+    return this.store.query('agendaitem', queryParams).then((agendaItems) => {
+      const agendaItem = agendaItems.objectAt(0);
+      const nextNumber = agendaItem ? agendaItem.get('priority') + 1 : 1;
+      const previousSubmitters = agendaItem ? agendaItem.get('submitters') : A([]);
+      const newItem = this.store.createRecord('agendaitem', {
+        priority: nextNumber,
+        submitters: previousSubmitters,
+        meeting: this.modelFor('agendaitems')
+      });
+      return newItem;
     });
-    this.modelFor('agendaitems').get('agendaItems').pushObject(newItem);
-    return newItem;
   },
 
   renderTemplate(controller, model) {
