@@ -1,8 +1,7 @@
 import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
-import { get, set, action } from '@ember/object';
-import { task, timeout } from 'ember-concurrency';
+import { set, action } from '@ember/object';
 import { isNotFoundResponse } from 'ember-fetch/errors';
 export default class AgendaHeader extends Component {
   @service store;

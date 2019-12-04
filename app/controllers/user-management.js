@@ -27,8 +27,10 @@ export default class UserManagementController extends Controller.extend(DefaultQ
   @action
   changeGroup(user, group) {
     user.set('group', group);
-    user.save();
-    console.log('user', user, 'group', group);
-    // TODO
+    user.save().then(() => {
+      // TODO: report success
+    }).catch(() => {
+      // TODO: report error while updating
+    })
   }
 }
