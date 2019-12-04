@@ -1,28 +1,34 @@
 import Controller from "@ember/controller";
 import DefaultQueryParamsMixin from "ember-data-table/mixins/default-query-params";
+import { set, get, action } from '@ember/object';
+import { inject as service } from '@ember/service';
 
-export default Controller.extend(DefaultQueryParamsMixin, {
-  sort: 'last-name',
-  queryParams: {
+export default class UserManagementController extends Controller.extend(DefaultQueryParamsMixin) {
+  @service store;
+  sort = 'last-name';
+  queryParams = {
     filter: {
       refreshModel: true
     }
-  },
-  filter: '',
+  };
+  filter = '';
 
-  init() {
-    this._super(...arguments);
+  constructor() {
+    super(...arguments);
     const userGroups = this.store.findAll('account-group');
-    this.set('userGroups', userGroups);
-  },
-
-  actions: {
-    filterModel() {
-      this.set('filter', this.get('filterText'));
-    },
-
-    changeGroup(user, group) {
-      // TODO
-    }
+    set(this, 'userGroups', userGroups);
   }
-});
+
+  @action
+  filterModel() {
+    set(this, 'filter', get('filterText'));
+  }
+
+  @action
+  changeGroup(user, group) {
+    user.set('group', group);
+    user.save();
+    console.log('user', user, 'group', group);
+    // TODO
+  }
+}
