@@ -48,3 +48,8 @@
 .vlc-agenda-items-sub-item__block-clickable, .vlc-agenda-items-sub-item__block-non-clickable {
   padding-left: 4.5rem;
 }
+
+// Avoid agenda item section headers being on top of modal backdrop
+.vlc-panel-layout__agenda-items .vlc-list-section-header {
+  z-index: 39;
+}
