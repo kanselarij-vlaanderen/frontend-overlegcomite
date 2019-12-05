@@ -36,7 +36,13 @@ export default Service.extend({
   },
   canAccess(role) {
     // TODO: Should be based on roles acquired trough openId
-    return rolesByGroupId[this.get('_group.id')][role];
+    if (this.get('_group.id') &&
+      rolesByGroupId[this.get('_group.id')] &&
+      typeof rolesByGroupId[this.get('_group.id')][role] === 'boolean') {
+      return rolesByGroupId[this.get('_group.id')][role];
+    } else {
+      return false;
+    }
   },
   // constructs a task which resolves in the promise
   makePropertyPromise: task(function * (property) {
