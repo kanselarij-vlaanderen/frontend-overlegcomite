@@ -57,7 +57,14 @@ module.exports = function(environment) {
       disableRedirectInitializer: true,
       providers: {
         'acmidm-oauth2': {
-          scope: 'openid rrn profile dkboverlegcomite dkbkaleidos'
+          scope: [
+            'openid',
+            'vo', // for 'vo_id'
+            // 'rrn', // not allowed
+            'profile', // ?
+            'dkboverlegcomite', // ?
+            'dkbkaleidos' // for 'dkb_kaleidos_rol_3d'
+          ].join(' ')
         }
       }
     };
