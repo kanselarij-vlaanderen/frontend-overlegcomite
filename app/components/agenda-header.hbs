@@ -110,21 +110,22 @@
                 ></i>
                 Nieuw agendapunt
               </LinkTo>
-              {{#if (is-before meeting.startedAt)}}
-                {{#if (not startedAgendaDistribution)}}
-                  <button {{action "releaseAgenda" meeting}} class="vl-button vl-button--narrow vl-button--icon-before">
-                    <i class="vl-button__icon vl-button__icon--before vl-vi vl-vi-share" aria-hidden="true"></i>
-                    Agenda Vrijgeven
-                  </button>
-                {{/if}}
-              {{else}}
-                {{#if (not startedNotificationsDistribution)}}
-                  <button {{action "releaseNotifications" meeting}} class="vl-button vl-button--narrow vl-button--icon-before">
-                    <i class="vl-button__icon vl-button__icon--before vl-vi vl-vi-share" aria-hidden="true"></i>
-                    Notificaties Vrijgeven
-                  </button>
-                {{/if}}
+              {{!-- Commented out logic to hide buttons while in testing phase. TODO: revert --}}
+              {{!--{{#if (is-before meeting.startedAt)}}--}}
+              {{#if (not startedAgendaDistribution)}}
+                <button {{action "releaseAgenda" meeting}} class="vl-button vl-button--narrow vl-button--icon-before">
+                  <i class="vl-button__icon vl-button__icon--before vl-vi vl-vi-share" aria-hidden="true"></i>
+                  Agenda Vrijgeven
+                </button>
               {{/if}}
+              {{!--{{else}}--}}
+              {{#if (not startedNotificationsDistribution)}}
+                <button {{action "releaseNotifications" meeting}} class="vl-button vl-button--narrow vl-button--icon-before">
+                  <i class="vl-button__icon vl-button__icon--before vl-vi vl-vi-share" aria-hidden="true"></i>
+                  Notificaties Vrijgeven
+                </button>
+              {{/if}}
+              {{!--{{/if}}--}}
             </div>
           </div>
         </div>
