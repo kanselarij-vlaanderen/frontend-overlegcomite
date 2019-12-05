@@ -10,15 +10,22 @@ export default Controller.extend({
   actions: {
     save() {
       this.set('isLoading', true);
-      this.get('model')
-        .save()
+      const indexOfCurrent = this.get('model.meeting.sortedAgendaItems').indexOf(this.get('model'));
+      const neighbouringItem = this.get('model.meeting.sortedAgendaItems').objectAt(indexOfCurrent - 1) ||
+        this.get('model.meeting.sortedAgendaItems').objectAt(indexOfCurrent + 1);
+      this.get('model').save()
+        .then(() => {
+          if (neighbouringItem) {
+            this.transitionToRoute('agendaitems.agendaitem', neighbouringItem);
+          } else {
+            this.transitionToRoute('agendaitems');
+          }
+        })
         .catch(() => {
           // TODO: Handle error
         })
         .finally(() => {
           this.set('isLoading', false);
-          // this.parentController.send('updateModel');
-          this.transitionToRoute('agendaitems.agendaitem');
         });
     },
 
