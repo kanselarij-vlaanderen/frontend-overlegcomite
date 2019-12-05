@@ -42,7 +42,6 @@ export default AgendaItemEditController.extend({
         this.get('case').rollbackAttributes();
       }
       this.get('model').rollbackAttributes();
-      this.parentController.send('updateModel');
       history.back()
     }
   }
