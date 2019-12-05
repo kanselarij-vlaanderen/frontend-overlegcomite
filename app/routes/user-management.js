@@ -15,7 +15,7 @@ export default Route.extend(AuthenticatedRouteMixin, DataTableRouteMixin, {
 
   mergeQueryOptions(params) {
     return {
-      include: 'group',
+      include: 'account,group',
       filter: {
         'last-name': params.filter || undefined
       }

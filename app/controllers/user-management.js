@@ -21,7 +21,7 @@ export default class UserManagementController extends Controller.extend(DefaultQ
 
   @action
   filterModel() {
-    set(this, 'filter', get('filterText'));
+    set(this, 'filter', get(this, 'filterText'));
   }
 
   @action

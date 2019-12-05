@@ -15,6 +15,7 @@
               <Input
                 class="vl-input-field"
                 type="search"
+                placeholder="Achternaam"
                 @value={{filterText}}
               />
             </div>
@@ -56,6 +57,12 @@
               {{th-sortable
                 class="vl-data-table-col-3 vl-data-table__header-title"
                 currentSorting=sort
+                field="account.voId"
+                label="VO-id"
+              }}
+              {{th-sortable
+                class="vl-data-table-col-3 vl-data-table__header-title"
+                currentSorting=sort
                 field="group.name"
                 label="Gebruikersgroep"
               }}
@@ -66,6 +73,9 @@
               </td>
               <td>
                 {{user.lastName}}
+              </td>
+              <td>
+                {{user.account.voId}}
               </td>
               <td class="vl-u-align-center">
                 <PowerSelect
