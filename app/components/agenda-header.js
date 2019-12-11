@@ -45,13 +45,10 @@ export default class AgendaHeader extends Component {
   async createDistributionJob (endpoint) {
     let res = await fetch(endpoint);
     if ([200, 406].includes(res.status)) {
-      return (await res.json()).data;
-    } else if (isNotFoundResponse(res)) {
-      res = await fetch(endpoint, { method: 'POST' });
-      return (await res.json()).data;
-    } else {
-      // TODO: handle error
+      // TODO: prompt "previously distributed. Sure you want to do it again?"
     }
+    res = await fetch(endpoint, { method: 'POST' });
+    return (await res.json()).data;
   }
 
   @action
