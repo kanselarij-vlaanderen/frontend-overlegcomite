@@ -1,4 +1,7 @@
+{{head-layout}} {{!-- Required by ember-page-title (https://github.com/adopted-ember-addons/ember-page-title/releases/tag/4.0.0) --}}
+{{title "Overlegcomité Vlaanderen" separator=" | " prepend=true}}
 {{#if session.isAuthenticated}}
+  {{outlet "navbar-main"}}
   <div class="vl-u-display-block">
     <div class="vlc-navbar vlc-navbar--bordered-bottom vlc-navbar--no-padding vlc-navbar--bg-alt vlc-navbar--auto" id="c-main-nav">
       <div class="vlc-toolbar vlc-toolbar--auto">
