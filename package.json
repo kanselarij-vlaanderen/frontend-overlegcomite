@@ -52,7 +52,7 @@
     "ember-load-initializers": "^2.1.0",
     "ember-maybe-import-regenerator": "^0.1.6",
     "ember-moment": "^8.0.0",
-    "ember-pdfjs-wrapper": "git+https://github.com/claire-lovisa/ember-pdfjs-wrapper.git",
+    "ember-pdfjs-wrapper": "git+https://github.com/MikiDi/ember-pdfjs-wrapper.git",
     "ember-power-select": "4.0.0-beta.6",
     "ember-promise-helpers": "^1.0.9",
     "ember-qunit": "^4.5.1",
