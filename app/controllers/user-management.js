@@ -9,7 +9,8 @@ export default class UserManagementController extends Controller.extend(DefaultQ
   queryParams = {
     filter: {
       refreshModel: true
-    }
+    },
+    page: {}
   };
   filter = '';
 
@@ -21,6 +22,7 @@ export default class UserManagementController extends Controller.extend(DefaultQ
 
   @action
   filterModel() {
+    set(this, 'page', 0);
     set(this, 'filter', get(this, 'filterText'));
   }
 
