@@ -9,6 +9,7 @@ export default Model.extend({
   name: computed('firstName', 'lastName', function() {
     return `${this.get('firstName')} ${this.get('lastName')}`;
   }),
+  identifier: belongsTo('identifier'),
   account: belongsTo('account'),
   group: belongsTo('account-group', { inverse: null })
 });
