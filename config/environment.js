@@ -86,7 +86,7 @@ module.exports = function(environment) {
     }
 
     if (process.env.DEPLOY_ENV === 'production') {
-      ENV['torii']['providers']['acmidm-oauth2']['apiKey'] = '';
+      ENV['torii']['providers']['acmidm-oauth2']['apiKey'] = 'c6eea3a7-7dd1-4ac6-a533-d1eb6b503592';
       ENV['torii']['providers']['acmidm-oauth2']['baseUrl'] = 'https://authenticatie.vlaanderen.be/op/v1/auth';
       ENV['torii']['providers']['acmidm-oauth2']['redirectUri'] = 'https://overlegcomite.vlaanderen.be/authorization/callback';
       ENV['torii']['providers']['acmidm-oauth2']['logoutUrl'] = 'https://authenticatie.vlaanderen.be/op/v1/logout';
