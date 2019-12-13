@@ -33,4 +33,16 @@ export default class UserManagementController extends Controller.extend(DefaultQ
       // TODO: report error while updating
     })
   }
+
+  @action
+  async deleteUser(user) {
+    try {
+      await (await user.get('account')).destroyRecord();
+      await (await user.get('identifier')).destroyRecord();
+      return user.destroyRecord();
+    }
+    catch (error) {
+      // TODO: report error while deleting. Probably we rather want to handle this delete in the backend, for it to be 1 transaction
+    }
+  }
 }
