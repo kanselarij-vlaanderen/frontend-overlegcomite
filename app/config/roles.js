@@ -14,6 +14,11 @@ export default {
     canEditAgenda: true,
     canAccessSettings: false,
   },
+  "1cc0710c-1b28-4e23-b3ff-399c8089bc71": {
+    canAccessApplication: true,
+    canEditAgenda: false,
+    canAccessSettings: false,
+  },
   "7e8c0c9c-05ec-49fd-9e96-fc54ebf3f9eb": {
     canAccessApplication: true,
     canEditAgenda: false,
