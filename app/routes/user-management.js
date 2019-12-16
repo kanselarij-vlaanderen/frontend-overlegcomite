@@ -28,6 +28,7 @@ export default Route.extend(AuthenticatedRouteMixin, DataTableRouteMixin, {
       filter: {
         'last-name': params.name || undefined,
         'group][:id:': params.group || undefined,
+        'account][provider': 'https://github.com/lblod/acmidm-login-service'
       }
     };
   },
