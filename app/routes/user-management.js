@@ -7,6 +7,15 @@ export default Route.extend(AuthenticatedRouteMixin, DataTableRouteMixin, {
   currentSession: service(),
   modelName: 'user',
 
+  queryParams: {
+    name: {
+      refreshModel: true
+    },
+    group: {
+      refreshModel: true
+    }
+  },
+
   beforeModel() {
     if (!this.currentSession.canAccessSettings) {
       this.transitionTo('meetings.index');
@@ -17,14 +26,15 @@ export default Route.extend(AuthenticatedRouteMixin, DataTableRouteMixin, {
     return {
       include: 'account,group',
       filter: {
-        'last-name': params.filter || undefined
+        'last-name': params.name || undefined,
+        'group][:id:': params.group || undefined,
       }
     };
   },
 
   setupController(controller) {
     this._super(...arguments);
-    controller.set('filterText', this.paramsFor('user-management').filter || '');
+    controller.set('filterText', this.paramsFor('user-management').name || '');
   },
 
   actions: {

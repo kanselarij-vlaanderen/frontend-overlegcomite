@@ -1,18 +1,17 @@
 import Controller from "@ember/controller";
 import DefaultQueryParamsMixin from "ember-data-table/mixins/default-query-params";
+import { tracked } from '@glimmer/tracking';
 import { set, get, action } from '@ember/object';
 import { inject as service } from '@ember/service';
 
 export default class UserManagementController extends Controller.extend(DefaultQueryParamsMixin) {
   @service store;
   sort = 'last-name';
+  @tracked name = null;
+  @tracked group = null;
   queryParams = {
-    filter: {
-      refreshModel: true
-    },
     page: {}
   };
-  filter = '';
 
   constructor() {
     super(...arguments);
@@ -20,10 +19,20 @@ export default class UserManagementController extends Controller.extend(DefaultQ
     set(this, 'userGroups', userGroups);
   }
 
+  get groupFilter () {
+    return this.userGroups.findBy('id', this.group);
+  }
+
   @action
-  filterModel() {
+  filterByName() {
     set(this, 'page', 0);
-    set(this, 'filter', get(this, 'filterText'));
+    set(this, 'name', get(this, 'filterText'));
+  }
+
+  @action
+  filterByGroup(group) {
+    set(this, 'page', 0);
+    set(this, 'group', group ? group.id : null);
   }
 
   @action

@@ -23,7 +23,7 @@
               <button
                 class="vl-button vl-button--secondary vl-button--icon"
                 type="submit"
-                {{on "click" (action "filterModel")}}
+                {{on "click" (action "filterByName")}}
               >
                 <i class="vl-vi vl-vi-magnifier"></i>
               </button>
@@ -60,12 +60,24 @@
                 field="account.voId"
                 label="VO-id"
               }}
-              {{th-sortable
+              {{!--th-sortable
                 class="vl-data-table-col-3 vl-data-table__header-title"
                 currentSorting=sort
                 field="group.name"
                 label="Gebruikersgroep"
-              }}
+              --}}
+              <th>
+                <PowerSelect
+                  @options={{this.userGroups}}
+                  @selected={{this.groupFilter}}
+                  @onChange={{action this.filterByGroup}}
+                  @allowClear={{true}}
+                  @placeholder="Filteren op Gebruikersgroep"
+                   as |group|
+                  >
+                  {{group.name}}
+                </PowerSelect>
+              </th>
               <th></th>
             {{/c.header}}
             {{#c.body as |user|}}
