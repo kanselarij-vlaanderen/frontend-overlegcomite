@@ -28,7 +28,7 @@ Router.map(function() {
   //     this.route('agendaitems', { path: '/agendapunten' });
   //   });
   // });
-  // this.route('search', { path: 'agendapunten/zoeken' });
+  this.route('search', { path: 'agendapunten/zoeken' });
   this.route('view-document', { path: '/documenten/:document_id/versies/:version_number/bekijken'});
   this.route('user-management', { path: '/instellingen/gebruikersbeheer'});
 

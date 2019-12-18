@@ -1,0 +1,108 @@
+<div class="vlc-scroll-wrapper__body">
+  <div class="vl-u-spacer-extended-l">
+    <div class="vlc-toolbar">
+      <div class="vlc-toolbar__left">
+        <div class="vlc-toolbar__item">
+          <h2 class="vl-title vl-title--h3">Agendapunten</h2>
+        </div>
+      </div>
+
+      <div class="vlc-toolbar__right">
+        <div class="vlc-toolbar__item vl-u-display-flex vl-u-flex-align-center">
+          <label class="vl-form__label vl-u-spacer-extended-right-s" for="agenditemPageNumber">
+            Paginagrootte
+          </label>
+          <PowerSelect
+               @options={{this.sizeOptions}}
+               @selected={{this.size}}
+               @onChange={{action this.selectSize}} as |sizeValue|
+          >
+            {{sizeValue}}
+          </PowerSelect>
+        </div>
+      </div>
+    </div>
+    <div class="vl-form-grid vl-form-grid--is-stacked vl-u-flex-align-right vl-u-spacer-extended-bottom-l">
+      <div class="vl-col--6-12 vl-col--1-1--s">
+        <Input class="vl-input-field vl-input-field--block"
+          @value={{this.filter.searchText}}
+          @placeholder="zoekterm"
+          @enter={{action this.filterAgendaitems this.filter}}
+        />
+      </div>
+      <div class="vl-col--1-12 vl-col--1-1--s">
+        <button {{on "click" (fn this.filterAgendaitems this.filter)}}
+          class="vl-button vl-button--secondary vl-button--narrow vl-button--icon"
+          type="submit">
+          <i class="vl-vi vl-vi-magnifier"></i>
+        </button>
+      </div>
+      <div class="vl-col--3-12 vl-col--1-1--s">
+        <div class="vl-u-display-flex vl-u-flex-align-center">
+
+          <label class="vl-form__label vl-u-spacer-extended-right-s" for="searchInDecisionsOnly">
+            Uitsluitend in notificaties zoeken
+          </label>
+
+          {{imported/web-components/vl-toggle
+            value=this.notificationsOnly
+            valueChanged=(mut this.notificationsOnly (not this.notificationsOnly))
+          }}
+        </div>
+      </div>
+    </div>
+    <div class="vl-u-spacer--large">
+      <div class="vl-u-spacer--large">
+        <h2 class="vl-title vl-title--h3">
+          Resultaten
+        </h2>
+        {{#if (gt model.length 0)}}
+          <div class="vl-u-spacer-extended-bottom-l">
+            {{#data-table
+              content=model
+              onClickRow=(action this.navigateToAgendaitem)
+              class="vl-data-table vl-data-table--zebra vl-data-table--align-middle"
+              page=page
+              size=size
+              sort=sort
+              isLoading=isLoadingModel as |table|
+            }}
+              {{#table.content as |c|}}
+                {{#c.header}}
+                  {{th-sortable
+                    class="vl-data-table-col-1 vl-data-table__header-title"
+                    currentSorting=sort
+                    field="meetingDate"
+                    label="Vergadering"
+                  }}
+                  <th
+                    class="vl-data-table-col-10 vl-data-table__header-title">
+                    Onderwerp
+                  </th>
+                  <th class="vl-data-table-col-1"></th>
+                {{/c.header}}
+                {{#c.body as |item|}}
+                  <td>{{moment-format item.meetingDate "DD-MM-YYYY"}}</td>
+                  <td>{{item.subject}}</td>
+                  <td class="vl-u-align-center">
+                    <button
+                      class="vl-button vl-button--link vl-button--icon"
+                      {{action this.navigateToAgendaitem item}}
+                    >
+                      <i class="vl-button__icon vl-vi vl-vi-nav-right"></i>
+                    </button>
+                  </td>
+                {{/c.body}}
+              {{/table.content}}
+            {{/data-table}}
+          </div>
+        {{else}}
+          <div class="vl-u-spacer-extended-l">
+            <Wu::Alert>Geen agendapunten gevonden</Wu::Alert>
+          </div>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</div>
+{{outlet}}
