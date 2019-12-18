@@ -1,8 +1,9 @@
 import { helper } from '@ember/component/helper';
 import moment from 'moment';
 
-export default helper(function formatSubmitterNames([date, itemNumber]) {
-  const dateString = moment(date).format('YYYYMMDD');
+export default helper(function formatSubmitterNames([date, itemNumber, subItemPart]) {
+  const dateString = moment(date).format('YYYY DDMM');
   const paddedItemNumber = itemNumber.toString().padStart(2, '0');
-  return `OC ${dateString} NOT PT ${paddedItemNumber}`;
+  const subItemPartStr = subItemPart ? subItemPart.toUpperCase() : '';
+  return `OC ${dateString} NOT PUNT ${paddedItemNumber}${subItemPartStr}`;
 });
