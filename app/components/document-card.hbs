@@ -2,6 +2,7 @@
   {{#if (eq this.document.documentVersions.length 1)}}
     <Kaleidos::DocumentCard
       @name={{this.selectedVersion.name}}
+      @onSaveName={{action this.saveName}}
       @locked={{this.selectedVersion.confidential}}
       @time={{this.selectedVersion.created}}
       @type={{this.document.type.label}}
@@ -21,6 +22,7 @@
   {{else if (gt this.document.documentVersions.length 1)}}
     <Kaleidos::DocumentCard
       @name={{this.selectedVersion.name}}
+      @onSaveName={{action this.saveName}}
       @locked={{this.selectedVersion.confidential}}
       @time={{this.selectedVersion.created}}
       @type={{this.document.type.label}}

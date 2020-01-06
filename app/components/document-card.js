@@ -98,6 +98,12 @@ export default class extends Component {
   }
 
   @action
+  saveName(name) {
+    this.document.name = name;
+    return this.document.save();
+  }
+
+  @action
   view(documentVersion) {
     const url = this.router.urlFor('view-document', documentVersion);
     window.open(url, '_blank');

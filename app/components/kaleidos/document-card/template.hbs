@@ -56,7 +56,7 @@
                     <a
                       class="vl-link vl-link--block"
                       role="button"
-                       {{action (fn (mut this.editingName)) true}}
+                       {{action this.startEditingName}}
                     >
                       Documentnaam wijzigen
                     </a>
@@ -87,6 +87,25 @@
         </div>
       </div>
       {{#if this.editingName}}
+        <Input class="vl-input-field vl-input-field--block ember-text-field ember-view" type="text"
+          @value={{this.bufferedName}}
+        />
+        <button class="vl-button vl-button--link vl-button--icon js-vl-popover__toggle"
+          {{on "click" (fn this.saveName this.bufferedName)}}
+        >
+          <i class="vl-vi vl-vi-save vl-button__icon" aria-hidden="true"></i>
+          <span class="vl-u-visually-hidden">
+            Opslaan
+          </span>
+        </button>
+        <button class="vl-button vl-button--link vl-button--icon js-vl-popover__toggle"
+          {{on "click" (fn (mut this.editingName) false)}}
+        >
+          <i class="vl-vi vl-vi-cross vl-button__icon" aria-hidden="true"></i>
+          <span class="vl-u-visually-hidden">
+            Annuleren
+          </span>
+        </button>
       {{else}}
         <h6 class="vl-title vl-title--h6">{{@name}}</h6>
       {{/if}}

@@ -1,10 +1,13 @@
 import Component from '@glimmer/component';
-import {tracked} from '@glimmer/tracking';
+import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
 
 export default class KaleidosDocumentCardComponent extends Component {
   @tracked accordionOpen = false;
   @tracked editingName = false;
   @tracked editable = false;
+
+  @tracked bufferedName = '';
 
   constructor() {
     super(...arguments);
@@ -21,11 +24,18 @@ export default class KaleidosDocumentCardComponent extends Component {
     }
   }
 
+  @action
+  async saveName(name) {
+    await this.args.onSaveName(name);
+    this.editingName = false;
+  }
+
   toggleAccordion() {
     this.accordionOpen = !this.accordionOpen;
   }
 
-  toggleEditingName() {
-    this.editingName = !this.editingName;
+  startEditingName() {
+    this.bufferedName = this.args.name;
+    this.editingName = true;
   }
 }
