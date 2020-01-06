@@ -23,6 +23,7 @@ function snakeToCamel(s){
 
 async function muSearch(index, page, size, sort, filter, dataMapping) {
   let endpoint = `/${index}/search?page[size]=${size}&page[number]=${page}`;
+  endpoint += '&collapse_uuids=t';
 
   for (let field in filter) {
     endpoint += `&filter[${field}]=${filter[field]}`;
