@@ -31,6 +31,9 @@
 {{#if (gt model.length 0)}}
   <div class="vlc-scroll-wrapper__body">
     <div class="vl-u-spacer-extended-l">
+      {{#if (or this.from this.to)}}
+        <ResettableFilterAlert @onReset={{action "clearDateFilter"}} />
+      {{/if}}
       <div class="vl-u-spacer--large">
         <div class="vl-u-display-flex vl-u-flex-space-between">
           <h2 class="vl-title vl-title--h3">
@@ -43,12 +46,17 @@
               <div
                 class="vlc-input-field-group vlc-input-field-group--gmeeting"
               >
-                <input class="vl-input-field" type="search">
+                <Input
+                  @value={{dateFilterField}}
+                  @type="search"
+                  class="vl-input-field"
+                  @enter={{action "setDateFilter"}}
+                />
               </div>
               <div class="vlc-input-field-group">
                 <button
                   class="vl-button vl-button--secondary vl-button--icon"
-                  type="submit"
+                  {{on "click" (fn (action "setDateFilter") dateFilterField)}}
                 >
                   <i class="vl-vi vl-vi-magnifier"></i>
                 </button>
