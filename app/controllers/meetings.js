@@ -18,7 +18,6 @@ export default Controller.extend(DefaultQueryParamsMixin, {
     },
 
     setDateFilter(dateString) {
-      debugger;
       const date = dateString.split('/').join('-'); // Also support slash-separated dates.
       const match = this.dateRegex.exec(date);
       if (!match) {
