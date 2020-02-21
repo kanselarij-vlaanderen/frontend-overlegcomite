@@ -28,13 +28,15 @@
     </div>
   </div>
 </div>
-{{#if (gt model.length 0)}}
-  <div class="vlc-scroll-wrapper__body">
-    <div class="vl-u-spacer-extended-l">
-      {{#if (or this.from this.to)}}
-        <ResettableFilterAlert @onReset={{action "clearDateFilter"}} />
-      {{/if}}
-      <div class="vl-u-spacer--large">
+<div class="vlc-scroll-wrapper__body">
+  <div class="vl-u-spacer-extended-l">
+    <div class="vl-u-spacer--large">
+      <div class="vl-u-spacer--medium">
+        {{#if (or this.from this.to)}}
+          <ResettableFilterAlert @onReset={{action "clearDateFilter"}} />
+        {{/if}}
+      </div>
+      <div class="vl-u-spacer--small">
         <div class="vl-u-display-flex vl-u-flex-space-between">
           <h2 class="vl-title vl-title--h3">
             Vergadering
@@ -64,6 +66,8 @@
             </div>
           </div>
         </div>
+      </div>
+      {{#if (gt model.length 0)}}
         <div class="vl-u-spacer-extended-bottom-l">
           {{!-- TODO: implement "onClickRow" handler, making sure it *doesn't* fire when the link button is clicked --}}
           {{#data-table
@@ -100,14 +104,12 @@
             {{/table.content}}
           {{/data-table}}
         </div>
-      </div>
+      {{else}}
+        <Wu::Alert>
+          <p>Er zijn nog geen vergaderingen.</p>
+        </Wu::Alert>
+      {{/if}}
     </div>
   </div>
-{{else}}
-  <div class="vl-u-spacer-extended-l">
-    <Wu::Alert>
-      <p>Er zijn nog geen vergaderingen.</p>
-    </Wu::Alert>
-  </div>
-{{/if}}
+</div>
 {{outlet}}
