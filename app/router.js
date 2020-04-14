@@ -25,7 +25,9 @@ Router.map(function() {
   });
   this.route('search', { path: 'agendapunten/zoeken' });
   this.route('view-document', { path: '/documenten/:document_id/versies/:version_number/bekijken'});
-  this.route('user-management', { path: '/instellingen/gebruikersbeheer'});
+  this.route('user-management', { path: '/instellingen/gebruikersbeheer'}, function() {
+    this.route('new-user', { path: '/nieuwe-gebruiker'});
+  });
 
   if (ENV.APP.defaultLoginRouteName === 'mock-login') {
     this.route('mock-login');

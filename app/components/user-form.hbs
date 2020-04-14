@@ -1,0 +1,40 @@
+<div class="vlc-input-field-block">
+  <div class="vl-grid vl-grid--is-stacked">
+    <div class="vl-col--6-12">
+      <div class="vlc-input-field-block">
+        {{imported/web-components/vl-form-label value="Voornaam"}}
+        <div class="vl-form__input">
+          <Input class="vl-input-field vl-input-field--block" @value={{@user.firstName}}/>
+        </div>
+      </div>
+    </div>
+    <div class="vl-col--6-12">
+      <div class="vlc-input-field-block">
+        {{imported/web-components/vl-form-label value="Familienaam"}}
+        <div class="vl-form__input">
+          <Input class="vl-input-field vl-input-field--block" @value={{@user.lastName}}/>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="vlc-input-field-block">
+  {{imported/web-components/vl-form-label value="VO-id"}}
+  <div class="vl-form__input">
+    <Input
+      class="vl-input-field vl-input-field--block"
+      placeholder="bv. 0cc0d256-ff3f-4aba-8ab8-5ae05ee9e26e"
+      @value={{@user.account.voId}}
+    />
+  </div>
+</div>
+<div class="vlc-input-field-block">
+  {{imported/web-components/vl-form-label value="Gebruikersgroep"}}
+  <PowerSelect
+    @options={{this.accountGroups}}
+    @selected={{@user.group}}
+    @onChange={{fn setAccountGroup}} as |accountGroup|
+  >
+    {{accountGroup.name}}
+  </PowerSelect>
+</div>

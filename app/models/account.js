@@ -6,6 +6,7 @@ const { Model, belongsTo, attr } = DS;
 export default Model.extend({
 	user: belongsTo('user'),
 	voId: attr('string'),
+	provider: attr(),
 
   gebruiker: alias('user') // Depended on by @lblod/ember-mock-login
 });

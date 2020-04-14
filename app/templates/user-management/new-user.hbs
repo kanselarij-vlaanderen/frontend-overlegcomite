@@ -1,0 +1,12 @@
+<Kaleidos::CreationModal
+  @title="Nieuwe gebruiker"
+  @buttonText="Opslaan"
+  @loading={{this.saveModel.isRunning}}
+  @onSave={{perform this.saveModel this.model}}
+  @onClose={{action "cancel"}}
+  @onCancel={{action "cancel"}}
+>
+  <UserForm
+    @user={{this.model}}
+  />
+</Kaleidos::CreationModal>

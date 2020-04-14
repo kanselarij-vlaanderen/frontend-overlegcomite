@@ -2,6 +2,7 @@ import Route from '@ember/routing/route';
 import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 import DataTableRouteMixin from 'ember-data-table/mixins/route';
 import { inject as service } from '@ember/service';
+import { ACCOUNT_PROVIDER_URI } from 'frontend-overlegcomite/config/config';
 
 export default Route.extend(AuthenticatedRouteMixin, DataTableRouteMixin, {
   currentSession: service(),
@@ -27,7 +28,7 @@ export default Route.extend(AuthenticatedRouteMixin, DataTableRouteMixin, {
       include: 'account,group,organization',
       'filter[last-name]': params.name || undefined,
       'filter[group][:id:]': params.group || undefined,
-      'filter[account][provider]': 'https://github.com/lblod/acmidm-login-service'
+      'filter[account][provider]': ACCOUNT_PROVIDER_URI
     };
   },
 
