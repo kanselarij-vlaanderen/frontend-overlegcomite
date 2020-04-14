@@ -23,11 +23,6 @@ Router.map(function() {
     this.route('index', { path: '/' });
     this.route('documents', { path: '/documenten' });
   });
-  // this.route('cases', { path: '/dossiers' }, function() {
-  //   this.route('case', { path: '/:id' }, function() {
-  //     this.route('agendaitems', { path: '/agendapunten' });
-  //   });
-  // });
   this.route('search', { path: 'agendapunten/zoeken' });
   this.route('view-document', { path: '/documenten/:document_id/versies/:version_number/bekijken'});
   this.route('user-management', { path: '/instellingen/gebruikersbeheer'});
