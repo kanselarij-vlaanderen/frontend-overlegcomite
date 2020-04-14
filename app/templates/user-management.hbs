@@ -43,16 +43,22 @@
           {{#table.content as |c|}}
             {{#c.header}}
               {{th-sortable
-                class="vl-data-table-col-3 vl-data-table__header-title"
+                class="vl-data-table-col-1 vl-data-table__header-title"
                 currentSorting=sort
                 field="firstName"
                 label="Voornaam"
               }}
               {{th-sortable
-                class="vl-data-table-col-3 vl-data-table__header-title"
+                class="vl-data-table-col-1 vl-data-table__header-title"
                 currentSorting=sort
                 field="lastName"
                 label="Achternaam"
+              }}
+              {{th-sortable
+                class="vl-data-table-col-2 vl-data-table__header-title"
+                currentSorting=sort
+                field="email"
+                label="e-mail"
               }}
               {{th-sortable
                 class="vl-data-table-col-3 vl-data-table__header-title"
@@ -60,12 +66,12 @@
                 field="account.voId"
                 label="VO-id"
               }}
-              {{!--th-sortable
-                class="vl-data-table-col-3 vl-data-table__header-title"
+              {{th-sortable
+                class="vl-data-table-col-2 vl-data-table__header-title"
                 currentSorting=sort
-                field="group.name"
-                label="Gebruikersgroep"
-              --}}
+                field="organization.identifier"
+                label="OVO-code"
+              }}
               <th>
                 <PowerSelect
                   @options={{this.userGroups}}
@@ -88,7 +94,17 @@
                 {{user.lastName}}
               </td>
               <td>
+                {{if user.email user.email "-"}}
+              </td>
+              <td>
                 {{user.account.voId}}
+              </td>
+              <td>
+                {{#if user.organization}}
+                  <a href={{user.organization.subjectPage}}>{{user.organization.identifier}}</a>
+                {{else}}
+                  -
+                {{/if}}
               </td>
               <td class="vl-u-align-center">
                 <PowerSelect

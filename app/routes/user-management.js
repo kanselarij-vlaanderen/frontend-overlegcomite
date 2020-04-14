@@ -24,12 +24,12 @@ export default Route.extend(AuthenticatedRouteMixin, DataTableRouteMixin, {
 
   mergeQueryOptions(params) {
     return {
-      include: 'account,group',
       filter: {
         'last-name': params.name || undefined,
         'group][:id:': params.group || undefined,
         'account][provider': 'https://github.com/lblod/acmidm-login-service'
       }
+      include: 'account,group,organization',
     };
   },
 
