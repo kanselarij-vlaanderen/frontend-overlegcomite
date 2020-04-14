@@ -1,3 +1,28 @@
+<div class="vl-u-bg-alt">
+  <div class="vlc-page-header">
+    <div class="vlc-toolbar vlc-toolbar--auto">
+      <div class="vlc-toolbar__left">
+        <div class="vlc-toolbar__item">
+          <h1 class="vlc-page-header__title">
+            Gebruikersbeheer
+          </h1>
+        </div>
+      </div>
+      <div class="vlc-toolbar__right">
+        <LinkTo
+          @route="user-management.new-user"
+          @tagName="button"
+          class="vl-button vl-button--narrow vl-button--icon-before"
+        >
+          <i
+            class="vl-button__icon vl-button__icon--before vl-vi vl-vi-add"
+          ></i>
+          Gebruiker toevoegen
+        </LinkTo>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="vlc-scroll-wrapper__body">
   <div class="vl-u-spacer-extended-l">
     <div class="vl-u-spacer--large">
@@ -6,16 +31,6 @@
           Gebruikers
         </h2>
         <div class="vl-u-spacer-extended-bottom-s">
-          <LinkTo
-            @route="user-management.new-user"
-            @tagName="button"
-            class="vl-button vl-button--narrow vl-button--icon-before"
-          >
-            <i
-              class="vl-button__icon vl-button__icon--before vl-vi vl-vi-add"
-            ></i>
-            Gebruiker toevoegen
-          </LinkTo>
           <div
             class="vlc-input-field-group-wrapper vlc-input-field-group-wrapper--inline"
           >
