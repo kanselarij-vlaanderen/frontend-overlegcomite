@@ -24,7 +24,8 @@ module.exports = function(environment) {
     },
 
     APP: {
-      defaultLoginRouteName: 'login'
+      defaultLoginRouteName: 'login',
+      enableMockLogin: false
       // Here you can pass flags/options to your application instance
       // when it is created
     }
@@ -38,6 +39,7 @@ module.exports = function(environment) {
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
 
     ENV.APP.defaultLoginRouteName = 'mock-login';
+    ENV.APP.enableMockLogin = true;
   }
 
   if (environment === 'test') {
@@ -71,6 +73,7 @@ module.exports = function(environment) {
 
     if (!process.env.DEPLOY_ENV) {
       ENV.APP.defaultLoginRouteName = 'mock-login';
+      ENV.APP.enableMockLogin = true;
 
       ENV['torii']['providers']['acmidm-oauth2']['apiKey'] = 'b882fde4-56e4-4423-be1a-6b424ea6f7b1';
       ENV['torii']['providers']['acmidm-oauth2']['baseUrl'] = 'https://authenticatie-ti.vlaanderen.be/op/v1/auth';

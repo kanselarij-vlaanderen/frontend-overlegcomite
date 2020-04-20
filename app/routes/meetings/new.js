@@ -1,5 +1,5 @@
 import Route from '@ember/routing/route';
-import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
+import AuthenticatedRouteMixin from 'frontend-overlegcomite/mixins/authenticated-route-mixin';
 import moment from 'moment';
 import { inject as service } from '@ember/service';
 

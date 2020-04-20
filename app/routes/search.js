@@ -1,6 +1,6 @@
 import Route from '@ember/routing/route';
 import DataTableRouteMixin from 'ember-data-table/mixins/route';
-import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
+import AuthenticatedRouteMixin from 'frontend-overlegcomite/mixins/authenticated-route-mixin';
 import { isEmpty } from '@ember/utils';
 import search from '../utils/mu-search';
 

@@ -1,5 +1,5 @@
 import Route from '@ember/routing/route';
-import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
+import AuthenticatedRouteMixin from 'frontend-overlegcomite/mixins/authenticated-route-mixin';
 import DataTableRouteMixin from 'ember-data-table/mixins/route';
 import _ from 'lodash';
 import moment from 'moment';

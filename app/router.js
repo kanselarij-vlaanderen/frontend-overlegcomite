@@ -29,7 +29,7 @@ Router.map(function() {
     this.route('new-user', { path: '/nieuwe-gebruiker'});
   });
 
-  if (ENV.APP.defaultLoginRouteName === 'mock-login') {
+  if (ENV.APP.enableMockLogin) {
     this.route('mock-login');
   }
   this.route('rightless-user', { path: '/geen-gebruikersrechten'});
