@@ -18,20 +18,26 @@ function stripSort(sort) {
 }
 
 function snakeToCamel(s){
-  return s.replace(/(-\w)/g, function(m){return m[1].toUpperCase();});
+  return s.replace(/(-\w)/g, m => m[1].toUpperCase());
 }
 
 async function muSearch(index, page, size, sort, filter, dataMapping) {
-  let endpoint = `/${index}/search?page[size]=${size}&page[number]=${page}`;
-  endpoint += '&collapse_uuids=t';
+  const endpoint = new URL(`/${index}/search`, window.location.origin);
+  const params = new URLSearchParams(Object.entries({
+    'page[size]': size,
+    'page[number]': page,
+    'collapse_uuids': 't'
+  }));
 
   for (let field in filter) {
-    endpoint += `&filter[${field}]=${filter[field]}`;
+    params.append(`filter[${field}]`, filter[field]);
   }
 
   if (sort) {
-    endpoint += `&sort[${snakeToCamel(stripSort(sort))}]=${sortOrder(sort)}`;
+    params.append(`sort[${snakeToCamel(stripSort(sort))}]`, sortOrder(sort));
   }
+
+  endpoint.search = params.toString();
 
   const { count, data } = await (await fetch(endpoint)).json();
   const pagination = getPaginationMetadata(page, size, count);
