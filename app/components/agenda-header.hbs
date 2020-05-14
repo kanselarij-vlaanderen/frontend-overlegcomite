@@ -4,7 +4,7 @@
       <div class="vlc-toolbar__left">
         <div class="vlc-toolbar__item">
           <h1 class="vlc-page-header__title vlc-page-header__title--bordered">
-            Agenda van {{moment-format meeting.startedAt "DD MMMM YYYY HH:mm"}}
+            Agenda van {{moment-format this.meeting.startedAt "DD MMMM YYYY HH:mm"}}
           </h1>
           <div class="vlc-page-header__sub">
             <div class="vlc-toolbar vlc-toolbar--auto">
@@ -22,7 +22,7 @@
                     <li class="vlc-tabs-reverse__item">
                       <LinkTo
                         @route="agendaitems.index"
-                        @model={{meeting}}
+                        @model={{this.meeting}}
                         @current-when="agendaitems.index"
                         class="vlc-tabs-reverse__link"
                         @activeClass="vlc-tabs-reverse__link--active"
@@ -32,10 +32,10 @@
                         Overzicht
                       </LinkTo>
                     </li>
-                    {{#if meeting.sortedAgendaItems}}
+                    {{#if this.meeting.sortedAgendaItems}}
                       <Link
                       @route="agendaitems.agendaitem.index"
-                      @model={{meeting.sortedAgendaItems.firstObject}} as |l|>
+                      @model={{this.meeting.sortedAgendaItems.firstObject}} as |l|>
                         {{#if l.isActiveWithoutModels}}
                           <li class="vlc-tabs-reverse__item">
                             <a
@@ -51,7 +51,7 @@
                     <li class="vlc-tabs-reverse__item">
                       <LinkTo
                         @route="meeting.documents"
-                        @model={{meeting}}
+                        @model={{this.meeting}}
                         class="vlc-tabs-reverse__link"
                         @activeClass="vlc-tabs-reverse__link--active"
                         role="tab"
@@ -81,7 +81,7 @@
           {{/if}}
         </div>
       </div>
-      {{#if currentSession.canEditAgenda}}
+      {{#if this.currentSession.canEditAgenda}}
         <div class="vlc-toolbar__right">
           <div class="vlc-toolbar__item">
             <div class="vl-action-group">
@@ -112,12 +112,20 @@
               </LinkTo>
               {{!-- Commented out logic to hide buttons while in testing phase. TODO: revert --}}
               {{!--{{#if (is-before meeting.startedAt)}}--}}
-              <button {{action "releaseAgenda" meeting}} class="vl-button vl-button--narrow vl-button--icon-before">
+              <button
+                type="button"
+                class="vl-button vl-button--narrow vl-button--icon-before"
+                {{on "click" (fn this.releaseAgenda this.meeting)}}
+              >
                 <i class="vl-button__icon vl-button__icon--before vl-vi vl-vi-share" aria-hidden="true"></i>
                 Agenda Vrijgeven
               </button>
               {{!--{{else}}--}}
-              <button {{action "releaseNotifications" meeting}} class="vl-button vl-button--narrow vl-button--icon-before">
+              <button
+                type="button"
+                class="vl-button vl-button--narrow vl-button--icon-before"
+                {{on "click" (fn this.releaseNotifications this.meeting)}}
+              >
                 <i class="vl-button__icon vl-button__icon--before vl-vi vl-vi-share" aria-hidden="true"></i>
                 Notificaties Vrijgeven
               </button>
