@@ -51,7 +51,7 @@
       </div>
       <div class="vl-u-spacer-extended-bottom-s">
         {{#if this.currentSession.canEditAgenda}}
-          {{#if (not this.model.notification)}}
+          {{#unless this.model.notification}}
             <button
               type="button"
               class={{concat
@@ -67,7 +67,7 @@
               ></i>
               Notificatie toevoegen
             </button>
-          {{/if}}
+          {{/unless}}
         {{/if}}
       </div>
     </div>
