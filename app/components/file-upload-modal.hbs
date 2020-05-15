@@ -4,8 +4,8 @@
 @onClose={{@onClose}}
 @onCancel={{@onCancel}}
 >
-  {{imported/file-uploader
-    multipleFiles=false
-    uploadedFile=(action @didUpload)
-  }}
+  <Imported::FileUploader
+    @multipleFiles={{false}}
+    @uploadedFile={{@didUpload}}
+  />
 </Kaleidos::CreationModal>
