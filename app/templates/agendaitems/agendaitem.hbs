@@ -19,19 +19,3 @@
     </div>
   </div>
 </div>
-{{#if showAddNotification}}
-  {{imported/oc/file-uploader
-    save=(action "saveNotification")
-    onCancel=(action "cancel")
-    onClose=(action "cancel")
-    multipleFiles=false
-  }}
-{{/if}}
-{{#if showAddDocuments}}
-  {{imported/oc/file-uploader
-    save=(action "saveDocuments")
-    onCancel=(action "cancel")
-    onClose=(action "cancel")
-    multipleFiles=true
-  }}
-{{/if}}
