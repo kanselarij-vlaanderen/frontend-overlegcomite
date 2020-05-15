@@ -5,12 +5,12 @@
     </div>
     <div class="vl-u-spacer--large">
       <div class="vl-u-spacer-extended-bottom">
-        {{#if model.documents}}
-          {{#each model.documents as |document|}}
+        {{#if this.model.documents}}
+          {{#each this.model.documents as |document|}}
             <div class="vl-u-spacer-extended-bottom-s">
               <DocumentCard
                 @document={{document}}
-                @editable={{currentSession.canEditAgenda}}
+                @editable={{this.currentSession.canEditAgenda}}
               />
             </div>
           {{/each}}
@@ -20,11 +20,12 @@
           </Wu::Alert>
         {{/if}}
       </div>
-      {{#if currentSession.canEditAgenda}}
+      {{#if this.currentSession.canEditAgenda}}
         <button
+          type="button"
           class="vl-button vl-button--tertiary vl-button--narrow vl-button--icon-before"
-        {{action (mut this.addingDocuments) true}}
-          >
+          {{on "click" (fn (mut this.addingDocuments) true)}}
+        >
           <i class="vl-button__icon vl-button__icon--before vl-vi vl-vi-add" aria-hidden="true"></i>
           Document toevoegen
         </button>
@@ -38,6 +39,6 @@
     @loading={{this.loading}}
     @defaultDocumentType={{this.defaultDocumentType}}
     @didCancel={{fn (mut this.addingDocuments) false}}
-    @didSave={{action "addDocuments"}}
+    @didSave={{this.addDocuments}}
   />
 {{/if}}
