@@ -2,7 +2,7 @@ import Controller from '@ember/controller';
 import { warn } from '@ember/debug';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
-import DefaultQueryParamsMixin from "ember-data-table/mixins/default-query-params";
+import DefaultQueryParamsMixin from "ember-data-table/mixins/default-query-params"; // eslint-disable-line ember/no-mixins
 
 export default class SearchController extends Controller.extend(DefaultQueryParamsMixin) {
   queryParams = {
