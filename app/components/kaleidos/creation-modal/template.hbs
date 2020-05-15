@@ -27,7 +27,7 @@
     <div class="vlc-toolbar">
       <div class="vlc-toolbar__left">
         <div class="vlc-toolbar__item">
-          <a class="vl-link" href="" {{action cancel}} data-vl-modal-close="">Annuleer</a>
+          <a class="vl-link" href="" {{on "click" this.cancel capture=true}} data-vl-modal-close="">Annuleer</a>
         </div>
       </div>
       <div class="vlc-toolbar__right">

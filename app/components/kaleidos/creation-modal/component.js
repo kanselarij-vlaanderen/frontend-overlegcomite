@@ -24,10 +24,11 @@ export default class extends Component {
     this.args.onClose(...arguments);
   }
 
-  cancel() {
+  cancel(e) {
+    e.preventDefault();
     if (this.args.onCancel) {
       this.args.onCancel(...arguments);
-    } else {
+    } else if (this.args.onClose) {
       this.args.onClose(...arguments);
     }
   }
