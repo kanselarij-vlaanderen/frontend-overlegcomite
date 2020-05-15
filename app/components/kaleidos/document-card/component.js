@@ -30,10 +30,12 @@ export default class KaleidosDocumentCardComponent extends Component {
     this.editingName = false;
   }
 
+  @action
   toggleAccordion() {
     this.accordionOpen = !this.accordionOpen;
   }
 
+  @action
   startEditingName() {
     this.bufferedName = this.args.name;
     this.editingName = true;
