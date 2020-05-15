@@ -3,6 +3,6 @@
 module.exports = {
   extends: 'octane',
   ignore: [
-    'app/components/imported'
+    'app/components/imported/**'
   ]
 };
