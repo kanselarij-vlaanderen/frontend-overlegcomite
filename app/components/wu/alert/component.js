@@ -1,4 +1,5 @@
 import Component from '@glimmer/component';
+import { action } from '@ember/object';
 
 export default class extends Component {
 	classNameBindings = ['args.small:vl-alert--small'];
@@ -12,6 +13,7 @@ export default class extends Component {
     }
   }
 
+  @action
   close() {
     this.onClose(...arguments);
   }
