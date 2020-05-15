@@ -77,6 +77,8 @@
     @onClose={{fn (mut this.addingVersion) false}}
   />
 {{/if}}
+{{!-- TODO: prompt for confirmation when deleting a document --}}
+{{!--
 {{#if this.deletingDocument}}
   <Kaleidos::ConfirmationModal
     @title="Document verwijderen"
@@ -106,3 +108,4 @@
     Weet u zeker dat u deze versie wil verwijderen?
   </Kaleidos::ConfirmationModal>
 {{/if}}
+--}}
