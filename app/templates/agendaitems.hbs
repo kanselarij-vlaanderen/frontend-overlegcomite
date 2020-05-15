@@ -1,9 +1,9 @@
-{{title (concat "Agenda van " (moment-format meeting.startedAt "DD-MM-YYYY"))}}
+{{title (concat "Agenda van " (moment-format this.meeting.startedAt "DD-MM-YYYY"))}}
 <AgendaHeader
-  @meeting={{model}}
+  @meeting={{this.model}}
 />
 <div class="vlc-panel-layout">
-  <div class={{agendaitemsClass}}>
+  <div class={{this.agendaitemsClass}}>
     <div class="vlc-scroll-wrapper">
 
       {{!-- TODO: search bar in detail view (component?)}}
@@ -24,15 +24,15 @@
       </div>--}}
 
       <div class="vlc-scroll-wrapper__body">
-        <div class={{if (eq agendaItemListMode "main") "vl-u-spacer-extended-l"}}>
-          <div class={{if (eq agendaItemListMode "main") "vl-u-spacer-extended-bottom-l"}}>
-            {{#if (is-pending model)}}
-              {{imported/web-components/vl-loader
-                text="Agenda laden ..."
-              }}
+        <div class={{if (eq this.agendaItemListMode "main") "vl-u-spacer-extended-l"}}>
+          <div class={{if (eq this.agendaItemListMode "main") "vl-u-spacer-extended-bottom-l"}}>
+            {{#if (is-pending this.model)}}
+              <Imported::WebComponents::VlLoader
+                @text="Agenda laden ..."
+              />
             {{else}}
-              <Kaleidos::AgendaItemsList @mode={{agendaItemListMode}} as |itemsList|>
-                {{#each (await agendaItemGroups) as |agendaItemGroup|}}
+              <Kaleidos::AgendaItemsList @mode={{this.agendaItemListMode}} as |itemsList|>
+                {{#each (await this.agendaItemGroups) as |agendaItemGroup|}}
 
                   <itemsList.agenda-items-group @title={{format-submitter-names agendaItemGroup.firstObject.submitters}}
                   as |itemsGroup|>
