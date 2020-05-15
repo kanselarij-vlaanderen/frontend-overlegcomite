@@ -1,3 +1,6 @@
+{{!-- template-lint-disable  --}}
+{{!-- TODO: Reworking this component to angle-bracket syntax breaks functionality.
+  To re-implement (base on https://github.com/kybishop/ember-popper/tree/master/tests/dummy/app)--}}
 <div class="vl-popover {{if @alignment (concat "vl-popover--align-" @alignment)}}" data-vl-popover="" id={{this.uniqueId}}>
   <button class="vl-button vl-button--link vl-button--icon js-vl-popover__toggle">
     {{@button-text}}
