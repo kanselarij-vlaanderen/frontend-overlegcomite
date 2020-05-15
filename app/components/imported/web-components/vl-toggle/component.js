@@ -8,7 +8,7 @@ export default Component.extend({
 		valueChanged() {
 			this.toggleProperty('value');
 			let action = this.get('valueChanged');
-			if (action) { return action(...arguments); }
+			if (action) { return action(this.get('value')); }
 		}
 	}
 });
