@@ -2,7 +2,7 @@
   {{#if (eq this.document.documentVersions.length 1)}}
     <Kaleidos::DocumentCard
       @name={{this.selectedVersion.name}}
-      @onSaveName={{action this.saveName}}
+      @onSaveName={{fn this.saveName}}
       @locked={{this.selectedVersion.confidential}}
       @time={{this.selectedVersion.created}}
       @type={{this.document.type.label}}
@@ -13,16 +13,16 @@
       @onView={{fn this.view this.selectedVersion}}
       @viewable={{eq this.selectedVersion.file.extension "pdf"}}
       @onToggleLock={{fn this.toggleAccessLevel this.selectedVersion}}
-      @onDeleteDocument={{fn this.deleteDocument document}}
+      @onDeleteDocument={{fn this.deleteDocument this.document}}
       @onDeleteVersion={{fn this.deleteVersion this.selectedVersion}}
-      @onUploadVersion={{action (fn (mut this.addingVersion)) true}}
+      @onUploadVersion={{fn (mut this.addingVersion) true}}
       @accessLevelOptions={{this.accessLevelOptions}}
       @editable={{@editable}}
     />
   {{else if (gt this.document.documentVersions.length 1)}}
     <Kaleidos::DocumentCard
       @name={{this.selectedVersion.name}}
-      @onSaveName={{action this.saveName}}
+      @onSaveName={{fn this.saveName}}
       @locked={{this.selectedVersion.confidential}}
       @time={{this.selectedVersion.created}}
       @type={{this.document.type.label}}
@@ -33,9 +33,9 @@
       @onView={{fn this.view this.selectedVersion}}
       @viewable={{eq this.selectedVersion.file.extension "pdf"}}
       @onToggleLock={{fn this.toggleAccessLevel this.selectedVersion}}
-      @onDeleteDocument={{fn this.deleteDocument document}}
+      @onDeleteDocument={{fn this.deleteDocument this.document}}
       @onDeleteVersion={{fn this.deleteVersion this.selectedVersion}}
-      @onUploadVersion={{action (fn (mut this.addingVersion)) true}}
+      @onUploadVersion={{fn (mut this.addingVersion) true}}
       @accessLevelOptions={{this.accessLevelOptions}}
       @editable={{@editable}}
       as |VersionCard|>
@@ -73,19 +73,21 @@
 {{#if this.addingVersion}}
   <FileUploadModal
     @didUpload={{this.addVersion}}
+    @onCancel={{fn (mut this.addingVersion) false}}
+    @onClose={{fn (mut this.addingVersion) false}}
   />
 {{/if}}
 {{#if this.deletingDocument}}
   <Kaleidos::ConfirmationModal
     @title="Document verwijderen"
     @loading={{this.isLoading}}
-    @onCancel={{action (mut deletingDocument false)}}
-    @onClose={{action (mut deletingDocument false)}}
-    @onConfirm={{action "save"}}
+    @onCancel={{fn (mut this.deletingDocument) false}}
+    @onClose={{fn (mut this.deletingDocument) false}}
+    @onConfirm={{fn this.save}}
     @buttonStyle="error"
     @buttonIcon="bin"
     @buttonText="verwijderen"
-    >
+  >
     Weet u zeker dat u dit document wil verwijderen?
     <strong>Elke versie van dit document zal verwijderd worden!</strong>
   </Kaleidos::ConfirmationModal>
@@ -94,13 +96,13 @@
   <Kaleidos::ConfirmationModal
     @title="Document verwijderen"
     @loading={{this.isLoading}}
-    @onCancel={{action (mut deletingVersion false)}}
-    @onClose={{action (mut deletingVersion false)}}
-    @onConfirm={{action "save"}}
+    @onCancel={{fn (mut this.deletingVersion) false}}
+    @onClose={{fn (mut this.deletingVersion) false}}
+    @onConfirm={{fn this.save}}
     @buttonStyle="error"
     @buttonIcon="bin"
     @buttonText="verwijderen"
-    >
+  >
     Weet u zeker dat u deze versie wil verwijderen?
   </Kaleidos::ConfirmationModal>
 {{/if}}
