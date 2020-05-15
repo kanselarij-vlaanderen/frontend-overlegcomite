@@ -1,48 +1,45 @@
 import { alias } from '@ember/object/computed';
 import { inject as controller } from '@ember/controller';
 import AgendaItemEditController from 'frontend-overlegcomite/controllers/agendaitems/agendaitem/edit';
+import { action } from "@ember/object";
 
-export default AgendaItemEditController.extend({
-  parentController: controller('agendaitems'),
+export default class NewAgendaitemsController extends AgendaItemEditController {
+  @controller('agendaitems') parentController;
 
-  meeting: alias("model.meeting"),
+  @alias('model.meeting') meeting;
 
-  init() {
-    this._super(...arguments);
+  constructor() {
+    super(...arguments);
     const governmentBodies = this.store.query('government-body', {
       sort: '-name',
       filter: { 'deprecated': false }
     });
     this.set('governmentBodies', governmentBodies);
-  },
-
-  actions: {
-    async save() {
-      this.set('isLoading', true);
-      await this.saveCase();
-
-      this.get('model').save().then((agendaItem) => {
-        // this.parentController.get('model').save().then(() => {
-        //   this.parentController.send('updateModel');
-          this.transitionToRoute('agendaitems.agendaitem', agendaItem);
-        // }).catch(() => {
-        //   // TODO: Handle error
-        // }).finally(() => {
-        //   this.set('isLoading', false);
-        // });
-      }).catch(() => {
-        // TODO: Handle error
-      }).finally(() => {
-        this.set('isLoading', false);
-      });
-    },
-
-    cancel() {
-      if (this.get('case.isNew') || this.get('case.hasDirtyAttributes')) {
-        this.get('case').rollbackAttributes();
-      }
-      this.get('model').rollbackAttributes();
-      history.back()
-    }
   }
-});
+
+  @action
+  async save() {
+    this.set('isLoading', true);
+    await this.saveCase();
+
+    this.model.save().then((agendaItem) => {
+      // this.parentController.get('model').save().then(() => {
+      //   this.parentController.send('updateModel');
+        this.transitionToRoute('agendaitems.agendaitem', agendaItem);
+      // }).catch(() => {
+      //   // TODO: Handle error
+      // }).finally(() => {
+      //   this.set('isLoading', false);
+      // });
+    }).catch(() => {
+      // TODO: Handle error
+    }).finally(() => {
+      this.set('isLoading', false);
+    });
+  }
+
+  @action
+  async didCancel() { // Used by parent controller class
+    history.back();
+  }
+}
