@@ -1,7 +1,7 @@
 import Controller from "@ember/controller";
-import DefaultQueryParamsMixin from "ember-data-table/mixins/default-query-params";
+import DefaultQueryParamsMixin from "ember-data-table/mixins/default-query-params"; // eslint-disable-line ember/no-mixins
 import { tracked } from '@glimmer/tracking';
-import { set, get, action } from '@ember/object';
+import { set, action } from '@ember/object';
 import { inject as service } from '@ember/service';
 
 export default class UserManagementController extends Controller.extend(DefaultQueryParamsMixin) {
@@ -26,7 +26,7 @@ export default class UserManagementController extends Controller.extend(DefaultQ
   @action
   filterByName() {
     set(this, 'page', 0);
-    set(this, 'name', get(this, 'filterText'));
+    set(this, 'name', this.filterText);
   }
 
   @action
