@@ -1,12 +1,12 @@
 <Kaleidos::ConfirmationModal
   @title="Agendapunt verwijderen"
   @loading={{this.isLoading}}
-  @onCancel={{action "cancel"}}
-  @onClose={{action "cancel"}}
-  @onConfirm={{action "save"}}
+  @onCancel={{this.cancel}}
+  @onClose={{this.cancel}}
+  @onConfirm={{this.save}}
   @buttonStyle="error"
   @buttonIcon="bin"
   @buttonText="verwijderen"
-  >
+>
   Bent u zeker dat u dit agendapunt wil verwijderen?
 </Kaleidos::ConfirmationModal>
