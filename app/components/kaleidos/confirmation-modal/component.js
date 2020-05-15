@@ -1,4 +1,5 @@
 import Component from "@glimmer/component";
+import { action } from '@ember/object';
 
 export default class extends Component {
 
@@ -20,10 +21,12 @@ export default class extends Component {
     return classes.join(' ');
   }
 
+  @action
   close() {
     this.args.onClose(...arguments);
   }
 
+  @action
   cancel(e) {
     e.preventDefault();
     if (this.args.onCancel) {
@@ -33,6 +36,7 @@ export default class extends Component {
     }
   }
 
+  @action
   confirm() {
     this.args.onConfirm(...arguments);
   }
