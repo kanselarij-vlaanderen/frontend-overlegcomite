@@ -39,12 +39,13 @@ export default class AgendaItemFormComponent extends Component {
   }
 
   @action
-  updateCase(event) {
+  async updateCase(event) {
     this.caseIdentifier = event.target.value;
     let identifier = this.caseIdentifier;
     if (this.validateCaseIdentifier(identifier)) {
-      let currentCase = this.agendaItem.case;
-      return this.fetchCase(identifier).then((existingCase) => {
+      const currentCase = await this.agendaItem.case;
+      try {
+        const existingCase = await this.fetchCase(identifier);
         if (existingCase) {
           if (currentCase && currentCase.get('isNew')) {
             currentCase.rollbackAttributes();
@@ -58,9 +59,9 @@ export default class AgendaItemFormComponent extends Component {
             this.agendaItem.case = this.createCase(identifier);
           }
         }
-      }).catch(() => {
+      } catch {
         // Handle error
-      });
+      }
     } else if (this.caseIdentifier === '') {
       this.agendaItem.case = null;
     }
