@@ -1,19 +1,19 @@
 <Kaleidos::CreationModal
-@title="Nieuwe vergadering"
-@buttonText="Aanmaken"
-@loading={{@isLoading}}
-@onSave={{action "save"}}
-@onClose={{action "cancel"}}
+  @title="Nieuwe vergadering"
+  @buttonText="Aanmaken"
+  @loading={{@isLoading}}
+  @onSave={{this.save}}
+  @onClose={{this.cancel}}
 >
   <div class="vl-modal-dialog__content">
     <div class="vl-u-spacer-extended-bottom-s">
       <div class="vlc-input-field-block">
-        {{imported/web-components/vl-form-label value="Datum & Tijd"}}
-        {{imported/web-components/vl-datepicker
-          date=dateForPicker
-          enableTime=true
-          dateChanged=(action "setMeetingDate")
-        }}
+        <Imported::WebComponents::VlFormLabel @value="Datum & Tijd"/>
+        <Imported::WebComponents::VlDatepicker
+          @date={{this.dateForPicker}}
+          @enableTime={{true}}
+          @dateChanged={{fn this.setMeetingDate}}
+        />
       </div>
     </div>
   </div>
