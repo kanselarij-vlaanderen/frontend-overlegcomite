@@ -3,8 +3,8 @@
   @buttonText="Opslaan"
   @loading={{this.saveModel.isRunning}}
   @onSave={{perform this.saveModel this.model}}
-  @onClose={{action "cancel"}}
-  @onCancel={{action "cancel"}}
+  @onClose={{this.cancel}}
+  @onCancel={{this.cancel}}
 >
   <UserForm
     @user={{this.model}}
