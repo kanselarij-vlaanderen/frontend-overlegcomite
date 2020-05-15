@@ -3,7 +3,10 @@
     {{@userName}} ({{@groupName}})
   </div>
   {{!-- Also works when logged in with mock-login. Both call session.invalidate() --}}
-  {{#acmidm-logout tagName="a" class="vlc-user__action"}}
+  <AcmidmLogout
+   class="vlc-user__action"
+    @tagName="a"
+  >
     Afmelden
-  {{/acmidm-logout}}
+  </AcmidmLogout>
 </div>
