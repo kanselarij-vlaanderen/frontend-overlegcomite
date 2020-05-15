@@ -2,7 +2,7 @@
   <div class="vl-grid vl-grid--is-stacked">
     <div class="vl-col--6-12">
       <div class="vlc-input-field-block">
-        {{imported/web-components/vl-form-label value="Voornaam"}}
+        <Imported::WebComponents::VlFormLabel @value="Voornaam"/>
         <div class="vl-form__input">
           <Input class="vl-input-field vl-input-field--block" @value={{@user.firstName}}/>
         </div>
@@ -10,7 +10,7 @@
     </div>
     <div class="vl-col--6-12">
       <div class="vlc-input-field-block">
-        {{imported/web-components/vl-form-label value="Familienaam"}}
+        <Imported::WebComponents::VlFormLabel @value="Familienaam"/>
         <div class="vl-form__input">
           <Input class="vl-input-field vl-input-field--block" @value={{@user.lastName}}/>
         </div>
@@ -19,7 +19,7 @@
   </div>
 </div>
 <div class="vlc-input-field-block">
-  {{imported/web-components/vl-form-label value="VO-id"}}
+  <Imported::WebComponents::VlFormLabel @value="VO-id"/>
   <div class="vl-form__input">
     <Input
       class="vl-input-field vl-input-field--block"
@@ -29,11 +29,11 @@
   </div>
 </div>
 <div class="vlc-input-field-block">
-  {{imported/web-components/vl-form-label value="Gebruikersgroep"}}
+  <Imported::WebComponents::VlFormLabel @value="Gebruikersgroep"/>
   <PowerSelect
     @options={{this.accountGroups}}
     @selected={{@user.group}}
-    @onChange={{fn setAccountGroup}} as |accountGroup|
+    @onChange={{fn this.setAccountGroup}} as |accountGroup|
   >
     {{accountGroup.name}}
   </PowerSelect>
