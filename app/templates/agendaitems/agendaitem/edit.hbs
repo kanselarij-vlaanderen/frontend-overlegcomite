@@ -1,14 +1,14 @@
 <Kaleidos::CreationModal
-@title="Agendapunt wijzigen"
-@buttonText="Wijzigingen opslaan"
-@loading={{this.isLoading}}
-@onSave={{action "save"}}
-@onClose={{action "cancel"}}
-@onCancel={{action "cancel"}}
+  @title="Agendapunt wijzigen"
+  @buttonText="Wijzigingen opslaan"
+  @loading={{this.isLoading}}
+  @onSave={{this.save}}
+  @onClose={{this.cancel}}
+  @onCancel={{this.cancel}}
 >
   <AgendaItemForm
     @agendaItem={{this.model}}
-    @onChange={{mut model}}
+    @onChange={{mut this.model}}
     @submitterOptions={{this.governmentBodies}}
   />
 </Kaleidos::CreationModal>
