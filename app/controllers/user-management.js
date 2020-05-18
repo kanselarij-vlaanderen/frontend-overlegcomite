@@ -42,7 +42,7 @@ export default class UserManagementController extends Controller.extend(DefaultQ
       // TODO: report success
     }).catch(() => {
       // TODO: report error while updating
-    })
+    });
   }
 
   @action

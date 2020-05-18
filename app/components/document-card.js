@@ -37,7 +37,7 @@ export default class extends Component {
 
   get selectedVersion() {
     if (this.args.selectedVersion) {
-      return this.document.documentVersions.findBy('id', this.args.selectedVersion.get('id'))
+      return this.document.documentVersions.findBy('id', this.args.selectedVersion.get('id'));
     } else {
       return this.document.lastDocumentVersion;
     }
