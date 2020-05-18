@@ -1,6 +1,6 @@
 import Route from '@ember/routing/route';
 import AuthenticatedRouteMixin from 'frontend-overlegcomite/mixins/authenticated-route-mixin'; // eslint-disable-line ember/no-mixins
-import DataTableRouteMixin from 'ember-data-table/mixins/route';
+import DataTableRouteMixin from 'ember-data-table/mixins/route'; // eslint-disable-line ember/no-mixins
 import _ from 'lodash';
 import moment from 'moment';
 
@@ -27,7 +27,7 @@ export default Route.extend(AuthenticatedRouteMixin, DataTableRouteMixin, {
     // TODO: sending an empty filter param to backend returns []
     if (params.filter) { options['filter'] = params.filter; }
      _.merge(options, this.mergeQueryOptions(params));
-    return this.get('store').query(this.get('modelName'), options);
+    return this.store.query(this.modelName, options);
   },
 
   mergeQueryOptions(params) {
@@ -43,7 +43,7 @@ export default Route.extend(AuthenticatedRouteMixin, DataTableRouteMixin, {
 
   actions: {
     updateModel() {
-      this.get("model").update();
+      this.model.update();
     },
   }
 });
