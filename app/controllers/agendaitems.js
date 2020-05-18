@@ -12,7 +12,7 @@ let equalContentArrays = function(a, b) {
 };
 
 export default MeetingController.extend({
-  routing: service('-routing'),
+  router: service('router'),
 
   agendaItemGroups: computed('meeting.sortedAgendaItems.@each.submitters', async function () {
     let agendaItems = this.get('meeting.sortedAgendaItems');
@@ -38,9 +38,9 @@ export default MeetingController.extend({
     }
   }),
 
-  agendaItemListMode: computed('routing.currentRouteName', function () {
-    const { routing } = this;
-    if (routing.get('currentRouteName').startsWith('agendaitems.agendaitem')) {
+  agendaItemListMode: computed('router.currentRouteName', function () {
+    const { router } = this;
+    if (router.get('currentRouteName').startsWith('agendaitems.agendaitem')) {
       return 'sidebar';
     } else  {
       return 'main';
