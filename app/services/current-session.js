@@ -50,11 +50,11 @@ export default Service.extend({
     return this.get(property);
   }),
   // this is a promise
-  account: computed('_account', function() {
+  account: computed('makePropertyPromise', '_account', function() {
     return this.makePropertyPromise.perform('_account');
   }),
   // this contains a promise
-  user: computed('_user', function() {
+  user: computed('makePropertyPromise', '_user', function() {
     return this.makePropertyPromise.perform('_user');
   }),
   // this contains a promise
