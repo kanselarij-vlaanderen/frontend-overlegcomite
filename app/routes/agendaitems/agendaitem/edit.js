@@ -1,5 +1,5 @@
 import Route from '@ember/routing/route';
-import AuthenticatedRouteMixin from 'frontend-overlegcomite/mixins/authenticated-route-mixin';
+import AuthenticatedRouteMixin from 'frontend-overlegcomite/mixins/authenticated-route-mixin'; // eslint-disable-line ember/no-mixins
 import { inject as service } from '@ember/service';
 
 export default Route.extend(AuthenticatedRouteMixin, {
