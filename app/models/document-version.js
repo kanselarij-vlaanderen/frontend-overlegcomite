@@ -1,27 +1,26 @@
 import Model, { belongsTo, attr } from '@ember-data/model';
-import { computed } from '@ember/object';
 import formatVersionedDocumentName from 'frontend-overlegcomite/utils/format-versioned-document-name';
 import sanitize from 'sanitize-filename';
 
-export default Model.extend({
-  created: attr('datetime'),
-  versionNumber: attr('number'),
-  confidential: attr('boolean'),
-  accessLevel: belongsTo('access-level', { async: false }),
+export default class DocumentVersionModel extends Model {
+  @attr('datetime') created;
+  @attr('number') versionNumber;
+  @attr('boolean') confidential;
+  @belongsTo('access-level', { async: false }) accessLevel;
 
-  file: belongsTo('file', { async: false }),
-  document: belongsTo('document', { async:false }),
+  @belongsTo('file', { async: false }) file;
+  @belongsTo('document', { async:false }) document;
 
-  name: computed('document.name', function() {
-    return formatVersionedDocumentName(this.get('document.name'), this.get('versionNumber'));
-  }),
+  get name () {
+    return formatVersionedDocumentName(this.document.name, this.versionNumber);
+  }
 
-  downloadFilename: computed('name', 'file.extension', function() {
-    const filename = `${this.get('name')}.${this.get('file.extension')}`;
+  get downloadFilename () {
+    const filename = `${this.name}.${this.file.extension}`;
     return sanitize(filename, {replacement: '_'});
-  }),
+  }
 
-  downloadLink: computed('file.downloadLink', 'downloadFilename', function() {
-    return `${this.get('file.downloadLink')}?name=${this.get('downloadFilename')}`;
-  })
-});
+  get downloadLink () {
+    return `${this.file.downloadLink}?name=${this.downloadFilename}`;
+  }
+}

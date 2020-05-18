@@ -2,39 +2,40 @@ import Model, { belongsTo, hasMany, attr } from '@ember-data/model';
 import { computed } from '@ember/object';
 import { alias, sort } from '@ember/object/computed';
 
-export default Model.extend({
-  name: attr('string'),
-  created: attr('datetime'),
+export default class DocumentModel extends Model {
+  @attr('string') name;
+  @attr('datetime') created;
 
-  type: belongsTo('document-type', {async: false}),
+  @belongsTo('document-type', {async: false}) type;
 
-  documentVersions: hasMany('document-version', {async: false}),
-  sortDefinition: ['versionNumber', 'file.created'], // eslint-disable-line ember/avoid-leaking-state-in-ember-objects
-  sortedDocumentVersions: sort('documentVersions', 'sortDefinition'),
+  @hasMany('document-version', {async: false}) documentVersions;
 
-  reverseSortedDocumentVersions: computed('sortedDocumentVersions.[]', function() {
-    return this.get('sortedDocumentVersions').reverse();
-  }),
+  sortDefinition = Object.freeze(['versionNumber', 'file.created']);
+  sortedDocumentVersions = sort('documentVersions', 'sortDefinition');
 
-  lastDocumentVersion: alias('sortedDocumentVersions.lastObject'),
+  get reverseSortedDocumentVersions () {
+    return this.sortedDocumentVersions.reverse();
+  }
 
-  loadDocumentVersions: function() {
+  @alias('sortedDocumentVersions.lastObject') lastDocumentVersion;
+
+  loadDocumentVersions () {
     const versions = this.store.query('document-version', {
       filter: { document: { id: this.get('id') } },
       include: ['access-level', 'file']
     });
     const type = this.store.query(type)
-  },
-  loadType: function() {
+  }
+  loadType () {
     const versions = this.store.query('document-type', {
       filter: { document: { id: this.get('id') } }
     });
     const type = this.store.query(type)
-  },
-  loadRelations: function() {
-    return this.store.findRecord('document', this.get('id'), {
+  }
+  loadRelations () {
+    return this.store.findRecord('document', this.id, {
       include: 'type,document-versions,document-versions.access-level,document-versions.file',
       reload: true
     });
   }
-});
+}
