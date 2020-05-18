@@ -18,14 +18,14 @@
               @onSaveAccessLevel={{@onSaveAccessLevel}}
               @onToggleLock={{@onToggleLock}}
               @viewable={{@viewable}}
-              @onView={{action @onView}}
+              @onView={{@onView}}
             />
           {{else}}
             <Kaleidos::DocumentCard::ToolbarItems
               @downloadLink={{@downloadLink}}
               @accessLevel={{@accessLevel}}
               @viewable={{@viewable}}
-              @onView={{action @onView}}
+              @onView={{@onView}}
             />
           {{/if}}
           <div class="vlc-toolbar__item">
@@ -44,15 +44,17 @@
                 {{/if}}
                 {{#if this.editable}}
                   <ll.separator/>
+                  {{!-- template-lint-disable link-href-attributes --}}
                   <ll.item>
                     <a
                       role="button"
                       class="vl-link vl-link--block vl-u-text--error"
-                      {{action @onDeleteVersion}}
+                      {{on "click" @onDeleteVersion}}
                     >
                       Versie verwijderen
                     </a>
                   </ll.item>
+                  {{!-- template-lint-disable link-href-attributes --}}
                 {{/if}}
               </Wu::Popover::PopoverLinkList>
             </Wu::Popover>
