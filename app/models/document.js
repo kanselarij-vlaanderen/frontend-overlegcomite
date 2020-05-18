@@ -1,8 +1,6 @@
-import DS from 'ember-data';
+import Model, { belongsTo, hasMany, attr } from '@ember-data/model';
 import { computed } from '@ember/object';
-import { alias } from '@ember/object/computed';
-const { Model, attr, hasMany, belongsTo } = DS;
-import { sort } from '@ember/object/computed';
+import { alias, sort } from '@ember/object/computed';
 
 export default Model.extend({
   name: attr('string'),

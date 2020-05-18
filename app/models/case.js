@@ -1,5 +1,4 @@
-import DS from 'ember-data';
-let { Model, attr, hasMany } = DS;
+import Model, { hasMany, attr } from '@ember-data/model';
 
 export default Model.extend({
   identifier: attr('string'),

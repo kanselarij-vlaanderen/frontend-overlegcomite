@@ -1,5 +1,4 @@
-import DS from 'ember-data';
-let { Model, attr, belongsTo, hasMany } = DS;
+import Model, { hasMany, belongsTo, attr } from '@ember-data/model';
 
 export default Model.extend({
   priority: attr('number'),

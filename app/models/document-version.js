@@ -1,9 +1,7 @@
-import DS from 'ember-data';
+import Model, { belongsTo, attr } from '@ember-data/model';
 import { computed } from '@ember/object';
 import formatVersionedDocumentName from 'frontend-overlegcomite/utils/format-versioned-document-name';
 import sanitize from 'sanitize-filename';
-
-const { Model, attr, belongsTo } = DS;
 
 export default Model.extend({
   created: attr('datetime'),

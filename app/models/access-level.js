@@ -1,8 +1,6 @@
-import DS from 'ember-data';
+import Model, { hasMany, attr } from '@ember-data/model';
 
-const { attr, hasMany } = DS;
-
-export default DS.Model.extend({
+export default Model.extend({
 	label: attr('string'),
 	altLabel: attr('string'),
 	scopeNote: attr('string'),
