@@ -1,6 +1,6 @@
 import Route from '@ember/routing/route';
 import AuthenticatedRouteMixin from 'frontend-overlegcomite/mixins/authenticated-route-mixin'; // eslint-disable-line ember/no-mixins
-import DataTableRouteMixin from 'ember-data-table/mixins/route';
+import DataTableRouteMixin from 'ember-data-table/mixins/route'; // eslint-disable-line ember/no-mixins
 import { inject as service } from '@ember/service';
 import { ACCOUNT_PROVIDER_URI } from 'frontend-overlegcomite/config/config';
 

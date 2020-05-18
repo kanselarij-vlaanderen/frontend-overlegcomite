@@ -1,8 +1,8 @@
 import Route from '@ember/routing/route';
 import { warn } from '@ember/debug';
-
-import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mixin';
 import { inject as service } from '@ember/service';
+
+import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mixin'; // eslint-disable-line ember/no-mixins
 
 import ENV from 'frontend-overlegcomite/config/environment';
 
