@@ -6,7 +6,7 @@ export default class MeetingModel extends Model {
 
   @hasMany('agendaitem') agendaItems;
   agendaItemSortProperties = Object.freeze(['priority:asc', 'subPriority:asc']);
-  sortedAgendaItems = sort('agendaItems', 'agendaItemSortProperties');
+  @sort('agendaItems', 'agendaItemSortProperties') sortedAgendaItems;
 
   @hasMany('document') documents;
 }

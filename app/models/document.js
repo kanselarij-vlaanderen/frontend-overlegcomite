@@ -10,7 +10,7 @@ export default class DocumentModel extends Model {
   @hasMany('document-version', {async: false}) documentVersions;
 
   sortDefinition = Object.freeze(['versionNumber', 'file.created']);
-  sortedDocumentVersions = sort('documentVersions', 'sortDefinition');
+  @sort('documentVersions', 'sortDefinition') sortedDocumentVersions;
 
   get reverseSortedDocumentVersions () {
     return this.sortedDocumentVersions.reverse();
