@@ -29,7 +29,7 @@ async function muSearch(index, page, size, sort, filter, dataMapping) {
     'collapse_uuids': 't'
   }));
 
-  for (let field in filter) {
+  for (const field in filter) {
     params.append(`filter[${field}]`, filter[field]);
   }
 
