@@ -15,7 +15,7 @@ export default MeetingController.extend({
   router: service('router'),
 
   agendaItemGroups: computed('meeting.sortedAgendaItems.@each.submitters', async function () {
-    let agendaItems = this.get('meeting.sortedAgendaItems');
+    let agendaItems = this.meeting.sortedAgendaItems;
     if (agendaItems.length === 0) {
       return [];
     } else {
