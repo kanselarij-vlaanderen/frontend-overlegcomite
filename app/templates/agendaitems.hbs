@@ -48,7 +48,7 @@
                           @number={{concat agendaItem.priority agendaItem.subPriority "."}}
                           @title={{agendaItem.subject}}
                           @content={{undefined}}
-                          @times-passed={{if (is-pending agendaItem.case.identifier) "..." agendaItem.case.identifier}}
+                          @timesPassed={{if (is-pending agendaItem.case.identifier) "..." agendaItem.case.identifier}}
                         />
                       </Link>
                     {{/each}}

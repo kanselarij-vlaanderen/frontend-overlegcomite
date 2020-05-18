@@ -1,4 +1,5 @@
 import Component from '@glimmer/component';
+import { action } from '@ember/object';
 
 export default class extends Component {
   get tagName() {
@@ -10,6 +11,7 @@ export default class extends Component {
     return 'div'
   }
 
+  @action
   onClick() {
     if (this.args.onClick) {
       if (this.args.mode === 'sidebar') {

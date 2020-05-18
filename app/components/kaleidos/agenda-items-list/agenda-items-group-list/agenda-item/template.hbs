@@ -1,7 +1,10 @@
 <li class="vlc-agenda-items-sub-item {{if @active "vlc-agenda-items-sub-item--active"}}">
   {{#let (element this.tagName) as |Tag|}}
     {{!-- putting an href down here breaks things. Because of the dynamic tag, the on click handler doesn't seem to prevent a page reload --}}
-    <Tag class="vlc-agenda-items-sub-item__block-{{if (eq @mode "main") "non-"}}clickable" {{on "click" (action this.onClick)}}>
+    <Tag
+      class="vlc-agenda-items-sub-item__block-{{if (eq @mode "main") "non-"}}clickable"
+      {{on "click" this.onClick}}
+    >
       <h4 class="vlc-agenda-items-sub-item__subject">
         <span class="vlc-agenda-items-sub-item__numbering">{{@number}}</span>
         {{#if (eq @mode "main")}}
@@ -18,7 +21,7 @@
         <p class="vlc-agenda-items-sub-item__content">{{@content}}</p>
       {{/if}}
       <div class="vlc-agenda-meta">
-        <p class="vlc-agenda-meta__times-passed">{{@times-passed}}</p>
+        <p class="vlc-agenda-meta__times-passed">{{@timesPassed}}</p>
         {{!-- Meta status currently not needed for OC --}}
         {{!-- <div class="vlc-agenda-meta__status-holder">
           <p class="vlc-agenda-meta__status vlc-agenda-meta__status--warning">Gewijzigd
