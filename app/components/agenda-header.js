@@ -2,7 +2,7 @@ import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import { set, action } from '@ember/object';
-import { isNotFoundResponse } from 'ember-fetch/errors';
+
 export default class AgendaHeader extends Component {
   @service store;
   @service currentSession;
