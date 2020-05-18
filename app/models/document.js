@@ -5,9 +5,9 @@ export default class DocumentModel extends Model {
   @attr('string') name;
   @attr('datetime') created;
 
-  @belongsTo('document-type', {async: false}) type;
+  @belongsTo('document-type', { async: false }) type;
 
-  @hasMany('document-version', {async: false}) documentVersions;
+  @hasMany('document-version', { async: false }) documentVersions;
 
   sortDefinition = Object.freeze(['versionNumber', 'file.created']);
   @sort('documentVersions', 'sortDefinition') sortedDocumentVersions;

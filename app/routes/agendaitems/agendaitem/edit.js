@@ -25,7 +25,7 @@ export default Route.extend(AuthenticatedRouteMixin, {
   },
 
   setupController(controller, model) {
-    const governmentBodies = this.store.query('government-body', { sort: '-name'});
+    const governmentBodies = this.store.query('government-body', { sort: '-name' });
     controller.set('governmentBodies', governmentBodies);
     controller.set('model', model);
   }

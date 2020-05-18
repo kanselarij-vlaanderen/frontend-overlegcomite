@@ -24,16 +24,16 @@ Router.map(function() {
     this.route('documents', { path: '/documenten' });
   });
   this.route('search', { path: 'agendapunten/zoeken' });
-  this.route('view-document', { path: '/documenten/:document_id/versies/:version_number/bekijken'});
-  this.route('user-management', { path: '/instellingen/gebruikersbeheer'}, function() {
-    this.route('new-user', { path: '/nieuwe-gebruiker'});
+  this.route('view-document', { path: '/documenten/:document_id/versies/:version_number/bekijken' });
+  this.route('user-management', { path: '/instellingen/gebruikersbeheer' }, function() {
+    this.route('new-user', { path: '/nieuwe-gebruiker' });
   });
 
   if (ENV.APP.enableMockLogin) {
     this.route('mock-login');
   }
-  this.route('rightless-user', { path: '/geen-gebruikersrechten'});
-  this.route('login', { path: '/aanmelden'});
+  this.route('rightless-user', { path: '/geen-gebruikersrechten' });
+  this.route('login', { path: '/aanmelden' });
 
   this.route('route-not-found', {
     path: '/*wildcard'

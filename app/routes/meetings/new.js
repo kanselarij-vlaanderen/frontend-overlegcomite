@@ -19,6 +19,6 @@ export default Route.extend(AuthenticatedRouteMixin, {
                                     .seconds(0)
                                     .milliseconds(0)
                                     .toDate();
-    return this.store.createRecord('meeting', {startedAt: nextSessionDate});
+    return this.store.createRecord('meeting', { startedAt: nextSessionDate });
   },
 });

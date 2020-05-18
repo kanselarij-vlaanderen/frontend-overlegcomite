@@ -3,7 +3,9 @@ import AuthenticatedRouteMixin from 'frontend-overlegcomite/mixins/authenticated
 
 export default Route.extend(AuthenticatedRouteMixin, {
   model(params) {
-    return this.store.findRecord('meeting', params.meeting_id, {include: 'agenda-items.submitters' }).then((meeting) => {
+    return this.store.findRecord('meeting', params.meeting_id, {
+      include: 'agenda-items.submitters'
+    }).then((meeting) => {
       meeting.get('sortedAgendaItems'); // Prime computed property cache before returning
       return meeting;
     });

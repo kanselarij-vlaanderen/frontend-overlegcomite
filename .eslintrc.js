@@ -19,7 +19,8 @@ module.exports = {
   },
   rules: {
     'ember/no-jquery': 'error',
-    'semi': 'error'
+    'semi': 'error',
+    'object-curly-spacing': [ 'error', 'always' ]
   },
   overrides: [
     // node files

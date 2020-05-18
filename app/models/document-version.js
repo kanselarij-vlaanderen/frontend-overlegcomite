@@ -17,7 +17,7 @@ export default class DocumentVersionModel extends Model {
 
   get downloadFilename () {
     const filename = `${this.name}.${this.file.extension}`;
-    return sanitize(filename, {replacement: '_'});
+    return sanitize(filename, { replacement: '_' });
   }
 
   get downloadLink () {

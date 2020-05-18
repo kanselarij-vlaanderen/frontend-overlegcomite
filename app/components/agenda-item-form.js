@@ -35,7 +35,7 @@ export default class AgendaItemFormComponent extends Component {
   }
 
   createCase(identifier) {
-    return this.store.createRecord('case', {identifier: identifier});
+    return this.store.createRecord('case', { identifier: identifier });
   }
 
   @action
