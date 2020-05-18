@@ -8,17 +8,17 @@ export default Service.extend({
   session: service('session'),
   store: service('store'),
   async load() {
-    if (this.get('session.isAuthenticated')) {
+    if (this.session.isAuthenticated) {
       const session = this.session;
       const account = await this.store.find('account', get(session, 'data.authenticated.relationships.account.data.id'));
       const user = await account.get('user');
       // TODO: group management
       const group = await this.store.find('account-group', get(session, 'data.authenticated.relationships.group.data.id'));
       const roles = await get(session, 'data.authenticated.data.attributes.roles');
-      this.set('_account', account);
-      this.set('_user', user);
-      this.set('_roles', roles);
-      this.set('_group', group);
+      this._account = account;
+      this._user = user;
+      this._roles = roles;
+      this._group = group;
 
       // The naming is off, but account,user,roles are taken for the
       // promises in a currently public API.
@@ -36,10 +36,10 @@ export default Service.extend({
   },
   canAccess(role) {
     // TODO: Should be based on roles acquired trough openId
-    if (this.get('_group.id') &&
-      rolesByGroupId[this.get('_group.id')] &&
-      typeof rolesByGroupId[this.get('_group.id')][role] === 'boolean') {
-      return rolesByGroupId[this.get('_group.id')][role];
+    if (this._group.id &&
+      rolesByGroupId[this._group.id] &&
+      typeof rolesByGroupId[this._group.id][role] === 'boolean') {
+      return rolesByGroupId[this._group.id][role];
     } else {
       return false;
     }
