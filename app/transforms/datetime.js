@@ -1,3 +1,4 @@
-import DS from 'ember-data';
+import DateTransform from '@ember-data/serializer/transform';
 
-export default DS.DateTransform.extend({});
+export default class extends DateTransform {
+}
