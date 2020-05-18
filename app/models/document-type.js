@@ -1,11 +1,11 @@
 import Model, { belongsTo, hasMany, attr } from '@ember-data/model';
 
-export default Model.extend({
-	label: attr('string'),
-	scopeNote: attr('string'),
-	priority: attr('number'),
+export default class DocumentTypeModel extends Model {
+	@attr('string') label;
+	@attr('string') scopeNote;
+	@attr('number') priority;
 
-	documents: hasMany('document', { inverse: null }),
-	subtypes: hasMany('document-type', { inverse: null }),
-	superType: belongsTo('document-type', { inverse: null })
-});
+	@hasMany('document', { inverse: null }) documents;
+	@hasMany('document-type', { inverse: null }) subtypes;
+	@belongsTo('document-type', { inverse: null }) superType;
+}

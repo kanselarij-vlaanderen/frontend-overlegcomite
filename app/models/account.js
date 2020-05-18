@@ -1,10 +1,10 @@
 import Model, { attr, belongsTo } from '@ember-data/model';
 import { alias } from '@ember/object/computed';
 
-export default Model.extend({
-	user: belongsTo('user'),
-	voId: attr('string'),
-	provider: attr(),
+export default class AccountModel extends Model {
+	@belongsTo('user') user;
+	@attr('string') voId;
+	@attr() provider;
 
-  gebruiker: alias('user') // Depended on by @lblod/ember-mock-login
-});
+  @alias('user') gebruiker; // Depended on by @lblod/ember-mock-login
+}

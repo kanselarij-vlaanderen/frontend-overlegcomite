@@ -1,16 +1,16 @@
 import Model, { hasMany, belongsTo, attr } from '@ember-data/model';
 
-export default Model.extend({
-  priority: attr('number'),
-  subPriority: attr('string'),
-  subject: attr('string'),
+export default class AgendaItemModel extends Model {
+  @attr('number') priority;
+  @attr('string') subPriority;
+  @attr('string') subject;
 
-  meeting: belongsTo('meeting'),
-  case: belongsTo('case'),
+  @belongsTo('meeting') meeting;
+  @belongsTo('case') case;
 
-  submitters: hasMany('government-body'),
-  meetingRecord: belongsTo('file'),
-  notification: belongsTo('document'),
+  @hasMany('government-body') submitters;
+  @belongsTo('file') meetingRecord;
+  @belongsTo('document') notification;
 
-  documents: hasMany('document')
-});
+  @hasMany('document') documents;
+}
