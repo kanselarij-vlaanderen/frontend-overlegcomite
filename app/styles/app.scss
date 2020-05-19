@@ -25,10 +25,6 @@
   cursor: pointer;
 }
 
-.ember-attacher-show {
-  @extend .js-vl-popover--open;
-}
-
 .vl-modal-dialog {
   display: block;
   z-index: 41;
