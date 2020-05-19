@@ -23,7 +23,9 @@ Router.map(function() {
     this.route('index', { path: '/' });
     this.route('documents', { path: '/documenten' });
   });
-  this.route('search', { path: 'agendapunten/zoeken' });
+  this.route('search', { path: 'agendapunten/zoeken' }, function() {
+    this.route('index', { path: '/' });
+  });
   this.route('view-document', { path: '/documenten/:document_id/versies/:version_number/bekijken' });
   this.route('user-management', { path: '/instellingen/gebruikersbeheer' }, function() {
     this.route('new-user', { path: '/nieuwe-gebruiker' });
