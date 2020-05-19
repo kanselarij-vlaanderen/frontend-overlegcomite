@@ -29,7 +29,11 @@
             />
           {{/if}}
           <div class="vlc-toolbar__item">
-            <Wu::Popover @alignment="right" @buttonIcon="nav-show-more-horizontal">
+            <Wu::Popover
+              @alignment="right"
+              @buttonIcon="nav-show-more-horizontal"
+              @buttonClass="vl-button--link"
+            >
               <Wu::Popover::PopoverLinkList as |ll|>
                 {{#if this.downloadable}}
                   <ll.item>

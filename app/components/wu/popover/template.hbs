@@ -4,11 +4,11 @@
 >
   <button
     type="button"
-    class="js-vl-popover__toggle vl-popover__toggle vl-button vl-button--link vl-button--icon {{@buttonClass}}"
+    class="js-vl-popover__toggle vl-button vl-button--icon{{if @iconPlacement (concat "-" @iconPlacement)}} {{@buttonClass}}"
   >
     {{if @showButtonText this.buttonText}}
     <i
-      class="vl-vi vl-vi-{{@buttonIcon}} vl-button__icon"
+      class="vl-vi vl-vi-{{@buttonIcon}} vl-button__icon{{if @iconPlacement (concat "--" @iconPlacement)}}"
       aria-hidden="true">
     </i>
     {{#unless @showButtonText}}

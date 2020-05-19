@@ -85,21 +85,6 @@
         <div class="vlc-toolbar__right">
           <div class="vlc-toolbar__item">
             <div class="vl-action-group">
-              {{!-- TODO: implement actions menu and put "create agendaitem" action in it
-              <div class="vl-popover vl-popover--align-left" data-vl-popover="">
-                <button class="vl-button vl-button--secondary vl-button--narrow vl-button--icon-after js-vl-popover__toggle" type="button" aria-expanded="false">
-                  Acties
-                  <i class="vl-button__icon vl-button__icon--after vl-vi vl-vi-nav-down" aria-hidden="true"></i>
-                </button>
-                <div class="vl-popover__content vl-popover__content--close" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 45px, 0px);">
-                  <ul class="vl-popover__link-list">
-                    ...
-                  </ul>
-                  <button class="vl-popover__close-btn vl-vi vl-vi-cross" tabindex="0">
-                    <span class="vl-u-visually-hidden">Sluit menu</span>
-                  </button>
-                </div>
-              </div>--}}
               <LinkTo
                 @route="agendaitems.new"
                 @tagName="button"
@@ -110,26 +95,37 @@
                 ></i>
                 Nieuw agendapunt
               </LinkTo>
-              {{!-- Commented out logic to hide buttons while in testing phase. TODO: revert --}}
-              {{!--{{#if (is-before meeting.startedAt)}}--}}
-              <button
-                type="button"
-                class="vl-button vl-button--narrow vl-button--icon-before"
-                {{on "click" (fn this.releaseAgenda this.meeting)}}
+              <Wu::Popover
+                @alignment="right"
+                @buttonIcon="nav-down"
+                @buttonText="Acties"
+                @showButtonText={{true}}
+                @iconPlacement="after"
+                @buttonClass="vl-button--secondary vl-button--narrow"
               >
-                <i class="vl-button__icon vl-button__icon--before vl-vi vl-vi-share" aria-hidden="true"></i>
-                Agenda Vrijgeven
-              </button>
-              {{!--{{else}}--}}
-              <button
-                type="button"
-                class="vl-button vl-button--narrow vl-button--icon-before"
-                {{on "click" (fn this.releaseNotifications this.meeting)}}
-              >
-                <i class="vl-button__icon vl-button__icon--before vl-vi vl-vi-share" aria-hidden="true"></i>
-                Notificaties Vrijgeven
-              </button>
-              {{!--{{/if}}--}}
+                <Wu::Popover::PopoverLinkList as |ll|>
+                  {{!-- template-lint-disable link-href-attributes --}}
+                  <ll.item>
+                    <a
+                      class="vl-link vl-link--block"
+                      role="button"
+                      {{on "click" (fn this.releaseAgenda this.meeting)}}
+                    >
+                      Agenda Vrijgeven
+                    </a>
+                  </ll.item>
+                  <ll.item>
+                    <a
+                      class="vl-link vl-link--block"
+                      role="button"
+                      {{on "click" (fn this.releaseNotifications this.meeting)}}
+                    >
+                      Notificaties Vrijgeven
+                    </a>
+                  </ll.item>
+                  {{!-- template-lint-enable link-href-attributes --}}
+                </Wu::Popover::PopoverLinkList>
+              </Wu::Popover>
             </div>
           </div>
         </div>
