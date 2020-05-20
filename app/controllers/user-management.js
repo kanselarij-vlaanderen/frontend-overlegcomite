@@ -6,6 +6,7 @@ import { inject as service } from '@ember/service';
 
 export default class UserManagementController extends Controller.extend(DefaultQueryParamsMixin) {
   @service store;
+  @service rightlessUserCount;
   sort = 'last-name';
   @tracked name = null;
   @tracked group = null;
@@ -36,13 +37,10 @@ export default class UserManagementController extends Controller.extend(DefaultQ
   }
 
   @action
-  changeGroup(user, group) {
+  async changeGroup(user, group) {
     user.set('group', group);
-    user.save().then(() => {
-      // TODO: report success
-    }).catch(() => {
-      // TODO: report error while updating
-    });
+    await user.save();
+    this.rightlessUserCount.refresh();
   }
 
   @action
