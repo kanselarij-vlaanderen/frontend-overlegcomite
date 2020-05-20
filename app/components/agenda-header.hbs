@@ -123,6 +123,17 @@
                       Notificaties Vrijgeven
                     </a>
                   </ll.item>
+                  <ll.separator/>
+                  <ll.item>
+                    <LinkTo
+                      class="vl-link vl-link--block"
+                      role="button"
+                      @route="meeting.edit"
+                      @model={{this.meeting}}
+                    >
+                      Wijzigen
+                    </LinkTo>
+                  </ll.item>
                   {{!-- template-lint-enable link-href-attributes --}}
                 </Wu::Popover::PopoverLinkList>
               </Wu::Popover>

@@ -3,6 +3,6 @@ import AuthenticatedRouteMixin from 'frontend-overlegcomite/mixins/authenticated
 
 export default Route.extend(AuthenticatedRouteMixin, {
   beforeModel() {
-    this.transitionTo('agendaitems', this.modelFor('meeting').get('id'));
+    this.transitionTo('agendaitems', this.modelFor('meeting'));
   }
 });
