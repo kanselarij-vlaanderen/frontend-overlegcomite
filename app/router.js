@@ -11,8 +11,8 @@ Router.map(function() {
   this.route('agendaitems', { path: '/vergaderingen/:meeting_id/agendapunten' }, function() {
     this.route('agendaitem', { path: '/:agendaitem_id' }, function() {
       this.route('index', { path: '/' });
-      this.route('edit', { path: '/wijzig' });
-      this.route('delete', { path: '/verwijder' });
+      this.route('edit', { path: '/wijzigen' });
+      this.route('delete', { path: '/verwijderen' });
     });
     this.route('new', { path: '/nieuw' });
   });
