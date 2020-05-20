@@ -22,6 +22,7 @@ Router.map(function() {
   this.route('meeting', { path: '/vergaderingen/:meeting_id' }, function() {
     this.route('index', { path: '/' });
     this.route('edit', { path: '/wijzigen' });
+    this.route('delete', { path: '/verwijderen' });
     this.route('documents', { path: '/documenten' });
   });
   this.route('search', { path: 'agendapunten/zoeken' }, function() {

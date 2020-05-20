@@ -1,0 +1,12 @@
+<Kaleidos::ConfirmationModal
+  @title="Vergadering verwijderen"
+  @loading={{this.deleteMeeting.isRunning}}
+  @onCancel={{this.cancel}}
+  @onClose={{this.cancel}}
+  @onConfirm={{this.save}}
+  @buttonStyle="error"
+  @buttonIcon="bin"
+  @buttonText="verwijderen"
+>
+  Bent u zeker dat u deze vergadering inclusief z'n agendapunten wil verwijderen?
+</Kaleidos::ConfirmationModal>

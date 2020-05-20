@@ -131,7 +131,17 @@
                       @route="meeting.edit"
                       @model={{this.meeting}}
                     >
-                      Wijzigen
+                      Vergadering Wijzigen
+                    </LinkTo>
+                  </ll.item>
+                  <ll.item>
+                    <LinkTo
+                      class="vl-link vl-link--block vl-u-text--error"
+                      role="button"
+                      @route="meeting.delete"
+                      @model={{this.meeting}}
+                    >
+                      Vergadering Verwijderen
                     </LinkTo>
                   </ll.item>
                   {{!-- template-lint-enable link-href-attributes --}}
