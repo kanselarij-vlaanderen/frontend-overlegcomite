@@ -37,7 +37,7 @@ export default class SearchRoute extends Route.extend(AuthenticatedRouteMixin, D
     const endpoint = params.notificationsOnly ? 'agendaitems-by-notification' : 'agendaitems-by-documents';
 
     if (Object.keys(filter).length == 0) {
-      filter[':sqs:title'] = '*'; // search without filter
+      filter[':sqs:subject'] = '*'; // search without filter
     }
 
     return search(endpoint, params.page, params.size, params.sort, filter, function(item) {
