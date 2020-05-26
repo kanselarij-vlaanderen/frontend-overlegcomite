@@ -9,6 +9,7 @@ export default class IndexSearchController extends Controller {
   @tracked searchText;
   @tracked page = 0;
   @tracked size = 10;
+  @tracked sort = '-meeting-date';
   @tracked notificationsOnly = false;
 
   @tracked searchTextBuffer = '';
