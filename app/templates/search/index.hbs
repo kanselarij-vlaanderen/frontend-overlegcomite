@@ -3,11 +3,11 @@
     <Input class="vl-input-field vl-input-field--block"
       @value={{this.searchTextBuffer}}
       @placeholder="zoekterm"
-      @enter={{fn (mut this.searchText) this.searchTextBuffer}}
+      @enter={{fn this.search this.searchTextBuffer}}
     />
   </div>
   <div class="vl-col--1-12 vl-col--1-1--s">
-    <button {{on "click" (fn (mut this.searchText) this.searchTextBuffer)}}
+    <button {{on "click" (fn this.search this.searchTextBuffer)}}
       class="vl-button vl-button--secondary vl-button--narrow vl-button--icon"
       type="submit">
       <i class="vl-vi vl-vi-magnifier"></i>
