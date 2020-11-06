@@ -11,9 +11,14 @@ export default class UserManagementNewUserController extends Controller {
     yield identifier.save();
     yield account.save();
     yield model.save();
-    this.transitionToRoute('user-management');
+
+    this.didSave();
   })) saveModel;
 
+  didSave () {
+    this.send('reloadModel'); // 'user-management' route
+    this.transitionToRoute('user-management');
+  }
 
   async addIdentifier() {
     /* VO-id is stored as a direct property on account, as well as a property of
