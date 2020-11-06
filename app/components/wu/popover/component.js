@@ -47,6 +47,7 @@ export default class extends Component {
         return 'bottom-end';
       }
     }
+    return '';
   }
 
   get buttonText () {
