@@ -1,4 +1,4 @@
-{{title (concat "Agenda van " (moment-format this.meeting.startedAt "DD-MM-YYYY"))}}
+{{page-title (concat "Agenda van " (moment-format this.meeting.startedAt "DD-MM-YYYY"))}}
 <AgendaHeader
   @meeting={{this.model}}
 />
