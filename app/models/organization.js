@@ -7,5 +7,5 @@ export default class OrganizationModel extends Model {
   @attr() identifier; // OVO-code
   @hasMany('user') member;
 
-  @alias('uri') subjectPage;
+  @alias('uri') subjectPage; // Doesn't always dereference, since the SPARQL-endpoint that feeds these pages isn't kept up to date.
 }
