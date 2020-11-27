@@ -49,3 +49,8 @@
 .vlc-panel-layout__agenda-items .vlc-list-section-header {
   z-index: 39;
 }
+
+// Avoid document-card-toolbar falling behind popover menu
+.vlc-document-card-toolbar__right {
+  z-index: auto;
+}
