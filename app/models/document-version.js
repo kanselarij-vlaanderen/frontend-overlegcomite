@@ -17,10 +17,10 @@ export default class DocumentVersionModel extends Model {
 
   get downloadFilename () {
     const filename = `${this.name}.${this.file.extension}`;
-    return sanitize(filename, { replacement: '_' });
+    return sanitize(filename, { replacement: '_' }); // Sanitize to have a file-system-safe name
   }
 
   get downloadLink () {
-    return `${this.file.downloadLink}?name=${this.downloadFilename}`;
+    return `${this.file.downloadLink}?name=${encodeURIComponent(this.downloadFilename)}`; // Encode to have an url-safe name
   }
 }
