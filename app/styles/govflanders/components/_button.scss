@@ -1,6 +1,7 @@
 $button-border: 0.2rem;
 $button-border-small: 0.1rem;
 
+.acmidm-login-button button,
 .vl-button {
   @include vl-u-text--ellipse;
   @include reset-button;
