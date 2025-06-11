@@ -4,6 +4,7 @@ steps:
     settings:
       repo: "${CI_REPO_OWNER%%-vlaanderen}/${CI_REPO_NAME}"
       tags: latest
+      dockerfile: Dockerfile.prod
       username:
         from_secret: docker_username
       password:
