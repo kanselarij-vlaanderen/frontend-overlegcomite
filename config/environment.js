@@ -64,8 +64,7 @@ module.exports = function(environment) {
             'vo', // for 'vo_id'
             // 'rrn', // not allowed
             'profile', // ?
-            'dkboverlegcomite', // ?
-            'dkbkaleidos' // for 'dkb_kaleidos_rol_3d'
+            'dkboverlegcomite', // for 'dkb_overlegcomite_rol_3d'
           ].join(' ')
         }
       }
