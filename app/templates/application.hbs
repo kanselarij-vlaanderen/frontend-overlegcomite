@@ -1,5 +1,19 @@
-{{page-title "FrontendOverlegcomite"}}
+{{page-title "Overlegcomité Vlaanderen" separator=" | " prepend=true}}
 
-<h2 id="title">Welcome to Ember</h2>
+<AuApp>
+  <AuMainHeader @appTitle="Overlegcomité Vlaanderen">
+  </AuMainHeader>
+  <AuTabs class="au-c-toolbar au-c-toolbar--tint" as |Tab|>
+    <Tab>
+      <AuLink class="active" @route="meetings">Vergaderingen</AuLink>
+    </Tab>
+    <Tab>
+      <AuLink>Zoeken</AuLink>
+    </Tab>
+    <Tab>
+      <AuLink>Gebruikersbeheer</AuLink>
+    </Tab>
+  </AuTabs>
+  {{outlet}}
+</AuApp>
 
-{{outlet}}
