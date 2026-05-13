@@ -3,6 +3,16 @@
 <AuMainContainer as |m|>
   <m.content>
     <AuHeading>Vergaderingen</AuHeading>
+    <AuDataTable
+      @content={{@model}}
+      @fields="startedAt"
+      as |t|>
+      <t.content as |c|>
+        <c.body as |meeting|>
+          <td>{{meeting.startedAt}}</td>
+        </c.body>
+      </t.content>
+    </AuDataTable>
   </m.content>
 </AuMainContainer>
 
