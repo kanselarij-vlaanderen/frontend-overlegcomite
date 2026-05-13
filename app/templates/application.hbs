@@ -1,39 +1,5 @@
-<HeadLayout/> {{!-- Required by ember-page-title (https://github.com/adopted-ember-addons/ember-page-title/releases/tag/4.0.0) --}}
-{{page-title "Overlegcomité Vlaanderen" separator=" | " prepend=true}}
-{{#if this.session.isAuthenticated}}
-  {{outlet "navbar-main"}}
-  <div class="vl-u-display-block">
-    <div class="vlc-navbar vlc-navbar--bordered-bottom vlc-navbar--no-padding vlc-navbar--bg-alt vlc-navbar--auto" id="c-main-nav">
-      <div class="vlc-toolbar vlc-toolbar--auto">
-        <div class="vlc-toolbar__left">
-          {{#if this.currentSession.canAccessApplication}}
-            <div class="vlc-toolbar__item">
-              <Wu::Tabs class="vl-u-reset-margin" as |tabs|>
-                <tabs.tab @route="meetings" @current-when="meetings agendaitems">Vergaderingen</tabs.tab>
-                {{!-- Hide until implemented <tabs.tab @route="cases">Dossiers</tabs.tab> --}}
-                <tabs.tab @route="search">Zoeken</tabs.tab>
-                {{#if this.currentSession.canAccessSettings}}
-                  <tabs.tab @route="user-management">
-                    Gebruikersbeheer
-                    {{#if this.rightlessUserCount}}
-                      <Wu::Pill @clickable={{true}} @onclick={{this.transitionToUsers}}>
-                        {{this.rightlessUserCount}}
-                      </Wu::Pill>
-                    {{/if}}
-                  </tabs.tab>
-                {{/if}}
-              </Wu::Tabs>
-            </div>
-          {{/if}}
-        </div>
-        <div class="vlc-toolbar__right">
-          <Kaleidos::User
-            @userName={{this.currentSession.userContent.name}}
-            @groupName={{this.currentSession.groupContent.name}}
-            @logoutRoute="index" />
-        </div>
-      </div>
-    </div>
-  </div>
-{{/if}}
+{{page-title "FrontendOverlegcomite"}}
+
+<h2 id="title">Welcome to Ember</h2>
+
 {{outlet}}

@@ -1,8 +1,5 @@
 'use strict';
 
 module.exports = {
-  extends: 'octane',
-  ignore: [
-    'app/components/imported/**'
-  ]
+  extends: 'recommended',
 };

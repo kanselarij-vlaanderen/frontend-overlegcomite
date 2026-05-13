@@ -1,34 +1,23 @@
 'use strict';
 
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
+const { setConfig } = require('@warp-drive/core/build-config');
 
-module.exports = function(defaults) {
-  let app = new EmberApp(defaults, {
-    flatpickr: {
-      locales: ['nl']
-    },
-    moment: {
-      outputFormat: 'L',
-      includeLocales: ['nl']
-    },
-    'ember-fetch': {
-      preferNative: true
-    }
+module.exports = function (defaults) {
+  const app = new EmberApp(defaults, {
     // Add options here
   });
 
-  // Use `app.import` to add additional libraries to the generated
-  // output files.
-  //
-  // If you need to use different assets in different
-  // environments, specify an object as the first parameter. That
-  // object's keys should be the environment name and the values
-  // should be the asset to use in that environment.
-  //
-  // If the library that you are including contains AMD or ES6
-  // modules that you would like to import into your application
-  // please specify an object with the list of modules as keys
-  // along with the exports of each module as its value.
+  setConfig(app, __dirname, {
+    // this should be the most recent <major>.<minor> version for
+    // which all deprecations have been fully resolved
+    // and should be updated when that changes
+    compatWith: '5.8',
+    deprecations: {
+      // ... list individual deprecations that have been resolved here
+    },
+  });
+
 
   return app.toTree();
 };

@@ -1,13 +1,13 @@
-FROM madnificent/ember:3.14.0 as builder
+FROM madnificent/ember:6.8.0 AS builder
 
 LABEL maintainer="info@redpencil.io"
 
 WORKDIR /app
-COPY package.json .
-RUN npm install
+COPY package.json package-lock.json .
+RUN npm ci
 COPY . .
 
-RUN ember build -prod
+RUN npm run build -prod
 
 FROM semtech/ember-proxy-service:1.4.0
 
