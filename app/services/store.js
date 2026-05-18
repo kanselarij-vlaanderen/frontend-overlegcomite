@@ -4,6 +4,9 @@ import { JSONAPICache } from '@warp-drive/json-api';
 import { singularize, pluralize } from '@warp-drive/utilities/string';
 import { processQueryResult } from '../adapters/application'
 
+import { MeetingSchema } from '../data/meeting/schema';
+import  DatetimeTransform  from '../transforms/datetime';
+
 const MuHandler = {
   async request(context, next) {
     let { content } = await next(context.request);
@@ -14,7 +17,13 @@ const MuHandler = {
 const LegacyStore = useLegacyStore({
    legacyRequests: true,
    cache: JSONAPICache,
-   handlers: [MuHandler]
+   handlers: [MuHandler],
+   schemas: [
+     MeetingSchema
+   ],
+   transformations: [
+     DatetimeTransform.create()
+   ]
 });
 
 
