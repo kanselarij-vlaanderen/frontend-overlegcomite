@@ -3,20 +3,21 @@ import { singularize, camelize } from '@warp-drive/utilities/string';
 
 export default class ApplicationAdapter extends JSONAPIAdapter {
   handleResponse(_status, _headers, payload, _requestData) {
-    return this.constructor.processQueryResult(payload)
+    return processQueryResult(payload)
   }
+}
 
-  static processQueryResult(result) {
-    let { data, links, meta } = result;
-    data = data.map(processObject)
-    return { data, links, meta }
-  }
+export function processQueryResult(result) {
+  let { data, links, meta } = result;
+  data = data.map(processObject)
+  return { data, links, meta }
 }
 
 function processObject(obj) {
   obj.type = singularize(obj.type);
   obj.attributes = camelizeKeys(obj.attributes);
   // TODO: links
+  obj.relationships = {};
   return obj
 }
 

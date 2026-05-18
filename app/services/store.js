@@ -6,7 +6,7 @@ import { processQueryResult } from '../adapters/application'
 
 const MuHandler = {
   async request(context, next) {
-    let { content } = next(context);
+    let { content } = await next(context.request);
     return processQueryResult(content)
   }
 }

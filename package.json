@@ -38,6 +38,7 @@
     "@glimmer/component": "^2.1.1",
     "@glimmer/tracking": "^1.1.2",
     "@warp-drive/core": "~5.8.1",
+    "@warp-drive/ember": "^5.8.2",
     "@warp-drive/json-api": "~5.8.1",
     "@warp-drive/legacy": "~5.8.1",
     "@warp-drive/utilities": "~5.8.1",
