@@ -10,4 +10,8 @@ Router.map(function () {
   this.route('meetings', {
     path: 'vergaderingen',
   });
+
+  this.route('meeting', {
+    path: 'vergaderingen/:meeting_id'
+  });
 });

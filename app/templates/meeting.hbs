@@ -1,0 +1,46 @@
+    {{page-title "Vergadering"}}
+
+    <AuToolbar @size="large" as |Group|>
+      <Group>
+        <div class="au-o-flow">
+          <ul class="au-c-list-horizontal">
+            <li class="au-c-list-horizontal__item">
+              <AuLink @route="meetings" @icon="arrow-left">
+                Overzicht vergaderingen
+              </AuLink>
+            </li>
+            <li class="au-c-list-horizontal__item">
+              <AuHeading @skin={{4}}>
+                Agenda van {{datetime-format @model.startedAt}}
+              </AuHeading>
+            </li>
+          </ul>
+          <AuTabs @reversed={{true}} as |Tab|>
+            <Tab>
+              <AuLink class="active">Overzicht</AuLink>
+            </Tab>
+            <Tab>
+              <AuLink>Documenten</AuLink>
+            </Tab>
+          </AuTabs>
+        </div>
+      </Group>
+      <Group>
+        <AuButtonGroup>
+          <AuButton @skin="primary">
+            Nieuw Agendapunt
+          </AuButton>
+          <AuDropdown
+            @title="Acties"
+            @skin="secondary">
+              <AuButton @skin="link" role="menuitem">Agenda Vrijgeven</AuButton>
+              <AuButton @skin="link" role="menuitem">Notificaties Vrijgeven</AuButton>
+              <AuHr/>
+              <AuButton @skin="link" role="menuitem">Vergadering Wijzigen</AuButton>
+              <AuButton @skin="link" @alert={{true}} role="menuitem">Vergadering Verwijderen</AuButton>
+          </AuDropdown>
+        </AuButtonGroup>
+      </Group>
+    </AuToolbar>
+
+    {{outlet}}

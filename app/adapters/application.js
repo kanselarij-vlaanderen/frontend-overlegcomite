@@ -8,9 +8,15 @@ export default class ApplicationAdapter extends JSONAPIAdapter {
 }
 
 export function processQueryResult(result) {
-  let { data, links, meta } = result;
-  data = data.map(processObject)
-  return { data, links, meta }
+  let { data } = result;
+
+  if (Array.isArray(data)) {
+    result.data = data.map(processObject)
+  } else {
+    result.data = processObject(data)
+  }
+
+  return result;
 }
 
 function processObject(obj) {
