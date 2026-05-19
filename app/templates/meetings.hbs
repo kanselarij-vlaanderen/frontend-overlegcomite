@@ -3,12 +3,15 @@
 <AuMainContainer as |m|>
   <m.content>
     <div class="au-o-layout">
+      <AuHeading>Vergaderingen</AuHeading>
       <Request @query={{this.meetingsQuery}}>
         <:content as |result|>
-          <AuHeading>Vergaderingen</AuHeading>
           <AuDataTable
-            @content={{result.data}}
+            @content={{format-content-for-au-datable result}}
             @fields="startedAt"
+            @sort={{this.sort}}
+            @page={{this.page}}
+            @size={{this.size}}
             as |t|>
             <t.content as |c|>
               <c.header>
@@ -17,13 +20,28 @@
                   @currentSorting={{this.sort}}
                   @label="Datum" @class="data-table__header-date"
                 />
+                <th>
+                </th>
               </c.header>
-              <c.body as |meeting|>
-                <td>{{meeting.startedAt}}</td>
+              <c.body @onClickRow={{this.goToMeeting}} as |meeting|>
+                <td>{{datetime-format meeting.startedAt}}</td>
+                <td>
+                  <AuButton
+                    @skin="link"
+                    @icon="arrow-right"
+                    @iconAlignment="right">
+                    Ga naar meeting
+                  </AuButton>
+                </td>
               </c.body>
             </t.content>
           </AuDataTable>
         </:content>
+        <:loading>
+          <AuLoader>
+            Vergaderingen aan het laden&hellip;
+          </AuLoader>
+        </:loading>
       </Request>
     </div>
   </m.content>
