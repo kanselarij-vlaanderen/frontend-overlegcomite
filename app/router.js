@@ -9,6 +9,10 @@ export default class Router extends EmberRouter {
 Router.map(function () {
   this.route('meetings', {
     path: 'vergaderingen',
+  }, function() {
+    this.route('new', {
+      path: '/nieuw'
+    });
   });
 
   this.route('meeting', {

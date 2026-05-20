@@ -3,7 +3,16 @@
 <AuMainContainer as |m|>
   <m.content>
     <div class="au-o-layout">
-      <AuHeading>Vergaderingen</AuHeading>
+      <AuToolbar as |Group|>
+        <Group>
+          <AuHeading>Vergaderingen</AuHeading>
+        </Group>
+        <Group>
+          <AuLink @skin="button" @route="meetings.new" @icon="plus">
+            Nieuwe vergadering
+          </AuLink>
+        </Group>
+      </AuToolbar>
       <Request @query={{this.meetingsQuery}}>
         <:content as |result|>
           <AuDataTable

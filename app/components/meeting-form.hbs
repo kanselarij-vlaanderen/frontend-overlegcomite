@@ -1,0 +1,19 @@
+<form class="au-c-form">
+  <AuFormRow>
+    <AuLabel for="meeting-start-at-date">Datum</AuLabel>
+    <AuDatePicker
+      @id="meeting-start-at-date"
+      @value={{this.startedAtDate}}
+      @onChange={{this.setStartedAtDate}}
+      />
+  </AuFormRow>
+  <AuFormRow>
+    <AuLabel for="meeting-start-at-time">Tijd</AuLabel>
+    <AuTimePicker
+      @id="meeting-start-at-time"
+      @hours={{this.meeting.startedAt.hour}}
+      @minutes={{this.meeting.startedAt.minute}}
+      @showSeconds={{false}}
+      @nowLabel="Nu" />
+  </AuFormRow>
+</form>
