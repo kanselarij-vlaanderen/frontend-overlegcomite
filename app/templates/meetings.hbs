@@ -2,57 +2,55 @@
 
 <AuMainContainer as |m|>
   <m.content>
-    <div class="au-o-layout">
-      <AuToolbar as |Group|>
-        <Group>
-          <AuHeading>Vergaderingen</AuHeading>
-        </Group>
-        <Group>
-          <AuLink @skin="button" @route="meetings.new" @icon="plus">
-            Nieuwe vergadering
-          </AuLink>
-        </Group>
-      </AuToolbar>
-      <Request @query={{this.meetingsQuery}}>
-        <:content as |result|>
-          <AuDataTable
-            @content={{format-content-for-au-datable result}}
-            @fields="startedAt"
-            @sort={{this.sort}}
-            @page={{this.page}}
-            @size={{this.size}}
-            as |t|>
-            <t.content as |c|>
-              <c.header>
-                <AuDataTableThSortable
-                  @field="startedAt"
-                  @currentSorting={{this.sort}}
-                  @label="Datum" @class="data-table__header-date"
-                />
-                <th>
-                </th>
-              </c.header>
-              <c.body @onClickRow={{this.goToMeeting}} as |meeting|>
-                <td>{{datetime-format meeting.startedAt}}</td>
-                <td>
-                  <AuButton
-                    @skin="link"
-                    @icon="arrow-right"
-                    @iconAlignment="right">
-                    Ga naar vergadering
-                  </AuButton>
-                </td>
-              </c.body>
-            </t.content>
-          </AuDataTable>
-        </:content>
-        <:loading>
-          <AuLoader>
-            Vergaderingen aan het laden&hellip;
-          </AuLoader>
-        </:loading>
-      </Request>
-    </div>
+    <AuToolbar @size="large" as |Group|>
+      <Group>
+        <AuHeading>Vergaderingen</AuHeading>
+      </Group>
+      <Group>
+        <AuLink @skin="button" @route="meetings.new" @icon="plus">
+          Nieuwe vergadering
+        </AuLink>
+      </Group>
+    </AuToolbar>
+    <Request @query={{this.meetingsQuery}}>
+      <:content as |result|>
+        <AuDataTable
+          @content={{format-content-for-au-datable result}}
+          @fields="startedAt"
+          @sort={{this.sort}}
+          @page={{this.page}}
+          @size={{this.size}}
+          as |t|>
+          <t.content as |c|>
+            <c.header>
+              <AuDataTableThSortable
+                @field="startedAt"
+                @currentSorting={{this.sort}}
+                @label="Datum" @class="data-table__header-date"
+              />
+              <th>
+              </th>
+            </c.header>
+            <c.body @onClickRow={{this.goToMeeting}} class="cursor-pointer" as |meeting|>
+              <td>{{datetime-format meeting.startedAt}}</td>
+              <td>
+                <AuButton
+                  @skin="link"
+                  @icon="arrow-right"
+                  @iconAlignment="right">
+                  Ga naar vergadering
+                </AuButton>
+              </td>
+            </c.body>
+          </t.content>
+        </AuDataTable>
+      </:content>
+      <:loading>
+        <AuLoader>
+          Vergaderingen aan het laden&hellip;
+        </AuLoader>
+      </:loading>
+    </Request>
   </m.content>
 </AuMainContainer>
 
