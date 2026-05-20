@@ -37,10 +37,42 @@
               <AuButton @skin="link" role="menuitem">Notificaties Vrijgeven</AuButton>
               <AuHr/>
               <AuButton @skin="link" role="menuitem">Vergadering Wijzigen</AuButton>
-              <AuButton @skin="link" @alert={{true}} role="menuitem">Vergadering Verwijderen</AuButton>
+              <AuButton
+                @skin="link" @alert={{true}} role="menuitem"
+                {{on "click" this.openDeleteModal}}>
+                Vergadering Verwijderen
+              </AuButton>
           </AuDropdown>
         </AuButtonGroup>
       </Group>
     </AuToolbar>
+
+    <AuModal
+      @modalOpen={{this.deleteModalOpen}}
+      @closeModal={{this.closeDeleteModal}}>
+      <:title>
+        Vergadering verwijderen
+      </:title>
+      <:body>
+        Bent u zeker dat u deze vergadering inclusief agendapunten wil verwijderen?
+      </:body>
+      <:footer>
+        <AuToolbar as |Group|>
+          <Group>
+            <AuButton @skin="link"
+              {{on "click" this.closeDeleteModal}}>
+              Annuleer
+            </AuButton>
+          </Group>
+          <Group>
+            <AuButton @alert={{true}} @icon="trash"
+                {{on "click" this.deleteMeeting}}
+                @loading={{this.deleteState.isPending}}>
+              Verwijderen
+            </AuButton>
+          </Group>
+        </AuToolbar>
+      </:footer>
+    </AuModal>
 
     {{outlet}}

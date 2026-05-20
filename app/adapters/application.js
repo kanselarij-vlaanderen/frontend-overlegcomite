@@ -8,6 +8,8 @@ export default class ApplicationAdapter extends JSONAPIAdapter {
 }
 
 export function processQueryResult(result) {
+  if (!result) return result;
+
   let { data } = result;
 
   if (Array.isArray(data)) {
