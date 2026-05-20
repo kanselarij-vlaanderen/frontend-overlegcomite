@@ -36,7 +36,9 @@
               <AuButton @skin="link" role="menuitem">Agenda Vrijgeven</AuButton>
               <AuButton @skin="link" role="menuitem">Notificaties Vrijgeven</AuButton>
               <AuHr/>
-              <AuButton @skin="link" role="menuitem">Vergadering Wijzigen</AuButton>
+              <AuLink @route="meeting.edit" role="menuitem">
+                Vergadering Wijzigen
+              </AuLink>
               <AuButton
                 @skin="link" @alert={{true}} role="menuitem"
                 {{on "click" this.openDeleteModal}}>

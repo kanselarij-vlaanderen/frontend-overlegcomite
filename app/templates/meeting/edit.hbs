@@ -1,0 +1,31 @@
+{{page-title "Vergadering Wijzigen"}}
+
+<AuModal
+  @overflow={{true}}
+  @modalOpen={{true}}
+  @closeModal={{this.closeModal}}>
+  <:title>
+    Vergadering wijzigen
+  </:title>
+  <:body>
+    <MeetingForm @meeting={{@model}} />
+  </:body>
+  <:footer>
+    <AuToolbar as |Group|>
+      <Group>
+        <AuLink @route="meeting" {{on "click" this.closeModal}}>
+          Annuleer
+        </AuLink>
+      </Group>
+      <Group>
+        <AuButton
+            {{on "click" this.saveMeeting}}
+            @loading={{this.saveState.isPending}}>
+          Opslaan
+        </AuButton>
+      </Group>
+    </AuToolbar>
+  </:footer>
+</AuModal>
+
+{{outlet}}
