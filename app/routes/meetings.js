@@ -1,7 +1,3 @@
 import Route from '@ember/routing/route';
-import { service } from "@ember/service";
-import { query } from '@warp-drive/utilities/json-api';
 
-export default class MeetingsRoute extends Route {
-  @service store;
-}
+export default class MeetingsRoute extends Route {}
