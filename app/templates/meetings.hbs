@@ -1,7 +1,7 @@
 {{page-title "Vergaderingen"}}
 
 <AuMainContainer as |m|>
-  <m.content>
+  <m.content @scroll={{true}}>
     <AuToolbar @size="large" as |Group|>
       <Group>
         <AuHeading>Vergaderingen</AuHeading>
@@ -14,37 +14,40 @@
     </AuToolbar>
     <Request @query={{this.meetingsQuery}}>
       <:content as |result|>
-        <AuDataTable
-          @content={{format-content-for-au-datable result}}
-          @fields="startedAt"
-          @sort={{this.sort}}
-          @page={{this.page}}
-          @size={{this.size}}
-          as |t|>
-          <t.content as |c|>
-            <c.header>
-              <AuDataTableThSortable
-                @field="startedAt"
-                @currentSorting={{this.sort}}
-                @label="Datum" @class="data-table__header-date"
-              />
-              <th>
-              </th>
-            </c.header>
-            <c.body @onClickRow={{this.goToMeeting}} class="cursor-pointer" as |meeting|>
-              <td>{{datetime-format meeting.startedAt}}</td>
-              <td>
-                <AuLink
-                  @route="meeting"
-                  @model={{meeting}}
-                  @icon="arrow-right"
-                  @iconAlignment="right">
-                  Ga naar vergadering
-                </AuLink>
-              </td>
-            </c.body>
-          </t.content>
-        </AuDataTable>
+        {{! We add a div here to stop the datatable to expand to 100% }}
+        <div>
+          <AuDataTable
+            @content={{format-content-for-au-datable result}}
+            @fields="startedAt"
+            @sort={{this.sort}}
+            @page={{this.page}}
+            @size={{this.size}}
+            as |t|>
+            <t.content as |c|>
+              <c.header>
+                <AuDataTableThSortable
+                  @field="startedAt"
+                  @currentSorting={{this.sort}}
+                  @label="Datum" @class="data-table__header-date"
+                />
+                <th>
+                </th>
+              </c.header>
+              <c.body @onClickRow={{this.goToMeeting}} class="cursor-pointer" as |meeting|>
+                <td>{{datetime-format meeting.startedAt}}</td>
+                <td>
+                  <AuLink
+                    @route="meeting"
+                    @model={{meeting}}
+                    @icon="arrow-right"
+                    @iconAlignment="right">
+                    Ga naar vergadering
+                  </AuLink>
+                </td>
+              </c.body>
+            </t.content>
+          </AuDataTable>
+        </div>
       </:content>
       <:loading>
         <AuLoader>
