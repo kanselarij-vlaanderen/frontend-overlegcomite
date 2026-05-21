@@ -34,12 +34,13 @@
             <c.body @onClickRow={{this.goToMeeting}} class="cursor-pointer" as |meeting|>
               <td>{{datetime-format meeting.startedAt}}</td>
               <td>
-                <AuButton
-                  @skin="link"
+                <AuLink
+                  @route="meeting"
+                  @model={{meeting}}
                   @icon="arrow-right"
                   @iconAlignment="right">
                   Ga naar vergadering
-                </AuButton>
+                </AuLink>
               </td>
             </c.body>
           </t.content>
