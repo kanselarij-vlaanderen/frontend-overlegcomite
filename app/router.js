@@ -18,6 +18,6 @@ Router.map(function () {
   this.route('meeting', {
     path: 'vergaderingen/:meeting_id'
   }, function() {
-    this.route('edit');
+    this.route('edit', { path: "/wijzigen" });
   });
 });
