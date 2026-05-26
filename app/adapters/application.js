@@ -12,10 +12,15 @@ export function processQueryResult(result) {
 
   let { data } = result;
 
-  if (Array.isArray(data)) {
-    result.data = data.map(processObject)
-  } else {
-    result.data = processObject(data)
+  if (data)
+    if (Array.isArray(data)) {
+      result.data = data.map(processObject)
+    } else {
+      result.data = processObject(data)
+    }
+
+  if (result.included) {
+    result.included = result.included.map(processObject);
   }
 
   return result;
@@ -23,16 +28,17 @@ export function processQueryResult(result) {
 
 function processObject(obj) {
   obj.type = singularize(obj.type);
-  obj.attributes = camelizeKeys(obj.attributes);
-  // TODO: links
-  obj.relationships = {};
+  if (obj.attributes)
+    obj.attributes = mapObjectKeys(obj.attributes, camelize);
+  if (obj.relationships)
+    obj.relationships = Object.fromEntries(
+      Object.entries(obj.relationships)
+        .map(([k, v]) => [camelize(k), processQueryResult(v)]));
   return obj
 }
 
-function camelizeKeys(obj) {
-  let newObj = {};
-  Object.getOwnPropertyNames(obj).forEach(key => {
-    newObj[camelize(key)] = obj[key];
-  })
-  return newObj;
+function mapObjectKeys(o, callback) {
+  return Object.fromEntries(
+    Object.entries(o)
+      .map(([k, v]) => [callback(k), v]))
 }
