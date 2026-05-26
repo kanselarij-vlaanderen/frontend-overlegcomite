@@ -6,6 +6,9 @@ import { processQueryResult } from '../adapters/application'
 
 import { MeetingSchema } from '../data/meeting/schema';
 import  DatetimeTransform  from '../transforms/datetime';
+import { AgendaItemSchema } from '../data/agendaitem/schema';
+import IntegerTransform from '../transforms/integer';
+import { GovernmentBodySchema } from '../data/government-body/schema';
 
 const MuHandler = {
   async request(context, next) {
@@ -16,16 +19,19 @@ const MuHandler = {
 
 const LegacyStore = useLegacyStore({
    legacyRequests: true,
+   linksMode: false,
    cache: JSONAPICache,
    handlers: [MuHandler],
    schemas: [
-     MeetingSchema
+     AgendaItemSchema,
+     GovernmentBodySchema,
+     MeetingSchema,
    ],
    transformations: [
-     DatetimeTransform.create()
+     DatetimeTransform.create(),
+     IntegerTransform.create(),
    ]
 });
-
 
 // export default LegacyStore
 export default class StoreService extends LegacyStore {
