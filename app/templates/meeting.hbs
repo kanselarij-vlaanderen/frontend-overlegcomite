@@ -17,7 +17,7 @@
           </ul>
           <AuTabs @reversed={{true}} as |Tab|>
             <Tab>
-              <AuLink class="active">Overzicht</AuLink>
+              <AuLink @route="meeting.agendaitems" @model={{@model}} @activeClass="active">Overzicht</AuLink>
             </Tab>
             <Tab>
               <AuLink>Documenten</AuLink>

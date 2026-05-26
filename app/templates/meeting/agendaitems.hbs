@@ -1,0 +1,26 @@
+{{page-title "Overzicht Agendaitems"}}
+
+<AuMainContainer as |m|>
+  <m.content>
+    <div class="au-o-layout">
+      <div class="au-o-box">
+        {{#each-in (group-by-submitter @model.agendaItems) as |submitter items| }}
+          <AuTable class="">
+            <:title>
+              {{ submitter }}
+            </:title>
+            <:body>
+              {{#each items as |item| }}
+                <tr>
+                  <td>
+                    {{ item.priority }}.{{item.subPriority}} {{ item.subject }}
+                  </td>
+                </tr>
+              {{/each}}
+            </:body>
+          </AuTable>
+        {{/each-in}}
+      </div>
+    </div>
+  </m.content>
+</AuMainContainer>

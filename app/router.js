@@ -19,5 +19,6 @@ Router.map(function () {
     path: 'vergaderingen/:meeting_id'
   }, function() {
     this.route('edit', { path: "/wijzigen" });
+    this.route('agendaitems');
   });
 });
