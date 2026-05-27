@@ -1,6 +1,7 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { service } from '@ember/service';
+import { query } from '@warp-drive/utilities/json-api'
 
 export default class AgendaitemForm extends Component {
   // @tracked caseIdentifier;
@@ -8,6 +9,13 @@ export default class AgendaitemForm extends Component {
 
   get agendaitem() {
     return this.args.agendaitem;
+  }
+
+  get governementBodies() {
+    const request = this.store.request(query('government-body'));
+    return request.then(({ content }) => {
+      return content.data;
+    });
   }
 
   get caseIdentifier() {

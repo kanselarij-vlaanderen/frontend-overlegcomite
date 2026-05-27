@@ -10,6 +10,6 @@ export function createAgendaitem(agendaitem) {
 export function updateAgendaitem(agendaitem) {
   return updateMuRecord(agendaitem, {
     fields: ["subject", "subPriority", "priority"],
-    relations: ["case"],
+    relations: ["submitters", "case"],
   })
 }

@@ -36,14 +36,14 @@
     <AuLabel for="agendaitem-submitters">
       Indieners
     </AuLabel>
-    {{! TODO: Power select }}
-    <ul>
-      {{#each this.agendaitem.submitters as |submitter|}}
-        <li>
-          {{submitter.name}}
-        </li>
-      {{/each}}
-    </ul>
+    <PowerSelect
+      @multiple={{true}}
+      @options={{this.governementBodies}}
+      @selected={{this.agendaitem.submitters}}
+      @onChange={{fn (mut this.agendaitem.submitters)}}
+      as |submitter| >
+      {{ submitter.name }}
+    </PowerSelect>
   </AuFormRow>
   <AuFormRow>
     <AuLabel for="agendaitem-subject">
