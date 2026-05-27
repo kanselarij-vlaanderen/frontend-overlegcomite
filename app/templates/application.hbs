@@ -8,16 +8,18 @@
     @homeRoute="index"
     @appTitle="Overlegcomité">
   </AuMainHeader>
-  <AuTabs class="au-c-toolbar au-c-toolbar--tint" as |Tab|>
-    <Tab>
-      <AuLink class="active" @route="meetings">Vergaderingen</AuLink>
-    </Tab>
-    <Tab>
-      <AuLink>Zoeken</AuLink>
-    </Tab>
-    <Tab>
-      <AuLink>Gebruikersbeheer</AuLink>
-    </Tab>
-  </AuTabs>
+  <AuToolbar @skin="tint">
+    <AuTabs as |Tab|>
+      <Tab>
+        <AuLink @route="meetings">Vergaderingen</AuLink>
+      </Tab>
+      <Tab>
+        <AuLink @route="index">Zoeken</AuLink>
+      </Tab>
+      <Tab>
+        <AuLink @route="index">Gebruikersbeheer</AuLink>
+      </Tab>
+    </AuTabs>
+  </AuToolbar>
   {{outlet}}
 </AuApp>
