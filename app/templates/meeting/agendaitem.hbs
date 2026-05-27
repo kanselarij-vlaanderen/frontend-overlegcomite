@@ -48,9 +48,31 @@
             @route="meeting.agendaitem.edit">
             Wijzigen
           </AuLink>
-          <AuButton @alert={{true}} @icon="trash">
-            Verwijderen
-          </AuButton>
+          <AuModalButton @alert={{true}} @icon="trash">
+            <:button>Verwijderen</:button>
+            <:title>
+              Agendapunt verwijderen
+            </:title>
+            <:body>
+              Bent u zeker dat u dit agendapunt wil verwijderen?
+            </:body>
+            <:footer as |close| >
+              <AuToolbar
+                as |Group| >
+                <Group>
+                  <AuButton @skin="link" {{on "click" close}}>
+                    Annuleren
+                  </AuButton>
+                </Group>
+                <Group>
+                  <AuButton @alert={{true}} @icon="trash"
+                    {{on "click" this.deleteAgendaitem}}>
+                    Verwijderen
+                  </AuButton>
+                </Group>
+              </AuToolbar>
+            </:footer>
+          </AuModalButton>
         </Group>
       </AuToolbar>
     {{/let}}
