@@ -2,6 +2,8 @@
 
 @import "@appuniversum/ember-appuniversum/styles";
 
+$au-navigation-list-border: 1px;
+
 .cursor-pointer {
   cursor: pointer;
 }
@@ -9,11 +11,16 @@
 .oc-u-sticky-top,
 .oc-c-sticky-header {
   position: sticky;
-  top: 0;
+  top: -$au-navigation-list-border;
 }
 
 .oc-c-sticky-header {
   background: var(--au-page-bg);
   width: 100%;
-  border-bottom: 0.1rem solid var(--au-divider-color);
+  border-bottom: $au-navigation-list-border solid var(--au-divider-color);
+  border-top: $au-navigation-list-border solid var(--au-divider-color);
+}
+
+.oc-c-sticky-header:first-child {
+  margin-top: -$au-navigation-list-border;
 }
