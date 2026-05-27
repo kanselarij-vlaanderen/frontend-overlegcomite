@@ -3,7 +3,10 @@
 <AuModalContainer />
 
 <AuApp>
-  <AuMainHeader @appTitle="Overlegcomité">
+  <AuMainHeader
+    @brandLink="https://www.vlaanderen.be/nl"
+    @homeRoute="index"
+    @appTitle="Overlegcomité">
   </AuMainHeader>
   <AuTabs class="au-c-toolbar au-c-toolbar--tint" as |Tab|>
     <Tab>
@@ -18,4 +21,3 @@
   </AuTabs>
   {{outlet}}
 </AuApp>
-
