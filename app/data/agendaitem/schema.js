@@ -3,7 +3,7 @@ import { withDefaults } from '@warp-drive/legacy/model/migration-support';
 export const AgendaItemSchema = withDefaults({
   type: 'agendaitem',
   fields: [
-    { kind: 'field', name: 'uri', type: 'string' },
+    { kind: 'field', name: 'uri' },
 
     { kind: 'field', name: 'subject' },
     { kind: 'field', name: 'subPriority' },
@@ -11,6 +11,11 @@ export const AgendaItemSchema = withDefaults({
 
     {
       kind: 'belongsTo', name: 'meeting', type: 'meeting', options: {
+        inverse: 'agendaItems', linksMode: false, async: true
+      }
+    },
+    {
+      kind: 'belongsTo', name: 'case', type: 'case', options: {
         inverse: 'agendaItems', linksMode: false, async: true
       }
     },

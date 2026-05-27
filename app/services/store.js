@@ -1,4 +1,5 @@
 import Service from '@ember/service';
+import { useRecommendedStore } from '@warp-drive/core';
 import { useLegacyStore } from '@warp-drive/legacy'
 import { JSONAPICache } from '@warp-drive/json-api';
 import { singularize, pluralize } from '@warp-drive/utilities/string';
@@ -9,6 +10,7 @@ import  DatetimeTransform  from '../transforms/datetime';
 import { AgendaItemSchema } from '../data/agendaitem/schema';
 import IntegerTransform from '../transforms/integer';
 import { GovernmentBodySchema } from '../data/government-body/schema';
+import { CaseSchema } from '../data/case/schema';
 
 const MuHandler = {
   async request(context, next) {
@@ -24,6 +26,7 @@ const LegacyStore = useLegacyStore({
    handlers: [MuHandler],
    schemas: [
      AgendaItemSchema,
+     CaseSchema,
      GovernmentBodySchema,
      MeetingSchema,
    ],

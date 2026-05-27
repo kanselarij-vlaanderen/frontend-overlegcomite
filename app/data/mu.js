@@ -21,9 +21,36 @@ export function updateMuRecord(record, options) {
   return req
 }
 
-function muRecordBody(record, { fields, includeID }) {
-  const store = storeFor(record);
-  const recordData = store.cache.peek(cacheKeyFor(record))
+function muRecordBody(record, options) {
+  const store = options.store || storeFor(record);
+  const cacheKey = cacheKeyFor(record);
+  const recordData = store.cache.peek(cacheKey);
+
+  const { fields, relations, include } = options;
+
+  // mu-cl-resource does not support inserting included records.
+  //
+  // let included = [];
+  // if (include) {
+  //   included = Object.entries(include).map(([name, relationOptions]) => {
+  //     const relation = recordData.relationships[name];
+  //     const relationData = store.cache.peek(relation.data);
+  //     const resourceObject = muResourceObject(relationData, relationOptions);
+  //     return resourceObject;
+  //   })
+  // }
+
+  const resourceObject = muResourceObject(recordData, options);
+
+  const body = {
+    data: resourceObject,
+    // included
+  };
+  return body;
+}
+
+function muResourceObject(recordData, options) {
+  const { fields, relations, include } = options;
 
   const attributes = Object.fromEntries(
     fields.map((field) => [
@@ -31,14 +58,45 @@ function muRecordBody(record, { fields, includeID }) {
     ])
   );
 
+  const relationships = !relations ? {} : Object.fromEntries(
+    relations.map((relationship) => [
+      dasherize(relationship), muResourceLinkage(recordData.relationships[relationship])
+    ]).filter((([_, r]) => r))
+  )
+
   const data = {
     attributes,
+    relationships,
     type: pluralize(recordData.type)
   }
 
-  // TODO: Maybe this should be based on the record being stale?
-  if (includeID) data.id = recordData.id;
+  if (recordData.id) {
+    data.id = recordData.id;
+  } else {
+    data.lid = recordData.lid
+  }
 
-  const body = { data };
-  return body;
+  return data;
 }
+
+function muResourceLinkage(relation) {
+  const data = relation?.data;
+  if (!data) return {};
+  let res = null;
+  if (Array.isArray(data)) {
+    res = data.map(muResourceIdentifier);
+  } else {
+    res = muResourceIdentifier(data);
+  }
+  return res && { data: res };
+}
+
+function muResourceIdentifier(data) {
+  if (!data.id) return null;
+
+  return {
+    type: pluralize(data.type),
+    id: data.id
+  }
+}
+
