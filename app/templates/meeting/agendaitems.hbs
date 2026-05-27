@@ -1,7 +1,7 @@
-{{page-title "Overzicht Agendaitems"}}
+{{page-title "Overzicht Agendapunten"}}
 
 <AuMainContainer as |m|>
-  <m.content>
+  <m.content @scroll={{true}}>
     <div class="au-o-layout">
       <div class="au-o-box">
         {{#each-in (group-by-submitter @model.agendaItems) as |submitter items| }}
@@ -24,3 +24,5 @@
     </div>
   </m.content>
 </AuMainContainer>
+
+{{ outlet }}
