@@ -15,14 +15,16 @@ export default class MeetingAgendaitemEditController extends Controller {
   @action
   async updateAgendaitem() {
     const case_ = this.model.case.content;
-    let caseRequest;
-    if (this.model.case.id) {
-      caseRequest = this.store.request(updateCase(case_));
-    } else {
-      caseRequest = this.store.request(createCase(case_));
+    if (case_) {
+      let caseRequest;
+      if (this.model.case.id) {
+        caseRequest = this.store.request(updateCase(case_));
+      } else {
+        caseRequest = this.store.request(createCase(case_));
+      }
+      this.updateState = getRequestState(caseRequest);
+      await caseRequest;
     }
-    this.updateState = getRequestState(caseRequest);
-    await caseRequest;
     const updateRequest = this.store.request(updateAgendaitem(this.model))
     this.updateState = getRequestState(updateRequest)
     await updateRequest;
