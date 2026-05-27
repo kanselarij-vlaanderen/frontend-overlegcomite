@@ -1,61 +1,58 @@
 {{page-title "Vergaderingen"}}
 
-<AuMainContainer as |m|>
-  <m.content @scroll={{true}}>
-    <AuToolbar @size="large" as |Group|>
-      <Group>
-        <AuHeading>Vergaderingen</AuHeading>
-      </Group>
-      <Group>
-        <AuLink @skin="button" @route="meetings.new" @icon="plus">
-          Nieuwe vergadering
-        </AuLink>
-      </Group>
-    </AuToolbar>
-    <Request @query={{this.meetingsQuery}}>
-      <:content as |result|>
-        {{! We add a div here to stop the datatable to expand to 100% }}
-        <div>
-          <AuDataTable
-            @content={{format-content-for-au-datable result}}
-            @fields="startedAt"
-            @sort={{this.sort}}
-            @page={{this.page}}
-            @size={{this.size}}
-            as |t|>
-            <t.content as |c|>
-              <c.header>
-                <AuDataTableThSortable
-                  @field="startedAt"
-                  @currentSorting={{this.sort}}
-                  @label="Datum" @class="data-table__header-date"
-                />
-                <th>
-                </th>
-              </c.header>
-              <c.body @onClickRow={{this.goToMeeting}} class="cursor-pointer" as |meeting|>
-                <td>{{datetime-format meeting.startedAt}}</td>
-                <td>
-                  <AuLink
-                    @route="meeting"
-                    @model={{meeting}}
-                    @icon="arrow-right"
-                    @iconAlignment="right">
-                    Ga naar vergadering
-                  </AuLink>
-                </td>
-              </c.body>
-            </t.content>
-          </AuDataTable>
-        </div>
-      </:content>
-      <:loading>
-        <AuLoader>
-          Vergaderingen aan het laden&hellip;
-        </AuLoader>
-      </:loading>
-    </Request>
-  </m.content>
-</AuMainContainer>
+<AuToolbar @border="bottom" @size="large" as |Group|>
+  <Group>
+    <AuHeading @skin="2">Vergaderingen</AuHeading>
+  </Group>
+  <Group>
+    <AuLink @route="meetings.new" @skin="button" @icon="plus">
+      Nieuwe vergadering
+    </AuLink>
+  </Group>
+</AuToolbar>
+
+<Request @query={{this.meetingsQuery}}>
+  <:content as |result|>
+    {{! We add a div here to stop the datatable to expand to 100% }}
+    <div>
+      <AuDataTable
+        @content={{format-content-for-au-datable result}}
+        @fields="startedAt"
+        @sort={{this.sort}}
+        @page={{this.page}}
+        @size={{this.size}}
+        as |t|>
+        <t.content as |c|>
+          <c.header>
+            <AuDataTableThSortable
+              @field="startedAt"
+              @currentSorting={{this.sort}}
+              @label="Datum" @class="data-table__header-date"
+              />
+            <th>
+            </th>
+          </c.header>
+          <c.body @onClickRow={{this.goToMeeting}} class="cursor-pointer" as |meeting|>
+            <td>{{datetime-format meeting.startedAt}}</td>
+            <td>
+              <AuLink
+                @route="meeting"
+                @model={{meeting}}
+                @icon="arrow-right"
+                @iconAlignment="right">
+                Ga naar vergadering
+              </AuLink>
+            </td>
+          </c.body>
+        </t.content>
+      </AuDataTable>
+    </div>
+  </:content>
+  <:loading>
+    <AuLoader>
+      Vergaderingen aan het laden&hellip;
+    </AuLoader>
+  </:loading>
+</Request>
 
 {{outlet}}

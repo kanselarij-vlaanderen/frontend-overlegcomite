@@ -21,5 +21,12 @@
       </Tab>
     </AuTabs>
   </AuToolbar>
-  {{outlet}}
+
+  <AuMainContainer @scroll="true" @size="regular" as |main|>
+    <main.content>
+      <AuBodyContainer>
+        {{outlet}}
+      </AuBodyContainer>
+    </main.content>
+  </AuMainContainer>
 </AuApp>
