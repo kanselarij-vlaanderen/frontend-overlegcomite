@@ -6,3 +6,9 @@ export function createCase(case_) {
     relations: ["agendaItems"],
   })
 }
+
+export function updateCase(case_) {
+  return updateMuRecord(case_, {
+    fields: ["identifier"],
+  })
+}

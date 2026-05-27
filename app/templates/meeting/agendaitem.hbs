@@ -17,7 +17,7 @@
                 <li class="au-c-list-navigation__item">
                   <AuNavigationLink
                     @route="meeting.agendaitem"
-                    @models={{(array meeting item)}}>
+                    @models={{array meeting item}}>
                     {{ item.priority }}.{{item.subPriority}} {{ item.subject }}
                   </AuNavigationLink>
                 </li>
@@ -43,7 +43,9 @@
           {{/if}}
         </Group>
         <Group>
-          <AuLink @skin="button">
+          <AuLink
+            @skin="button"
+            @route="meeting.agendaitem.edit">
             Wijzigen
           </AuLink>
           <AuButton @alert={{true}} @icon="trash">
