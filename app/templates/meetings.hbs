@@ -11,48 +11,37 @@
   </Group>
 </AuToolbar>
 
-<Request @query={{this.meetingsQuery}}>
-  <:content as |result|>
-    {{! We add a div here to stop the datatable to expand to 100% }}
-    <div>
-      <AuDataTable
-        @content={{format-content-for-au-datable result}}
-        @fields="startedAt"
-        @sort={{this.sort}}
-        @page={{this.page}}
-        @size={{this.size}}
-        as |t|>
-        <t.content as |c|>
-          <c.header>
-            <AuDataTableThSortable
-              @field="startedAt"
-              @currentSorting={{this.sort}}
-              @label="Datum" @class="data-table__header-date"
-              />
-            <th>
-            </th>
-          </c.header>
-          <c.body @onClickRow={{this.goToMeeting}} class="cursor-pointer" as |meeting|>
-            <td>{{datetime-format meeting.startedAt}}</td>
-            <td>
-              <AuLink
-                @route="meeting"
-                @model={{meeting}}
-                @icon="arrow-right"
-                @iconAlignment="right">
-                Ga naar vergadering
-              </AuLink>
-            </td>
-          </c.body>
-        </t.content>
-      </AuDataTable>
-    </div>
-  </:content>
-  <:loading>
-    <AuLoader>
-      Vergaderingen aan het laden&hellip;
-    </AuLoader>
-  </:loading>
-</Request>
+<AuDataTable
+  @content={{format-content-for-au-datable this.model.content}}
+  @fields="startedAt"
+  @noDataMessage="Geen vergaderingen gevonden"
+  @sort={{this.sort}}
+  @page={{this.page}}
+  @size={{this.size}}
+  as |t|>
+  <t.content as |c|>
+    <c.header>
+      <AuDataTableThSortable
+        @field="startedAt"
+        @currentSorting={{this.sort}}
+        @label="Datum" @class="data-table__header-date"
+        />
+      <th>
+      </th>
+    </c.header>
+    <c.body @onClickRow={{this.goToMeeting}} class="cursor-pointer" as |meeting|>
+      <td>{{datetime-format meeting.startedAt}}</td>
+      <td>
+        <AuLink
+          @route="meeting"
+          @model={{meeting}}
+          @icon="arrow-right"
+          @iconAlignment="right">
+          Ga naar vergadering
+        </AuLink>
+      </td>
+    </c.body>
+  </t.content>
+</AuDataTable>
 
 {{outlet}}
