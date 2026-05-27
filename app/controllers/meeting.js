@@ -23,4 +23,8 @@ export default class MeetingController extends Controller {
     this.deleteModalOpen = false;
     this.router.transitionTo('meetings');
   }
+
+  routeIsActive = (routeName) => {
+    return this.router.isActive(routeName);
+  }
 }

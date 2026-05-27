@@ -19,6 +19,13 @@
             <Tab>
               <AuLink @route="meeting.agendaitems" @model={{@model}} @activeClass="active">Overzicht</AuLink>
             </Tab>
+            {{#if (this.routeIsActive "meeting.agendaitem")}}
+              <Tab>
+                <AuLink @route={{this.target.currentRouteName}} @activeClass="active">
+                  Detail
+                </AuLink>
+              </Tab>
+            {{/if}}
             <Tab>
               <AuLink>Documenten</AuLink>
             </Tab>

@@ -1,5 +1,58 @@
 {{page-title "Agendapunt"}}
-Agendapunt
-{{ debugger }}
+
+<AuMainContainer as |m| >
+  <m.sidebar>
+    {{#let @model.meeting as |meeting|}}
+    <div class="au-c-sidebar">
+      <div class="au-c-sidebar__content">
+        <nav>
+          <ul class="au-c-list-navigation">
+            {{#each-in (group-by-submitter meeting.agendaItems) as |submitter items|}}
+              <li class="oc-c-sticky-header au-u-1-1 au-c-toolbar au-c-toolbar--medium">
+                <AuHeading @level={{3}} @skin={{5}} class="au-c-toolbar__group -au-o-box--small">
+                  {{ submitter }}
+                </AuHeading>
+              </li>
+              {{#each items as |item|}}
+                <li class="au-c-list-navigation__item">
+                  <AuNavigationLink
+                    @route="meeting.agendaitem"
+                    @models={{(array meeting item)}}>
+                    {{ item.priority }}.{{item.subPriority}} {{ item.subject }}
+                  </AuNavigationLink>
+                </li>
+              {{/each}}
+            {{/each-in}}
+          </ul>
+        </nav>
+      </div>
+    </div>
+    {{/let}}
+  </m.sidebar>
+  <m.content @scroll={{true}}>
+    {{#let @model as |item|}}
+      <AuToolbar @size="large" @border="bottom" as |Group| >
+        <Group>
+          <AuHeading @skin={{3}}>
+            {{ item.priority }}.{{item.subPriority}} {{ item.subject }}
+          </AuHeading>
+          {{#if item.case.identifier}}
+            <AuPill @icon="document" >
+              {{ item.case.identifier }}
+            </AuPill>
+          {{/if}}
+        </Group>
+        <Group>
+          <AuLink @skin="button">
+            Wijzigen
+          </AuLink>
+          <AuButton @alert={{true}} @icon="trash">
+            Verwijderen
+          </AuButton>
+        </Group>
+      </AuToolbar>
+    {{/let}}
+  </m.content>
+</AuMainContainer>
 
 {{outlet}}

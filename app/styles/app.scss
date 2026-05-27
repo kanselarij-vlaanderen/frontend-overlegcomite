@@ -5,3 +5,15 @@
 .cursor-pointer {
   cursor: pointer;
 }
+
+.oc-u-sticky-top,
+.oc-c-sticky-header {
+  position: sticky;
+  top: 0;
+}
+
+.oc-c-sticky-header {
+  background: var(--au-page-bg);
+  width: 100%;
+  border-bottom: 0.1rem solid var(--au-divider-color);
+}

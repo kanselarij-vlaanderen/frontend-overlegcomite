@@ -12,9 +12,11 @@
             <:body>
               {{#each items as |item| }}
                 <tr>
-                  <td>
-                    {{ item.priority }}.{{item.subPriority}} {{ item.subject }}
-                  </td>
+                  <AuLink @route="meeting.agendaitem" @model={{item}}>
+                    <td>
+                      {{ item.priority }}.{{item.subPriority}} {{ item.subject }}
+                    </td>
+                  </AuLink>
                 </tr>
               {{/each}}
             </:body>
