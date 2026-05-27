@@ -10,7 +10,7 @@
             {{#each-in (group-by-submitter meeting.agendaItems) as |submitter items|}}
               <li class="oc-c-sticky-header au-u-1-1 au-c-toolbar au-c-toolbar--medium">
                 <AuHeading @level={{3}} @skin={{5}} class="au-c-toolbar__group -au-o-box--small">
-                  {{ submitter }}
+                  {{if submitter submitter "Geen indiener"}}
                 </AuHeading>
               </li>
               {{#each items as |item|}}
