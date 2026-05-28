@@ -5,26 +5,7 @@
     {{#let @model.meeting as |meeting|}}
     <div class="au-c-sidebar">
       <div class="au-c-sidebar__content">
-        <nav>
-          <ul class="au-c-list-navigation">
-            {{#each-in (group-by-submitter meeting.agendaItems) as |submitter items|}}
-              <li class="oc-c-sticky-header au-u-1-1 au-c-toolbar au-c-toolbar--medium">
-                <AuHeading @level={{3}} @skin={{5}} class="au-c-toolbar__group -au-o-box--small">
-                  {{if submitter submitter "Geen indiener"}}
-                </AuHeading>
-              </li>
-              {{#each items as |item|}}
-                <li class="au-c-list-navigation__item">
-                  <AuNavigationLink
-                    @route="meeting.agendaitem"
-                    @models={{array meeting item}}>
-                    {{ item.priority }}.{{item.subPriority}} {{ item.subject }}
-                  </AuNavigationLink>
-                </li>
-              {{/each}}
-            {{/each-in}}
-          </ul>
-        </nav>
+        <AgendaitemsListNavigation @agendaItems={{meeting.agendaItems}} />
       </div>
     </div>
     {{/let}}

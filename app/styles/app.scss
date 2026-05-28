@@ -16,11 +16,14 @@ $au-navigation-list-border: 1px;
 
 .oc-c-sticky-header {
   background: var(--au-page-bg);
-  width: 100%;
-  border-bottom: $au-navigation-list-border solid var(--au-divider-color);
-  border-top: $au-navigation-list-border solid var(--au-divider-color);
+  margin-bottom: -$au-navigation-list-border;
+}
+
+.oc-c-sticky-header.oc-c-sticky-header--tint {
+  background: var(--au-gray-100);
 }
 
 .oc-c-sticky-header:first-child {
+  border-top: $au-navigation-list-border solid var(--au-divider-color);
   margin-top: -$au-navigation-list-border;
 }

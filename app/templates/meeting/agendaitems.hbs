@@ -4,24 +4,7 @@
   <m.content @scroll={{true}}>
     <div class="au-o-layout">
       <div class="au-o-box">
-        {{#each-in (group-by-submitter @model.agendaItems) as |submitter items| }}
-          <AuTable class="">
-            <:title>
-              {{ submitter }}
-            </:title>
-            <:body>
-              {{#each items as |item| }}
-                <tr>
-                  <AuLink @route="meeting.agendaitem" @model={{item}}>
-                    <td>
-                      {{ item.priority }}.{{item.subPriority}} {{ item.subject }}
-                    </td>
-                  </AuLink>
-                </tr>
-              {{/each}}
-            </:body>
-          </AuTable>
-        {{/each-in}}
+        <AgendaitemsListNavigation @agendaItems={{@model.agendaItems}} @tint={{true}} />
       </div>
     </div>
   </m.content>
