@@ -2,6 +2,9 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { service } from '@ember/service';
 import { query } from '@warp-drive/utilities/json-api'
+import { caseIdentifierValid } from '../data/case/helpers';
+
+const CASE_IDENTIFIER_REGEX = /^\d{4}[A-Z]\d{5}\.\d{3}$/;
 
 export default class AgendaitemForm extends Component {
   // @tracked caseIdentifier;
@@ -29,5 +32,16 @@ export default class AgendaitemForm extends Component {
     } else {
       this.agendaitem.case.content.identifier = newIdentifier;
     }
+
+  }
+
+  get caseIdentifierInputState() {
+    const identifier = this.caseIdentifier;
+    if (caseIdentifierValid(identifier)) {
+      return ""
+    } else {
+      return "au-c-input--error"
+    }
   }
 }
+

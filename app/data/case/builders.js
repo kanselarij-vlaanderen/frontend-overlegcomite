@@ -7,8 +7,3 @@ export function createCase(case_) {
   })
 }
 
-export function updateCase(case_) {
-  return updateMuRecord(case_, {
-    fields: ["identifier"],
-  })
-}

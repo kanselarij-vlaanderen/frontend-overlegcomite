@@ -14,6 +14,7 @@
       </AuLink>
       <AuButton
         @loading={{this.saveState.isPending}}
+        @disabled={{not this.formIsValid}}
         {{on "click" this.saveAgendaitem}}>
         Aanmaken
       </AuButton>

@@ -28,7 +28,8 @@
     <Input
       id="agendaitem-case"
       @value={{this.caseIdentifier}}
-      class="au-c-input"
+      {{au-inputmask options=(hash mask="9999A99999.999" placeholder="JJJJ_#########")}}
+      class="au-c-input {{this.caseIdentifierInputState}}"
       placeholder="bv. 2015C80030.002"
       />
   </AuFormRow>

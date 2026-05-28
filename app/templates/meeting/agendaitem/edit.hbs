@@ -17,6 +17,7 @@
       </AuLink>
       <AuButton
         @loading={{this.updateState.isPending}}
+        @disabled={{not this.formIsValid}}
         {{on "click" this.updateAgendaitem}}>
         Opslaan
       </AuButton>

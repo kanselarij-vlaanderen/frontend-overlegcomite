@@ -5,6 +5,8 @@ import { tracked } from '@glimmer/tracking';
 import { getRequestState } from '@warp-drive/ember';
 import { createAgendaitem } from '../../../data/agendaitem/builders';
 import { createCase } from '../../../data/case/builders';
+import { updateAgendaitemCase } from '../../../data/agendaitem/helpers';
+import { caseIdentifierValid } from '../../../data/case/helpers';
 
 export default class MeetingAgendaitemsNewController extends Controller {
   @service store;
@@ -19,14 +21,16 @@ export default class MeetingAgendaitemsNewController extends Controller {
     this.saveState = getRequestState(saveRequest);
     const { content } = await saveRequest;
     const agendaitem = content.data;
-    const caseSaveRequest = this.store.request(createCase(this.store.createRecord('case', {
-      identifier: caseIdentifier,
-      agendaItems: [agendaitem],
-    })));
-    this.saveState = getRequestState(caseSaveRequest);
-    await caseSaveRequest;
+    await updateAgendaitemCase(this.store, agendaitem, (request) => {
+      this.saveState = getRequestState(request);
+      return request;
+    })
     // We need to add empty query params to prevent the router from looking for
     // queryParams in meeting, which would trigger a trap in the proxy object.
     this.router.transitionTo('meeting.agendaitem', agendaitem, { queryParams: {}});
+  }
+
+  get formIsValid() {
+    return caseIdentifierValid(this.model.case.get('identifier'))
   }
 }

@@ -6,6 +6,8 @@ import { getRequestState } from '@warp-drive/ember';
 import { cacheKeyFor } from '@warp-drive/core';
 import { updateAgendaitem } from '../../../data/agendaitem/builders';
 import { createCase, updateCase } from '../../../data/case/builders';
+import { updateAgendaitemCase } from '../../../data/agendaitem/helpers';
+import { caseIdentifierValid } from '../../../data/case/helpers';
 
 export default class MeetingAgendaitemEditController extends Controller {
   @service store;
@@ -14,17 +16,11 @@ export default class MeetingAgendaitemEditController extends Controller {
   @tracked updateState;
   @action
   async updateAgendaitem() {
-    const case_ = this.model.case.content;
-    if (case_) {
-      let caseRequest;
-      if (this.model.case.id) {
-        caseRequest = this.store.request(updateCase(case_));
-      } else {
-        caseRequest = this.store.request(createCase(case_));
-      }
-      this.updateState = getRequestState(caseRequest);
-      await caseRequest;
-    }
+    await updateAgendaitemCase(this.store, this.model, (request) => {
+      this.updateState = getRequestState(request);
+      return request;
+    })
+
     const updateRequest = this.store.request(updateAgendaitem(this.model))
     this.updateState = getRequestState(updateRequest)
     await updateRequest;
@@ -38,5 +34,9 @@ export default class MeetingAgendaitemEditController extends Controller {
       this.store.cache.rollbackAttrs(cacheKeyFor(this.model.case.content));
     this.store.cache.rollbackAttrs(cacheKeyFor(this.model));
     this.router.transitionTo('meeting.agendaitem')
+  }
+
+  get formIsValid() {
+    return caseIdentifierValid(this.model.case.get('identifier'))
   }
 }
