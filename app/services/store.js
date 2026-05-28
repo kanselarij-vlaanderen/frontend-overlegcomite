@@ -1,40 +1,32 @@
-import Service from '@ember/service';
-import { useLegacyStore } from '@warp-drive/legacy'
+import { useLegacyStore } from '@warp-drive/legacy';
 import { JSONAPICache } from '@warp-drive/json-api';
-import { singularize, pluralize } from '@warp-drive/utilities/string';
-import { processQueryResult } from '../adapters/application'
+import Meetings from '../schemas/meetings';
+import DatetimeTransform  from '../transforms/datetime';
 
-import { MeetingSchema } from '../data/meeting/schema';
-import  DatetimeTransform  from '../transforms/datetime';
-
-const MuHandler = {
-  async request(context, next) {
-    let { content } = await next(context.request);
-    return processQueryResult(content)
+const JsonApiHeaderHandler = {
+  request(context, next) {
+    const { request } = context;
+    const updatedHeaders = request.headers.clone();
+    updatedHeaders.set('Content-Type', 'application/vnd.api+json');
+    request.headers = updatedHeaders;
+    return next(request);
   }
-}
+};
 
-const LegacyStore = useLegacyStore({
-   legacyRequests: true,
-   cache: JSONAPICache,
-   handlers: [MuHandler],
-   schemas: [
-     MeetingSchema
-   ],
-   transformations: [
-     DatetimeTransform.create()
-   ]
+const legacyStore = useLegacyStore({
+  linksMode: false,
+  legacyRequests: true,
+  modelFragments: true,
+  cache: JSONAPICache,
+  handlers: [
+    JsonApiHeaderHandler,
+  ],
+  schemas: [
+    Meetings
+  ],
+  transformations: [
+    DatetimeTransform.create(),
+  ]
 });
 
-
-// export default LegacyStore
-export default class StoreService extends LegacyStore {
-
-  // request(context) {
-  //   context.data.type = singularize(context.data.type);
-  //   return super.request(context);
-  // }
-  modelFor(type) {
-    return super.modelFor(singularize(type))
-  }
-}
+export default legacyStore;

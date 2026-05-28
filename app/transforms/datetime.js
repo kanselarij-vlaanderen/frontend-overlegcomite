@@ -8,9 +8,13 @@ export default class DatetimeTransform {
   }
 
   deserialize(serialized) {
-    return Temporal.Instant
-      .from(serialized)
-      .toZonedDateTimeISO(Temporal.Now.timeZoneId());
+    if (serialized) {
+      return Temporal.Instant
+        .from(serialized)
+        .toZonedDateTimeISO(Temporal.Now.timeZoneId());
+    } else {
+      return null;
+    }
   }
 
   serialize(deserialized) {
@@ -18,7 +22,7 @@ export default class DatetimeTransform {
   }
 
   defaultValue() {
-    return Temporal.Now.zonedDateTimeISO()
+    return null;
   }
 
   static create() {
