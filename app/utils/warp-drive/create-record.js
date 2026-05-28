@@ -1,8 +1,9 @@
 import { recordIdentifierFor } from '@warp-drive/core';
 import { createRecord, serializeResources } from '@warp-drive/utilities/json-api';
+import { pluralize } from '@warp-drive/utilities/string.cjs';
 
 export default async function muCreateRecord(store, type, pojo) {
-  const record = store.createRecord(type, pojo);
+  const record = store.createRecord(pluralize(type), pojo);
   const request = createRecord(record);
   const identifier = recordIdentifierFor(record);
   const body = serializeResources(store.cache, identifier);

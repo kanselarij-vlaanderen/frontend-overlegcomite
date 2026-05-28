@@ -40,7 +40,7 @@ export default class MeetingsController extends Controller {
 
   @action
   async saveNewMeeting() {
-    this.savePromise = createRecord(this.store, 'meetings', this.newMeeting);
+    this.savePromise = createRecord(this.store, 'meeting', this.newMeeting);
     const meeting = await this.savePromise;
     this.isOpenNewMeetingModal = false;
     this.goToMeeting(meeting);
