@@ -3,7 +3,7 @@ import { cached, tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { service } from '@ember/service';
 import { getPromiseState } from '@warp-drive/ember';
-import createRecord from '../utils/create-record';
+import createRecord from '../utils/warp-drive/create-record';
 
 export default class MeetingsController extends Controller {
   @service store;

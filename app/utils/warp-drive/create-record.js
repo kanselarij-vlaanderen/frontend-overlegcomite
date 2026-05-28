@@ -6,6 +6,7 @@ export default async function muCreateRecord(store, type, pojo) {
   const request = createRecord(record);
   const identifier = recordIdentifierFor(record);
   const body = serializeResources(store.cache, identifier);
+  console.log(body);
   delete body.data.id;
   delete body.data.lid;
   request.body = JSON.stringify(body);
