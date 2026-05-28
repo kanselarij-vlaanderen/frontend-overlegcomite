@@ -28,7 +28,7 @@ export default class MeetingsController extends Controller {
     this.newMeeting = {
       startedAt: Temporal.Now.zonedDateTimeISO()
         .round('hour')
-        .with({ hour: 8 })
+        .with({ hour: 10 })
     };
   }
 
