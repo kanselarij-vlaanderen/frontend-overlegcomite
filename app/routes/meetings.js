@@ -18,4 +18,9 @@ export default class MeetingsRoute extends Route {
       'page[number]': params.page,
     }));
   }
+
+  setupController(controller) {
+    super.setupController(...arguments);
+    controller.isOpenNewMeetingModal = false;
+  }
 }

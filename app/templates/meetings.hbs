@@ -5,9 +5,9 @@
     <AuHeading @skin="2">Vergaderingen</AuHeading>
   </Group>
   <Group>
-    <AuLink @route="meetings.new" @skin="button" @icon="plus">
+    <AuButton {{on "click" this.openNewMeetingModal}} @skin="primary" @icon="plus">
       Nieuwe vergadering
-    </AuLink>
+    </AuButton>
   </Group>
 </AuToolbar>
 
@@ -43,5 +43,30 @@
     </c.body>
   </t.content>
 </AuDataTable>
+
+<AuModal
+  @modalOpen={{this.isOpenNewMeetingModal}}
+  @closeModal={{this.closeNewMeetingModal}}
+  @overflow={{true}}>
+  <:title>
+    Nieuwe vergadering
+  </:title>
+  <:body>
+    <MeetingForm @meeting={{this.newMeeting}} />
+  </:body>
+  <:footer>
+    <AuToolbar>
+      <AuButton {{on "click" this.closeNewMeetingModal}} @skin="link-bold">
+        Annuleren
+      </AuButton>
+      <AuButton
+        @skin="primary"
+        @loading={{this.saveState.isPending}}
+        {{on "click" this.saveNewMeeting}}>
+        Aanmaken
+      </AuButton>
+    </AuToolbar>
+  </:footer>
+</AuModal>
 
 {{outlet}}
