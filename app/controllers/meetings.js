@@ -43,6 +43,11 @@ export default class MeetingsController extends Controller {
     this.savePromise = createRecord(this.store, 'meetings', this.newMeeting);
     const meeting = await this.savePromise;
     this.isOpenNewMeetingModal = false;
+    this.goToMeeting(meeting);
+  }
+
+  @action
+  goToMeeting(meeting) {
     this.router.transitionTo('meeting', meeting.id);
   }
 }
