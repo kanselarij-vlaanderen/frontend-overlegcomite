@@ -5,7 +5,16 @@
     {{#let @model.meeting as |meeting|}}
     <div class="au-c-sidebar">
       <div class="au-c-sidebar__content">
-        <AgendaitemsListNavigation @agendaItems={{meeting.agendaItems}} />
+        <Await @promise={{meeting.agendaItems}}>
+          <:loading>
+            <AuLoader />
+          </:loading>
+          <:success as |agendaItems| >
+            <AgendaitemsListNavigation
+              @agendaItems={{agendaItems}}
+              @tint={{false}} />
+          </:success>
+        </Await>
       </div>
     </div>
     {{/let}}

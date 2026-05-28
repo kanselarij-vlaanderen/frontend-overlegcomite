@@ -8,7 +8,7 @@ export const MeetingSchema = withDefaults({
 
     {
       kind: 'hasMany', name: 'agendaItems', type: 'agendaitem', options: {
-        inverse: 'meeting', linksMode: false, async: false
+        inverse: 'meeting', linksMode: false, async: true
       }
     },
   ]

@@ -4,7 +4,13 @@
   <m.content @scroll={{true}}>
     <div class="au-o-layout">
       <div class="au-o-box">
-        <AgendaitemsListNavigation @agendaItems={{@model.agendaItems}} @tint={{true}} />
+        <Await @promise={{@model.agendaItems}}>
+          <:success as |agendaItems| >
+            <AgendaitemsListNavigation
+              @agendaItems={{agendaItems}}
+              @tint={{true}} />
+          </:success>
+        </Await>
       </div>
     </div>
   </m.content>
