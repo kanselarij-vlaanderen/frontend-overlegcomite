@@ -2,6 +2,10 @@
 
 @import "@appuniversum/ember-appuniversum/styles";
 
-.cursor-pointer {
+th.data-table-meeting-started-at {
+  width: 95%;
+}
+
+.au-c-data-table td {
   cursor: pointer;
 }

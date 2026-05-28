@@ -24,19 +24,19 @@
       <AuDataTableThSortable
         @field="startedAt"
         @currentSorting={{this.sort}}
-        @label="Datum" @class="data-table__header-date"
+        @label="Datum" @class="data-table-meeting-started-at"
         />
       <th>
       </th>
     </c.header>
-    <c.body @onClickRow={{this.goToMeeting}} class="cursor-pointer" as |meeting|>
+    <c.body @onClickRow={{this.goToMeeting}} as |meeting|>
       <td>{{datetime-format meeting.startedAt}}</td>
-      <td>
+      <td class="au-u-text-center">
         <AuLink
           @route="meeting"
-          @model={{meeting}}
-          @icon="arrow-right"
-          @iconAlignment="right">
+          @model={{meeting.id}}
+          @icon="chevron-right"
+          @hideText={{true}}>
           Ga naar vergadering
         </AuLink>
       </td>
@@ -56,7 +56,7 @@
   </:body>
   <:footer>
     <AuToolbar>
-      <AuButton {{on "click" this.closeNewMeetingModal}} @skin="link-bold">
+      <AuButton {{on "click" this.closeNewMeetingModal}} @skin="naked">
         Annuleren
       </AuButton>
       <AuButton
