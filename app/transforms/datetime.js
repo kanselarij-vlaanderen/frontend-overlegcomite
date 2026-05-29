@@ -14,7 +14,9 @@ export default class DatetimeTransform {
   }
 
   serialize(deserialized) {
-    return deserialized.toString();
+    return deserialized.toString({
+      timeZoneName: "never"
+    });
   }
 
   defaultValue() {

@@ -25,4 +25,19 @@ export default class MeetingForm extends Component {
     });
   }
 
+  get startedAtHour() {
+    return this.meeting.startedAt.hour;
+  }
+  get startedAtMinute() {
+    return this.meeting.startedAt.minute;
+  }
+
+  @action
+  setStartedAtTime(time) {
+    this.meeting.startedAt = this.meeting.startedAt.with({
+      hour: time.hours,
+      minute: time.minutes
+    })
+  }
+
 }
