@@ -1,41 +1,39 @@
 {{page-title "Vergadering"}}
 
-<AuToolbar @size="large" @border="bottom" as |Group|>
+<AuToolbar @size="medium" @skin="tint" as |Group|>
   <Group>
-    <div class="au-o-flow">
-      <ul class="au-c-list-horizontal">
-        <li class="au-c-list-horizontal__item">
-          <AuLink @route="meetings" @icon="arrow-left">
-            Overzicht vergaderingen
+    <AuHeading @skin={{4}}>
+      Agenda van {{datetime-format @model.startedAt}}
+    </AuHeading>
+  </Group>
+</AuToolbar>
+<AuToolbar @size="medium" @skin="tint" @border="bottom" as |Group|>
+  <Group>
+    <AuTabs @reversed={{true}} as |Tab|>
+      <Tab>
+        <AuLink @route="meetings" @icon="hierarchal-back" @hideText={{true}}>
+          Back
+        </AuLink>
+      </Tab>
+      <Tab>
+        <AuLink @route="meeting.agendaitems" @model={{@model}}>Overzicht</AuLink>
+      </Tab>
+      {{#if (this.routeIsActive "meeting.agendaitem")}}
+        <Tab>
+          <AuLink @route={{this.target.currentRouteName}}>
+            Detail
           </AuLink>
-        </li>
-        <li class="au-c-list-horizontal__item">
-          <AuHeading @skin={{4}}>
-            Agenda van {{datetime-format @model.startedAt}}
-          </AuHeading>
-        </li>
-      </ul>
-      <AuTabs @reversed={{true}} as |Tab|>
-        <Tab>
-          <AuLink @route="meeting.agendaitems" @model={{@model}} @activeClass="active">Overzicht</AuLink>
         </Tab>
-        {{#if (this.routeIsActive "meeting.agendaitem")}}
-          <Tab>
-            <AuLink @route={{this.target.currentRouteName}} @activeClass="active">
-              Detail
-            </AuLink>
-          </Tab>
-        {{/if}}
-        <Tab>
-          <AuLink>Documenten</AuLink>
-        </Tab>
-      </AuTabs>
-    </div>
+      {{/if}}
+      <Tab>
+        <AuLink>Documenten</AuLink>
+      </Tab>
+    </AuTabs>
   </Group>
   <Group>
     <AuButtonGroup>
       <AuLink @skin="button" @route="meeting.agendaitems.new">
-        Nieuw Agendapunt
+        Nieuw agendapunt
       </AuLink>
       <AuDropdown
         @title="Acties"
