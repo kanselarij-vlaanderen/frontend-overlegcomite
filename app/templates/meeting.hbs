@@ -1,87 +1,87 @@
-    {{page-title "Vergadering"}}
+{{page-title "Vergadering"}}
 
-    <AuToolbar @size="large" @border="bottom" as |Group|>
+<AuToolbar @size="large" @border="bottom" as |Group|>
+  <Group>
+    <div class="au-o-flow">
+      <ul class="au-c-list-horizontal">
+        <li class="au-c-list-horizontal__item">
+          <AuLink @route="meetings" @icon="arrow-left">
+            Overzicht vergaderingen
+          </AuLink>
+        </li>
+        <li class="au-c-list-horizontal__item">
+          <AuHeading @skin={{4}}>
+            Agenda van {{datetime-format @model.startedAt}}
+          </AuHeading>
+        </li>
+      </ul>
+      <AuTabs @reversed={{true}} as |Tab|>
+        <Tab>
+          <AuLink @route="meeting.agendaitems" @model={{@model}} @activeClass="active">Overzicht</AuLink>
+        </Tab>
+        {{#if (this.routeIsActive "meeting.agendaitem")}}
+          <Tab>
+            <AuLink @route={{this.target.currentRouteName}} @activeClass="active">
+              Detail
+            </AuLink>
+          </Tab>
+        {{/if}}
+        <Tab>
+          <AuLink>Documenten</AuLink>
+        </Tab>
+      </AuTabs>
+    </div>
+  </Group>
+  <Group>
+    <AuButtonGroup>
+      <AuLink @skin="button" @route="meeting.agendaitems.new">
+        Nieuw Agendapunt
+      </AuLink>
+      <AuDropdown
+        @title="Acties"
+        @skin="secondary">
+        <AuButton @skin="link" role="menuitem">Agenda Vrijgeven</AuButton>
+        <AuButton @skin="link" role="menuitem">Notificaties Vrijgeven</AuButton>
+        <AuHr/>
+        <AuLink @route="meeting.edit" role="menuitem">
+          Vergadering Wijzigen
+        </AuLink>
+        <AuButton
+          @skin="link" @alert={{true}} role="menuitem"
+          {{on "click" this.openDeleteModal}}>
+          Vergadering Verwijderen
+        </AuButton>
+      </AuDropdown>
+    </AuButtonGroup>
+  </Group>
+</AuToolbar>
+
+<AuModal
+  @modalOpen={{this.deleteModalOpen}}
+  @closeModal={{this.closeDeleteModal}}>
+  <:title>
+    Vergadering verwijderen
+  </:title>
+  <:body>
+    Bent u zeker dat u deze vergadering inclusief agendapunten wil verwijderen?
+  </:body>
+  <:footer>
+    <AuToolbar as |Group|>
       <Group>
-        <div class="au-o-flow">
-          <ul class="au-c-list-horizontal">
-            <li class="au-c-list-horizontal__item">
-              <AuLink @route="meetings" @icon="arrow-left">
-                Overzicht vergaderingen
-              </AuLink>
-            </li>
-            <li class="au-c-list-horizontal__item">
-              <AuHeading @skin={{4}}>
-                Agenda van {{datetime-format @model.startedAt}}
-              </AuHeading>
-            </li>
-          </ul>
-          <AuTabs @reversed={{true}} as |Tab|>
-            <Tab>
-              <AuLink @route="meeting.agendaitems" @model={{@model}} @activeClass="active">Overzicht</AuLink>
-            </Tab>
-            {{#if (this.routeIsActive "meeting.agendaitem")}}
-              <Tab>
-                <AuLink @route={{this.target.currentRouteName}} @activeClass="active">
-                  Detail
-                </AuLink>
-              </Tab>
-            {{/if}}
-            <Tab>
-              <AuLink>Documenten</AuLink>
-            </Tab>
-          </AuTabs>
-        </div>
+        <AuButton @skin="link"
+          {{on "click" this.closeDeleteModal}}>
+          Annuleer
+        </AuButton>
       </Group>
       <Group>
-        <AuButtonGroup>
-          <AuLink @skin="button" @route="meeting.agendaitems.new">
-            Nieuw Agendapunt
-          </AuLink>
-          <AuDropdown
-            @title="Acties"
-            @skin="secondary">
-              <AuButton @skin="link" role="menuitem">Agenda Vrijgeven</AuButton>
-              <AuButton @skin="link" role="menuitem">Notificaties Vrijgeven</AuButton>
-              <AuHr/>
-              <AuLink @route="meeting.edit" role="menuitem">
-                Vergadering Wijzigen
-              </AuLink>
-              <AuButton
-                @skin="link" @alert={{true}} role="menuitem"
-                {{on "click" this.openDeleteModal}}>
-                Vergadering Verwijderen
-              </AuButton>
-          </AuDropdown>
-        </AuButtonGroup>
+        <AuButton @alert={{true}} @icon="trash"
+          {{on "click" this.deleteMeeting}}
+          @loading={{this.deleteState.isPending}}>
+          Verwijderen
+        </AuButton>
       </Group>
     </AuToolbar>
+  </:footer>
+</AuModal>
 
-    <AuModal
-      @modalOpen={{this.deleteModalOpen}}
-      @closeModal={{this.closeDeleteModal}}>
-      <:title>
-        Vergadering verwijderen
-      </:title>
-      <:body>
-        Bent u zeker dat u deze vergadering inclusief agendapunten wil verwijderen?
-      </:body>
-      <:footer>
-        <AuToolbar as |Group|>
-          <Group>
-            <AuButton @skin="link"
-              {{on "click" this.closeDeleteModal}}>
-              Annuleer
-            </AuButton>
-          </Group>
-          <Group>
-            <AuButton @alert={{true}} @icon="trash"
-                {{on "click" this.deleteMeeting}}
-                @loading={{this.deleteState.isPending}}>
-              Verwijderen
-            </AuButton>
-          </Group>
-        </AuToolbar>
-      </:footer>
-    </AuModal>
-
-    {{outlet}}
+{{outlet}}

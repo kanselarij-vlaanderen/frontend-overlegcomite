@@ -1,6 +1,5 @@
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
-import { getRequestState } from '@warp-drive/ember';
 import { findRecord } from '@warp-drive/utilities/json-api';
 
 export default class MeetingRoute extends Route {
