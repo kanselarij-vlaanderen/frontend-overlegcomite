@@ -2,6 +2,7 @@ import { useLegacyStore } from '@warp-drive/legacy';
 import { JSONAPICache } from '@warp-drive/json-api';
 import Meetings from '../schemas/meetings';
 import Agendaitems from '../schemas/agendaitems';
+import Cases from '../schemas/cases';
 import DatetimeTransform  from '../transforms/datetime';
 
 const JsonApiHeaderHandler = {
@@ -25,7 +26,8 @@ const legacyStore = useLegacyStore({
   ],
   schemas: [
     Meetings,
-    Agendaitems
+    Agendaitems,
+    Cases
   ],
   transformations: [
     DatetimeTransform.create(),

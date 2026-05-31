@@ -13,7 +13,13 @@ const AgendaitemsSchema = withDefaults({
       name: 'meeting',
       kind: 'belongsTo',
       type: 'meetings',
-      options:  { async: true, inverse: 'agendaitems', linksMode: false }
+      options:  { async: true, inverse: 'agendaItems', linksMode: false }
+    },
+    {
+      name: 'case',
+      kind: 'belongsTo',
+      type: 'cases',
+      options:  { async: true, inverse: 'agendaItems', linksMode: false }
     }
   ])
 })
