@@ -1,0 +1,72 @@
+{{page-title "Agendapunt"}}
+
+<AuMainContainer as |m| >
+  <m.sidebar>
+    {{#let @model.meeting as |meeting|}}
+    <div class="au-c-sidebar">
+      <div class="au-c-sidebar__content">
+        <Await @promise={{meeting.agendaItems}}>
+          <:loading>
+            <AuLoader />
+          </:loading>
+          <:success as |agendaItems| >
+            <AgendaitemsListNavigation
+              @agendaItems={{agendaItems}}
+              @tint={{false}} />
+          </:success>
+        </Await>
+      </div>
+    </div>
+    {{/let}}
+  </m.sidebar>
+  <m.content @scroll={{true}}>
+    {{#let @model as |item|}}
+      <AuToolbar @size="large" @border="bottom" as |Group| >
+        <Group>
+          <AuHeading @skin={{3}}>
+            {{ item.priority }}.{{item.subPriority}} {{ item.subject }}
+          </AuHeading>
+          {{#if item.case.identifier}}
+            <AuPill @icon="document" >
+              {{ item.case.identifier }}
+            </AuPill>
+          {{/if}}
+        </Group>
+        <Group>
+          <AuLink
+            @skin="button"
+            @route="meeting.agendaitem.edit">
+            Wijzigen
+          </AuLink>
+          <AuModalButton @alert={{true}} @icon="trash">
+            <:button>Verwijderen</:button>
+            <:title>
+              Agendapunt verwijderen
+            </:title>
+            <:body>
+              Bent u zeker dat u dit agendapunt wil verwijderen?
+            </:body>
+            <:footer as |close| >
+              <AuToolbar
+                as |Group| >
+                <Group>
+                  <AuButton @skin="link" {{on "click" close}}>
+                    Annuleren
+                  </AuButton>
+                </Group>
+                <Group>
+                  <AuButton @alert={{true}} @icon="trash"
+                    {{on "click" this.deleteAgendaitem}}>
+                    Verwijderen
+                  </AuButton>
+                </Group>
+              </AuToolbar>
+            </:footer>
+          </AuModalButton>
+        </Group>
+      </AuToolbar>
+    {{/let}}
+  </m.content>
+</AuMainContainer>
+
+{{outlet}}

@@ -1,0 +1,23 @@
+{{page-title "Nieuw"}}
+
+<AuModal @modalOpen={{true}}>
+  <:title>
+    Nieuw agendapunt
+  </:title>
+  <:body>
+    <AgendaitemForm @agendaitem={{@model}} />
+  </:body>
+  <:footer>
+    <AuToolbar>
+      <AuLink @route="meeting.agendaitems">
+        Annuleren
+      </AuLink>
+      <AuButton
+        @loading={{this.saveState.isPending}}
+        @disabled={{not this.formIsValid}}
+        {{on "click" this.saveAgendaitem}}>
+        Aanmaken
+      </AuButton>
+    </AuToolbar>
+  </:footer>
+</AuModal>

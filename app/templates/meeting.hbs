@@ -17,8 +17,15 @@
           </ul>
           <AuTabs @reversed={{true}} as |Tab|>
             <Tab>
-              <AuLink class="active">Overzicht</AuLink>
+              <AuLink @route="meeting.agendaitems" @model={{@model}} @activeClass="active">Overzicht</AuLink>
             </Tab>
+            {{#if (this.routeIsActive "meeting.agendaitem")}}
+              <Tab>
+                <AuLink @route={{this.target.currentRouteName}} @activeClass="active">
+                  Detail
+                </AuLink>
+              </Tab>
+            {{/if}}
             <Tab>
               <AuLink>Documenten</AuLink>
             </Tab>
@@ -27,9 +34,9 @@
       </Group>
       <Group>
         <AuButtonGroup>
-          <AuButton @skin="primary">
+          <AuLink @skin="button" @route="meeting.agendaitems.new">
             Nieuw Agendapunt
-          </AuButton>
+          </AuLink>
           <AuDropdown
             @title="Acties"
             @skin="secondary">

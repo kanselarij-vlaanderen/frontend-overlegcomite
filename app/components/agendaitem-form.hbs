@@ -1,0 +1,59 @@
+<form class="au-c-form">
+  <div class="au-o-grid">
+    <AuFormRow class="au-o-grid__item au-u-1-2@xsmall">
+      <AuLabel for="agendaitem-priority">
+        Volgnummer
+      </AuLabel>
+      <Input
+        id="agendaitem-priority"
+        @value={{this.agendaitem.priority}}
+        class="au-c-input"
+        @type="number" />
+    </AuFormRow>
+    <AuFormRow class="au-o-grid__item au-u-1-2@xsmall">
+      <AuLabel for="agendaitem-subpriority">
+        Onderdeel
+      </AuLabel>
+      <Input
+        id="agendaitem-subpriority"
+        @value={{this.agendaitem.subPriority}}
+        class="au-c-input"
+        />
+    </AuFormRow>
+  </div>
+  <AuFormRow>
+    <AuLabel for="agendaitem-case">
+      Dossiernummer
+    </AuLabel>
+    <Input
+      id="agendaitem-case"
+      @value={{this.caseIdentifier}}
+      {{au-inputmask options=(hash mask="9999A99999.999" placeholder="JJJJ_#########")}}
+      class="au-c-input {{this.caseIdentifierInputState}}"
+      placeholder="bv. 2015C80030.002"
+      />
+  </AuFormRow>
+  <AuFormRow>
+    <AuLabel for="agendaitem-submitters">
+      Indieners
+    </AuLabel>
+    <PowerSelect
+      @multiple={{true}}
+      @options={{this.governementBodies}}
+      @selected={{this.agendaitem.submitters}}
+      @onChange={{fn (mut this.agendaitem.submitters)}}
+      as |submitter| >
+      {{ submitter.name }}
+    </PowerSelect>
+  </AuFormRow>
+  <AuFormRow>
+    <AuLabel for="agendaitem-subject">
+      Titel
+    </AuLabel>
+    <Input
+      id="agendaitem-subject"
+      @value={{this.agendaitem.subject}}
+      class="au-c-input au-c-input--block"
+      />
+  </AuFormRow>
+</form>

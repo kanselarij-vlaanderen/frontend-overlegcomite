@@ -1,0 +1,19 @@
+{{page-title "Overzicht Agendapunten"}}
+
+<AuMainContainer as |m|>
+  <m.content @scroll={{true}}>
+    <div class="au-o-layout">
+      <div class="au-o-box">
+        <Await @promise={{@model.agendaItems}}>
+          <:success as |agendaItems| >
+            <AgendaitemsListNavigation
+              @agendaItems={{agendaItems}}
+              @tint={{true}} />
+          </:success>
+        </Await>
+      </div>
+    </div>
+  </m.content>
+</AuMainContainer>
+
+{{ outlet }}

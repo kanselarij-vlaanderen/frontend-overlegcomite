@@ -1,17 +1,15 @@
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
-import { getRequestState } from '@warp-drive/ember';
 import { findRecord } from '@warp-drive/utilities/json-api';
 
-export default class MeetingRoute extends Route {
+export default class MeetingAgendaitemRoute extends Route {
   @service store;
 
-  async model({ meeting_id }) {
-    const query = (findRecord('meeting', meeting_id, {
-      include: ["agenda-items.submitters"]
-    }));
+  async model({ agendaitem_id }) {
+    const query = findRecord('agendaitem', agendaitem_id, {
+      include: ["submitters", "case"]
+    });
     const res = await this.store.request(query);
-
     return res.content.data;
   }
 }

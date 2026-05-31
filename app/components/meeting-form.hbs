@@ -11,9 +11,10 @@
     <AuLabel for="meeting-start-at-time">Tijd</AuLabel>
     <AuTimePicker
       @id="meeting-start-at-time"
-      @hours={{@meeting.startedAt.hour}}
-      @minutes={{@meeting.startedAt.minute}}
+      @hours={{this.startedAtHour}}
+      @minutes={{this.startedAtMinute}}
+      @onChange={{this.setStartedAtTime}}
       @showSeconds={{false}}
-      @nowLabel="Nu" />
+      @showNow={{false}} />
   </AuFormRow>
 </form>

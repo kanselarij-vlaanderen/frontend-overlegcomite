@@ -9,3 +9,30 @@ th.data-table-meeting-started-at {
 .au-c-data-table td {
   cursor: pointer;
 }
+
+
+$au-navigation-list-border: 1px;
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.oc-u-sticky-top,
+.oc-c-sticky-header {
+  position: sticky;
+  top: -$au-navigation-list-border;
+}
+
+.oc-c-sticky-header {
+  background: var(--au-page-bg);
+  margin-bottom: -$au-navigation-list-border;
+}
+
+.oc-c-sticky-header.oc-c-sticky-header--tint {
+  background: var(--au-gray-100);
+}
+
+.oc-c-sticky-header:first-child {
+  border-top: $au-navigation-list-border solid var(--au-divider-color);
+  margin-top: -$au-navigation-list-border;
+}
