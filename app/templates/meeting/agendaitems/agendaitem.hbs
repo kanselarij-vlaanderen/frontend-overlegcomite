@@ -23,6 +23,17 @@
   </AuToolbar>
 </div>
 
+<div class="au-o-layout au-o-flow">
+  <AuHeading @level={{3}} @skin={{3}}>
+    Notificatie
+  </AuHeading>
+  <FileCard />
+  <AuHeading @level={{3}} @skin={{3}}>
+    Bestanden
+  </AuHeading>
+  <FileCard />
+</div>
+
 <AuModal
   @modalOpen={{this.isOpenEditAgendaitemModal}}
   @closeModal={{this.cancelEditAgendaitem}}

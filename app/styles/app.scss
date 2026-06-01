@@ -43,3 +43,33 @@ $au-navigation-list-border: 1px;
   border-top: $au-navigation-list-border solid var(--au-divider-color);
   margin-top: -$au-navigation-list-border;
 }
+
+.oc-c-card-footer--content {
+  margin-top: $au-unit-small;
+  margin-bottom: -$au-unit;
+  margin-left: -$au-unit;
+  margin-right: -$au-unit;
+  padding: $au-unit;
+
+  background: var(--au-gray-100);
+  border-top: 0.1rem solid $au-card-border-color;
+}
+
+.oc-c-card-footer--details {
+  >.oc-c-card-footer--summary {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    >.au-c-icon {
+      transform: rotate(0);
+      margin-right: $au-unit-small;
+    }
+  }
+
+  &[open] {
+    .oc-c-card-footer--summary>.au-c-icon {
+      transform: rotate(90deg);
+    }
+  }
+}
