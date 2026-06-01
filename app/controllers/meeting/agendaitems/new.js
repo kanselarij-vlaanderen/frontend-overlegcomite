@@ -4,7 +4,6 @@ import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import { getRequestState } from '@warp-drive/ember';
 import { createAgendaitem } from '../../../data/agendaitem/builders';
-import { createCase } from '../../../data/case/builders';
 import { updateAgendaitemCase } from '../../../data/agendaitem/helpers';
 import { caseIdentifierValid } from '../../../data/case/helpers';
 
@@ -16,7 +15,8 @@ export default class MeetingAgendaitemsNewController extends Controller {
 
   @action
   async saveAgendaitem() {
-    const caseIdentifier = this.model.case.get('identifier');
+    const case_ = await this.model.case;
+    const caseIdentifier = case_.identifier;
     const saveRequest = this.store.request(createAgendaitem(this.model));
     this.saveState = getRequestState(saveRequest);
     const { content } = await saveRequest;

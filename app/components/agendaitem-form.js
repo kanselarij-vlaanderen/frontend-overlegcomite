@@ -21,22 +21,10 @@ export default class AgendaitemForm extends Component {
     });
   }
 
-  get caseIdentifier() {
-    return this.agendaitem.case?.get('identifier') || '';
-  }
-  set caseIdentifier(newIdentifier) {
-    if (!this.agendaitem.case.content) {
-      this.agendaitem.case = this.store.createRecord('case', {
-        identifier: newIdentifier
-      })
-    } else {
-      this.agendaitem.case.content.identifier = newIdentifier;
-    }
-
-  }
+  // TODO: add validation on case identifier field
 
   get caseIdentifierInputState() {
-    const identifier = this.caseIdentifier;
+    const identifier = this.args.agendaitem.case?.identifier;
     if (caseIdentifierValid(identifier)) {
       return ""
     } else {
@@ -44,4 +32,3 @@ export default class AgendaitemForm extends Component {
     }
   }
 }
-

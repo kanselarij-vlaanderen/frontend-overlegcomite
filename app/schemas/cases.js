@@ -1,4 +1,4 @@
-import { withDefaults } from '@warp-drive/core/reactive';
+import { withDefaults } from '@warp-drive/legacy/model/migration-support';
 import dasherizeFields from '../utils/warp-drive/dasherize-schema-fields';
 
 const CasesSchema = withDefaults({
@@ -11,7 +11,7 @@ const CasesSchema = withDefaults({
       name: 'agendaItems',
       kind: 'hasMany',
       type: 'agendaitems',
-      options:  { async: true, inverse: 'case', linksMode: false }
+      options:  { async: false, inverse: 'case', linksMode: true }
     }
   ])
 })

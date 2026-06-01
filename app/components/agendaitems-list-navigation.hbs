@@ -1,6 +1,6 @@
 <nav>
   <ul class="au-c-list-navigation">
-    {{#each-in (group-by-submitter @agendaItems) as |submitter items|}}
+    {{#each-in @agendaitemGroups as |submitter items|}}
       <li class="au-c-list-navigation__item au-c-navigation__item--section oc-c-sticky-header {{if @tint "oc-c-sticky-header--tint"}}">
         <AuHeading @level={{3}} @skin={{5}} class="au-c-list-navigation__section-title">
           {{if submitter submitter "Geen indiener"}}

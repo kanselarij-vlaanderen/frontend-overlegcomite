@@ -1,20 +1,22 @@
 import Route from '@ember/routing/route';
 import { service } from "@ember/service";
+import { query } from '@warp-drive/utilities/json-api';
+import createRecord from '../../../utils/warp-drive/create-record';
 
 export default class MeetingAgendaitemsNewRoute extends Route {
   @service store;
 
   async model() {
-    const meeting = await this.modelFor('meeting');
-    const agendaitemsSorted = meeting.agendaItems.map((i) => [i.priority, i.subPriority, i.submitters]).sort();
-    const [priority, _subPriority, submitters] = agendaitemsSorted.at(-1) || [0, 0, []]
-    const case_ = this.store.createRecord('case', {});
-    const agendaitem = this.store.createRecord('agendaitem', {
+    const meeting = this.modelFor('meeting');
+    const latestAgendaitem = (await this.store.request(query('agendaitem', {
+      'filter[meeting][:uri:]': meeting.uri,
+      sort: '-priority',
+      'page[size]': 1
+    }))).content.data[0];
+    const case_ = await createRecord(this.store, 'case', {});
+    const agendaitem = await createRecord(this.store, 'agendaitem', {
       meeting,
-      priority: priority + 1,
-      subPriority: '',
-      subject: '',
-      submitters: submitters.slice(),
+      priority: (latestAgendaitem?.priority || 0) + 1,
       case: case_,
     })
     return agendaitem;

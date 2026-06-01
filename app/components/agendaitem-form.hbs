@@ -6,7 +6,7 @@
       </AuLabel>
       <Input
         id="agendaitem-priority"
-        @value={{this.agendaitem.priority}}
+        @value={{this.args.agendaitem.priority}}
         class="au-c-input"
         @type="number" />
     </AuFormRow>
@@ -16,7 +16,7 @@
       </AuLabel>
       <Input
         id="agendaitem-subpriority"
-        @value={{this.agendaitem.subPriority}}
+        @value={{this.args.agendaitem.subPriority}}
         class="au-c-input"
         />
     </AuFormRow>
@@ -27,7 +27,7 @@
     </AuLabel>
     <Input
       id="agendaitem-case"
-      @value={{this.caseIdentifier}}
+      @value={{this.args.agendaitem.case.identifier}}
       {{au-inputmask options=(hash mask="9999A99999.999" placeholder="JJJJ_#########")}}
       class="au-c-input {{this.caseIdentifierInputState}}"
       placeholder="bv. 2015C80030.002"
@@ -40,8 +40,8 @@
     <PowerSelect
       @multiple={{true}}
       @options={{this.governementBodies}}
-      @selected={{this.agendaitem.submitters}}
-      @onChange={{fn (mut this.agendaitem.submitters)}}
+      @selected={{this.args.agendaitem.submitters}}
+      @onChange={{fn (mut this.args.agendaitem.submitters)}}
       as |submitter| >
       {{ submitter.name }}
     </PowerSelect>
@@ -52,7 +52,7 @@
     </AuLabel>
     <Input
       id="agendaitem-subject"
-      @value={{this.agendaitem.subject}}
+      @value={{this.args.agendaitem.subject}}
       class="au-c-input au-c-input--block"
       />
   </AuFormRow>
