@@ -1,53 +1,41 @@
 import Controller from '@ember/controller';
-import { cached, tracked } from '@glimmer/tracking';
-import { action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
 import { service } from '@ember/service';
-import { getPromiseState } from '@warp-drive/ember';
-import createRecord from '../utils/warp-drive/create-record';
+import { task } from 'ember-concurrency';
 
 export default class MeetingsController extends Controller {
   @service store;
   @service router;
 
-  @tracked sort = "-started-at";
+  @tracked sort = '-started-at';
   @tracked page = 0;
   @tracked size = 20;
 
   @tracked isOpenNewMeetingModal = false;
   @tracked newMeeting;
-  @tracked savePromise;
 
-  @cached
-  get saveState() {
-    return this.savePromise ? getPromiseState(this.savePromise) : null;
-  }
-
-  @action
-  openNewMeetingModal() {
+  openNewMeetingModal = () => {
     this.isOpenNewMeetingModal = true;
-    this.newMeeting = {
+    this.newMeeting = this.store.createRecord('meeting', {
       startedAt: Temporal.Now.zonedDateTimeISO()
         .round('hour')
         .with({ hour: 10 })
-    };
+    });
   }
 
-  @action
-  closeNewMeetingModal() {
+  closeNewMeetingModal = () => {
     this.isOpenNewMeetingModal = false;
     this.newMeeting = null;
   }
 
-  @action
-  async saveNewMeeting() {
-    this.savePromise = createRecord(this.store, 'meeting', this.newMeeting);
-    const meeting = await this.savePromise;
-    this.isOpenNewMeetingModal = false;
+  saveNewMeeting = task(async () => {
+    // eslint-disable-next-line warp-drive/no-legacy-request-patterns
+    const meeting = await this.newMeeting.save();
+    this.closeNewMeetingModal();
     this.goToMeeting(meeting);
-  }
+  });
 
-  @action
-  goToMeeting(meeting) {
+  goToMeeting = (meeting) => {
     this.router.transitionTo('meeting', meeting.id);
   }
 }

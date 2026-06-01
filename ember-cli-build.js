@@ -5,7 +5,11 @@ const { setConfig } = require('@warp-drive/core/build-config');
 
 module.exports = function (defaults) {
   const app = new EmberApp(defaults, {
-    // Add options here
+    babel: {
+      plugins: [
+        require.resolve('ember-concurrency/async-arrow-task-transform'),
+      ]
+    }
   });
 
   setConfig(app, __dirname, {
@@ -14,7 +18,7 @@ module.exports = function (defaults) {
     // and should be updated when that changes
     compatWith: '5.8',
     deprecations: {
-      // ... list individual deprecations that have been resolved here
+      ENABLE_LEGACY_REQUEST_METHODS: true,
     },
   });
 

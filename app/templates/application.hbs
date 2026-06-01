@@ -23,9 +23,9 @@
     </AuTabs>
   </AuToolbar>
 
-  <AuMainContainer @scroll="true" @size="regular" as |main|>
+  <AuMainContainer @scroll={{true}} @size="regular" as |main|>
     <main.content>
-      <AuBodyContainer>
+      <AuBodyContainer @scroll={{true}} class="au-u-background-gray-100">
         {{outlet}}
       </AuBodyContainer>
     </main.content>

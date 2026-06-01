@@ -1,34 +1,26 @@
-import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
+import Component from '@glimmer/component';
+import { task } from 'ember-concurrency';
 import { service } from '@ember/service';
-import { query } from '@warp-drive/utilities/json-api'
-import { caseIdentifierValid } from '../data/case/helpers';
-
-const CASE_IDENTIFIER_REGEX = /^\d{4}[A-Z]\d{5}\.\d{3}$/;
 
 export default class AgendaitemForm extends Component {
-  // @tracked caseIdentifier;
   @service store;
 
-  get agendaitem() {
-    return this.args.agendaitem;
+  @tracked governmentBodies = [];
+
+  constructor() {
+    super(...arguments);
+    this.fetchGovernmentBodies.perform();
   }
 
-  get governementBodies() {
-    const request = this.store.request(query('government-body'));
-    return request.then(({ content }) => {
-      return content.data;
-    });
-  }
+  // TODO add validation state on case identifier input
 
-  // TODO: add validation on case identifier field
+  fetchGovernmentBodies = task(async () => {
+    this.governmentBodies = await this.store.queryAll('government-body');
+  });
 
-  get caseIdentifierInputState() {
-    const identifier = this.args.agendaitem.case?.identifier;
-    if (caseIdentifierValid(identifier)) {
-      return ""
-    } else {
-      return "au-c-input--error"
-    }
+  selectSubmitters = (value) => {
+    // TODO fix selection of submitters
+    console.log(value);
   }
 }

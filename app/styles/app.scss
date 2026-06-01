@@ -10,6 +10,13 @@ th.data-table-meeting-started-at {
   cursor: pointer;
 }
 
+.au-u-background-white {
+  background: var(--au-white);
+}
+
+.au-u-background-yellow-300 {
+  background: var(--au-yellow-300);
+}
 
 $au-navigation-list-border: 1px;
 

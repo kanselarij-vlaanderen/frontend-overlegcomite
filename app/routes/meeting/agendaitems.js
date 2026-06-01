@@ -1,21 +1,22 @@
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
-import { query } from '@warp-drive/utilities/json-api';
 
 export default class MeetingAgendaitemsRoute extends Route {
   @service store;
 
   async model() {
-    const model = this.modelFor('meeting')
-    const response = await this.store.request(query('agendaitem', {
+    const meeting = this.modelFor('meeting');
+    const agendaitems = await this.store.queryAll('agendaitem', {
+      'filter[meeting][:uri:]': meeting.uri,
       include: ['case', 'submitters'],
-      'filter[meeting][:uri:]': model.uri,
-    }))
+      sort: 'priority'
+    })
 
-    const agendaitems = response.content.data;
-    const map = { '': [] };
+    const map = {};
 
-    for (const agendaitem of agendaitems) {
+    // TODO Agendaitems must be arranged per group of submitters
+    // TODO Model doesn't update on creation/deletion of an agendaitem
+    for (const agendaitem of agendaitems.toArray()) {
       const submitters = await agendaitem.submitters;
       if (submitters.length) {
         for (const submitter of submitters) {
@@ -26,7 +27,11 @@ export default class MeetingAgendaitemsRoute extends Route {
           }
         }
       } else {
-        map[''].push(agendaitem)
+        if (Object.hasOwn(map, '')) {
+          map[''].push(agendaitem);
+        } else {
+          map[''] = [agendaitem];
+        }
       }
     }
 

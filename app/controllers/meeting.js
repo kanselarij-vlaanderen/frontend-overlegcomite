@@ -1,45 +1,48 @@
 import Controller from '@ember/controller';
 import { tracked } from '@glimmer/tracking';
-import { action } from '@ember/object';
 import { service } from '@ember/service';
-import { getRequestState } from '@warp-drive/ember';
-import { deleteRecord } from '@warp-drive/utilities/json-api';
+import { task } from 'ember-concurrency';
 
 export default class MeetingController extends Controller {
   @service store;
   @service router;
 
+  @tracked isOpenEditMeetingModal = false;
+  openEditMeetingModal = () => this.isOpenEditMeetingModal = true;
+  closeEditMeetingModal = () => this.isOpenEditMeetingModal = false;
+
+  @tracked isOpenDeleteMeetingModal = false;
+  openDeleteMeetingModal = () => this.isOpenDeleteMeetingModal = true;
+  closeDeleteMeetingModal = () => this.isOpenDeleteMeetingModal = false;
+
   @tracked isOpenNewAgendaitemModal = false;
+  @tracked newAgendaitem;
+  @tracked newCase;
 
-  @tracked deleteModalOpen = false;
-  openDeleteModal = () => this.deleteModalOpen = true
-  closeDeleteModal = () => this.deleteModalOpen = false
+  openNewAgendaitemModal = () => this.isOpenNewAgendaitemModal = true;
+  closeNewAgendaitemModal = () => this.isOpenNewAgendaitemModal = false;
 
-  @tracked deleteState;
+  saveMeeting = task(async () => {
+    // eslint-disable-next-line warp-drive/no-legacy-request-patterns
+    await this.model.save();
+    this.closeEditMeetingModal();
+  });
 
-  @action
-  openNewAgendaitemModal() {
-    this.isOpenNewAgendaitemModal = true;
+  cancelEditMeeting = () => {
+    this.model.rollbackAttributes();
+    this.closeEditMeetingModal();
   }
 
-  @action
-  closeNewAgendaitemModal() {
-    this.isOpenNewAgendaitemModal = false;
-  }
-
-  @action
-  async saveNewAgendaitem(agendaitem, case_) {
-
-  }
-
-  @action
-  async deleteMeeting() {
-    this.store.deleteRecord(this.model);
-    const deleteRequest = this.store.request(deleteRecord(this.model))
-    this.deleteState = getRequestState(deleteRequest)
-    await deleteRequest;
-    this.deleteModalOpen = false;
+  deleteMeeting = task(async () => {
+    // eslint-disable-next-line warp-drive/no-legacy-request-patterns
+    await this.model.destroyRecord();
+    this.closeDeleteMeetingModal();
     this.router.transitionTo('meetings');
+  });
+
+  goToAgendaitem = (agendaitem) => {
+    this.closeNewAgendaitemModal();
+    this.router.transitionTo('meeting.agendaitems.agendaitem', this.model.id, agendaitem.id)
   }
 
   routeIsActive = (routeName) => {

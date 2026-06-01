@@ -1,7 +1,14 @@
 {{page-title "Agenda"}}
 
-<AgendaitemsListNavigation
-  @agendaitemGroups={{@model}}
-  @tint={{true}} />
-
-{{ outlet }}
+<div class="au-o-grid au-o-grid--flush">
+  <div class="au-o-grid__item {{unless this.isIndexRoute "au-u-1-5"}}">
+    <AgendaitemsListNavigation
+      @agendaitemGroups={{@model}}
+      class="{{if this.isIndexRoute "au-u-margin"}}" />
+  </div>
+  {{#unless this.isIndexRoute}}
+    <div class="au-o-grid__item au-u-4-5 au-u-background-white">
+      {{outlet}}
+    </div>
+  {{/unless}}
+</div>

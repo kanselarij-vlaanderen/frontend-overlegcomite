@@ -1,0 +1,27 @@
+<AuModal
+  @modalOpen={{@modalOpen}}
+  @closeModal={{@onClose}}>
+  <:title>
+    {{yield to="title"}}
+  </:title>
+  <:body>
+    {{yield to="body"}}
+  </:body>
+  <:footer>
+    <AuToolbar as |Group|>
+      <Group>
+        <AuButton @skin="naked"
+          {{on "click" @onClose}}>
+          Annuleer
+        </AuButton>
+      </Group>
+      <Group>
+        <AuButton @alert={{true}} @icon="trash"
+          @loading={{@isLoading}}
+          {{on "click" @onConfirm}}>
+          Verwijderen
+        </AuButton>
+      </Group>
+    </AuToolbar>
+  </:footer>
+</AuModal>

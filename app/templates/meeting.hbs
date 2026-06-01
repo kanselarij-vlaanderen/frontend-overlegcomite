@@ -16,9 +16,9 @@
         </AuLink>
       </Tab>
       <Tab>
-        <AuLink @route="meeting.agendaitems" @model={{@model}}>Overzicht</AuLink>
+        <AuLink @route="meeting.agendaitems.index" @model={{@model.id}}>Overzicht</AuLink>
       </Tab>
-      {{#if (this.routeIsActive "meeting.agendaitem")}}
+      {{#if (this.routeIsActive "meeting.agendaitems.agendaitem")}}
         <Tab>
           <AuLink @route={{this.target.currentRouteName}}>
             Detail
@@ -32,22 +32,29 @@
   </Group>
   <Group>
     <AuButtonGroup>
-      <AuLink @skin="button" @route="meeting.agendaitems.new">
+      <AuButton @skin="primary" @icon="plus"
+        {{on "click" this.openNewAgendaitemModal}}>
         Nieuw agendapunt
-      </AuLink>
+      </AuButton>
       <AuDropdown
         @title="Acties"
+        @alignment="right"
         @skin="secondary">
-        <AuButton @skin="link" role="menuitem">Agenda Vrijgeven</AuButton>
-        <AuButton @skin="link" role="menuitem">Notificaties Vrijgeven</AuButton>
+        <AuButton @skin="link" role="menuitem">
+          Agenda vrijgeven
+        </AuButton>
+        <AuButton @skin="link" role="menuitem">
+          Notificaties vrijgeven
+        </AuButton>
         <AuHr/>
-        <AuLink @route="meeting.edit" role="menuitem">
-          Vergadering Wijzigen
-        </AuLink>
+        <AuButton @skin="link" role="menuitem"
+          {{on "click" this.openEditMeetingModal}}>
+          Vergadering wijzigen
+        </AuButton>
         <AuButton
           @skin="link" @alert={{true}} role="menuitem"
-          {{on "click" this.openDeleteModal}}>
-          Vergadering Verwijderen
+          {{on "click" this.openDeleteMeetingModal}}>
+          Vergadering verwijderen
         </AuButton>
       </AuDropdown>
     </AuButtonGroup>
@@ -55,31 +62,46 @@
 </AuToolbar>
 
 <AuModal
-  @modalOpen={{this.deleteModalOpen}}
-  @closeModal={{this.closeDeleteModal}}>
+  @modalOpen={{this.isOpenEditMeetingModal}}
+  @closeModal={{this.cancelEditMeeting}}
+  @overflow={{true}}>
+  <:title>
+    Vergadering wijzigen
+  </:title>
+  <:body>
+    <MeetingForm @meeting={{@model}} />
+  </:body>
+  <:footer>
+    <AuToolbar>
+      <AuButton {{on "click" this.cancelEditMeeting}} @skin="naked">
+        Annuleren
+      </AuButton>
+      <AuButton @skin="primary"
+        @loading={{this.saveMeeting.isRunning}}
+        {{on "click" this.saveMeeting.perform}}>
+        Opslaan
+      </AuButton>
+    </AuToolbar>
+  </:footer>
+</AuModal>
+
+<DeleteConfirmationModal
+  @modalOpen={{this.isOpenDeleteMeetingModal}}
+  @onClose={{this.closeDeleteMeetingModal}}
+  @onConfirm={{this.deleteMeeting.perform}}
+  @isLoading={{this.deleteMeeting.isRunning}}>
   <:title>
     Vergadering verwijderen
   </:title>
   <:body>
     Bent u zeker dat u deze vergadering inclusief agendapunten wil verwijderen?
   </:body>
-  <:footer>
-    <AuToolbar as |Group|>
-      <Group>
-        <AuButton @skin="link"
-          {{on "click" this.closeDeleteModal}}>
-          Annuleer
-        </AuButton>
-      </Group>
-      <Group>
-        <AuButton @alert={{true}} @icon="trash"
-          {{on "click" this.deleteMeeting}}
-          @loading={{this.deleteState.isPending}}>
-          Verwijderen
-        </AuButton>
-      </Group>
-    </AuToolbar>
-  </:footer>
-</AuModal>
+</DeleteConfirmationModal>
+
+<NewAgendaitemModal
+  @modalOpen={{this.isOpenNewAgendaitemModal}}
+  @onSave={{this.goToAgendaitem}}
+  @onCancel={{this.closeNewAgendaitemModal}}
+  @meeting={{@model}} />
 
 {{outlet}}

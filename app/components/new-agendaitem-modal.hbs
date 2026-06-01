@@ -1,0 +1,29 @@
+<AuModal
+  @modalOpen={{@modalOpen}}
+  @closeModal={{this.cancelNewAgendaitem}}>
+  <:title>
+    Nieuw agendapunt
+  </:title>
+  <:body>
+    {{#if this.init.isRunning}}
+      <AuLoader @centered={{true}}>
+        Aan het laden
+      </AuLoader>
+    {{else}}
+      <AgendaitemForm @agendaitem={{this.agendaitem}} @case={{this.case}} />
+    {{/if}}
+  </:body>
+  <:footer>
+    <AuToolbar>
+      <AuButton {{on "click" this.cancelNewAgendaitem}} @skin="naked">
+        Annuleren
+      </AuButton>
+      <AuButton
+        @loading={{this.saveNewAgendaitem.isRunning}}
+        @disabled={{this.init.isRunning}}
+        {{on "click" this.saveNewAgendaitem.perform}}>
+        Aanmaken
+      </AuButton>
+    </AuToolbar>
+  </:footer>
+</AuModal>

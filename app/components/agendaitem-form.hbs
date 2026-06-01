@@ -4,34 +4,35 @@
       <AuLabel for="agendaitem-priority">
         Volgnummer
       </AuLabel>
-      <Input
+      <AuInput
         id="agendaitem-priority"
-        @value={{this.args.agendaitem.priority}}
-        class="au-c-input"
-        @type="number" />
+        type="number"
+        @width="block"
+        value={{@agendaitem.priority}}
+        {{on "input" (with-value (fn (mut @agendaitem.priority)))}} />
     </AuFormRow>
     <AuFormRow class="au-o-grid__item au-u-1-2@xsmall">
       <AuLabel for="agendaitem-subpriority">
         Onderdeel
       </AuLabel>
-      <Input
+      <AuInput
         id="agendaitem-subpriority"
-        @value={{this.args.agendaitem.subPriority}}
-        class="au-c-input"
-        />
+        @width="block"
+        value={{@agendaitem.subPriority}}
+        {{on "input" (with-value (fn (mut @agendaitem.subPriority)))}} />
     </AuFormRow>
   </div>
   <AuFormRow>
     <AuLabel for="agendaitem-case">
       Dossiernummer
     </AuLabel>
-    <Input
+    <AuInput
       id="agendaitem-case"
-      @value={{this.args.agendaitem.case.identifier}}
-      {{au-inputmask options=(hash mask="9999A99999.999" placeholder="JJJJ_#########")}}
-      class="au-c-input {{this.caseIdentifierInputState}}"
       placeholder="bv. 2015C80030.002"
-      />
+      value={{@case.identifier}}
+      @width="block"
+      {{au-inputmask options=(hash mask="9999A99999.999" placeholder="JJJJ_#########")}}
+      {{on "input" (with-value (fn (mut @case.identifier)))}} />
   </AuFormRow>
   <AuFormRow>
     <AuLabel for="agendaitem-submitters">
@@ -39,21 +40,23 @@
     </AuLabel>
     <PowerSelect
       @multiple={{true}}
-      @options={{this.governementBodies}}
-      @selected={{this.args.agendaitem.submitters}}
-      @onChange={{fn (mut this.args.agendaitem.submitters)}}
-      as |submitter| >
-      {{ submitter.name }}
+      @renderInPlace={{true}}
+      @disabled={{this.fetchGovernmentBodies.isRunning}}
+      @options={{this.governmentBodies}}
+      @onChange={{this.selectSubmitters}}
+      class="au-c-input"
+      as |submitter|>
+      {{submitter.name}}
     </PowerSelect>
   </AuFormRow>
   <AuFormRow>
     <AuLabel for="agendaitem-subject">
       Titel
     </AuLabel>
-    <Input
+    <AuInput
       id="agendaitem-subject"
-      @value={{this.args.agendaitem.subject}}
-      class="au-c-input au-c-input--block"
-      />
+      @width="block"
+      value={{@agendaitem.subject}}
+      {{on "input" (with-value (fn (mut @agendaitem.subject)))}} />
   </AuFormRow>
 </form>

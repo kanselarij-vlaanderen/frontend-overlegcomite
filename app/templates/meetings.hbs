@@ -12,7 +12,7 @@
 </AuToolbar>
 
 <AuDataTable
-  @content={{format-content-for-au-datable this.model.content}}
+  @content={{@model}}
   @fields="startedAt"
   @noDataMessage="Geen vergaderingen gevonden"
   @sort={{this.sort}}
@@ -61,8 +61,8 @@
       </AuButton>
       <AuButton
         @skin="primary"
-        @loading={{this.saveState.isPending}}
-        {{on "click" this.saveNewMeeting}}>
+        @loading={{this.saveNewMeeting.isRunning}}
+        {{on "click" this.saveNewMeeting.perform}}>
         Aanmaken
       </AuButton>
     </AuToolbar>

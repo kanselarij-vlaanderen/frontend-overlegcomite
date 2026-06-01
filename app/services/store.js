@@ -1,39 +1,84 @@
 import { useLegacyStore } from '@warp-drive/legacy';
 import { JSONAPICache } from '@warp-drive/json-api';
-import Meetings from '../schemas/meetings';
-import Agendaitems from '../schemas/agendaitems';
-import Cases from '../schemas/cases';
-import GovernmentBodies from '../schemas/government-bodies';
-import DatetimeTransform  from '../transforms/datetime';
+import ArrayProxy from '@ember/array/proxy';
 
-const JsonApiHeaderHandler = {
-  request(context, next) {
-    const { request } = context;
-    const updatedHeaders = request.headers.clone();
-    updatedHeaders.set('Content-Type', 'application/vnd.api+json');
-    request.headers = updatedHeaders;
-    return next(request);
-  }
-}
-
-const legacyStore = useLegacyStore({
-  // legacyRequests: true, ? required?
+const LegacyStore = useLegacyStore({
   linksMode: false,
   legacyRequests: true,
-  modelFragments: true,
   cache: JSONAPICache,
-  handlers: [
-    JsonApiHeaderHandler,
-  ],
-  schemas: [
-    Meetings,
-    Agendaitems,
-    Cases,
-    GovernmentBodies
-  ],
-  transformations: [
-    DatetimeTransform.create(),
-  ]
+  handlers: [],
+  transformations: [],
 });
 
-export default legacyStore;
+export default class Store extends LegacyStore {
+  async queryOne(modelName, query, options) {
+    query = query || {};
+    if (!(query['page[size]'] || (query.page && query.page.size))) {
+      query['page[size]'] = 1;
+    }
+    const results = await this.query(modelName, query, options);
+    if (results.length) {
+      return results[0];
+    }
+    return null;
+  }
+
+  async queryAll(modelName, query, options) {
+    query = query || {};
+    const batchSize = query.page?.size || 100;
+
+    const firstBatch = this.query(
+      modelName,
+      Object.assign({}, query, {
+        'page[size]': batchSize,
+        'page[number]': 0,
+      }),
+    );
+
+    const batches = [firstBatch];
+    const result = await firstBatch;
+    const count = result.meta.count;
+
+    const nbOfBatches = Math.ceil(count / batchSize);
+    for (let i = 1; i < nbOfBatches; i++) {
+      const queryForBatch = Object.assign({}, query, {
+        'page[size]': batchSize,
+        'page[number]': i,
+      });
+      const batch = this.query(modelName, queryForBatch, options);
+      batches.push(batch);
+    }
+
+    const results = await Promise.all(batches);
+    //* note: always use .slice() on this ArrayProxy if you plan on iterating the result.
+    return ArrayProxy.create({
+      content: results.map((result) => result.slice()).flat(),
+      meta: {
+        count,
+      },
+    });
+  }
+
+  findRecordByUri(modelName, uri, options) {
+    const cachedRecord = this.peekAll(modelName).find(
+      (model) => model.uri === uri,
+    );
+    if (cachedRecord) {
+      return cachedRecord;
+    }
+    return this.queryOne(modelName, {
+      ...options,
+      'filter[:uri:]': uri,
+    });
+  }
+
+  async count(modelName, query, options) {
+    query = query || {};
+    if (!(query['page[size]'] || (query.page && query.page.size))) {
+      query['page[size]'] = 1;
+    }
+    const results = await this.query(modelName, query, options);
+    const count = results.meta.count;
+    return count;
+  }
+}

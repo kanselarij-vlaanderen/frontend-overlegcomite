@@ -11,19 +11,11 @@ Router.map(function() {
     path: 'vergaderingen',
   });
 
-  this.route('meeting', {
-    path: 'vergaderingen/:meeting_id'
-  }, function() {
-    this.route('edit', { path: '/wijzigen' });
-    this.route('agendaitems', {
-      path: '/agendapunten'
-    }, function() {
-      this.route('new', { path: '/nieuw' });
-    });
-    this.route('agendaitem', {
-      path: '/agendapunt/:agendaitem_id'
-    }, function() {
-      this.route('edit', { path: '/wijzigen' });
+  // TODO nest under meetings route and move current meetings route to meetings.index
+  // This will fix the highlight of the active tab in the main header
+  this.route('meeting', { path: 'vergaderingen/:meeting_id' }, function() {
+    this.route('agendaitems', { path: '/agendapunten' }, function() {
+      this.route('agendaitem', { path: '/:agendaitem_id' });
     });
   });
 });
