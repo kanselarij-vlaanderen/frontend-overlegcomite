@@ -1,0 +1,65 @@
+  <AuCard
+    @flex={{true}}
+    class=""
+    as |c| >
+    <c.header
+      @badgeIcon="file">
+      <AuToolbar as |Group|>
+        <Group>
+          <div class="au-o-flow">
+            <p class="au-c-heading au-c-heading--4">
+              {{or this.document.type.label "Document (Overig)"}}
+            </p>
+          </div>
+        </Group>
+        <Group>
+          <DocumentVersionButtons @version={{ this.selectedVersion }} @document={{ this.document }}/>
+        </Group>
+      </AuToolbar>
+      <p>
+        {{ format-versioned-document-name this.selectedVersion }}
+      </p>
+      <p class="au-u-muted">
+        Geupload op
+        <AuTooltip @placement="bottom" as |tooltip|>
+          <span class="au-u-italic" {{tooltip.target}}>
+          {{datetime-format this.document.created}}
+          </span>
+          <tooltip.Content>
+            {{datetime-format this.document.created "full"}}
+          </tooltip.Content>
+        </AuTooltip>
+      </p>
+    </c.header>
+    {{#if this.showFooter}}
+      <c.footer>
+        <details class="oc-c-card-footer--details">
+          <summary class="oc-c-card-footer--summary">
+            <AuIcon @icon="chevron-right" /> Alle versies
+          </summary>
+          <ol class="oc-c-card-footer--content oc-c-timeline au-c-list au-c-list--vertical au-o-flow">
+            {{#each this.sortedDocumentVersions as |version index| }}
+              <li class="oc-c-timeline__item au-c-list__item au-u-flex au-u-flex--row">
+                <AuIcon
+                  @icon={{if index "clock-rewind" "chevron-right"}}
+                  class="au-o-box au-o-box--small"/>
+                <div>
+                  <p class="au-u-medium">
+                    {{ format-versioned-document-name version }}
+                  </p>
+                  <p class="au-u-muted">
+                    {{ datetime-format version.created }}
+                  </p>
+                </div>
+                {{#if index}}
+                  <div class="au-u-flex-self-start au-u-margin-left">
+                    <DocumentVersionButtons @version={{version}} />
+                  </div>
+                {{/if}}
+              </li>
+            {{/each}}
+          </ol>
+        </details>
+      </c.footer>
+    {{/if}}
+  </AuCard>

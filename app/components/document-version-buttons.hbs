@@ -1,0 +1,33 @@
+<AuPill @skin={{get-access-level-style @version.accessLevel}}>
+  {{or @version.accessLevel.label "Geen toegangsniveau"}}
+</AuPill>
+<AuButton @icon="lock-open" @skin="naked" @hideText="true">
+  Wissel openbaarheid
+</AuButton>
+<AuButton @icon="book" @skin="naked" @hideText="true">
+  Lees document
+</AuButton>
+<AuDropdown
+  @title="Meer opties"
+  @icon="three-dots" @hideText="true">
+  <AuButton @skin="link" role="menuitem">
+    Document downloaden
+  </AuButton>
+  {{#if @document}}
+    <AuButton @skin="link" role="menuitem">
+      Nieuwe versie uploaden
+    </AuButton>
+    <AuButton @skin="link" role="menuitem">
+      Documentnaam wijzigen
+    </AuButton>
+   {{/if}}
+  <AuHr />
+  <AuButton @skin="link" @alert={{true}} role="menuitem">
+    Versie verwijderen
+  </AuButton>
+  {{#if @document}}
+    <AuButton @skin="link" @alert={{true}} role="menuitem">
+      Document verwijderen
+    </AuButton>
+  {{/if}}
+</AuDropdown>

@@ -27,11 +27,13 @@
   <AuHeading @level={{3}} @skin={{3}}>
     Notificatie
   </AuHeading>
-  <FileCard />
+  <DocumentCard @document={{@model.notification}}/>
   <AuHeading @level={{3}} @skin={{3}}>
-    Bestanden
+    Documenten
   </AuHeading>
-  <FileCard />
+  {{#each @model.documents as |document| }}
+    <DocumentCard @document={{document}}/>
+  {{/each}}
 </div>
 
 <AuModal
