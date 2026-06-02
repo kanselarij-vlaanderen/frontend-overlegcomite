@@ -1,19 +1,19 @@
 <nav ...attributes>
-  {{#each-in @agendaitemGroups as |submitter agendaitems|}}
+  {{#each @agendaitemGroups as |agendaitemGroup|}}
     <AuPanel as |Section|>
       <Section class="oc-agendaitem-list-group-header au-u-background-yellow-300">
         {{! TODO: Make heading sticky on scroll }}
         <AuToolbar as |Group|>
           <Group>
             <AuHeading @level={{3}} @skin={{6}}>
-              {{if submitter submitter "Geen indiener"}}
+              {{format-submitter-names agendaitemGroup.submitters}}
             </AuHeading>
           </Group>
         </AuToolbar>
       </Section>
       <Section class="oc-agendaitem-list-group-content">
         <AuList as |Item|>
-          {{#each agendaitems as |agendaitem|}}
+          {{#each agendaitemGroup.agendaitems as |agendaitem|}}
             <Item>
               <LinkTo
                 @route="meeting.agendaitems.agendaitem"
@@ -21,10 +21,11 @@
                 <span>{{agendaitem.priority}}.{{agendaitem.subPriority}}</span>
                 {{if agendaitem.subject agendaitem.subject "Naamloos"}}
               </LinkTo>
+              {{! TODO Display case identifier }}
             </Item>
           {{/each}}
         </AuList>
       </Section>
     </AuPanel>
-  {{/each-in}}
+  {{/each}}
 </nav>
