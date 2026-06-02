@@ -35,7 +35,7 @@ export default class extends Component {
     await this.case.save();
     // eslint-disable-next-line warp-drive/no-legacy-request-patterns
     await this.agendaitem.save();
-    this.args.onSave(this.agendaitem, this.case);
+    await this.args.onSave(this.agendaitem, this.case);
   });
 
   cancelNewAgendaitem = () => {

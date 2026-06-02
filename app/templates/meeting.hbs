@@ -98,10 +98,12 @@
   </:body>
 </DeleteConfirmationModal>
 
-<NewAgendaitemModal
-  @modalOpen={{this.isOpenNewAgendaitemModal}}
-  @onSave={{this.goToAgendaitem}}
-  @onCancel={{this.closeNewAgendaitemModal}}
-  @meeting={{@model}} />
+{{#if this.isOpenNewAgendaitemModal}}
+  <NewAgendaitemModal
+    @modalOpen={{true}}
+    @onSave={{this.goToAgendaitem}}
+    @onCancel={{this.closeNewAgendaitemModal}}
+    @meeting={{@model}} />
+{{/if}}
 
 {{outlet}}
