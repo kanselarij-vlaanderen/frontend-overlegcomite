@@ -1,5 +1,5 @@
-import { tracked } from '@glimmer/tracking';
 import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
 import { task } from 'ember-concurrency';
 import { service } from '@ember/service';
 
@@ -16,11 +16,6 @@ export default class AgendaitemForm extends Component {
   // TODO add validation state on case identifier input
 
   fetchGovernmentBodies = task(async () => {
-    this.governmentBodies = await this.store.queryAll('government-body');
+    this.governmentBodies = (await this.store.queryAll('government-body')).toArray();
   });
-
-  selectSubmitters = (value) => {
-    // TODO fix selection of submitters
-    console.log(value);
-  }
 }

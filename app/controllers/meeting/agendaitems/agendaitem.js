@@ -23,6 +23,8 @@ export default class MeetingAgendaitemsAgendaitemController extends Controller {
     await case_.save();
     // eslint-disable-next-line warp-drive/no-legacy-request-patterns
     await this.model.save();
+    // force rerun of the meeting.agendaitems model hook to update grouping of agendaitems
+    this.router.refresh('meeting.agendaitems');
     this.closeEditAgendaitemModal();
   });
 

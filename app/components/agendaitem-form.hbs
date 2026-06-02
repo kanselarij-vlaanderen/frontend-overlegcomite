@@ -43,8 +43,9 @@
       @renderInPlace={{true}}
       @disabled={{this.fetchGovernmentBodies.isRunning}}
       @options={{this.governmentBodies}}
-      @onChange={{this.selectSubmitters}}
-      class="au-c-input"
+      @selected={{@agendaitem.submitters}}
+      @onChange={{fn (mut @agendaitem.submitters)}}
+      class=""
       as |submitter|>
       {{submitter.name}}
     </PowerSelect>
