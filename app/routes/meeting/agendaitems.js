@@ -15,7 +15,6 @@ export default class MeetingAgendaitemsRoute extends Route {
     const map = {};
 
     // TODO Agendaitems must be arranged per group of submitters
-    // TODO Model doesn't update on creation/deletion of an agendaitem
     for (const agendaitem of agendaitems.toArray()) {
       const submitters = await agendaitem.submitters;
       if (submitters.length) {

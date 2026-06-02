@@ -42,6 +42,8 @@ export default class MeetingAgendaitemsAgendaitemController extends Controller {
     // eslint-disable-next-line warp-drive/no-legacy-request-patterns
     await case_.destroyRecord();
     this.closeDeleteAgendaitemModal();
+    // force rerun of the meeting.agendaitems model hook to update list of agendaitems
+    this.router.refresh('meeting.agendaitems');
     this.router.transitionTo('meeting.agendaitems.index', meeting.id);
   });
 }

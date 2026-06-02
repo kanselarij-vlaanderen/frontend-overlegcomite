@@ -7,7 +7,4 @@ export default class MeetingIndexRoute extends Route {
   beforeModel() {
     this.router.replaceWith('meeting.agendaitems');
   }
-  model() {
-    return this.modelFor('meeting');
-  }
 }
