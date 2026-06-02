@@ -1,7 +1,35 @@
-<AuPill @skin={{get-access-level-style @version.accessLevel}}>
-  {{or @version.accessLevel.label "Geen toegangsniveau"}}
-</AuPill>
-<AuButton @icon="lock-open" @skin="naked" @hideText="true">
+{{#if this.isEditingAccessLevel }}
+  <PowerSelect
+    @allowClear={{true}}
+    @options={{this.accessLevelOptions}}
+    @selected={{@version.accessLevel}}
+    @onChange={{fn (mut @version.accessLevel)}}
+    as |accessLevel|>
+    <span class="au-u-{{ get-access-level-style accessLevel }}">
+      {{ accessLevel.label }}
+    </span>
+  </PowerSelect>
+  <AuButton
+    {{on 'click' this.saveAccessLevel}}
+    @icon="check" @skin="naked" @hideText="true">
+    Opslaan
+  </AuButton>
+  <AuButton
+    {{on "click" this.cancelEditingAccessLevel}}
+    @icon="cross" @skin="naked" @hideText="true" @alert={{true}}>
+    Annuleren
+  </AuButton>
+{{else}}
+  <AuPill
+    {{on "click" (fn (mut this.isEditingAccessLevel) true)}}
+    @skin={{get-access-level-style @version.accessLevel}}>
+    {{or @version.accessLevel.label "Geen toegangsniveau"}}
+  </AuPill>
+{{/if}}
+<AuButton
+  @icon={{if @version.confidential "lock" "lock-unlock"}}
+  {{on "click" this.toggleConfidential}}
+  @skin="naked" @hideText="true">
   Wissel openbaarheid
 </AuButton>
 <AuButton @icon="book" @skin="naked" @hideText="true">
