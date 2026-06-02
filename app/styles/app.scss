@@ -54,11 +54,22 @@ th.data-table-meeting-started-at {
 
           &:hover {
             background: var(--au-gray-200);
+
+            .au-c-pill {
+              background: var(--au-gray-200);
+              border-color: var(--au-gray-500);
+            }
           }
 
           &.active {
             background: var(--au-blue-700);
             color: var(--au-white);
+
+            .au-c-pill {
+              background: var(--au-blue-700);
+              color: var(--au-white);
+              border-color: var(--au-white);
+            }
           }
         }
       }

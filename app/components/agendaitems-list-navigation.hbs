@@ -20,8 +20,16 @@
                 @model={{agendaitem.id}}>
                 <span>{{agendaitem.priority}}.{{agendaitem.subPriority}}</span>
                 {{if agendaitem.subject agendaitem.subject "Naamloos"}}
+                <Await @promise={{agendaitem.case}}>
+                  <:success as |case|>
+                    {{#if case.identifier}}
+                      <AuPill @skin="border" class="au-u-margin-left-small">
+                        {{case.identifier}}
+                      </AuPill>
+                    {{/if}}
+                  </:success>
+                </Await>
               </LinkTo>
-              {{! TODO Display case identifier }}
             </Item>
           {{/each}}
         </AuList>
