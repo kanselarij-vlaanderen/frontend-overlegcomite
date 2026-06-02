@@ -29,7 +29,18 @@ th.data-table-meeting-started-at {
   cursor: pointer;
 }
 
+.oc-meeting-header {
+  .au-c-toolbar {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}
+
 .oc-agendaitem-list {
+  .au-c-panel {
+    border: 0;
+  }
+
   .oc-agendaitem-list-group-content {
     padding: 0;
 
@@ -74,6 +85,11 @@ th.data-table-meeting-started-at {
         }
       }
     }
+  }
+
+  /* Agendaitems list view customizations */
+  &.au-o-flow .oc-agendaitem-list-group-content ul {
+    gap: 0.6rem;
   }
 }
 

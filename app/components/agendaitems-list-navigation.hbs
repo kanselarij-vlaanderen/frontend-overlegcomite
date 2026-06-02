@@ -11,10 +11,10 @@
           </Group>
         </AuToolbar>
       </Section>
-      <Section class="oc-agendaitem-list-group-content">
+      <Section class="oc-agendaitem-list-group-content au-u-background-gray-100">
         <AuList as |Item|>
           {{#each agendaitemGroup.agendaitems as |agendaitem|}}
-            <Item>
+            <Item class="au-u-background-white">
               <LinkTo
                 @route="meeting.agendaitems.agendaitem"
                 @model={{agendaitem.id}}>

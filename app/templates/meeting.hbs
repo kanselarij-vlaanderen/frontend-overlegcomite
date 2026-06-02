@@ -1,65 +1,67 @@
 {{page-title "Vergadering"}}
 
-<AuToolbar @size="medium" @skin="tint" as |Group|>
-  <Group>
-    <AuHeading @skin={{4}}>
-      Agenda van {{format-datetime @model.startedAt "oc-long"}}
-    </AuHeading>
-  </Group>
-</AuToolbar>
-<AuToolbar @size="medium" @skin="tint" @border="bottom" as |Group|>
-  <Group>
-    <AuTabs @reversed={{true}} as |Tab|>
-      <Tab>
-        <AuLink @route="meetings" @icon="hierarchal-back" @hideText={{true}}>
-          Back
-        </AuLink>
-      </Tab>
-      <Tab>
-        <AuLink @route="meeting.agendaitems.index" @model={{@model.id}}>Overzicht</AuLink>
-      </Tab>
-      {{#if (this.routeIsActive "meeting.agendaitems.agendaitem")}}
+<div class="oc-meeting-header">
+  <AuToolbar class="oc-meeting-header" @size="medium" @skin="tint" as |Group|>
+    <Group>
+      <AuHeading @skin={{4}}>
+        Agenda van {{format-datetime @model.startedAt "oc-long"}}
+      </AuHeading>
+    </Group>
+  </AuToolbar>
+  <AuToolbar @size="medium" @skin="tint" @border="bottom" as |Group|>
+    <Group>
+      <AuTabs @reversed={{true}} as |Tab|>
         <Tab>
-          <AuLink @route={{this.target.currentRouteName}}>
-            Detail
+          <AuLink @route="meetings" @icon="hierarchal-back" @hideText={{true}}>
+            Back
           </AuLink>
         </Tab>
-      {{/if}}
-      <Tab>
-        <AuLink>Documenten</AuLink>
-      </Tab>
-    </AuTabs>
-  </Group>
-  <Group>
-    <AuButtonGroup>
-      <AuButton @skin="primary" @icon="plus"
-        {{on "click" this.openNewAgendaitemModal}}>
-        Nieuw agendapunt
-      </AuButton>
-      <AuDropdown
-        @title="Acties"
-        @alignment="right"
-        @skin="secondary">
-        <AuButton @skin="link" role="menuitem">
-          Agenda vrijgeven
+        <Tab>
+          <AuLink @route="meeting.agendaitems.index" @model={{@model.id}}>Overzicht</AuLink>
+        </Tab>
+        {{#if (this.routeIsActive "meeting.agendaitems.agendaitem")}}
+          <Tab>
+            <AuLink @route={{this.target.currentRouteName}}>
+              Detail
+            </AuLink>
+          </Tab>
+        {{/if}}
+        <Tab>
+          <AuLink>Documenten</AuLink>
+        </Tab>
+      </AuTabs>
+    </Group>
+    <Group>
+      <AuButtonGroup>
+        <AuButton @skin="primary" @icon="plus"
+          {{on "click" this.openNewAgendaitemModal}}>
+          Nieuw agendapunt
         </AuButton>
-        <AuButton @skin="link" role="menuitem">
-          Notificaties vrijgeven
-        </AuButton>
-        <AuHr/>
-        <AuButton @skin="link" role="menuitem"
-          {{on "click" this.openEditMeetingModal}}>
-          Vergadering wijzigen
-        </AuButton>
-        <AuButton
-          @skin="link" @alert={{true}} role="menuitem"
-          {{on "click" this.openDeleteMeetingModal}}>
-          Vergadering verwijderen
-        </AuButton>
-      </AuDropdown>
-    </AuButtonGroup>
-  </Group>
-</AuToolbar>
+        <AuDropdown
+          @title="Acties"
+          @alignment="right"
+          @skin="secondary">
+          <AuButton @skin="link" role="menuitem">
+            Agenda vrijgeven
+          </AuButton>
+          <AuButton @skin="link" role="menuitem">
+            Notificaties vrijgeven
+          </AuButton>
+          <AuHr/>
+          <AuButton @skin="link" role="menuitem"
+            {{on "click" this.openEditMeetingModal}}>
+            Vergadering wijzigen
+          </AuButton>
+          <AuButton
+            @skin="link" @alert={{true}} role="menuitem"
+            {{on "click" this.openDeleteMeetingModal}}>
+            Vergadering verwijderen
+          </AuButton>
+        </AuDropdown>
+      </AuButtonGroup>
+    </Group>
+  </AuToolbar>
+</div>
 
 <AuModal
   @modalOpen={{this.isOpenEditMeetingModal}}
