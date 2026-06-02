@@ -16,6 +16,8 @@ export default class AgendaitemForm extends Component {
   // TODO add validation state on case identifier input
 
   fetchGovernmentBodies = task(async () => {
-    this.governmentBodies = (await this.store.queryAll('government-body')).toArray();
+    this.governmentBodies = (await this.store.queryAll('government-body', {
+      sort: '-name'
+    })).toArray();
   });
 }
