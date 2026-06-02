@@ -30,7 +30,7 @@
       </th>
     </c.header>
     <c.body @onClickRow={{this.goToMeeting}} as |meeting|>
-      <td>{{datetime-format meeting.startedAt}}</td>
+      <td>Agenda van {{format-datetime meeting.startedAt}}</td>
       <td class="au-u-text-center">
         <AuLink
           @route="meeting"
