@@ -1,7 +1,7 @@
 <nav ...attributes>
   {{#each-in @agendaitemGroups as |submitter agendaitems|}}
     <AuPanel as |Section|>
-      <Section class="au-u-background-yellow-300">
+      <Section class="oc-agendaitem-list-group-header au-u-background-yellow-300">
         {{! TODO: Make heading sticky on scroll }}
         <AuToolbar as |Group|>
           <Group>
@@ -11,18 +11,16 @@
           </Group>
         </AuToolbar>
       </Section>
-      <Section>
-        <AuList @divider={{true}} as |Item|>
+      <Section class="oc-agendaitem-list-group-content">
+        <AuList as |Item|>
           {{#each agendaitems as |agendaitem|}}
-            <Item class="au-u-padding-small">
-              {{agendaitem.priority}}.{{agendaitem.subPriority}}
-              {{! TODO: Add highlight (blue background) of selected agendaitem based on active route}}
-              <AuLink
+            <Item>
+              <LinkTo
                 @route="meeting.agendaitems.agendaitem"
-                @model={{agendaitem.id}}
-                @skin="button-naked">
+                @model={{agendaitem.id}}>
+                <span>{{agendaitem.priority}}.{{agendaitem.subPriority}}</span>
                 {{if agendaitem.subject agendaitem.subject "Naamloos"}}
-              </AuLink>
+              </LinkTo>
             </Item>
           {{/each}}
         </AuList>

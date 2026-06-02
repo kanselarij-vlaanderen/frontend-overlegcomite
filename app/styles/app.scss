@@ -2,13 +2,9 @@
 
 @import "@appuniversum/ember-appuniversum/styles";
 
-th.data-table-meeting-started-at {
-  width: 95%;
-}
-
-.au-c-data-table td {
-  cursor: pointer;
-}
+/*
+ * Appuniversum extensions
+ */
 
 .au-u-background-white {
   background: var(--au-white);
@@ -19,6 +15,56 @@ th.data-table-meeting-started-at {
 }
 
 $au-navigation-list-border: 1px;
+
+
+/*
+ * Overlegcomite customizations
+ */
+
+th.data-table-meeting-started-at {
+  width: 95%;
+}
+
+.au-c-data-table td {
+  cursor: pointer;
+}
+
+.oc-agendaitem-list {
+  .oc-agendaitem-list-group-content {
+    padding: 0;
+
+    ul {
+      gap: 0;
+
+      li {
+        a {
+          display: flex;
+          width: 100%;
+          gap: 0.6rem;
+          align-items: center;
+          justify-content: left;
+          padding: 1.2rem 2.4rem;
+
+          color: var(--au-gray-900);
+          font-size: var(--au-h6);
+          line-height: 3.2rem;
+          font-family: var(--au-font);
+          font-weight: var(--au-medium);
+          text-decoration: none;
+
+          &:hover {
+            background: var(--au-gray-200);
+          }
+
+          &.active {
+            background: var(--au-blue-700);
+            color: var(--au-white);
+          }
+        }
+      }
+    }
+  }
+}
 
 .cursor-pointer {
   cursor: pointer;
