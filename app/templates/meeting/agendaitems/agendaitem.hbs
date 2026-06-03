@@ -38,7 +38,7 @@
         </AuLoader>
       </:pending>
       <:success as |case|>
-        <AgendaitemForm @agendaitem={{@model}} @case={{case}} />
+        <AgendaitemForm @agendaitem={{@model}} @caseIdentifier={{this.caseIdentifier}} />
       </:success>
     </Await>
   </:body>
@@ -49,6 +49,7 @@
       </AuButton>
       <AuButton @skin="primary"
         @loading={{this.saveAgendaitem.isRunning}}
+        @disabled={{not this.formValid}}
         {{on "click" this.saveAgendaitem.perform}}>
         Opslaan
       </AuButton>
