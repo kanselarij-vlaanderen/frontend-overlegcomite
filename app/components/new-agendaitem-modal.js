@@ -32,7 +32,6 @@ export default class extends Component {
 
     this.agendaitem = this.store.createRecord('agendaitem', {
       meeting: this.args.meeting,
-      case: null,
       priority: (latestAgendaitem?.priority || 0) + 1,
     });
   });
