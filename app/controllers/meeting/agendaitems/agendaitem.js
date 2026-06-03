@@ -2,8 +2,8 @@ import Controller from '@ember/controller';
 import { tracked } from '@glimmer/tracking';
 import { service } from '@ember/service';
 import { task } from 'ember-concurrency';
-import saveCaseIdentifier from '../../../utils/save-case-identifier';
 import { caseIdentifierValid } from '../../../utils/case-identifier-validation';
+import ensureCaseWithIdentifier from '../../../utils/ensure-case-with-identifier';
 
 export default class MeetingAgendaitemsAgendaitemController extends Controller {
   @service store;
@@ -13,21 +13,7 @@ export default class MeetingAgendaitemsAgendaitemController extends Controller {
     return caseIdentifierValid(this.caseIdentifier);
   }
 
-  @tracked _caseIdentifier;
-
-  get caseIdentifier() {
-    if (this._caseIdentifier !== undefined) {
-      return this._caseIdentifier;
-    } else {
-      this.model.case.then((case_) => {
-        this._caseIdentifier = case_.identifier;
-      });
-      return '';
-    }
-  }
-  set caseIdentifier(newIdentifier) {
-    this._caseIdentifier = newIdentifier;
-  }
+  @tracked caseIdentifier;
 
   @tracked isOpenEditAgendaitemModal = false;
   openEditAgendaitemModal = () => this.isOpenEditAgendaitemModal = true;
@@ -38,7 +24,9 @@ export default class MeetingAgendaitemsAgendaitemController extends Controller {
   closeDeleteAgendaitemModal = () => this.isOpenDeleteAgendaitemModal = false;
 
   saveAgendaitem = task(async () => {
-    await saveCaseIdentifier(this.store, this.model, this.caseIdentifier);
+    const oldCase = this.model.case.id && this.store.peekRecord('case', this.model.case.id)
+    const newCase = await ensureCaseWithIdentifier(this.store, oldCase, this.caseIdentifier);
+    this.model.case = newCase;
     // eslint-disable-next-line warp-drive/no-legacy-request-patterns
     await this.model.save();
     // force rerun of the meeting.agendaitems model hook to update grouping of agendaitems
@@ -47,6 +35,7 @@ export default class MeetingAgendaitemsAgendaitemController extends Controller {
   });
 
   cancelEditAgendaitem = async () => {
+    this.caseIdentifier = (await this.model.case).identifier
     this.model.rollbackAttributes();
     this.model.hasMany('submitters').reload();
     this.closeEditAgendaitemModal();

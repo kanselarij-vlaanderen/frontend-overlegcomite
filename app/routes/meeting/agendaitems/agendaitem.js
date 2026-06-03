@@ -10,4 +10,11 @@ export default class MeetingAgendaitemsAgendaitemRoute extends Route {
       include: ['submitters', 'case']
     });
   }
+
+  setupController(controller, model) {
+    super.setupController(controller, model);
+    model.case.then((case_) => {
+      controller.set('caseIdentifier', case_.identifier);
+    })
+  }
 }
