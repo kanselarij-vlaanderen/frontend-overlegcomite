@@ -27,7 +27,9 @@
   <AuHeading @level={{3}} @skin={{3}}>
     Notificatie
   </AuHeading>
-  <DocumentCard @document={{@model.notification}}/>
+  {{#if @model.notification }}
+    <DocumentCard @document={{@model.notification}}/>
+  {{/if}}
   <AuHeading @level={{3}} @skin={{3}}>
     Documenten
   </AuHeading>

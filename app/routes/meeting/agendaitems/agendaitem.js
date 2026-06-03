@@ -12,8 +12,10 @@ export default class MeetingAgendaitemsAgendaitemRoute extends Route {
         'case',
         'documents.type',
         'documents.document-versions.access-level',
+        'documents.document-versions.file',
         'notification.type',
         'notification.document-versions.access-level',
+        'notification.document-versions.file',
       ]
     })).reload();
   }

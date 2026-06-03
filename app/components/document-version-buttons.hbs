@@ -38,9 +38,12 @@
 <AuDropdown
   @title="Meer opties"
   @icon="three-dots" @hideText="true">
-  <AuButton @skin="link" role="menuitem">
+  <AuLinkExternal
+    href={{document-version/download-link @version}}
+    download={{document-version/download-filename @version}}
+    role="menuitem">
     Document downloaden
-  </AuButton>
+  </AuLinkExternal>
   {{#if @document}}
     <AuButton @skin="link" role="menuitem">
       Nieuwe versie uploaden
