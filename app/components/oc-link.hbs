@@ -1,0 +1,25 @@
+<LinkTo
+  @route={{@route}}
+  @current-when={{@currentWhen}}
+  @models={{this.linkToModels @model @models}}
+  @query={{this.queryParams}}
+  class="{{this.skinClass}}
+    {{this.activeClass}}
+    {{this.widthClass}}
+    {{this.iconOnlyClass}}"
+  ...attributes
+>
+  {{~#if this.isIconLeft~}}
+    {{! @glint-expect-error: this.isIconLeft ensures that @icon is set }}
+    <AuIcon @icon={{@icon}} />
+  {{/if}}
+  {{#if @hideText}}
+    <span class="au-u-hidden-visually">{{yield}}</span>
+  {{else}}
+    {{yield}}
+  {{/if}}
+  {{#if this.isIconRight}}
+    {{! @glint-expect-error: this.isIconRight ensures that @icon is set }}
+    <AuIcon @icon={{@icon}} />
+  {{~/if~}}
+</LinkTo>
