@@ -24,6 +24,9 @@ export default class MeetingAgendaitemsAgendaitemController extends Controller {
   closeDeleteAgendaitemModal = () => this.isOpenDeleteAgendaitemModal = false;
 
   saveAgendaitem = task(async () => {
+    // Check if we have any existing case data in the store already. ensureCase
+    // will reuse it if available and with the correct identifier, otherwise
+    // ensureCase will fetch the correct case from the backend anyway.
     const oldCase = this.model.case.id && this.store.peekRecord('case', this.model.case.id)
     const newCase = await ensureCaseWithIdentifier(this.store, oldCase, this.caseIdentifier);
     this.model.case = newCase;
