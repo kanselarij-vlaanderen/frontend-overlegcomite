@@ -3,7 +3,7 @@ import { tracked } from '@glimmer/tracking';
 import { service } from '@ember/service';
 import { task } from 'ember-concurrency';
 import { caseIdentifierValid, caseIdentifierValidStrict } from '../utils/case-identifier-validation';
-import saveCaseIdentifier from '../utils/save-case-identifier';
+import ensureCaseWithIdentifier from '../utils/ensure-case-with-identifier';
 
 export default class extends Component {
   @service store;
@@ -37,7 +37,8 @@ export default class extends Component {
   });
 
   saveNewAgendaitem = task(async () => {
-    await saveCaseIdentifier(this.store,this.agendaitem, this.caseIdentifier)
+    const _case = await ensureCaseWithIdentifier(this.store, null, this.caseIdentifier);
+    this.agendaitem.case = _case;
     // eslint-disable-next-line warp-drive/no-legacy-request-patterns
     await this.agendaitem.save();
     await this.args.onSave(this.agendaitem, this.agendaitem.case);
