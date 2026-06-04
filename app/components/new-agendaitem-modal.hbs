@@ -10,7 +10,7 @@
         Aan het laden
       </AuLoader>
     {{else}}
-      <AgendaitemForm @agendaitem={{this.agendaitem}} @case={{this.case}} />
+      <AgendaitemForm @agendaitem={{this.agendaitem}} @caseIdentifier={{this.caseIdentifier}} />
     {{/if}}
   </:body>
   <:footer>
@@ -20,7 +20,7 @@
       </AuButton>
       <AuButton
         @loading={{this.saveNewAgendaitem.isRunning}}
-        @disabled={{this.init.isRunning}}
+        @disabled={{this.saveButtonDisabled}}
         {{on "click" this.saveNewAgendaitem.perform}}>
         Aanmaken
       </AuButton>
