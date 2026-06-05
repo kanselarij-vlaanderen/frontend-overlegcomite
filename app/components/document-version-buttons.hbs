@@ -52,7 +52,9 @@
     <AuButton @skin="link" role="menuitem">
       Nieuwe versie uploaden
     </AuButton>
-    <AuButton @skin="link" role="menuitem">
+    <AuButton
+      {{on "click" @onEditDocumentName}}
+      @skin="link" role="menuitem">
       Documentnaam wijzigen
     </AuButton>
    {{/if}}

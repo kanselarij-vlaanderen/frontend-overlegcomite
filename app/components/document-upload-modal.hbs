@@ -35,6 +35,7 @@
                   </AuLabel>
                   <AuInput
                     id="document-name-{{id}}"
+                    {{on "input" (with-value (fn (mut document.name)))}}
                     value={{document.name}} />
                 </AuFormRow>
                 <AuFormRow @alignment="inline">

@@ -1,11 +1,15 @@
 import Component from '@glimmer/component';
 import { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
+import { cacheKeyFor } from '@warp-drive/core';
 
 export default class FileCard extends Component {
   @service store;
 
   @tracked accessLevelOptions = [];
+
+  @tracked isEditingDocumentName = false;
 
   constructor() {
     super(...arguments);
@@ -35,5 +39,17 @@ export default class FileCard extends Component {
 
   get showFooter() {
     return this.document.get('documentVersions').length > 1;
+  }
+
+  @action
+  async saveDocumentName() {
+    await this.document.save();
+    this.isEditingDocumentName = false;
+  }
+
+  @action
+  cancelEditingDocumentName() {
+    this.store.cache.rollbackAttrs(cacheKeyFor(this.document));
+    this.isEditingDocumentName = false;
   }
 }

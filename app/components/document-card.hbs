@@ -13,12 +13,34 @@
           </div>
         </Group>
         <Group>
-          <DocumentVersionButtons @version={{ this.selectedVersion }} @document={{ this.document }}/>
+          <DocumentVersionButtons
+            @version={{ this.selectedVersion }}
+            @document={{ this.document }}
+            @onEditDocumentName={{fn (mut this.isEditingDocumentName true)}}/>
         </Group>
       </AuToolbar>
       <p>
-        {{#if this.selectedVersion}}
-          {{ format-versioned-document-name this.selectedVersion }}
+        {{#if this.isEditingDocumentName}}
+          <AuInput
+            id="document-name-{{this.document.id}}"
+            {{on "input" (with-value (fn (mut this.document.name)))}}
+            value={{this.document.name}}/>
+          <AuButton
+            {{on 'click' this.saveDocumentName}}
+            @icon="check" @skin="naked" @hideText="true">
+            Opslaan
+          </AuButton>
+          <AuButton
+            {{on "click" this.cancelEditingDocumentName}}
+            @icon="cross" @skin="naked" @hideText="true" @alert={{true}}>
+            Annuleren
+          </AuButton>
+        {{else}}
+          {{#if this.selectedVersion}}
+            {{ format-versioned-document-name this.selectedVersion }}
+          {{else}}
+            {{ this.document.name}} (Geen versies beschikbaar)
+          {{/if}}
         {{/if}}
       </p>
       <p class="au-u-muted">
