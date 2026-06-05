@@ -39,13 +39,13 @@
   {{#each @agendaitem.documents as |document| }}
     <DocumentCard @document={{document}}/>
   {{/each}}
-  {{#if (not @agendaitem.documents)}}
+  {{#unless @agendaitem.documents}}
     <AuAlert
       @title="Geen documenten beschikbaar"
       @icon="circle-info">
       Dit agendapunt heeft nog geen documenten.
     </AuAlert>
-  {{/if}}
+  {{/unless}}
   <AuButton
     {{on "click" this.openDocumentUploadModal}}
     @disabled={{this.init.isRunning}}

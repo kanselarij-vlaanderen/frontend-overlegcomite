@@ -5,7 +5,9 @@
   <:title>Documenten opladen</:title>
   <:body>
     <div class="au-o-flow au-o-flow--small">
-      {{#unless this.saveDocuments.isRunning}}
+      {{#if this.saveDocuments.isRunning}}
+        <AuLoader @message="Aan het opslaan" />
+      {{else}}
         {{#if (or @multiple (not this.documents))}}
           <AuFileUpload
             @endpoint={{this.endpoint}}
@@ -57,9 +59,7 @@
             </c.content>
           </AuCard>
         {{/each}}
-      {{else}}
-        <AuLoader @message="Aan het opslaan" />
-      {{/unless}}
+      {{/if}}
     </div>
   </:body>
   <:footer>
