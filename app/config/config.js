@@ -8,8 +8,11 @@ const DEFAULT_MEETING_DOC_TYPE_ID = '436a37c1-ecf0-44a4-8d44-7440c4a89df6';
 
 const ACCOUNT_PROVIDER_URI = 'https://github.com/lblod/acmidm-login-service';
 
+const FILE_UPLOAD_ENDPOINT = '/files';
+
 export {
   ACCESS_LEVEL_STYLE_BY_ID,
   DEFAULT_MEETING_DOC_TYPE_ID,
-  ACCOUNT_PROVIDER_URI
+  ACCOUNT_PROVIDER_URI,
+  FILE_UPLOAD_ENDPOINT,
 };

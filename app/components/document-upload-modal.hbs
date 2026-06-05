@@ -1,0 +1,83 @@
+<AuModal
+  @modalOpen={{@modalOpen}}
+  @closeModal={{this.cancelDocuments}}
+  >
+  <:title>Documenten opladen</:title>
+  <:body>
+    <div class="au-o-flow au-o-flow--small">
+      {{#unless this.saveDocuments.isRunning}}
+        {{#if (or @multiple (not this.documents))}}
+          <AuFileUpload
+            @endpoint={{this.endpoint}}
+            @onFinishUpload={{this.onFinishUpload}}
+            @multiple={{@multiple}} />
+        {{/if}}
+        {{#each this.documents as |document|}}
+          <AuCard
+            @flex={{true}}
+            as |c|>
+            <c.header
+              @badgeIcon="file">
+              {{#let (get document.documentVersions 0) as |version| }}
+                <AuHeading @skin="4">
+                  {{version.file.filename}}
+                </AuHeading>
+                <p>
+                  {{format-file-size version.file.size}} - {{version.file.extension}}
+                </p>
+              {{/let}}
+            </c.header>
+            <c.content class="au-c-form">
+              {{#let (unique-id) as |id|}}
+                <AuFormRow @alignment="inline">
+                  <AuLabel for="document-version-name-{{id}}" class="au-u-1-6">
+                    Name
+                  </AuLabel>
+                  <AuInput
+                    id="document-name-{{id}}"
+                    value={{document.name}}
+                    {{!on "input" (fn (mut document.name))}}/>
+                </AuFormRow>
+                <AuFormRow @alignment="inline">
+                  <AuLabel for="document-type-{{id}}" class="au-u-1-6">
+                    Type
+                  </AuLabel>
+                  <PowerSelect
+                    id="document-type-{{id}}"
+                    @selected={{document.type}}
+                    @onChange={{fn (mut document.type)}}
+                    @options={{this.documentTypes}}
+                    class="au-c-input"
+                    as |type|>
+                    {{type.label}}
+                  </PowerSelect>
+                </AuFormRow>
+              {{/let}}
+            </c.content>
+          </AuCard>
+        {{/each}}
+      {{else}}
+        <AuLoader @message="Aan het opslaan" />
+      {{/unless}}
+    </div>
+  </:body>
+  <:footer>
+    <AuToolbar as |Group|>
+      <Group>
+        <AuButton
+          {{on "click" this.cancelDocuments}}
+          @disabled={{this.saveDocuments.isRunning}}
+          @skin="naked">
+          Annuleren
+        </AuButton>
+      </Group>
+      <Group>
+        <AuButton
+          {{on "click" this.saveDocuments.perform}}
+          @disabled={{this.saveDocuments.isRunning}}>
+          Aanmaken
+        </AuButton>
+      </Group>
+    </AuToolbar>
+  </:footer>
+</AuModal>

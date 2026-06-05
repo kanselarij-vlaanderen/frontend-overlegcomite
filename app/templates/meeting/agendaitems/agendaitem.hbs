@@ -24,18 +24,7 @@
 </div>
 
 <div class="au-o-layout au-o-flow">
-  <AuHeading @level={{3}} @skin={{3}}>
-    Notificatie
-  </AuHeading>
-  {{#if @model.notification }}
-    <DocumentCard @document={{@model.notification}}/>
-  {{/if}}
-  <AuHeading @level={{3}} @skin={{3}}>
-    Documenten
-  </AuHeading>
-  {{#each @model.documents as |document| }}
-    <DocumentCard @document={{document}}/>
-  {{/each}}
+  <AgendaitemDocuments @agendaitem={{@model}} />
 </div>
 
 <AuModal

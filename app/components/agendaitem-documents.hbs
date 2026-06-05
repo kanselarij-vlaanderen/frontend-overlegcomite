@@ -1,0 +1,47 @@
+<AuHeading @level={{3}} @skin={{3}}>
+  Notificatie
+</AuHeading>
+{{#if @agendaitem.notification }}
+  <DocumentCard @document={{@agendaitem.notification}}/>
+{{else}}
+  <AuAlert
+    @title="Geen notificatie beschikbaar"
+    @icon="circle-info">
+    Dit agendapunt heeft nog geen notificatie.
+  </AuAlert>
+  <AuButton
+    {{on "click" this.openNotificationUploadModal}}
+    @disabled={{this.init.isRunning}}
+    @icon="plus"
+    @skin="secondary">
+    Notificatie toevoegen
+  </AuButton>
+{{/if}}
+<AuHeading @level={{3}} @skin={{3}}>
+  Documenten
+</AuHeading>
+<div class="au-o-flow au-o-flow--small">
+  {{#each @agendaitem.documents as |document| }}
+    <DocumentCard @document={{document}}/>
+  {{/each}}
+  {{#if (not @agendaitem.documents)}}
+    <AuAlert
+      @title="Geen documenten beschikbaar"
+      @icon="circle-info">
+      Dit agendapunt heeft nog geen documenten.
+    </AuAlert>
+  {{/if}}
+  <AuButton
+    {{on "click" this.openDocumentUploadModal}}
+    @disabled={{this.init.isRunning}}
+    @icon="plus"
+    @skin="secondary">
+    Documenten toevoegen
+  </AuButton>
+  <DocumentUploadModal
+    @modalOpen={{this.isDocumentUploadModalOpen}}
+    @onSave={{this.saveDocuments}}
+    @onCancel={{fn (mut this.isDocumentUploadModalOpen) false}}
+    @defaultDocumentAttrs={{this.defaultDocumentAttrs}}
+    @multiple={{true}}/>
+</div>

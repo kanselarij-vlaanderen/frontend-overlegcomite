@@ -5,7 +5,7 @@ export default class DocumentTypeModel extends Model {
   @attr('string') scopeNote;
   @attr('number') priority;
 
-	@hasMany('document', { inverse: null, async: true }) documents;
+	@hasMany('document', { inverse: 'type', async: true }) documents;
 	@hasMany('document-type', { inverse: null, async: true }) subtypes;
 	@belongsTo('document-type', { inverse: null, async: true }) superType;
 }
