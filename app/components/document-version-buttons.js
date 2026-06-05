@@ -30,4 +30,16 @@ export default class DocumentVersionButtons extends Component {
     version.confidential = !version.confidential;
     version.save();
   }
+
+  @action
+  async deleteVersion(version) {
+    await version.file.destroyRecord();
+    await version.destroyRecord();
+  }
+
+  @action
+  async deleteDocument(document) {
+    await Promise.all(document.documentVersions.map(this.deleteVersion))
+    await document.destroyRecord();
+  }
 }

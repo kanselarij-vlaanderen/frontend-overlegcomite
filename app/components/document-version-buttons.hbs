@@ -58,12 +58,16 @@
    {{/if}}
   <AuHr />
   {{#if @version}}
-    <AuButton @skin="link" @alert={{true}} role="menuitem">
+    <AuButton
+      {{on "click" (fn this.deleteVersion @version)}}
+      @skin="link" @alert={{true}} role="menuitem">
       Versie verwijderen
     </AuButton>
   {{/if}}
   {{#if @document}}
-    <AuButton @skin="link" @alert={{true}} role="menuitem">
+    <AuButton
+      {{on "click" (fn this.deleteDocument @document)}}
+      @skin="link" @alert={{true}} role="menuitem">
       Document verwijderen
     </AuButton>
   {{/if}}
