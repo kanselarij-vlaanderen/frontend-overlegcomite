@@ -1,0 +1,54 @@
+<AuModal
+  @modalOpen={{@modalOpen}}
+  @closeModal={{this.cancelUpload}}
+  >
+  <:title>
+    {{#if (has-block "title")}}
+      {{yield to="title"}}
+    {{else if @multiple}}
+      Bestanden opladen
+    {{else}}
+      Bestand opladen
+    {{/if}}
+  </:title>
+  <:body>
+    <div class="au-o-flow au-o-flow--small">
+      {{#if this.saveDocuments.isRunning}}
+        <AuLoader @message="Aan het opslaan" />
+      {{else}}
+        {{#if (or @multiple (not this.files))}}
+          <AuFileUpload
+            @endpoint={{this.endpoint}}
+            @onFinishUpload={{this.onFinishUpload}}
+            @multiple={{@multiple}} />
+        {{/if}}
+        {{#each this.files as |file|}}
+          <AuFileCard
+            @filename={{file.filename}}
+            @fileSize={{format-file-size file.size}}
+            @onDelete={{fn this.deleteFile file}}
+            />
+        {{/each}}
+      {{/if}}
+    </div>
+  </:body>
+  <:footer>
+    <AuToolbar as |Group|>
+      <Group>
+        <AuButton
+          {{on "click" this.cancelUpload}}
+          @disabled={{this.saveUpload.isRunning}}
+          @skin="naked">
+          Annuleren
+        </AuButton>
+      </Group>
+      <Group>
+        <AuButton
+          {{on "click" this.saveUpload.perform}}
+          @disabled={{this.saveUpload.isRunning}}>
+          Aanmaken
+        </AuButton>
+      </Group>
+    </AuToolbar>
+  </:footer>
+</AuModal>

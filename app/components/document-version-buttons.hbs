@@ -49,7 +49,9 @@
     </AuLinkExternal>
   {{/if}}
   {{#if @document}}
-    <AuButton @skin="link" role="menuitem">
+    <AuButton
+      {{on "click" (fn (mut this.isAddingVersion) true)}}
+      @skin="link" role="menuitem">
       Nieuwe versie uploaden
     </AuButton>
     <AuButton
@@ -74,3 +76,10 @@
     </AuButton>
   {{/if}}
 </AuDropdown>
+
+<FileUploadModal
+  @modalOpen={{this.isAddingVersion}}
+  @multiple={{false}}
+  @onSave={{this.addVersion}}
+  @onCancel={{fn (mut this.isAddingVersion) false}}
+  />
