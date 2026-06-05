@@ -31,12 +31,11 @@
               {{#let (unique-id) as |id|}}
                 <AuFormRow @alignment="inline">
                   <AuLabel for="document-version-name-{{id}}" class="au-u-1-6">
-                    Name
+                    Naam
                   </AuLabel>
                   <AuInput
                     id="document-name-{{id}}"
-                    value={{document.name}}
-                    {{!on "input" (fn (mut document.name))}}/>
+                    value={{document.name}} />
                 </AuFormRow>
                 <AuFormRow @alignment="inline">
                   <AuLabel for="document-type-{{id}}" class="au-u-1-6">
@@ -47,6 +46,7 @@
                     @selected={{document.type}}
                     @onChange={{fn (mut document.type)}}
                     @options={{this.documentTypes}}
+                    @allowClear={{true}}
                     class="au-c-input"
                     as |type|>
                     {{type.label}}
