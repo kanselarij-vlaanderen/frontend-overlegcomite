@@ -24,6 +24,12 @@
       @skin="secondary">
       Notificatie toevoegen
     </AuButton>
+    <DocumentUploadModal
+      @modalOpen={{this.isNotificationUploadModalOpen}}
+      @onSave={{this.saveNotification}}
+      @onCancel={{fn (mut this.isNotificationUploadModalOpen) false}}
+      @defaultDocumentAttrs={{this.defaultNotificationAttrs}}
+      @multiple={{false}}/>
   {{/if}}
 </div>
 <AuHeading @level={{3}} @skin={{3}}>

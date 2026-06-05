@@ -69,4 +69,12 @@ export default class AgendaitemDocuments extends Component {
   openNotificationUploadModal() {
     this.isNotificationUploadModalOpen = true;
   }
+
+  @action
+  async saveNotification(newNotifications) {
+    const [ newNotification ] = newNotifications;
+    this.args.agendaitem.notification = newNotification;
+    await this.args.agendaitem.save();
+    this.isNotificationUploadModalOpen = false;
+  }
 }
