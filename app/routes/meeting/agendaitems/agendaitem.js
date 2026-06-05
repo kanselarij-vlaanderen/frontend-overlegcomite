@@ -6,7 +6,7 @@ export default class MeetingAgendaitemsAgendaitemRoute extends Route {
 
   async model({ agendaitem_id }) {
     // eslint-disable-next-line warp-drive/no-legacy-request-patterns
-    return (await this.store.findRecord('agendaitem', agendaitem_id, {
+    const agendaitem = await this.store.findRecord('agendaitem', agendaitem_id, {
       include: [
         'submitters',
         'case',
@@ -17,6 +17,8 @@ export default class MeetingAgendaitemsAgendaitemRoute extends Route {
         'notification.document-versions.access-level',
         'notification.document-versions.file',
       ]
-    })).reload();
+    });
+    await agendaitem.reload();
+    return agendaitem;
   }
  }

@@ -8,7 +8,7 @@ export default class MeetingAgendaitemsRoute extends Route {
     const meeting = this.modelFor('meeting');
     const agendaitems = await this.store.queryAll('agendaitem', {
       'filter[meeting][:uri:]': meeting.uri,
-      include: ['case', 'submitters'],
+      include: 'case,submitters',
       sort: 'priority'
     })
 
