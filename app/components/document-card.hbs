@@ -17,7 +17,9 @@
         </Group>
       </AuToolbar>
       <p>
-        {{ format-versioned-document-name this.selectedVersion }}
+        {{#if this.selectedVersion}}
+          {{ format-versioned-document-name this.selectedVersion }}
+        {{/if}}
       </p>
       <p class="au-u-muted">
         Geupload op

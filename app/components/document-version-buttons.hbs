@@ -1,49 +1,53 @@
-{{#if this.isEditingAccessLevel }}
-  <PowerSelect
-    @allowClear={{true}}
-    @options={{this.accessLevelOptions}}
-    @selected={{@version.accessLevel}}
-    @onChange={{fn (mut @version.accessLevel)}}
-    as |accessLevel|>
-    <span class="au-u-{{ get-access-level-style accessLevel }}">
-      {{ accessLevel.label }}
-    </span>
-  </PowerSelect>
+{{#if @version}}
+  {{#if this.isEditingAccessLevel }}
+    <PowerSelect
+      @allowClear={{true}}
+      @options={{this.accessLevelOptions}}
+      @selected={{@version.accessLevel}}
+      @onChange={{fn (mut @version.accessLevel)}}
+      as |accessLevel|>
+      <span class="au-u-{{ get-access-level-style accessLevel }}">
+        {{ accessLevel.label }}
+      </span>
+    </PowerSelect>
+    <AuButton
+      {{on 'click' this.saveAccessLevel}}
+      @icon="check" @skin="naked" @hideText="true">
+      Opslaan
+    </AuButton>
+    <AuButton
+      {{on "click" this.cancelEditingAccessLevel}}
+      @icon="cross" @skin="naked" @hideText="true" @alert={{true}}>
+      Annuleren
+    </AuButton>
+  {{else}}
+    <AuPill
+      {{on "click" (fn (mut this.isEditingAccessLevel) true)}}
+      @skin={{get-access-level-style @version.accessLevel}}>
+      {{or @version.accessLevel.label "Geen toegangsniveau"}}
+    </AuPill>
+  {{/if}}
   <AuButton
-    {{on 'click' this.saveAccessLevel}}
-    @icon="check" @skin="naked" @hideText="true">
-    Opslaan
+    @icon={{if @version.confidential "lock" "lock-unlock"}}
+    {{on "click" this.toggleConfidential}}
+    @skin="naked" @hideText="true">
+    Wissel openbaarheid
   </AuButton>
-  <AuButton
-    {{on "click" this.cancelEditingAccessLevel}}
-    @icon="cross" @skin="naked" @hideText="true" @alert={{true}}>
-    Annuleren
+  <AuButton @icon="book" @skin="naked" @hideText="true">
+    Lees document
   </AuButton>
-{{else}}
-  <AuPill
-    {{on "click" (fn (mut this.isEditingAccessLevel) true)}}
-    @skin={{get-access-level-style @version.accessLevel}}>
-    {{or @version.accessLevel.label "Geen toegangsniveau"}}
-  </AuPill>
 {{/if}}
-<AuButton
-  @icon={{if @version.confidential "lock" "lock-unlock"}}
-  {{on "click" this.toggleConfidential}}
-  @skin="naked" @hideText="true">
-  Wissel openbaarheid
-</AuButton>
-<AuButton @icon="book" @skin="naked" @hideText="true">
-  Lees document
-</AuButton>
 <AuDropdown
   @title="Meer opties"
   @icon="three-dots" @hideText="true">
-  <AuLinkExternal
-    href={{document-version/download-link @version}}
-    download={{document-version/download-filename @version}}
-    role="menuitem">
-    Document downloaden
-  </AuLinkExternal>
+  {{#if @version}}
+    <AuLinkExternal
+      href={{document-version/download-link @version}}
+      download={{document-version/download-filename @version}}
+      role="menuitem">
+      Document downloaden
+    </AuLinkExternal>
+  {{/if}}
   {{#if @document}}
     <AuButton @skin="link" role="menuitem">
       Nieuwe versie uploaden
@@ -53,9 +57,11 @@
     </AuButton>
    {{/if}}
   <AuHr />
-  <AuButton @skin="link" @alert={{true}} role="menuitem">
-    Versie verwijderen
-  </AuButton>
+  {{#if @version}}
+    <AuButton @skin="link" @alert={{true}} role="menuitem">
+      Versie verwijderen
+    </AuButton>
+  {{/if}}
   {{#if @document}}
     <AuButton @skin="link" @alert={{true}} role="menuitem">
       Document verwijderen
