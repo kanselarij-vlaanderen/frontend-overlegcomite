@@ -2,6 +2,7 @@
   {{#if this.isEditingAccessLevel }}
     <PowerSelect
       @allowClear={{true}}
+      @placeholder="Geen toegangsniveau"
       @options={{this.accessLevelOptions}}
       @selected={{@version.accessLevel}}
       @onChange={{fn (mut @version.accessLevel)}}
@@ -33,13 +34,16 @@
     @skin="naked" @hideText="true">
     Wissel openbaarheid
   </AuButton>
-  <AuLink
+  <LinkTo
     @route="view-document"
     @model={{@version}}
     target="_blank"
-    @icon="book" @skin="naked" @hideText="true">
-    Lees document
-  </AuLink>
+    class="au-c-button au-c-button--naked au-c-button--icon-only">
+    <AuIcon @icon="book" />
+    <span class="au-u-hidden-visually">
+      Lees document
+    </span>
+  </LinkTo>
 {{/if}}
 <AuDropdown
   @title="Meer opties"
