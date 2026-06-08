@@ -40,6 +40,7 @@ export default class DocumentUploadModalButton extends Component {
     });
     const documentAttributes = Object.assign({
       created: now,
+      name: file.filenameWithoutExtension,
       documentVersions: [ documentVersion ],
     }, this.defaultDocumentAttrs);
     const document = this.store.createRecord('document', documentAttributes);

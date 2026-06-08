@@ -1,0 +1,25 @@
+{{page-title "Documenten"}}
+
+<AuContent class="au-o-region">
+  <div class="au-o-flow au-o-flow--small au-o-layout">
+    <AuHeading @level=2 @skin=3>
+      Documenten
+    </AuHeading>
+    {{#each @model.documents as |document|}}
+      <DocumentCard @document={{document}} />
+    {{/each}}
+    <AuButton
+      {{on "click" (fn (mut this.isDocumentUploadModalOpen) true)}}
+      @icon="plus" @skin="secondary">
+      Document toevoegen
+    </AuButton>
+  </div>
+</AuContent>
+
+<DocumentUploadModal
+  @modalOpen={{this.isDocumentUploadModalOpen}}
+  @onSave={{this.saveDocuments}}
+  @onCancel={{fn (mut this.isDocumentUploadModalOpen) false}}
+  @multiple={{true}}
+  />
+

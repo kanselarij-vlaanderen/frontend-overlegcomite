@@ -21,6 +21,6 @@
     @closeModal={{this.closeModal}}>
     <:title>{{yield to="title"}}</:title>
     <:body>{{yield to="body"}}</:body>
-    <:footer>{{yield this.closeModal to="footer"}}</:footer>
+    <:footer>{{yield this.cancelModal this.closeModal to="footer"}}</:footer>
   </AuModal>
 </AuButton>

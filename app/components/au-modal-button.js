@@ -11,6 +11,15 @@ export default class extends Component {
   }
 
   @action
+  cancelModal() {
+    if (this.args.onCancel) {
+      this.modalOpen = this.args.onCancel();
+    } else {
+      this.modalOpen = false;
+    }
+  }
+
+  @action
   closeModal() {
     this.modalOpen = false;
   }
