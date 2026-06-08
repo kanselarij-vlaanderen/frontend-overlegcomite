@@ -1,0 +1,7 @@
+{{page-title (format-versioned-document-name @model)}}
+
+<iframe
+  class="au-u-height-full"
+  title="Document {{format-versioned-document-name @model}}"
+  src={{document-version/download-link @model 'inline'}}
+  />

@@ -33,9 +33,13 @@
     @skin="naked" @hideText="true">
     Wissel openbaarheid
   </AuButton>
-  <AuButton @icon="book" @skin="naked" @hideText="true">
+  <AuLink
+    @route="view-document"
+    @model={{@version}}
+    target="_blank"
+    @icon="book" @skin="naked" @hideText="true">
     Lees document
-  </AuButton>
+  </AuLink>
 {{/if}}
 <AuDropdown
   @title="Meer opties"

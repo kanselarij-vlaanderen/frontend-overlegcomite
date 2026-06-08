@@ -18,4 +18,5 @@ Router.map(function() {
       this.route('agendaitem', { path: '/:agendaitem_id' });
     });
   });
+  this.route('view-document', { path: '/documenten/:document_id/versies/:version_number/bekijken'});
 });
