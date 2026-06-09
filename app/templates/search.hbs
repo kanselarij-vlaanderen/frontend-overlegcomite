@@ -1,0 +1,56 @@
+{{page-title "Zoeken"}}
+
+<div class="au-o-region au-u-background-white">
+  <div class="au-o-flow au-o-flow--small au-o-layout">
+    <AuDataTable
+      @content={{@model.data}}
+      @fields="meetingDate subject"
+      @noDataMessage="Geen agendapunten gevonden"
+      @sort={{this.sort}}
+      @page={{this.page}}
+      @size={{this.size}}
+      as |t|>
+      <t.menu as |menu|>
+        <menu.general>
+          <div class="au-o-flow au-o-flow--small au-u-margin-bottom">
+            <AuHeading @level=1 @skin=2>
+              Agendapunten zoeken
+            </AuHeading>
+            <AuDataTable::TextSearch
+              @filter={{this.searchText}} />
+          </div>
+        </menu.general>
+      </t.menu>
+      <t.content as |c|>
+        <c.header>
+          <AuDataTable::ThSortable
+            @field="meetingDate"
+            @currentSorting={{this.sort}}
+            @label="Vergadering"
+            />
+          <th>
+            Onderwerp
+          </th>
+          <th />
+        </c.header>
+        <c.body as |agendaitem|>
+          <td>
+            {{format-datetime agendaitem.attributes.meetingDate}}
+          </td>
+          <td>
+            {{agendaitem.attributes.subject}}
+          </td>
+          <td class="au-u-text-center">
+            <AuLink
+              @route="meeting.agendaitems.agendaitem"
+              @models={{array (or agendaitem.attributes.meetingId 'NO_MEETING_ID') agendaitem.id}}
+              @icon="chevron-right"
+              @hideText={{true}}>
+              Ga naar agendapunt
+            </AuLink>
+          </td>
+        </c.body>
+      </t.content>
+    </AuDataTable>
+  </div>
+</div>
