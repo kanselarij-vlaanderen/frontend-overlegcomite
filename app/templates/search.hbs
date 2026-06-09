@@ -12,12 +12,25 @@
       as |t|>
       <t.menu as |menu|>
         <menu.general>
-          <div class="au-o-flow au-o-flow--small au-u-margin-bottom">
+          <div class="au-o-flow au-o-flow--small au-u-margin-bottom-small">
             <AuHeading @level=1 @skin=2>
               Agendapunten zoeken
             </AuHeading>
-            <AuDataTable::TextSearch
-              @filter={{this.searchText}} />
+            <AuHr />
+            <div class="au-o-grid au-o-grid--small au-o-grid--middle">
+              <div class="au-o-grid__item au-u-1-2@medium au-u-2-3@small">
+                <AuDataTable::TextSearch
+                  @filter={{this.searchText}} />
+              </div>
+              <div class="au-o-grid__item au-u-1-2@mediumi au-u-1-3@small">
+                <AuToggleSwitch
+                  @checked={{this.notificationsOnly}}
+                  @onChange={{fn (mut this.notificationsOnly)}}
+                  >
+                  Uitsluitend in notificaties zoeken
+                </AuToggleSwitch>
+              </div>
+            </div>
           </div>
         </menu.general>
       </t.menu>
