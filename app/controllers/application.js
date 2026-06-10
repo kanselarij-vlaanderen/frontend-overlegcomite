@@ -1,0 +1,20 @@
+ import Controller from '@ember/controller';
+import { service } from '@ember/service';
+import { action } from '@ember/object';
+import extractErrors from '../helpers/extract-errors';
+
+export default class ApplicationController extends Controller {
+  @service toaster;
+
+  @action
+  showError(ev) {
+    const errors = extractErrors(ev.error || ev.reason);
+    for (const error of errors) {
+      this.toaster.notify(error.description, error.title, {
+        type: 'error',
+        icon: 'alert-circle',
+        timeOut: 5000
+      })
+    }
+  }
+}

@@ -18,4 +18,5 @@ Router.map(function() {
       this.route('agendaitem', { path: '/:agendaitem_id' });
     });
   });
+  this.route('error', { path: 'fout/*path'});
 });
