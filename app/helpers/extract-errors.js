@@ -1,6 +1,8 @@
 import STATUS_CODES from '../config/http-status-codes';
 
 export default function extractErrors(error) {
+  if (!error) return [];
+
   if (error.errors) {
     return error.errors.map((e) => {
       return {
