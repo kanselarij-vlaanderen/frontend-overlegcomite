@@ -3,9 +3,10 @@ import { modifier } from 'ember-modifier';
 export default modifier(function onGlobalError(
   _element, [handler]
 ) {
-  function listener() {
+  function listener(event) {
     try {
-      return handler(...arguments);
+      const error = event.error || event.reason;
+      return handler(error, ...arguments);
     } catch (e) {
       console.error("Error while running error handler:", e);
     }

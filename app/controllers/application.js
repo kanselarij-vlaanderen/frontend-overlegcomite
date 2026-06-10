@@ -7,8 +7,8 @@ export default class ApplicationController extends Controller {
   @service toaster;
 
   @action
-  showError(ev) {
-    const errors = extractErrors(ev.error || ev.reason);
+  showError(error) {
+    const errors = extractErrors(error);
     for (const error of errors) {
       this.toaster.notify(error.description, error.title, {
         type: 'error',
