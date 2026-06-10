@@ -42,6 +42,8 @@ export default class MeetingController extends Controller {
 
   goToAgendaitem = (agendaitem) => {
     this.closeNewAgendaitemModal();
+    // force rerun of the meeting.agendaitems model hook to update list of agendaitems
+    this.router.refresh('meeting.agendaitems');
     this.router.transitionTo('meeting.agendaitems.agendaitem', this.model.id, agendaitem.id)
   }
 

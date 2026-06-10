@@ -1,32 +1,39 @@
 <nav ...attributes>
-  {{#each-in @agendaitemGroups as |submitter agendaitems|}}
+  {{#each @agendaitemGroups as |agendaitemGroup|}}
     <AuPanel as |Section|>
-      <Section class="au-u-background-yellow-300">
+      <Section class="oc-agendaitem-list-group-header au-u-background-yellow-300">
         {{! TODO: Make heading sticky on scroll }}
         <AuToolbar as |Group|>
           <Group>
             <AuHeading @level={{3}} @skin={{6}}>
-              {{if submitter submitter "Geen indiener"}}
+              {{format-submitter-names agendaitemGroup.submitters}}
             </AuHeading>
           </Group>
         </AuToolbar>
       </Section>
-      <Section>
-        <AuList @divider={{true}} as |Item|>
-          {{#each agendaitems as |agendaitem|}}
-            <Item class="au-u-padding-small">
-              {{agendaitem.priority}}.{{agendaitem.subPriority}}
-              {{! TODO: Add highlight (blue background) of selected agendaitem based on active route}}
-              <AuLink
+      <Section class="oc-agendaitem-list-group-content au-u-background-gray-100">
+        <AuList as |Item|>
+          {{#each agendaitemGroup.agendaitems as |agendaitem|}}
+            <Item class="au-u-background-white">
+              <LinkTo
                 @route="meeting.agendaitems.agendaitem"
-                @model={{agendaitem.id}}
-                @skin="button-naked">
+                @model={{agendaitem.id}}>
+                <span>{{agendaitem.priority}}.{{agendaitem.subPriority}}</span>
                 {{if agendaitem.subject agendaitem.subject "Naamloos"}}
-              </AuLink>
+                <Await @promise={{agendaitem.case}}>
+                  <:success as |case|>
+                    {{#if case.identifier}}
+                      <AuPill @skin="border" class="au-u-margin-left-small">
+                        {{case.identifier}}
+                      </AuPill>
+                    {{/if}}
+                  </:success>
+                </Await>
+              </LinkTo>
             </Item>
           {{/each}}
         </AuList>
       </Section>
     </AuPanel>
-  {{/each-in}}
+  {{/each}}
 </nav>

@@ -9,32 +9,25 @@ export default class MeetingAgendaitemsRoute extends Route {
     const agendaitems = await this.store.queryAll('agendaitem', {
       'filter[meeting][:uri:]': meeting.uri,
       include: 'case,submitters',
-      sort: 'priority'
+      sort: 'priority,sub-priority'
     })
 
-    const map = {};
-
-    // TODO Agendaitems must be arranged per group of submitters
-    // TODO Model doesn't update on creation/deletion of an agendaitem
+    const agendaitemGroups = [];
+    let currentGroup;
     for (const agendaitem of agendaitems.toArray()) {
       const submitters = await agendaitem.submitters;
-      if (submitters.length) {
-        for (const submitter of submitters) {
-          if (Object.hasOwn(map, submitter.name)) {
-            map[submitter.name].push(agendaitem);
-          } else {
-            map[submitter.name] = [agendaitem];
-          }
-        }
+      const groupId = submitters.map((submitter) => submitter.id).sort().join('');
+
+      if (currentGroup && currentGroup.id == groupId) {
+        // agendaitem has same submitters as the previous item. Add to the group.
+        currentGroup.agendaitems.push(agendaitem);
       } else {
-        if (Object.hasOwn(map, '')) {
-          map[''].push(agendaitem);
-        } else {
-          map[''] = [agendaitem];
-        }
+        // agendaitem has different submitters. Start a new group.
+        currentGroup = { id: groupId, submitters, agendaitems: [agendaitem] };
+        agendaitemGroups.push(currentGroup);
       }
     }
 
-    return map;
+    return agendaitemGroups;
   }
 }

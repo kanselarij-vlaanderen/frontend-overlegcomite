@@ -47,10 +47,10 @@
         Geupload op
         <AuTooltip @placement="bottom" as |tooltip|>
           <span class="au-u-italic" {{tooltip.target}}>
-          {{datetime-format this.document.created}}
+          {{format-datetime this.document.created}}
           </span>
           <tooltip.Content>
-            {{datetime-format this.document.created "full"}}
+            {{format-datetime this.document.created "full"}}
           </tooltip.Content>
         </AuTooltip>
       </p>
@@ -69,10 +69,10 @@
                   class="au-o-box au-o-box--small"/>
                 <div>
                   <p class="au-u-medium">
-                    {{ format-versioned-document-name version }}
+                    {{format-versioned-document-name version}}
                   </p>
                   <p class="au-u-muted">
-                    {{ datetime-format version.created }}
+                    {{format-datetime version.created}}
                   </p>
                 </div>
                 {{#if index}}

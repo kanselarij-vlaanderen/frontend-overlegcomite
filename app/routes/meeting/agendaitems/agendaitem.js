@@ -19,6 +19,12 @@ export default class MeetingAgendaitemsAgendaitemRoute extends Route {
       ]
     });
     await agendaitem.reload();
+    this.case = await agendaitem.case;
     return agendaitem;
+  }
+
+  setupController(controller, model) {
+    super.setupController(controller, model);
+    controller.caseIdentifier = this.case.identifier;
   }
  }

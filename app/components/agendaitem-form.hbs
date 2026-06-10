@@ -1,6 +1,6 @@
 <form class="au-c-form">
-  <div class="au-o-grid">
-    <AuFormRow class="au-o-grid__item au-u-1-2@xsmall">
+  <div class="au-o-grid au-o-grid--small">
+    <div class="au-o-grid__item au-u-1-2@xsmall">
       <AuLabel for="agendaitem-priority">
         Volgnummer
       </AuLabel>
@@ -10,8 +10,8 @@
         @width="block"
         value={{@agendaitem.priority}}
         {{on "input" (with-value (fn (mut @agendaitem.priority)))}} />
-    </AuFormRow>
-    <AuFormRow class="au-o-grid__item au-u-1-2@xsmall">
+    </div>
+    <div class="au-o-grid__item au-u-1-2@xsmall">
       <AuLabel for="agendaitem-subpriority">
         Onderdeel
       </AuLabel>
@@ -20,43 +20,45 @@
         @width="block"
         value={{@agendaitem.subPriority}}
         {{on "input" (with-value (fn (mut @agendaitem.subPriority)))}} />
-    </AuFormRow>
+    </div>
+    <div class="au-o-grid__item au-u-1-1">
+      <AuLabel for="agendaitem-case">
+        Dossiernummer
+      </AuLabel>
+      <AuInput
+        id="agendaitem-case"
+        placeholder="bv. 2015C80030.002"
+        value={{@caseIdentifier}}
+        @error={{not this.caseIdentifierValid}}
+        @width="block"
+        {{au-inputmask options=(hash mask="9999A99999.999" placeholder="JJJJ_#########")}}
+        {{on "input" (with-value (fn (mut @caseIdentifier)))}} />
+    </div>
+    <div class="au-o-grid__item au-u-1-1">
+      <AuLabel for="agendaitem-submitters">
+        Indieners
+      </AuLabel>
+      <PowerSelect
+        @multiple={{true}}
+        @renderInPlace={{true}}
+        @disabled={{this.fetchGovernmentBodies.isRunning}}
+        @options={{this.governmentBodies}}
+        @selected={{@agendaitem.submitters}}
+        @onChange={{fn (mut @agendaitem.submitters)}}
+        class=""
+        as |submitter|>
+        {{submitter.name}}
+      </PowerSelect>
+    </div>
+    <div class="au-o-grid__item au-u-1-1">
+      <AuLabel for="agendaitem-subject">
+        Titel
+      </AuLabel>
+      <AuInput
+        id="agendaitem-subject"
+        @width="block"
+        value={{@agendaitem.subject}}
+        {{on "input" (with-value (fn (mut @agendaitem.subject)))}} />
+    </div>
   </div>
-  <AuFormRow>
-    <AuLabel for="agendaitem-case">
-      Dossiernummer
-    </AuLabel>
-    <AuInput
-      id="agendaitem-case"
-      placeholder="bv. 2015C80030.002"
-      value={{@case.identifier}}
-      @width="block"
-      {{au-inputmask options=(hash mask="9999A99999.999" placeholder="JJJJ_#########")}}
-      {{on "input" (with-value (fn (mut @case.identifier)))}} />
-  </AuFormRow>
-  <AuFormRow>
-    <AuLabel for="agendaitem-submitters">
-      Indieners
-    </AuLabel>
-    <PowerSelect
-      @multiple={{true}}
-      @renderInPlace={{true}}
-      @disabled={{this.fetchGovernmentBodies.isRunning}}
-      @options={{this.governmentBodies}}
-      @onChange={{this.selectSubmitters}}
-      class="au-c-input"
-      as |submitter|>
-      {{submitter.name}}
-    </PowerSelect>
-  </AuFormRow>
-  <AuFormRow>
-    <AuLabel for="agendaitem-subject">
-      Titel
-    </AuLabel>
-    <AuInput
-      id="agendaitem-subject"
-      @width="block"
-      value={{@agendaitem.subject}}
-      {{on "input" (with-value (fn (mut @agendaitem.subject)))}} />
-  </AuFormRow>
 </form>
