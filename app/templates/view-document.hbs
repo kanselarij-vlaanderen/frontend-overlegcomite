@@ -1,7 +1,29 @@
 {{page-title (format-versioned-document-name @model)}}
 
-<iframe
+<object
   class="au-u-height-full"
   title="Document {{format-versioned-document-name @model}}"
-  src={{document-version/download-link @model 'inline'}}
-  />
+  type={{@model.file.format}}
+  data={{document-version/download-link @model 'inline'}}
+  >
+  <div class="au-o-region">
+    <div class="au-o-layout">
+      <AuAlert
+        @icon="document"
+        @skin="warning"
+        @title="Kan document niet laden">
+        <AuContent @skin="small">
+          <p>
+            '{{format-versioned-document-name @model}}' kan niet in de browser bekeken worden.
+          </p>
+          <AuLinkExternal
+            href={{document-version/download-link @model}}
+            @skin="button"
+            @icon="download">
+            Document downloaden
+          </AuLinkExternal>
+        </AuContent>
+      </AuAlert>
+    </div>
+  </div>
+</object>
