@@ -4,9 +4,9 @@ import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import { task } from 'ember-concurrency';
 import { trackedArray } from '@ember/reactive/collections';
-import { FILE_UPLOAD_ENDPOINT, DEFAULT_MEETING_DOC_TYPE_ID } from '../config/config';
+import { FILE_UPLOAD_ENDPOINT } from '../config/config';
 
-export default class DocumentUploadModalButton extends Component {
+export default class DocumentUploadModal extends Component {
   endpoint = FILE_UPLOAD_ENDPOINT;
 
   @service store;
@@ -30,7 +30,7 @@ export default class DocumentUploadModalButton extends Component {
   })
 
   @action
-  async onFinishUpload(id) {
+  async createDocument(id) {
     const file = await this.store.findRecord('file', id);
     const now = Temporal.Now.zonedDateTimeISO();
     const documentVersion = this.store.createRecord('document-version', {

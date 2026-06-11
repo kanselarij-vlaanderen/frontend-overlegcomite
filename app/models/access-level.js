@@ -6,5 +6,5 @@ export default class AccessLevelModel extends Model {
   @attr('string') scopeNote;
   @attr('number') priority;
 
-	@hasMany('document-version', { inverse: null, async: true }) documents;
+  @hasMany('document-version', { inverse: null, async: true }) documents;
 }

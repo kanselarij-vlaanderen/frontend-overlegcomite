@@ -36,16 +36,16 @@ export default class AgendaitemDocuments extends Component {
         subPriority: agendaitem.subPriority,
         notification
       })
-    )
+    );
 
     this.defaultDocumentAttrs = {
       type: defaultDocumentType,
       name: defaultDocumentName
-    }
+    };
     this.defaultNotificationAttrs = {
       type: notificationType,
       name: defaultNotificationName
-    }
+    };
   })
 
   @tracked isDocumentUploadModalOpen = false;
@@ -72,7 +72,7 @@ export default class AgendaitemDocuments extends Component {
 
   @action
   async saveNotification(newNotifications) {
-    const [ newNotification ] = newNotifications;
+    const [newNotification] = newNotifications;
     this.args.agendaitem.notification = newNotification;
     await this.args.agendaitem.save();
     this.isNotificationUploadModalOpen = false;

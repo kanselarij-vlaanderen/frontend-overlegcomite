@@ -41,7 +41,7 @@
           Aan het laden
         </AuLoader>
       </:pending>
-      <:success as |case|>
+      <:success>
         <AgendaitemForm @agendaitem={{@model}} @caseIdentifier={{this.caseIdentifier}} />
       </:success>
     </Await>

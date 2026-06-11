@@ -10,7 +10,7 @@ export default class FileModel extends Model {
   }
   set filenameWithoutExtension (value) {
     const filename = `${value}.${this.extension}`;
-    this.set('filename', filename);
+    this.filename = filename;
     return value;
   }
 

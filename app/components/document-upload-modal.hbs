@@ -11,7 +11,7 @@
         {{#if (or @multiple (not this.documents))}}
           <AuFileUpload
             @endpoint={{this.endpoint}}
-            @onFinishUpload={{this.onFinishUpload}}
+            @onFinishUpload={{this.createDocument}}
             @multiple={{@multiple}} />
         {{/if}}
         {{#each this.documents as |document|}}
