@@ -32,6 +32,10 @@
       </AuTabs>
     </Group>
     <Group>
+      <DistributionStatus @distribution={{this.agendaDistribution}} @entityName="Agenda"/>
+      <DistributionStatus @distribution={{this.notificationsDistribution}} @entityName="Notificaties"/>
+    </Group>
+    <Group>
       <AuButtonGroup>
         <AuButton @skin="primary" @icon="plus"
           {{on "click" this.openNewAgendaitemModal}}>

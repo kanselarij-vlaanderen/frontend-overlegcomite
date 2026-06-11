@@ -7,6 +7,9 @@ export default class MeetingController extends Controller {
   @service store;
   @service router;
 
+  @tracked agendaDistribution;
+  @tracked notificationsDistribution;
+
   @tracked isOpenEditMeetingModal = false;
   openEditMeetingModal = () => this.isOpenEditMeetingModal = true;
   closeEditMeetingModal = () => this.isOpenEditMeetingModal = false;
