@@ -2,9 +2,16 @@
 
 <AuContent class="au-o-region">
   <div class="au-o-flow au-o-flow--small au-o-layout">
-    <AuHeading @level=2 @skin=3>
+    <AuHeading @level="2" @skin="3">
       Documenten
     </AuHeading>
+    {{#unless @model.documents}}
+      <AuAlert
+        @title="Geen documenten beschikbaar"
+        @icon="circle-info">
+        Deze vergadering heeft nog geen documenten.
+      </AuAlert>
+    {{/unless}}
     {{#each @model.documents as |document|}}
       <DocumentCard @document={{document}} />
     {{/each}}
