@@ -21,32 +21,39 @@ export default class AgendaitemDocuments extends Component {
 
   init = task(async () => {
     this.documentTypes = await this.store.queryAll('document-type', {
-      sort: '-priority'
-    })
+      sort: '-priority',
+    });
     // All of these should be in cache by now
-    const defaultDocumentType = await this.store.findRecord('document-type', DEFAULT_MEETING_DOC_TYPE_ID);
-    const notificationType = await this.store.findRecord('document-type', NOTIFICATION_TYPE_ID);
+    const defaultDocumentType = await this.store.findRecord(
+      'document-type',
+      DEFAULT_MEETING_DOC_TYPE_ID,
+    );
+    const notificationType = await this.store.findRecord(
+      'document-type',
+      NOTIFICATION_TYPE_ID,
+    );
     const agendaitem = this.args.agendaitem;
     const meeting = await agendaitem.meeting;
 
-    const [defaultDocumentName, defaultNotificationName] = [false, true].map((notification) =>
-      formatDocumentName({
-        date: meeting.startedAt,
-        priority: agendaitem.priority,
-        subPriority: agendaitem.subPriority,
-        notification
-      })
+    const [defaultDocumentName, defaultNotificationName] = [false, true].map(
+      (notification) =>
+        formatDocumentName({
+          date: meeting.startedAt,
+          priority: agendaitem.priority,
+          subPriority: agendaitem.subPriority,
+          notification,
+        }),
     );
 
     this.defaultDocumentAttrs = {
       type: defaultDocumentType,
-      name: defaultDocumentName
+      name: defaultDocumentName,
     };
     this.defaultNotificationAttrs = {
       type: notificationType,
-      name: defaultNotificationName
+      name: defaultNotificationName,
     };
-  })
+  });
 
   @tracked isDocumentUploadModalOpen = false;
 
@@ -57,7 +64,7 @@ export default class AgendaitemDocuments extends Component {
 
   @action
   async saveDocuments(newDocuments) {
-    const documents = (await this.args.agendaitem.documents)
+    const documents = await this.args.agendaitem.documents;
     documents.push(...newDocuments);
     await this.args.agendaitem.save();
     this.isDocumentUploadModalOpen = false;

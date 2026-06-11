@@ -6,9 +6,7 @@
       Documenten
     </AuHeading>
     {{#unless @model.documents}}
-      <AuAlert
-        @title="Geen documenten beschikbaar"
-        @icon="circle-info">
+      <AuAlert @title="Geen documenten beschikbaar" @icon="circle-info">
         Deze vergadering heeft nog geen documenten.
       </AuAlert>
     {{/unless}}
@@ -17,7 +15,9 @@
     {{/each}}
     <AuButton
       {{on "click" (fn (mut this.isDocumentUploadModalOpen) true)}}
-      @icon="plus" @skin="secondary">
+      @icon="plus"
+      @skin="secondary"
+    >
       Document toevoegen
     </AuButton>
   </div>
@@ -28,5 +28,4 @@
   @onSave={{this.saveDocuments}}
   @onCancel={{fn (mut this.isDocumentUploadModalOpen) false}}
   @multiple={{true}}
-  />
-
+/>

@@ -2,26 +2,25 @@
   Notificatie
 </AuHeading>
 <div class="au-o-flow au-o-flow--small">
-  {{#if @agendaitem.notification }}
+  {{#if @agendaitem.notification}}
     <Await @promise={{@agendaitem.notification}}>
       <:pending>
         <AuLoader />
       </:pending>
       <:success as |notification|>
-        <DocumentCard @document={{notification}}/>
+        <DocumentCard @document={{notification}} />
       </:success>
     </Await>
   {{else}}
-    <AuAlert
-      @title="Geen notificatie beschikbaar"
-      @icon="circle-info">
+    <AuAlert @title="Geen notificatie beschikbaar" @icon="circle-info">
       Dit agendapunt heeft nog geen notificatie.
     </AuAlert>
     <AuButton
       {{on "click" this.openNotificationUploadModal}}
       @disabled={{this.init.isRunning}}
       @icon="plus"
-      @skin="secondary">
+      @skin="secondary"
+    >
       Notificatie toevoegen
     </AuButton>
     <DocumentUploadModal
@@ -29,20 +28,19 @@
       @onSave={{this.saveNotification}}
       @onCancel={{fn (mut this.isNotificationUploadModalOpen) false}}
       @defaultDocumentAttrs={{this.defaultNotificationAttrs}}
-      @multiple={{false}}/>
+      @multiple={{false}}
+    />
   {{/if}}
 </div>
 <AuHeading @level={{3}} @skin={{3}}>
   Documenten
 </AuHeading>
 <div class="au-o-flow au-o-flow--small">
-  {{#each @agendaitem.documents as |document| }}
-    <DocumentCard @document={{document}}/>
+  {{#each @agendaitem.documents as |document|}}
+    <DocumentCard @document={{document}} />
   {{/each}}
   {{#unless @agendaitem.documents}}
-    <AuAlert
-      @title="Geen documenten beschikbaar"
-      @icon="circle-info">
+    <AuAlert @title="Geen documenten beschikbaar" @icon="circle-info">
       Dit agendapunt heeft nog geen documenten.
     </AuAlert>
   {{/unless}}
@@ -50,7 +48,8 @@
     {{on "click" this.openDocumentUploadModal}}
     @disabled={{this.init.isRunning}}
     @icon="plus"
-    @skin="secondary">
+    @skin="secondary"
+  >
     Documenten toevoegen
   </AuButton>
   <DocumentUploadModal
@@ -58,5 +57,6 @@
     @onSave={{this.saveDocuments}}
     @onCancel={{fn (mut this.isDocumentUploadModalOpen) false}}
     @defaultDocumentAttrs={{this.defaultDocumentAttrs}}
-    @multiple={{true}}/>
+    @multiple={{true}}
+  />
 </div>

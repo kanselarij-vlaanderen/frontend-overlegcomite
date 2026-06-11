@@ -9,7 +9,8 @@
         type="number"
         @width="block"
         value={{@agendaitem.priority}}
-        {{on "input" (with-value (fn (mut @agendaitem.priority)))}} />
+        {{on "input" (with-value (fn (mut @agendaitem.priority)))}}
+      />
     </div>
     <div class="au-o-grid__item au-u-1-2@xsmall">
       <AuLabel for="agendaitem-subpriority">
@@ -19,7 +20,8 @@
         id="agendaitem-subpriority"
         @width="block"
         value={{@agendaitem.subPriority}}
-        {{on "input" (with-value (fn (mut @agendaitem.subPriority)))}} />
+        {{on "input" (with-value (fn (mut @agendaitem.subPriority)))}}
+      />
     </div>
     <div class="au-o-grid__item au-u-1-1">
       <AuLabel for="agendaitem-case">
@@ -31,8 +33,11 @@
         value={{@caseIdentifier}}
         @error={{not this.caseIdentifierValid}}
         @width="block"
-        {{au-inputmask options=(hash mask="9999A99999.999" placeholder="JJJJ_#########")}}
-        {{on "input" (with-value (fn (mut @caseIdentifier)))}} />
+        {{au-inputmask
+          options=(hash mask="9999A99999.999" placeholder="JJJJ_#########")
+        }}
+        {{on "input" (with-value (fn (mut @caseIdentifier)))}}
+      />
     </div>
     <div class="au-o-grid__item au-u-1-1">
       <AuLabel for="agendaitem-submitters">
@@ -46,7 +51,8 @@
         @selected={{@agendaitem.submitters}}
         @onChange={{fn (mut @agendaitem.submitters)}}
         class=""
-        as |submitter|>
+        as |submitter|
+      >
         {{submitter.name}}
       </PowerSelect>
     </div>
@@ -58,7 +64,8 @@
         id="agendaitem-subject"
         @width="block"
         value={{@agendaitem.subject}}
-        {{on "input" (with-value (fn (mut @agendaitem.subject)))}} />
+        {{on "input" (with-value (fn (mut @agendaitem.subject)))}}
+      />
     </div>
   </div>
 </form>

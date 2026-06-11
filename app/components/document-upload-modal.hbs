@@ -1,7 +1,4 @@
-<AuModal
-  @modalOpen={{@modalOpen}}
-  @closeModal={{this.cancelDocuments}}
-  >
+<AuModal @modalOpen={{@modalOpen}} @closeModal={{this.cancelDocuments}}>
   <:title>Documenten opladen</:title>
   <:body>
     <div class="au-o-flow au-o-flow--small">
@@ -12,20 +9,20 @@
           <AuFileUpload
             @endpoint={{this.endpoint}}
             @onFinishUpload={{this.createDocument}}
-            @multiple={{@multiple}} />
+            @multiple={{@multiple}}
+          />
         {{/if}}
         {{#each this.documents as |document|}}
-          <AuCard
-            @flex={{true}}
-            as |c|>
-            <c.header
-              @badgeIcon="file">
-              {{#let (get document.documentVersions 0) as |version| }}
+          <AuCard @flex={{true}} as |c|>
+            <c.header @badgeIcon="file">
+              {{#let (get document.documentVersions 0) as |version|}}
                 <AuHeading @skin="4">
                   {{version.file.filename}}
                 </AuHeading>
                 <p>
-                  {{format-file-size version.file.size}} - {{version.file.extension}}
+                  {{format-file-size version.file.size}}
+                  -
+                  {{version.file.extension}}
                 </p>
               {{/let}}
             </c.header>
@@ -38,7 +35,8 @@
                   <AuInput
                     id="document-name-{{id}}"
                     {{on "input" (with-value (fn (mut document.name)))}}
-                    value={{document.name}} />
+                    value={{document.name}}
+                  />
                 </AuFormRow>
                 <AuFormRow @alignment="inline">
                   <AuLabel for="document-type-{{id}}" class="au-u-1-6">
@@ -51,7 +49,8 @@
                     @options={{this.documentTypes}}
                     @allowClear={{true}}
                     class="au-c-input"
-                    as |type|>
+                    as |type|
+                  >
                     {{type.label}}
                   </PowerSelect>
                 </AuFormRow>
@@ -68,14 +67,16 @@
         <AuButton
           {{on "click" this.cancelDocuments}}
           @disabled={{this.saveDocuments.isRunning}}
-          @skin="naked">
+          @skin="naked"
+        >
           Annuleren
         </AuButton>
       </Group>
       <Group>
         <AuButton
           {{on "click" this.saveDocuments.perform}}
-          @disabled={{this.saveDocuments.isRunning}}>
+          @disabled={{this.saveDocuments.isRunning}}
+        >
           Aanmaken
         </AuButton>
       </Group>

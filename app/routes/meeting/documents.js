@@ -8,6 +8,6 @@ export default class MeetingDocumentsRoute extends Route {
     const meeting = this.modelFor('meeting');
     const documents = await meeting.documents;
 
-    return { meeting, documents }
+    return { meeting, documents };
   }
 }

@@ -1,7 +1,9 @@
 <nav ...attributes>
   {{#each @agendaitemGroups as |agendaitemGroup|}}
     <AuPanel as |Section|>
-      <Section class="oc-agendaitem-list-group-header au-u-background-yellow-300">
+      <Section
+        class="oc-agendaitem-list-group-header au-u-background-yellow-300"
+      >
         {{! TODO: Make heading sticky on scroll }}
         <AuToolbar as |Group|>
           <Group>
@@ -11,13 +13,16 @@
           </Group>
         </AuToolbar>
       </Section>
-      <Section class="oc-agendaitem-list-group-content au-u-background-gray-100">
+      <Section
+        class="oc-agendaitem-list-group-content au-u-background-gray-100"
+      >
         <AuList as |Item|>
           {{#each agendaitemGroup.agendaitems as |agendaitem|}}
             <Item class="au-u-background-white">
               <LinkTo
                 @route="meeting.agendaitems.agendaitem"
-                @model={{agendaitem.id}}>
+                @model={{agendaitem.id}}
+              >
                 <span>{{agendaitem.priority}}.{{agendaitem.subPriority}}</span>
                 {{if agendaitem.subject agendaitem.subject "Naamloos"}}
                 <Await @promise={{agendaitem.case}}>

@@ -8,7 +8,7 @@ export default class MeetingsRoute extends Route {
     sort: { refreshModel: true },
     page: { refreshModel: true },
     size: { refreshModel: true },
-  }
+  };
 
   model(params) {
     // eslint-disable-next-line warp-drive/no-legacy-request-patterns

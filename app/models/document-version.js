@@ -5,7 +5,9 @@ export default class DocumentVersionModel extends Model {
   @attr('number') versionNumber;
   @attr('boolean') confidential;
 
-  @belongsTo('document', { inverse: 'documentVersions', async: false}) document;
+  @belongsTo('document', { inverse: 'documentVersions', async: false })
+  document;
   @belongsTo('file', { inverse: null, async: false }) file;
-  @belongsTo('access-level', { inverse: 'documents', async: false }) accessLevel;
+  @belongsTo('access-level', { inverse: 'documents', async: false })
+  accessLevel;
 }

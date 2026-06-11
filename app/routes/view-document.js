@@ -17,7 +17,7 @@ export default class ViewDocumentRoute extends Route {
   serialize(model) {
     return {
       document_id: model.document.id,
-      version_number: model.versionNumber
-    }
+      version_number: model.versionNumber,
+    };
   }
 }

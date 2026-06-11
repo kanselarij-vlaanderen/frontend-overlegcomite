@@ -1,6 +1,4 @@
-<AuModal
-  @modalOpen={{@modalOpen}}
-  @closeModal={{@onClose}}>
+<AuModal @modalOpen={{@modalOpen}} @closeModal={{@onClose}}>
   <:title>
     {{yield to="title"}}
   </:title>
@@ -10,15 +8,17 @@
   <:footer>
     <AuToolbar as |Group|>
       <Group>
-        <AuButton @skin="naked"
-          {{on "click" @onClose}}>
+        <AuButton @skin="naked" {{on "click" @onClose}}>
           Annuleer
         </AuButton>
       </Group>
       <Group>
-        <AuButton @alert={{true}} @icon="trash"
+        <AuButton
+          @alert={{true}}
+          @icon="trash"
           @loading={{@isLoading}}
-          {{on "click" @onConfirm}}>
+          {{on "click" @onConfirm}}
+        >
           Verwijderen
         </AuButton>
       </Group>

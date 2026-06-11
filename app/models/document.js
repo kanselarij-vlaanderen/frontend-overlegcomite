@@ -5,12 +5,14 @@ export default class DocumentModel extends Model {
   @attr('datetime') created;
 
   @belongsTo('document-type', { inverse: 'documents', async: false }) type;
-  @hasMany('document-version', { inverse: 'document', async: false }) documentVersions;
+  @hasMany('document-version', { inverse: 'document', async: false })
+  documentVersions;
 
   loadRelations() {
     return this.store.findRecord('document', this.id, {
-      include: 'type,document-versions,document-versions.access-level,document-versions.file',
-      reload: true
+      include:
+        'type,document-versions,document-versions.access-level,document-versions.file',
+      reload: true,
     });
   }
 }

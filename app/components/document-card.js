@@ -13,7 +13,9 @@ export default class FileCard extends Component {
 
   constructor() {
     super(...arguments);
-    this.accessLevelOptions = this.store.query('access-level', { sort: 'priority' });
+    this.accessLevelOptions = this.store.query('access-level', {
+      sort: 'priority',
+    });
   }
 
   get document() {
@@ -30,7 +32,9 @@ export default class FileCard extends Component {
   }
 
   get sortedDocumentVersions() {
-    return this.document.get('documentVersions').toSorted((v1, v2) => v2.versionNumber - v1.versionNumber);
+    return this.document
+      .get('documentVersions')
+      .toSorted((v1, v2) => v2.versionNumber - v1.versionNumber);
   }
 
   get accessLevelOptions() {

@@ -34,7 +34,7 @@ export default class FileUploadModal extends Component {
   saveUpload = task(async () => {
     await this.args.onSave(this.files);
     this.files.splice(0);
-  })
+  });
 
   @action
   async cancelUpload() {

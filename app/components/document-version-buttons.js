@@ -34,7 +34,7 @@ export default class DocumentVersionButtons extends Component {
 
   @action
   async addVersion(files) {
-    const [ file ] = files;
+    const [file] = files;
     const document = this.args.document;
     const now = Temporal.Now.zonedDateTimeISO();
     const baseVersion = this.args.version;
@@ -45,7 +45,7 @@ export default class DocumentVersionButtons extends Component {
       confidential: baseVersion.confidential,
       accessLevel: baseVersion.accessLevel,
       versionNumber: baseVersion.versionNumber + 1,
-    })
+    });
     document.documentVersions.push(newVersion);
     await newVersion.save();
     this.isAddingVersion = false;
@@ -59,7 +59,7 @@ export default class DocumentVersionButtons extends Component {
 
   @action
   async deleteDocument(document) {
-    await Promise.all(document.documentVersions.map(this.deleteVersion))
+    await Promise.all(document.documentVersions.map(this.deleteVersion));
     await document.destroyRecord();
   }
 }

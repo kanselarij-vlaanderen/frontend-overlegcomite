@@ -1,7 +1,4 @@
-<AuModal
-  @modalOpen={{@modalOpen}}
-  @closeModal={{this.cancelUpload}}
-  >
+<AuModal @modalOpen={{@modalOpen}} @closeModal={{this.cancelUpload}}>
   <:title>
     {{#if (has-block "title")}}
       {{yield to="title"}}
@@ -20,14 +17,15 @@
           <AuFileUpload
             @endpoint={{this.endpoint}}
             @onFinishUpload={{this.onFinishUpload}}
-            @multiple={{@multiple}} />
+            @multiple={{@multiple}}
+          />
         {{/if}}
         {{#each this.files as |file|}}
           <AuFileCard
             @filename={{file.filename}}
             @fileSize={{format-file-size file.size}}
             @onDelete={{fn this.deleteFile file}}
-            />
+          />
         {{/each}}
       {{/if}}
     </div>
@@ -38,14 +36,16 @@
         <AuButton
           {{on "click" this.cancelUpload}}
           @disabled={{this.saveUpload.isRunning}}
-          @skin="naked">
+          @skin="naked"
+        >
           Annuleren
         </AuButton>
       </Group>
       <Group>
         <AuButton
           {{on "click" this.saveUpload.perform}}
-          @disabled={{this.saveUpload.isRunning}}>
+          @disabled={{this.saveUpload.isRunning}}
+        >
           Aanmaken
         </AuButton>
       </Group>

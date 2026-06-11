@@ -11,7 +11,7 @@ export default class MeetingRoute extends Route {
         'agenda-items.submitters',
         'documents.document-versions.file',
         'documents.document-versions.access-level',
-      ]
+      ],
     });
   }
 }

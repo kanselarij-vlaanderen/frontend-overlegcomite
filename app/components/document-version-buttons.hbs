@@ -1,85 +1,102 @@
 {{#if @version}}
-  {{#if this.isEditingAccessLevel }}
+  {{#if this.isEditingAccessLevel}}
     <PowerSelect
       @allowClear={{true}}
       @placeholder="Geen toegangsniveau"
       @options={{this.accessLevelOptions}}
       @selected={{@version.accessLevel}}
       @onChange={{fn (mut @version.accessLevel)}}
-      as |accessLevel|>
-      <span class="au-u-{{ get-access-level-style accessLevel }}">
-        {{ accessLevel.label }}
+      as |accessLevel|
+    >
+      <span class="au-u-{{get-access-level-style accessLevel}}">
+        {{accessLevel.label}}
       </span>
     </PowerSelect>
     <AuButton
-      {{on 'click' this.saveAccessLevel}}
-      @icon="check" @skin="naked" @hideText="true">
+      {{on "click" this.saveAccessLevel}}
+      @icon="check"
+      @skin="naked"
+      @hideText="true"
+    >
       Opslaan
     </AuButton>
     <AuButton
       {{on "click" this.cancelEditingAccessLevel}}
-      @icon="cross" @skin="naked" @hideText="true" @alert={{true}}>
+      @icon="cross"
+      @skin="naked"
+      @hideText="true"
+      @alert={{true}}
+    >
       Annuleren
     </AuButton>
   {{else}}
     <AuPill
       {{on "click" (fn (mut this.isEditingAccessLevel) true)}}
-      @skin={{get-access-level-style @version.accessLevel}}>
+      @skin={{get-access-level-style @version.accessLevel}}
+    >
       {{or @version.accessLevel.label "Geen toegangsniveau"}}
     </AuPill>
   {{/if}}
   <AuButton
     @icon={{if @version.confidential "lock" "lock-unlock"}}
     {{on "click" this.toggleConfidential}}
-    @skin="naked" @hideText="true">
+    @skin="naked"
+    @hideText="true"
+  >
     Wissel openbaarheid
   </AuButton>
   <LinkTo
     @route="view-document"
     @model={{@version}}
     target="_blank"
-    class="au-c-button au-c-button--naked au-c-button--icon-only">
+    class="au-c-button au-c-button--naked au-c-button--icon-only"
+  >
     <AuIcon @icon="book" />
     <span class="au-u-hidden-visually">
       Lees document
     </span>
   </LinkTo>
 {{/if}}
-<AuDropdown
-  @title="Meer opties"
-  @icon="three-dots" @hideText="true">
+<AuDropdown @title="Meer opties" @icon="three-dots" @hideText="true">
   {{#if @version}}
     <AuLinkExternal
       href={{document-version/download-link @version}}
       download={{document-version/download-filename @version}}
-      role="menuitem">
+      role="menuitem"
+    >
       Document downloaden
     </AuLinkExternal>
   {{/if}}
   {{#if @document}}
     <AuButton
       {{on "click" (fn (mut this.isAddingVersion) true)}}
-      @skin="link" role="menuitem">
+      @skin="link"
+      role="menuitem"
+    >
       Nieuwe versie uploaden
     </AuButton>
-    <AuButton
-      {{on "click" @onEditDocumentName}}
-      @skin="link" role="menuitem">
+    <AuButton {{on "click" @onEditDocumentName}} @skin="link" role="menuitem">
       Documentnaam wijzigen
     </AuButton>
-   {{/if}}
+  {{/if}}
   <AuHr />
   {{#if @version}}
     <AuButton
       {{on "click" (fn this.deleteVersion @version)}}
-      @skin="link" @alert={{true}} role="menuitem">
+      @skin="link"
+      @alert={{true}}
+      role="menuitem"
+    >
       Versie verwijderen
     </AuButton>
   {{/if}}
   {{#if @document}}
     <AuButton
       {{on "click" (fn this.deleteDocument @document)}}
-      @skin="link" @alert={{true}} role="menuitem">
+      @skin="link"
+      @alert={{true}}
+      role="menuitem"
+    >
       Document verwijderen
     </AuButton>
   {{/if}}
@@ -90,4 +107,4 @@
   @multiple={{false}}
   @onSave={{this.addVersion}}
   @onCancel={{fn (mut this.isAddingVersion) false}}
-  />
+/>

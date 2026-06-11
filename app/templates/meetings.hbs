@@ -5,7 +5,11 @@
     <AuHeading @skin="2">Vergaderingen</AuHeading>
   </Group>
   <Group>
-    <AuButton {{on "click" this.openNewMeetingModal}} @skin="primary" @icon="plus">
+    <AuButton
+      {{on "click" this.openNewMeetingModal}}
+      @skin="primary"
+      @icon="plus"
+    >
       Nieuwe vergadering
     </AuButton>
   </Group>
@@ -18,14 +22,16 @@
   @sort={{this.sort}}
   @page={{this.page}}
   @size={{this.size}}
-  as |t|>
+  as |t|
+>
   <t.content as |c|>
     <c.header>
       <AuDataTableThSortable
         @field="startedAt"
         @currentSorting={{this.sort}}
-        @label="Datum" @class="data-table-meeting-started-at"
-        />
+        @label="Datum"
+        @class="data-table-meeting-started-at"
+      />
       <th>
       </th>
     </c.header>
@@ -36,7 +42,8 @@
           @route="meeting"
           @model={{meeting.id}}
           @icon="chevron-right"
-          @hideText={{true}}>
+          @hideText={{true}}
+        >
           Ga naar vergadering
         </AuLink>
       </td>
@@ -47,7 +54,8 @@
 <AuModal
   @modalOpen={{this.isOpenNewMeetingModal}}
   @closeModal={{this.closeNewMeetingModal}}
-  @overflow={{true}}>
+  @overflow={{true}}
+>
   <:title>
     Nieuwe vergadering
   </:title>
@@ -62,7 +70,8 @@
       <AuButton
         @skin="primary"
         @loading={{this.saveNewMeeting.isRunning}}
-        {{on "click" this.saveNewMeeting.perform}}>
+        {{on "click" this.saveNewMeeting.perform}}
+      >
         Aanmaken
       </AuButton>
     </AuToolbar>
