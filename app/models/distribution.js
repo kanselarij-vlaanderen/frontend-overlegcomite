@@ -1,5 +1,5 @@
-import { tracked } from "@glimmer/tracking";
-import { task } from "ember-concurrency";
+import { tracked } from '@glimmer/tracking';
+import { task, timeout } from 'ember-concurrency';
 
 export default class Distribution {
   @tracked _hasStarted = null;
@@ -7,7 +7,9 @@ export default class Distribution {
 
   constructor(meeting, type) {
     if (!TYPES.includes(type)) {
-      throw TypeError(`Invalid distribution type: ${type}, must be one of ${TYPES.join(', ')}`)
+      throw TypeError(
+        `Invalid distribution type: ${type}, must be one of ${TYPES.join(', ')}`,
+      );
     }
     this.meeting = meeting;
     this.type = type;
@@ -20,6 +22,12 @@ export default class Distribution {
 
   get distributionStatus() {
     return this._distributionStatus;
+  }
+  set distributionStatus(newStatus) {
+    this._distributionStatus = newStatus;
+    if (this.loading) {
+      this.autoReload.perform();
+    }
   }
 
   get loading() {
@@ -35,41 +43,75 @@ export default class Distribution {
     return this._distributionStatus === STATUSSES.FAILED;
   }
 
-  fetchStatus = task({
-    keepLatest: true,
-  }, async () => {
-    const res = await fetch(this.endpoint);
+  fetchStatus = task(
+    {
+      keepLatest: true,
+    },
+    async () => {
+      const res = await fetch(this.endpoint);
 
-    switch (res.status) {
-      case 200:
-      case 406: {
-        const body = await res.json();
-        this._distributionStatus = body.data.status;
-        this._hasStarted = true;
-        break;
+      switch (res.status) {
+        case 200:
+        case 406: {
+          const body = await res.json();
+          this.distributionStatus = body.data.status;
+          this._hasStarted = true;
+          break;
+        }
+        case 404: {
+          this.distributionStatus = null;
+          this._hasStarted = false;
+          break;
+        }
+        default: {
+          throw new Error(
+            `Unexpected response status: ${res.status} ${res.statusText}`,
+          );
+        }
       }
-      case 404: {
-        this._distributionStatus = null;
-        this._hasStarted = false;
-        break;
+
+      return this.distributionStatus;
+    },
+  );
+
+  autoReload = task(
+    {
+      drop: true,
+    },
+    async () => {
+      while (this.loading) {
+        await timeout(10000);
+        await this.fetchStatus.perform();
       }
-      default: {
-        throw new Error(`Unexpected response status: ${res.status} ${res.statusText}`)
-      }
+    },
+  );
+
+  async runDistribution() {
+    const res = await fetch(this.endpoint, {
+      method: 'POST',
+    });
+
+    if (res.ok) {
+      const body = await res.json();
+      this._hasStarted = true;
+      this.distributionStatus = body.data.status;
+      return body.data;
+    } else {
+      throw new Error(
+        `Unexpected response status: ${res.status} ${res.statusText}`,
+      );
     }
-
-    return this.distributionStatus;
-  })
+  }
 }
 
 const STATUSSES = {
   SCHEDULED: 'scheduled',
   STARTED: 'started',
   FINISHED: 'done',
-  FAILED: 'failed'
-}
+  FAILED: 'failed',
+};
 
-const SETTLED_STATUSSES = [STATUSSES.FINISHED, STATUSSES.FAILED]
-const LOADING_STATUSSES = [STATUSSES.SCHEDULED, STATUSSES.STARTED]
+const SETTLED_STATUSSES = [STATUSSES.FINISHED, STATUSSES.FAILED];
+const LOADING_STATUSSES = [STATUSSES.SCHEDULED, STATUSSES.STARTED];
 
-const TYPES = ["agenda", "notifications"]
+const TYPES = ['agenda', 'notifications'];
