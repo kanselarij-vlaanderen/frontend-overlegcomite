@@ -21,6 +21,14 @@ $au-navigation-list-border: 1px;
  * Overlegcomite customizations
  */
 
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.oc-u-monospace {
+  font-family: monospace;
+}
+
 th.data-table-meeting-started-at {
   width: 95%;
 }
@@ -93,9 +101,6 @@ th.data-table-meeting-started-at {
   }
 }
 
-.cursor-pointer {
-  cursor: pointer;
-}
 
 .oc-u-sticky-top,
 .oc-c-sticky-header {

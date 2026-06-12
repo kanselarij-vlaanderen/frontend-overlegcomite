@@ -1,0 +1,22 @@
+{{page-title "Fout"}}
+
+<div class="au-o-region-large">
+  <div class="au-o-layout au-o-flow">
+    {{#each (extract-errors @model) as |error|}}
+      <AuAlert
+        @title={{error.title}}
+        @icon="alert-circle"
+        @skin="error">
+        <p>
+          {{error.description}}
+        </p>
+        <details>
+          <summary>Extra info:</summary>
+          <pre class="oc-u-monospace">{{error.details}}</pre>
+        </details>
+      </AuAlert>
+    {{/each}}
+  </div>
+</div>
+
+{{outlet}}
