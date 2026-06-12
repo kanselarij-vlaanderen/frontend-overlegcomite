@@ -13,16 +13,20 @@
           <AuInput
             id="search-text"
             placeholder="Zoekterm"
-            value={{this.searchText}}
+            value={{this.searchTextInput}}
             @icon="search"
             @iconAlignment="right"
             @width="block"
-            {{on "input" (with-value (fn (mut this.searchText)))}} />
+            class="oc-u-subtle-progress-bar"
+            {{this.asProgressBar}}
+            {{on "input" (with-value (fn (mut this.searchTextInput)))}}
+          />
         </div>
         <div class="au-o-grid__item au-u-1-2@small">
           <AuToggleSwitch
             @checked={{this.notificationsOnly}}
-            @onChange={{fn (mut this.notificationsOnly)}}>
+            @onChange={{fn (mut this.notificationsOnly)}}
+          >
             Uitsluitend in notificaties zoeken
           </AuToggleSwitch>
         </div>
@@ -37,14 +41,15 @@
   @sort={{this.sort}}
   @page={{this.page}}
   @size={{this.size}}
-  as |t|>
+  as |t|
+>
   <t.content as |c|>
     <c.header>
       <AuDataTable::ThSortable
         @field="meetingDate"
         @currentSorting={{this.sort}}
         @label="Vergadering"
-        />
+      />
       <th class="data-table-search-agendaitems-subject">
         Onderwerp
       </th>
@@ -52,7 +57,8 @@
     </c.header>
     <c.body as |agendaitem|>
       <td>
-        Vergadering van {{format-datetime agendaitem.attributes.meetingDate}}
+        Vergadering van
+        {{format-datetime agendaitem.attributes.meetingDate}}
       </td>
       <td>
         {{agendaitem.attributes.subject}}
@@ -60,9 +66,13 @@
       <td class="au-u-text-center">
         <AuLink
           @route="meeting.agendaitems.agendaitem"
-          @models={{array (or agendaitem.attributes.meetingId 'NO_MEETING_ID') agendaitem.id}}
+          @models={{array
+            (or agendaitem.attributes.meetingId "NO_MEETING_ID")
+            agendaitem.id
+          }}
           @icon="chevron-right"
-          @hideText={{true}}>
+          @hideText={{true}}
+        >
           Ga naar agendapunt
         </AuLink>
       </td>
