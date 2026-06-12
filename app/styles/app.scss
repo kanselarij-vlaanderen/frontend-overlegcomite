@@ -29,15 +29,20 @@ $au-navigation-list-border: 1px;
   font-family: monospace;
 }
 
-th.data-table-meeting-started-at {
-  width: 95%;
+th.data-table-row-navigation {
+  width: 5%;
+}
+
+th.data-table-search-agendaitems-subject {
+  width: 70%;
 }
 
 .au-c-data-table td {
   cursor: pointer;
 }
 
-.oc-meeting-header {
+.oc-meeting-header,
+.oc-search-header {
   .au-c-toolbar {
     padding-top: 0;
     padding-bottom: 0;

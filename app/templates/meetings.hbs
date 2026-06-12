@@ -13,7 +13,6 @@
 
 <AuDataTable
   @content={{@model}}
-  @fields="startedAt"
   @noDataMessage="Geen vergaderingen gevonden"
   @sort={{this.sort}}
   @page={{this.page}}
@@ -24,13 +23,11 @@
       <AuDataTableThSortable
         @field="startedAt"
         @currentSorting={{this.sort}}
-        @label="Datum" @class="data-table-meeting-started-at"
-        />
-      <th>
-      </th>
+        @label="Datum" />
+      <th class="data-table-row-navigation" />
     </c.header>
     <c.body @onClickRow={{this.goToMeeting}} as |meeting|>
-      <td>Agenda van {{format-datetime meeting.startedAt}}</td>
+      <td>Vergadering van {{format-datetime meeting.startedAt}}</td>
       <td class="au-u-text-center">
         <AuLink
           @route="meeting"
