@@ -17,4 +17,24 @@ export default class DistributionStatusComponent extends Component {
 
     this.distribution.autoReload.cancelAll();
   }
+
+  get icon() {
+    if (this.distribution.loading) {
+      return 'clock';
+    } else if (this.distribution.finished) {
+      return 'circle-check';
+    } else {
+      return 'circle-x';
+    }
+  }
+
+  get skin() {
+    if (this.distribution.loading) {
+      return 'ongoing';
+    } else if (this.distribution.finished) {
+      return 'success';
+    } else {
+      return 'error';
+    }
+  }
 }

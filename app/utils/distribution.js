@@ -1,9 +1,13 @@
 import { tracked } from '@glimmer/tracking';
 import { task, timeout } from 'ember-concurrency';
+import DatetimeTransform from '../transforms/datetime';
+
+const datetimeTransform = new DatetimeTransform();
 
 export default class Distribution {
   @tracked _hasStarted = null;
   @tracked _distributionStatus = null;
+  @tracked modified = null;
 
   constructor(meeting, type) {
     if (!TYPES.includes(type)) {
@@ -55,6 +59,7 @@ export default class Distribution {
         case 406: {
           const body = await res.json();
           this.distributionStatus = body.data.status;
+          this.modified = datetimeTransform.deserialize(body.data.modified);
           this._hasStarted = true;
           break;
         }
@@ -95,6 +100,7 @@ export default class Distribution {
       const body = await res.json();
       this._hasStarted = true;
       this.distributionStatus = body.data.status;
+      this.modified = datetimeTransform.deserialize(body.data.modified);
       return body.data;
     } else {
       throw new Error(
