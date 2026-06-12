@@ -8,41 +8,41 @@ export default class FileCard extends Component {
   @service store;
 
   @tracked accessLevelOptions = [];
+  @tracked documentVersions = [];
 
   @tracked isEditingDocumentName = false;
 
   constructor() {
     super(...arguments);
-    this.accessLevelOptions = this.store.query('access-level', {
-      sort: 'priority',
+
+    this.store
+      .queryAll('access-level', {
+        sort: 'priority',
+      })
+      .then((accessLevelOptions) => {
+        this.accessLevelOptions = accessLevelOptions;
+      });
+
+    this.document.get('documentVersions').then((documentVersions) => {
+      this.documentVersions = documentVersions;
     });
+  }
+
+  get sortedDocumentVersions() {
+    return this.documentVersions.toSorted(
+      (v1, v2) => v2.versionNumber - v1.versionNumber,
+    );
+  }
+  get selectedVersion() {
+    return this.sortedDocumentVersions[0];
   }
 
   get document() {
     return this.args.document;
   }
 
-  get selectedVersion() {
-    if (this.args.selectedVersion) {
-      return this.args.selectedVersion;
-    } else {
-      const sorted = this.sortedDocumentVersions;
-      return sorted[0];
-    }
-  }
-
-  get sortedDocumentVersions() {
-    return this.document
-      .get('documentVersions')
-      .toSorted((v1, v2) => v2.versionNumber - v1.versionNumber);
-  }
-
-  get accessLevelOptions() {
-    return this.store.query('access-level', { sort: 'priority' });
-  }
-
   get showFooter() {
-    return this.document.get('documentVersions').length > 1;
+    return this.sortedDocumentVersions?.length > 1;
   }
 
   @action

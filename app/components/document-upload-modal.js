@@ -57,8 +57,7 @@ export default class DocumentUploadModal extends Component {
     await Promise.all(
       documents.flatMap(async (document) => {
         await document.save();
-        return document.documentVersions.map(async (version) => {
-          version.document = document;
+        return (await document.documentVersions).map(async (version) => {
           return version.save();
         });
       }),

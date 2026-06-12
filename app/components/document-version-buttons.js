@@ -10,8 +10,16 @@ export default class DocumentVersionButtons extends Component {
   @tracked isEditingAccessLevel = false;
   @tracked isAddingVersion = false;
 
-  get accessLevelOptions() {
-    return this.store.query('access-level', { sort: 'priority' });
+  @tracked accessLevelOptions = [];
+
+  constructor() {
+    super(...arguments);
+
+    this.store
+      .queryAll('access-level', { sort: 'priority' })
+      .then((accessLevelOptions) => {
+        this.accessLevelOptions = accessLevelOptions.toArray();
+      });
   }
 
   @action
@@ -43,23 +51,24 @@ export default class DocumentVersionButtons extends Component {
       document,
       file,
       confidential: baseVersion.confidential,
-      accessLevel: baseVersion.accessLevel,
+      accessLevel: await baseVersion.accessLevel,
       versionNumber: baseVersion.versionNumber + 1,
     });
-    document.documentVersions.push(newVersion);
     await newVersion.save();
     this.isAddingVersion = false;
   }
 
   @action
   async deleteVersion(version) {
-    await version.file.destroyRecord();
+    await (await version.file).destroyRecord();
     await version.destroyRecord();
   }
 
   @action
   async deleteDocument(document) {
-    await Promise.all(document.documentVersions.map(this.deleteVersion));
+    await Promise.all(
+      (await document.documentVersions).map(this.deleteVersion),
+    );
     await document.destroyRecord();
   }
 }

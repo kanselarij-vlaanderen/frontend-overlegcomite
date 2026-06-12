@@ -15,16 +15,20 @@
         {{#each this.documents as |document|}}
           <AuCard @flex={{true}} as |c|>
             <c.header @badgeIcon="file">
-              {{#let (get document.documentVersions 0) as |version|}}
-                <AuHeading @skin="4">
-                  {{version.file.filename}}
-                </AuHeading>
-                <p>
-                  {{format-file-size version.file.size}}
-                  -
-                  {{version.file.extension}}
-                </p>
-              {{/let}}
+              <Await @promise={{document.documentVersions}}>
+                <:success as |documentVersions|>
+                  {{#let (get documentVersions 0) as |version|}}
+                    <AuHeading @skin="4">
+                      {{version.file.filename}}
+                    </AuHeading>
+                    <p>
+                      {{format-file-size version.file.size}}
+                      -
+                      {{version.file.extension}}
+                    </p>
+                  {{/let}}
+                </:success>
+              </Await>
             </c.header>
             <c.content class="au-c-form">
               {{#let (unique-id) as |id|}}

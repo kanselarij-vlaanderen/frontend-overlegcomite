@@ -4,8 +4,8 @@ export default class DocumentModel extends Model {
   @attr('string') name;
   @attr('datetime') created;
 
-  @belongsTo('document-type', { inverse: 'documents', async: false }) type;
-  @hasMany('document-version', { inverse: 'document', async: false })
+  @belongsTo('document-type', { inverse: 'documents', async: true }) type;
+  @hasMany('document-version', { inverse: 'document', async: true })
   documentVersions;
 
   loadRelations() {

@@ -29,6 +29,6 @@ export default class MeetingAgendaitemsAgendaitemRoute extends Route {
 
   setupController(controller, model) {
     super.setupController(controller, model);
-    controller.caseIdentifier = this.case.identifier;
+    controller.caseIdentifier = this.case?.identifier;
   }
 }

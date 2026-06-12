@@ -1,17 +1,21 @@
 {{#if @version}}
   {{#if this.isEditingAccessLevel}}
-    <PowerSelect
-      @allowClear={{true}}
-      @placeholder="Geen toegangsniveau"
-      @options={{this.accessLevelOptions}}
-      @selected={{@version.accessLevel}}
-      @onChange={{fn (mut @version.accessLevel)}}
-      as |accessLevel|
-    >
-      <span class="au-u-{{get-access-level-style accessLevel}}">
-        {{accessLevel.label}}
-      </span>
-    </PowerSelect>
+    <Await @promise={{@version.accessLevel}}>
+      <:success as |selected|>
+        <PowerSelect
+          @allowClear={{true}}
+          @placeholder="Geen toegangsniveau"
+          @options={{this.accessLevelOptions}}
+          @selected={{selected}}
+          @onChange={{fn (mut @version.accessLevel)}}
+          as |accessLevel|
+        >
+          <span class="au-u-{{get-access-level-style accessLevel}}">
+            {{accessLevel.label}}
+          </span>
+        </PowerSelect>
+      </:success>
+    </Await>
     <AuButton
       {{on "click" this.saveAccessLevel}}
       @icon="check"
@@ -58,7 +62,7 @@
   </LinkTo>
 {{/if}}
 <AuDropdown @title="Meer opties" @icon="three-dots" @hideText="true">
-  {{#if @version}}
+  {{#if @version.file}}
     <AuLinkExternal
       href={{document-version/download-link @version}}
       download={{document-version/download-filename @version}}
