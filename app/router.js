@@ -18,5 +18,8 @@ Router.map(function() {
       this.route('agendaitem', { path: '/:agendaitem_id' });
     });
   });
-  this.route('search', { path: '/agendapunten/zoeken' });
+
+  this.route('search', { path: '/zoeken' });
+
+  this.route('error', { path: 'fout/*path'});
 });
