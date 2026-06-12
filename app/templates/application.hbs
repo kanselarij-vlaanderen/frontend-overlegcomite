@@ -3,7 +3,7 @@
 <BasicDropdownWormhole />
 <AuModalContainer />
 
-<AuApp>
+<AuApp {{on-global-error this.showError}}>
   <AuMainHeader
     @brandLink="https://www.vlaanderen.be/nl"
     @homeRoute="index"
@@ -31,3 +31,5 @@
     </main.content>
   </AuMainContainer>
 </AuApp>
+
+<AuToaster />
