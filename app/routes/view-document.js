@@ -7,7 +7,7 @@ export default class ViewDocumentRoute extends Route {
   async model({ document_id, version_number }) {
     const documentVersion = await this.store.queryOne('document-version', {
       'filter[document][:id:]': document_id,
-      'filter[:exact:version-number]': version_number,
+      'filter[version-number]': version_number,
       include: 'file,document',
     });
 
@@ -15,9 +15,10 @@ export default class ViewDocumentRoute extends Route {
   }
 
   serialize(model) {
+    const [document, version] = Array.isArray(model) ? model : [model.document, model]
     return {
-      document_id: model.document.id,
-      version_number: model.versionNumber,
+      document_id: document.id,
+      version_number: version.versionNumber,
     };
   }
 }
