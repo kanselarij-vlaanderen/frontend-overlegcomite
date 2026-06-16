@@ -13,9 +13,9 @@ export default class MeetingsRoute extends Route {
   model(params) {
     // eslint-disable-next-line warp-drive/no-legacy-request-patterns
     return this.store.query('meeting', {
-      sort: params.sort ?? '',
-      'page[size]': params.size ?? '',
-      'page[number]': params.page ?? 0,
+      sort: params.sort,
+      'page[size]': params.size,
+      'page[number]': params.page,
     });
   }
 
