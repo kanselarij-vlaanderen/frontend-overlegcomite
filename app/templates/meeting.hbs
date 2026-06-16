@@ -7,6 +7,16 @@
         Agenda van
         {{format-datetime @model.startedAt "oc-long"}}
       </AuHeading>
+      <div>
+        <DistributionStatus
+          @distribution={{this.agendaDistribution}}
+          @entityName="Agenda"
+          />
+        <DistributionStatus
+          @distribution={{this.notificationsDistribution}}
+          @entityName="Notificaties"
+          />
+      </div>
     </Group>
   </AuToolbar>
   <AuToolbar @size="medium" @skin="tint" @border="bottom" as |Group|>
@@ -45,10 +55,21 @@
           Nieuw agendapunt
         </AuButton>
         <AuDropdown @title="Acties" @alignment="right" @skin="secondary">
-          <AuButton @skin="link" role="menuitem">
+          <AuButton
+            {{on "click" (fn this.runDistribution this.agendaDistribution)}}
+            @skin="link"
+            role="menuitem"
+          >
             Agenda vrijgeven
           </AuButton>
-          <AuButton @skin="link" role="menuitem">
+          <AuButton
+            {{on
+              "click"
+              (fn this.runDistribution this.notificationsDistribution)
+            }}
+            @skin="link"
+            role="menuitem"
+          >
             Notificaties vrijgeven
           </AuButton>
           <AuHr />

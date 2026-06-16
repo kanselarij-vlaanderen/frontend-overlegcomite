@@ -1,5 +1,6 @@
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
+import Distribution from '../utils/distribution';
 
 export default class MeetingRoute extends Route {
   @service store;
@@ -13,5 +14,10 @@ export default class MeetingRoute extends Route {
         'documents.document-versions.access-level',
       ],
     });
+  }
+
+  setupController(controller, model) {
+    controller.agendaDistribution = new Distribution(model, 'agenda');
+    controller.notificationsDistribution = new Distribution(model, 'notifications');
   }
 }
