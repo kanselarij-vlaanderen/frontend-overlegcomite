@@ -22,7 +22,6 @@ export default class MeetingAgendaitemsAgendaitemRoute extends Route {
         ],
       },
     );
-    await agendaitem.reload();
     this.case = await agendaitem.case;
     return agendaitem;
   }
