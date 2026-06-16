@@ -7,12 +7,4 @@ export default class DocumentModel extends Model {
   @belongsTo('document-type', { inverse: 'documents', async: true }) type;
   @hasMany('document-version', { inverse: 'document', async: true })
   documentVersions;
-
-  loadRelations() {
-    return this.store.findRecord('document', this.id, {
-      include:
-        'type,document-versions,document-versions.access-level,document-versions.file',
-      reload: true,
-    });
-  }
 }
