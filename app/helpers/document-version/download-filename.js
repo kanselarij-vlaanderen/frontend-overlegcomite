@@ -1,6 +1,3 @@
-export default function versionDownloadFilename(version) {
-  const documentName = version.document.get('name');
-  const fileName = `${documentName}.${version.file.get('extension')}`;
-
-  return fileName;
+export default function downloadFilename(document, file) {
+  return `${document.name}.${file.extension}`;
 }

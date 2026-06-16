@@ -63,13 +63,21 @@
 {{/if}}
 <AuDropdown @title="Meer opties" @icon="three-dots" @hideText="true">
   {{#if @version.file}}
-    <AuLinkExternal
-      href={{document-version/download-link @version}}
-      download={{document-version/download-filename @version}}
-      role="menuitem"
-    >
-      Document downloaden
-    </AuLinkExternal>
+    <Await @promise={{@version.document}}>
+      <:success as |document|>
+        <Await @promise={{@version.file}}>
+          <:success as |file|>
+            <AuLinkExternal
+              href={{document-version/download-link document file}}
+              download={{document-version/download-filename document file}}
+              role="menuitem"
+            >
+              Document downloaden
+            </AuLinkExternal>
+          </:success>
+        </Await>
+      </:success>
+    </Await>
   {{/if}}
   {{#if @document}}
     <AuButton
