@@ -6,6 +6,7 @@ import { modifier } from 'ember-modifier';
 const SEARCH_DEBOUNCE = 1000;
 
 export default class SearchController extends Controller {
+  @tracked isLoadingModel = false;
   @tracked _searchTextInput = null;
   @tracked searchText;
   @tracked notificationsOnly = false;
@@ -29,7 +30,6 @@ export default class SearchController extends Controller {
     async (newText) => {
       this.animateProgressBar();
       await timeout(SEARCH_DEBOUNCE);
-      console.log('Searching:', newText);
       this.searchText = newText;
       this.page = 0;
     },

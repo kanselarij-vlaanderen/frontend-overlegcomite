@@ -35,47 +35,53 @@
   </AuToolbar>
 </div>
 
-<AuDataTable
-  @content={{@model.data}}
-  @noDataMessage="Geen agendapunten gevonden"
-  @sort={{this.sort}}
-  @page={{this.page}}
-  @size={{this.size}}
-  as |t|
->
-  <t.content as |c|>
-    <c.header>
-      <AuDataTable::ThSortable
-        @field="meetingDate"
-        @currentSorting={{this.sort}}
-        @label="Vergadering"
-      />
-      <th class="data-table-search-agendaitems-subject">
-        Onderwerp
-      </th>
-      <th class="data-table-row-navigation" />
-    </c.header>
-    <c.body as |agendaitem|>
-      <td>
-        Vergadering van
-        {{format-datetime agendaitem.attributes.meetingDate}}
-      </td>
-      <td>
-        {{agendaitem.attributes.subject}}
-      </td>
-      <td class="au-u-text-center">
-        <AuLink
-          @route="meeting.agendaitems.agendaitem"
-          @models={{array
-            (or agendaitem.attributes.meetingId "NO_MEETING_ID")
-            agendaitem.id
-          }}
-          @icon="chevron-right"
-          @hideText={{true}}
-        >
-          Ga naar agendapunt
-        </AuLink>
-      </td>
-    </c.body>
-  </t.content>
-</AuDataTable>
+{{#if this.isLoadingModel}}
+  <AuLoader>
+    Aan het zoeken
+  </AuLoader>
+{{else}}
+  <AuDataTable
+    @content={{@model.data}}
+    @noDataMessage="Geen agendapunten gevonden"
+    @sort={{this.sort}}
+    @page={{this.page}}
+    @size={{this.size}}
+    as |t|
+  >
+    <t.content as |c|>
+      <c.header>
+        <AuDataTable::ThSortable
+          @field="meetingDate"
+          @currentSorting={{this.sort}}
+          @label="Vergadering"
+        />
+        <th class="data-table-search-agendaitems-subject">
+          Onderwerp
+        </th>
+        <th class="data-table-row-navigation" />
+      </c.header>
+      <c.body as |agendaitem|>
+        <td>
+          Vergadering van
+          {{format-datetime agendaitem.attributes.meetingDate}}
+        </td>
+        <td>
+          {{agendaitem.attributes.subject}}
+        </td>
+        <td class="au-u-text-center">
+          <AuLink
+            @route="meeting.agendaitems.agendaitem"
+            @models={{array
+              (or agendaitem.attributes.meetingId "NO_MEETING_ID")
+              agendaitem.id
+            }}
+            @icon="chevron-right"
+            @hideText={{true}}
+          >
+            Ga naar agendapunt
+          </AuLink>
+        </td>
+      </c.body>
+    </t.content>
+  </AuDataTable>
+{{/if}}

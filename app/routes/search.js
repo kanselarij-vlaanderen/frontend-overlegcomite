@@ -1,5 +1,6 @@
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
+import { action } from '@ember/object';
 import { camelize } from '@warp-drive/utilities/string';
 import muSearch from '../utils/mu-search';
 import DatetimeTransform from '../transforms/datetime';
@@ -44,6 +45,17 @@ export default class SearchRoute extends Route {
     });
 
     return { data };
+  }
+
+  @action
+  loading(transition) {
+    // eslint-disable-next-line ember/no-controller-access-in-routes
+    const controller = this.controllerFor(this.routeName);
+    controller.isLoadingModel = true;
+    transition.promise.finally(() => {
+      controller.isLoadingModel = false;
+    });
+    return true;
   }
 }
 
