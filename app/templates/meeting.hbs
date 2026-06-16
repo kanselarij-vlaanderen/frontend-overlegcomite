@@ -8,6 +8,16 @@
         {{format-datetime @model.startedAt "oc-long"}}
       </AuHeading>
     </Group>
+    <Group>
+      <DistributionStatus
+        @distribution={{this.agendaDistribution}}
+        @entityName="Agenda"
+      />
+      <DistributionStatus
+        @distribution={{this.notificationsDistribution}}
+        @entityName="Notificaties"
+      />
+    </Group>
   </AuToolbar>
   <AuToolbar @size="medium" @skin="tint" @border="bottom" as |Group|>
     <Group>
@@ -34,16 +44,6 @@
           <AuLink>Documenten</AuLink>
         </Tab>
       </AuTabs>
-    </Group>
-    <Group>
-      <DistributionStatus
-        @distribution={{this.agendaDistribution}}
-        @entityName="Agenda"
-      />
-      <DistributionStatus
-        @distribution={{this.notificationsDistribution}}
-        @entityName="Notificaties"
-      />
     </Group>
     <Group>
       <AuButtonGroup>

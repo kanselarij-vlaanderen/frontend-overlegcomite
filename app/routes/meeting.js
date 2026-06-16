@@ -1,6 +1,6 @@
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
-import Distribution from '../models/distribution';
+import Distribution from '../utils/distribution';
 
 export default class MeetingRoute extends Route {
   @service store;

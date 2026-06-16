@@ -1,11 +1,25 @@
 import { tracked } from '@glimmer/tracking';
+import { service } from '@ember/service';
+import { getOwner, setOwner } from '@ember/application';
 import { task, timeout } from 'ember-concurrency';
+import DatetimeTransform from '../transforms/datetime';
+
+const datetimeTransform = new DatetimeTransform();
 
 export default class Distribution {
+  @service store;
+
+  get requestManager() {
+    return this.store.requestManager;
+  }
+
   @tracked _hasStarted = null;
   @tracked _distributionStatus = null;
+  @tracked modified = null;
 
   constructor(meeting, type) {
+    setOwner(this, getOwner(meeting));
+
     if (!TYPES.includes(type)) {
       throw TypeError(
         `Invalid distribution type: ${type}, must be one of ${TYPES.join(', ')}`,
@@ -48,26 +62,32 @@ export default class Distribution {
       keepLatest: true,
     },
     async () => {
-      const res = await fetch(this.endpoint);
+      let content;
 
-      switch (res.status) {
-        case 200:
-        case 406: {
-          const body = await res.json();
-          this.distributionStatus = body.data.status;
-          this._hasStarted = true;
-          break;
+      try {
+        const res = await this.requestManager.request({
+          url: this.endpoint,
+        });
+        content = res.content;
+      } catch (e) {
+        if (!e.status) throw e;
+
+        if (e.status === 406) {
+          content = e.content;
+        } else if (e.status === 404) {
+          content = null;
+        } else {
+          throw e;
         }
-        case 404: {
-          this.distributionStatus = null;
-          this._hasStarted = false;
-          break;
-        }
-        default: {
-          throw new Error(
-            `Unexpected response status: ${res.status} ${res.statusText}`,
-          );
-        }
+      }
+
+      if (content) {
+        this.distributionStatus = content.data.status;
+        this.modified = datetimeTransform.deserialize(content.data.modified);
+        this._hasStarted = true;
+      } else {
+        this.distributionStatus = null;
+        this._hasStarted = false;
       }
 
       return this.distributionStatus;
@@ -87,20 +107,15 @@ export default class Distribution {
   );
 
   async runDistribution() {
-    const res = await fetch(this.endpoint, {
+    const res = await this.requestManager.request({
+      url: this.endpoint,
       method: 'POST',
     });
-
-    if (res.ok) {
-      const body = await res.json();
-      this._hasStarted = true;
-      this.distributionStatus = body.data.status;
-      return body.data;
-    } else {
-      throw new Error(
-        `Unexpected response status: ${res.status} ${res.statusText}`,
-      );
-    }
+    content = res.content;
+    this._hasStarted = true;
+    this.distributionStatus = content.data.status;
+    this.modified = datetimeTransform.deserialize(content.data.modified);
+    return content.data;
   }
 }
 

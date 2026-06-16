@@ -1,19 +1,17 @@
 {{#if @distribution.hasStarted}}
-  {{#if @distribution.loading}}
-    <span>
-      <AuLoader @inline={{true}} @hideMessage={{false}}>
-        {{@entityName}} in vrijgave
-       </AuLoader>
-    </span>
-  {{else if @distribution.finished}}
-    <span class="au-u-success">
-      {{@entityName}} vrijgegeven
-      <AuIcon @icon="check" />
-    </span>
-  {{else}}
-    <span class="au-u-error">
-      {{@entityName}} vrijgeven mislukt
-      <AuIcon @icon="alert-circle" />
-    </span>
-  {{/if}}
+  <AuPill @icon={{this.icon}} @skin={{this.skin}}>
+    {{#if @distribution.loading}}
+      {{@entityName}}
+      in vrijgave sinds
+      {{format-datetime @distribution.modified}}
+    {{else if @distribution.finished}}
+      {{@entityName}}
+      vrijgegeven om
+      {{format-datetime @distribution.modified}}
+    {{else}}
+      {{@entityName}}
+      vrijgeven mislukt om
+      {{format-datetime @distribution.modified}}
+    {{/if}}
+  </AuPill>
 {{/if}}
