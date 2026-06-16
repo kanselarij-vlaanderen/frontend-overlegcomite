@@ -31,6 +31,7 @@ export default class SearchController extends Controller {
       await timeout(SEARCH_DEBOUNCE);
       console.log('Searching:', newText);
       this.searchText = newText;
+      this.page = 0;
     },
   );
 
