@@ -111,7 +111,7 @@ export default class Distribution {
       url: this.endpoint,
       method: 'POST',
     });
-    content = res.content;
+    const content = res.content;
     this._hasStarted = true;
     this.distributionStatus = content.data.status;
     this.modified = datetimeTransform.deserialize(content.data.modified);

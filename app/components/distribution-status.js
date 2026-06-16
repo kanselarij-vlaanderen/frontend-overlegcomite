@@ -22,7 +22,7 @@ export default class DistributionStatusComponent extends Component {
     if (this.distribution.loading) {
       return 'clock';
     } else if (this.distribution.finished) {
-      return 'circle-check';
+      return 'check';
     } else {
       return 'circle-x';
     }

@@ -7,16 +7,16 @@
         Agenda van
         {{format-datetime @model.startedAt "oc-long"}}
       </AuHeading>
-    </Group>
-    <Group>
-      <DistributionStatus
-        @distribution={{this.agendaDistribution}}
-        @entityName="Agenda"
-      />
-      <DistributionStatus
-        @distribution={{this.notificationsDistribution}}
-        @entityName="Notificaties"
-      />
+      <div>
+        <DistributionStatus
+          @distribution={{this.agendaDistribution}}
+          @entityName="Agenda"
+          />
+        <DistributionStatus
+          @distribution={{this.notificationsDistribution}}
+          @entityName="Notificaties"
+          />
+      </div>
     </Group>
   </AuToolbar>
   <AuToolbar @size="medium" @skin="tint" @border="bottom" as |Group|>
