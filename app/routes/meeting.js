@@ -10,6 +10,7 @@ export default class MeetingRoute extends Route {
     return this.store.findRecord('meeting', meeting_id, {
       include: [
         'agenda-items.submitters',
+        // We load these for the meeting/documents route
         'documents.document-versions.file',
         'documents.document-versions.access-level',
       ],

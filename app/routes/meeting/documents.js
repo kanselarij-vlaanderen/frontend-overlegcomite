@@ -6,6 +6,7 @@ export default class MeetingDocumentsRoute extends Route {
 
   async model() {
     const meeting = this.modelFor('meeting');
+    // Documents are included in the parent route
     const documents = await meeting.documents;
 
     return { meeting, documents };
