@@ -2,11 +2,19 @@
 
 <div class="au-o-grid au-o-grid--flush">
   <div class="au-o-grid__item {{unless this.isIndexRoute 'au-u-1-5'}}">
-    <AgendaitemsListNavigation
-      @agendaitemGroups={{@model}}
-      class="oc-agendaitem-list
-        {{if this.isIndexRoute 'au-u-margin au-o-flow'}}"
-    />
+    {{#if @model}}
+      <AgendaitemsListNavigation
+        @agendaitemGroups={{@model}}
+        class="oc-agendaitem-list
+          {{if this.isIndexRoute 'au-u-margin au-o-flow'}}"
+      />
+    {{else}}
+      <AuAlert @title="Geen agendapunten">
+        <p>
+          Deze vergadering heeft nog geen agendapunten
+        </p>
+      </AuAlert>
+    {{/if}}
   </div>
   {{#unless this.isIndexRoute}}
     <div class="au-o-grid__item au-u-4-5 au-u-background-white">
