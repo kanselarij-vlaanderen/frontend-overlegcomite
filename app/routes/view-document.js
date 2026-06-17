@@ -11,11 +11,17 @@ export default class ViewDocumentRoute extends Route {
       include: 'file,document',
     });
 
-    return documentVersion;
+    return {
+      documentVersion,
+      document: await documentVersion.document,
+      file: await documentVersion.file,
+    };
   }
 
   serialize(model) {
-    const [document, version] = Array.isArray(model) ? model : [model.document, model]
+    const [document, version] = Array.isArray(model)
+      ? model
+      : [model.document, model];
     return {
       document_id: document.id,
       version_number: version.versionNumber,

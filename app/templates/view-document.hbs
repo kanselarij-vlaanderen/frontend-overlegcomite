@@ -1,10 +1,15 @@
-{{page-title (format-versioned-document-name @model)}}
+{{page-title
+  (format-versioned-document-name @model.documentVersion @model.document)
+}}
 
 <object
   class="au-u-height-full"
-  title="Document {{format-versioned-document-name @model}}"
+  title="Document {{format-versioned-document-name
+    @model.documentVersion
+    @model.document
+  }}"
   type={{@model.file.format}}
-  data={{document-version/download-link @model "inline"}}
+  data={{document-version/download-link @model.document @model.file "inline"}}
 >
   <div class="au-o-region">
     <div class="au-o-layout">
@@ -15,11 +20,13 @@
       >
         <AuContent @skin="small">
           <p>
-            '{{format-versioned-document-name @model}}' kan niet in de browser
-            bekeken worden.
+            '{{format-versioned-document-name
+              @model.documentVersion
+              @model.document
+            }}' kan niet in de browser bekeken worden.
           </p>
           <AuLinkExternal
-            href={{document-version/download-link @model}}
+            href={{document-version/download-link @model.document @model.file}}
             @skin="button"
             @icon="download"
           >
