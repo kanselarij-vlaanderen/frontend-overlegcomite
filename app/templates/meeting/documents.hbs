@@ -4,6 +4,9 @@
   <div class="au-o-flow au-o-flow--small au-o-layout">
     <AuHeading @level="2" @skin="3">
       Documenten
+      {{#if @model.documents}}
+        ({{@model.documents.length}})
+      {{/if}}
     </AuHeading>
     {{#unless @model.documents}}
       <AuAlert @title="Geen documenten beschikbaar" @icon="circle-info">

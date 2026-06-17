@@ -34,6 +34,9 @@
 </div>
 <AuHeading @level={{3}} @skin={{3}}>
   Documenten
+  {{#if @agendaitem.documents}}
+    ({{@agendaitem.documents.length}})
+  {{/if}}
 </AuHeading>
 <div class="au-o-flow au-o-flow--small">
   <Await @promise={{@agendaitem.documents}}>
