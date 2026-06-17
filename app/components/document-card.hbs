@@ -9,11 +9,13 @@
         </div>
       </Group>
       <Group>
-        <DocumentVersionButtons
-          @version={{this.selectedVersion}}
-          @document={{this.document}}
-          @onEditDocumentName={{fn (mut this.isEditingDocumentName) true}}
-        />
+        {{#unless this.init.isRunning}}
+          <DocumentVersionButtons
+            @version={{this.selectedVersion}}
+            @document={{this.document}}
+            @onEditDocumentName={{fn (mut this.isEditingDocumentName) true}}
+          />
+        {{/unless}}
       </Group>
     </AuToolbar>
     <p>
@@ -42,7 +44,7 @@
         </AuButton>
       {{else}}
         {{#if this.selectedVersion}}
-          {{format-versioned-document-name this.selectedVersion}}
+          {{format-versioned-document-name this.selectedVersion this.document}}
         {{else}}
           {{this.document.name}}
           (Geen versies beschikbaar)
@@ -81,7 +83,7 @@
               />
               <div>
                 <p class="au-u-medium">
-                  {{format-versioned-document-name version}}
+                  {{format-versioned-document-name version this.document}}
                 </p>
                 <p class="au-u-muted">
                   {{format-datetime version.created}}

@@ -3,6 +3,7 @@ import { action } from '@ember/object';
 import { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import { cacheKeyFor } from '@warp-drive/core';
+import { task } from 'ember-concurrency';
 
 export default class DocumentVersionButtons extends Component {
   @service store;
@@ -11,16 +12,17 @@ export default class DocumentVersionButtons extends Component {
   @tracked isAddingVersion = false;
 
   @tracked accessLevelOptions = [];
+  @tracked document = null;
+  @tracked file = null;
 
   constructor() {
     super(...arguments);
-
-    this.store
-      .queryAll('access-level', { sort: 'priority' })
-      .then((accessLevelOptions) => {
-        this.accessLevelOptions = accessLevelOptions.toArray();
-      });
+    this.init.perform();
   }
+
+  init = task(async () => {
+    this.file = await this.args.version?.file;
+  });
 
   @action
   async saveAccessLevel() {

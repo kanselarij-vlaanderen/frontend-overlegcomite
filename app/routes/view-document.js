@@ -19,12 +19,14 @@ export default class ViewDocumentRoute extends Route {
   }
 
   serialize(model) {
-    const [document, version] = Array.isArray(model)
-      ? model
-      : [model.document, model];
+    const document = model.document;
+    const documentVersion = model.documentVersion
+      ? model.documentVersion
+      : model;
+
     return {
       document_id: document.id,
-      version_number: version.versionNumber,
+      version_number: documentVersion.versionNumber,
     };
   }
 }

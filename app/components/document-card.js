@@ -3,6 +3,7 @@ import { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { cacheKeyFor } from '@warp-drive/core';
+import { task } from 'ember-concurrency';
 
 export default class FileCard extends Component {
   @service store;
@@ -15,18 +16,16 @@ export default class FileCard extends Component {
   constructor() {
     super(...arguments);
 
-    this.store
-      .queryAll('access-level', {
-        sort: 'priority',
-      })
-      .then((accessLevelOptions) => {
-        this.accessLevelOptions = accessLevelOptions;
-      });
-
-    this.document.get('documentVersions').then((documentVersions) => {
-      this.documentVersions = documentVersions;
-    });
+    this.init.perform();
   }
+
+  init = task(async () => {
+    this.documentVersions = await this.document.documentVersions;
+
+    this.accessLevelOptions = (
+      await this.store.queryAll('access-level', { sort: 'priority' })
+    ).toArray();
+  });
 
   get sortedDocumentVersions() {
     return this.documentVersions.toSorted(
