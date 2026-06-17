@@ -22,6 +22,10 @@ export default class MeetingAgendaitemsAgendaitemRoute extends Route {
         ],
       },
     );
+    // Force a reload of the agendaitem. The one in cache does not have its
+    // relations included. We use a separate reload call, because the reload
+    // parameter on findRecord does not work in legacy compat mode.
+    await agendaitem.reload();
     this.case = await agendaitem.case;
     return agendaitem;
   }
