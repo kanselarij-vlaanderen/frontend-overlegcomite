@@ -59,16 +59,3 @@ export default class SearchRoute extends Route {
   }
 }
 
-function sortOrder(sort) {
-  if (sort.startsWith('-')) {
-    return 'desc';
-  } else if (sort.length > 0) {
-    return 'asc';
-  } else {
-    return null;
-  }
-}
-
-function stripSort(sort) {
-  return sort.replace(/(^\+)|(^-)/g, '');
-}
