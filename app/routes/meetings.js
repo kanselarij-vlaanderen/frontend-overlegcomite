@@ -1,6 +1,7 @@
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
 import textToDateRange from '../utils/text-to-date-range';
+import { formatDateForFilter } from '../utils/format-date-for-filter';
 
 export default class MeetingsRoute extends Route {
   @service store;
@@ -18,8 +19,8 @@ export default class MeetingsRoute extends Route {
     if (dateRange) {
       const [begin, end] = dateRange;
       dateParams = {
-        'filter[:gte:started-at]': formatDate(begin),
-        'filter[:lt:started-at]': formatDate(end),
+        'filter[:gte:started-at]': formatDateForFilter(begin),
+        'filter[:lt:started-at]': formatDateForFilter(end),
       }
     }
 
@@ -38,6 +39,4 @@ export default class MeetingsRoute extends Route {
   }
 }
 
-function formatDate(date) {
-  return date.toString({calendarName: 'never'}) + 'T00:00:00Z';
-}
+
