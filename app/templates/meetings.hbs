@@ -5,18 +5,30 @@
     <AuHeading @skin="2">Vergaderingen</AuHeading>
   </Group>
   <Group>
-    <AuInput
-      id="search-text"
-      placeholder="Filteren op datum"
-      value={{this.dateFilterInput}}
-      @icon="calendar"
-      @iconAlignment="right"
-      @width="block"
-      {{on "input" (with-value (fn (mut this.dateFilterInput)))}}
-    />
-  </Group>
-  <Group>
-    <AuButton {{on "click" this.openNewMeetingModal}} @skin="primary" @icon="plus">
+    <AuFormRow @alignment="post">
+      <AuButton
+        class="au-c-label"
+        @icon="undo"
+        @skin="naked"
+        @hideText={{true}}
+        {{on "click" (fn (mut this.dateFilterInput) "")}}
+      >
+        Datumfilter wissen
+      </AuButton>
+      <AuInput
+        id="search-text"
+        placeholder="bv. 01-2026"
+        value={{this.dateFilterInput}}
+        {{! @icon="search" }}
+        @iconAlignment="right"
+        {{on "input" (with-value (fn (mut this.dateFilterInput)))}}
+      />
+    </AuFormRow>
+    <AuButton
+      {{on "click" this.openNewMeetingModal}}
+      @skin="primary"
+      @icon="plus"
+    >
       Nieuwe vergadering
     </AuButton>
   </Group>
