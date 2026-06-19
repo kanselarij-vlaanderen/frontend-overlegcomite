@@ -19,4 +19,5 @@ Router.map(function() {
     });
   });
   this.route('error', { path: 'fout/*path'});
+  this.route('mock-login');
 });
