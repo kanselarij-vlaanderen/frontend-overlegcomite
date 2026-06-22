@@ -19,6 +19,10 @@ Router.map(function() {
     });
     this.route('documents', { path: '/documenten' });
   });
+
   this.route('view-document', { path: '/documenten/:document_id/versies/:version_number/bekijken'});
+
+  this.route('search', { path: '/zoeken' });
+
   this.route('error', { path: 'fout/*path'});
 });

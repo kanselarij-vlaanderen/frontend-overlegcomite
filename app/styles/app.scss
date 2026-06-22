@@ -16,7 +16,6 @@
 
 $au-navigation-list-border: 1px;
 
-
 /*
  * Overlegcomite customizations
  */
@@ -29,15 +28,20 @@ $au-navigation-list-border: 1px;
   font-family: monospace;
 }
 
-th.data-table-meeting-started-at {
-  width: 95%;
+th.data-table-row-navigation {
+  width: 5%;
+}
+
+th.data-table-search-agendaitems-subject {
+  width: 70%;
 }
 
 .au-c-data-table td {
   cursor: pointer;
 }
 
-.oc-meeting-header {
+.oc-meeting-header,
+.oc-search-header {
   .au-c-toolbar {
     padding-top: 0;
     padding-bottom: 0;
@@ -100,7 +104,6 @@ th.data-table-meeting-started-at {
     gap: 0.6rem;
   }
 }
-
 
 .oc-u-sticky-top,
 .oc-c-sticky-header {
@@ -168,4 +171,15 @@ th.data-table-meeting-started-at {
       background: var(--au-gray-500);
     }
   }
+}
+
+.oc-u-subtle-progress-bar {
+  background-size: 200%;
+  background-image: linear-gradient(
+    to right,
+    var(--au-page-bg) 50%,
+    var(--au-blue-200) 52%,
+    var(--au-page-bg) 100%
+  );
+  background-position-x: 0%;
 }
