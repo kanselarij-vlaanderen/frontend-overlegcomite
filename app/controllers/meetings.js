@@ -3,6 +3,7 @@ import { tracked } from '@glimmer/tracking';
 import { service } from '@ember/service';
 import { task } from 'ember-concurrency';
 import textToDateRange from '../utils/text-to-date-range';
+import { PAGE_SIZE } from '../config/config';
 
 export default class MeetingsController extends Controller {
   @service store;
@@ -10,7 +11,7 @@ export default class MeetingsController extends Controller {
 
   @tracked sort = '-started-at';
   @tracked page = 0;
-  @tracked size = 20;
+  @tracked size = PAGE_SIZE.MEETINGS;
   @tracked dateFilter = '';
 
   @tracked _dateFilterInput = null;

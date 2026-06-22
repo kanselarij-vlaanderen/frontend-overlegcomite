@@ -1,13 +1,12 @@
 import Controller from '@ember/controller';
 import { tracked } from '@glimmer/tracking';
 import { task, timeout } from 'ember-concurrency';
-
-const SEARCH_DEBOUNCE = 1000;
+import { LIVE_SEARCH_DEBOUNCE_TIME, PAGE_SIZE } from '../config/config';
 
 export default class SearchController extends Controller {
   @tracked sort = '-meeting-date';
   @tracked page = 0;
-  @tracked size = 20;
+  @tracked size = PAGE_SIZE.SEARCH;
   @tracked isLoadingModel = false;
   @tracked _searchTextInput = null;
   @tracked searchText;
@@ -37,7 +36,7 @@ export default class SearchController extends Controller {
     },
     async (newText, element) => {
       this.animateProgressBar(element);
-      await timeout(SEARCH_DEBOUNCE);
+      await timeout(LIVE_SEARCH_DEBOUNCE_TIME);
       this.searchText = newText;
       this.page = 0;
     },
@@ -50,7 +49,7 @@ export default class SearchController extends Controller {
         offset: [0.05, 1],
       },
       {
-        duration: SEARCH_DEBOUNCE,
+        duration: LIVE_SEARCH_DEBOUNCE_TIME,
         iterations: 1,
       },
     );
