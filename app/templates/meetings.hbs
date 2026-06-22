@@ -11,6 +11,7 @@
         @icon="undo"
         @skin="naked"
         @hideText={{true}}
+        @disabled={{is-empty this.dateFilterInput}}
         {{on "click" (fn (mut this.dateFilterInput) "")}}
       >
         Datumfilter wissen
@@ -19,7 +20,6 @@
         id="search-text"
         placeholder="bv. 01-2026"
         value={{this.dateFilterInput}}
-        {{! @icon="search" }}
         @iconAlignment="right"
         {{on "input" (with-value (fn (mut this.dateFilterInput)))}}
       />

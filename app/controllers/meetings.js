@@ -14,6 +14,7 @@ export default class MeetingsController extends Controller {
   @tracked dateFilter = '';
 
   @tracked _dateFilterInput = null;
+
   get dateFilterInput() {
     if (this._dateFilterInput === null) {
       return this.dateFilter;
@@ -21,6 +22,7 @@ export default class MeetingsController extends Controller {
       return this._dateFilterInput;
     }
   }
+
   set dateFilterInput(newInput) {
     this._dateFilterInput = newInput
     if (this.dateRange || newInput === '') {
