@@ -13,6 +13,4 @@ export const ACCESS_LEVEL_STYLE_BY_ID = {
   'e3d64f24-4feb-4770-8212-e9e3e23a7d29': 'success',
 };
 
-export const DEFAULT_MEETING_DOC_TYPE_ID = '436a37c1-ecf0-44a4-8d44-7440c4a89df6';
-
 export const ACCOUNT_PROVIDER_URI = 'https://github.com/lblod/acmidm-login-service';

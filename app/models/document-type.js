@@ -1,6 +1,7 @@
 import Model, { attr, belongsTo, hasMany } from '@warp-drive/legacy/model';
 
 export default class DocumentTypeModel extends Model {
+  @attr('string') uri;
   @attr('string') label;
   @attr('string') scopeNote;
   @attr('number') priority;

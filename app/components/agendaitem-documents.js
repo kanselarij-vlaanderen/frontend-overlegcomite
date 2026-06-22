@@ -3,15 +3,18 @@ import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { task } from 'ember-concurrency';
 import formatDocumentName from '../utils/format-document-name';
-import { NOTIFICATION_TYPE_ID } from '../config/constants';
+import constants from '../config/constants';
 import { service } from '@ember/service';
-import { DEFAULT_MEETING_DOC_TYPE_ID } from '../config/config';
 
 export default class AgendaitemDocuments extends Component {
   @service store;
 
   @tracked documentTypes = [];
+
+  @tracked isDocumentUploadModalOpen = false;
   @tracked defaultDocumentAttrs = {};
+
+  @tracked isNotificationUploadModalOpen = false;
   @tracked defaultNotificationAttrs = {};
 
   constructor() {
@@ -23,25 +26,24 @@ export default class AgendaitemDocuments extends Component {
     this.documentTypes = await this.store.queryAll('document-type', {
       sort: '-priority',
     });
-    // All of these should be in cache by now
-    const defaultDocumentType = await this.store.findRecord(
+    const defaultDocumentType = await this.store.findRecordByUri(
       'document-type',
-      DEFAULT_MEETING_DOC_TYPE_ID,
+      constants.DOCUMENT_TYPES.VERSLAG,
     );
-    const notificationType = await this.store.findRecord(
+    const notificationType = await this.store.findRecordByUri(
       'document-type',
-      NOTIFICATION_TYPE_ID,
+      constants.DOCUMENT_TYPES.NOTIFICATIE,
     );
     const agendaitem = this.args.agendaitem;
     const meeting = await agendaitem.meeting;
 
     const [defaultDocumentName, defaultNotificationName] = [false, true].map(
-      (notification) =>
+      (isNotification) =>
         formatDocumentName({
           date: meeting.startedAt,
           priority: agendaitem.priority,
           subPriority: agendaitem.subPriority,
-          notification,
+          isNotification,
         }),
     );
 
@@ -55,10 +57,7 @@ export default class AgendaitemDocuments extends Component {
     };
   });
 
-  @tracked isDocumentUploadModalOpen = false;
-
-  @action
-  openDocumentUploadModal() {
+  openDocumentUploadModal = () => {
     this.isDocumentUploadModalOpen = true;
   }
 
@@ -70,10 +69,7 @@ export default class AgendaitemDocuments extends Component {
     this.isDocumentUploadModalOpen = false;
   }
 
-  @tracked isNotificationUploadModalOpen = false;
-
-  @action
-  openNotificationUploadModal() {
+  openNotificationUploadModal = () => {
     this.isNotificationUploadModalOpen = true;
   }
 

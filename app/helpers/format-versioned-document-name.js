@@ -1,4 +1,4 @@
-import { LATIN_ADVERBIAL_NUMERALS } from 'frontend-overlegcomite/config/constants';
+import constants from '../config/constants';
 
 export default function formatVersionedDocumentName(
   version,
@@ -8,7 +8,7 @@ export default function formatVersionedDocumentName(
   const versionNumber = version.versionNumber;
 
   if (versionNumber > 1) {
-    const numeral = LATIN_ADVERBIAL_NUMERALS[versionNumber].toUpperCase();
+    const numeral = constants.LATIN_ADVERBIAL_NUMERALS[versionNumber].toUpperCase();
     return `${name} ${numeral}`;
   } else {
     return `${name}`;

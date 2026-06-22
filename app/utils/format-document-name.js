@@ -2,12 +2,12 @@ export default function formatDocumentName({
   date,
   priority,
   subPriority,
-  notification = false
+  isNotification = false
 }) {
   const dateString = `${f(date.year, 4)} ${f(date.month, 2)}${f(date.day, 2)}`;
   const priorityString = f(priority, 2);
   const subPriorityString = subPriority ? subPriority.toUpperCase() : '';
-  const not = notification ? 'NOT ' : ''
+  const not = isNotification ? 'NOT ' : ''
 
   return `OC ${dateString} ${not}PUNT ${priorityString}${subPriorityString}`
 }
