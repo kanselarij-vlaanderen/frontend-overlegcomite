@@ -6,7 +6,7 @@ export default class MeetingAgendaitemsAgendaitemRoute extends Route {
 
   async model({ agendaitem_id }) {
     // eslint-disable-next-line warp-drive/no-legacy-request-patterns
-    const agendaitem = this.store.findRecord('agendaitem', agendaitem_id, {
+    const agendaitem = await this.store.findRecord('agendaitem', agendaitem_id, {
       include: ['submitters', 'case']
     });
     this.case = await agendaitem.case;

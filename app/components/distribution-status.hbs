@@ -1,0 +1,17 @@
+{{#if @distribution.hasStarted}}
+  <AuPill @icon={{this.icon}} @skin={{this.skin}}>
+    {{#if @distribution.loading}}
+      {{@entityName}}
+      in vrijgave sinds
+      {{format-datetime @distribution.modified}}
+    {{else if @distribution.finished}}
+      {{@entityName}}
+      vrijgegeven om
+      {{format-datetime @distribution.modified}}
+    {{else}}
+      {{@entityName}}
+      vrijgeven mislukt om
+      {{format-datetime @distribution.modified}}
+    {{/if}}
+  </AuPill>
+{{/if}}

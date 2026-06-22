@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function (environment) {
+module.exports = function(environment) {
   const ENV = {
     modulePrefix: 'frontend-overlegcomite',
     environment,
@@ -12,6 +12,11 @@ module.exports = function (environment) {
         // Here you can enable experimental features on an ember canary build
         // e.g. EMBER_NATIVE_DECORATOR_SUPPORT: true
       },
+    },
+
+    plausible: {
+      domain: '{{ANALYTICS_APP_DOMAIN}}',
+      apiHost: '{{ANALYTICS_API_HOST}}',
     },
 
     APP: {
