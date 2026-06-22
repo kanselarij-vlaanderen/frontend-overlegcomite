@@ -1,7 +1,6 @@
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
 import { action } from '@ember/object';
-import { camelize } from '@warp-drive/utilities/string';
 import muSearch from '../utils/mu-search';
 import DatetimeTransform from '../transforms/datetime';
 
@@ -58,4 +57,3 @@ export default class SearchRoute extends Route {
     return true;
   }
 }
-
