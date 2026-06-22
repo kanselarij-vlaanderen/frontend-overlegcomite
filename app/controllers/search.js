@@ -5,6 +5,9 @@ import { task, timeout } from 'ember-concurrency';
 const SEARCH_DEBOUNCE = 1000;
 
 export default class SearchController extends Controller {
+  @tracked sort = '-meeting-date';
+  @tracked page = 0;
+  @tracked size = 20;
   @tracked isLoadingModel = false;
   @tracked _searchTextInput = null;
   @tracked searchText;
@@ -17,9 +20,15 @@ export default class SearchController extends Controller {
       return this._searchTextInput;
     }
   }
+
   set searchTextInput(event) {
     this._searchTextInput = event.target.value;
     this.updateSearchText.perform(event.target.value, event.target);
+  }
+
+  setNotificationsOnly = (value) => {
+    this.notificationsOnly = value;
+    this.page = 0;
   }
 
   updateSearchText = task(
@@ -33,10 +42,6 @@ export default class SearchController extends Controller {
       this.page = 0;
     },
   );
-
-  @tracked sort = '-meeting-date';
-  @tracked page = 0;
-  @tracked size = 20;
 
   animateProgressBar(element) {
     element.animate(

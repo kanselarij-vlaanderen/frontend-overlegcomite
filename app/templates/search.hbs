@@ -24,7 +24,7 @@
         <div class="au-o-grid__item au-u-1-2@small">
           <AuToggleSwitch
             @checked={{this.notificationsOnly}}
-            @onChange={{fn (mut this.notificationsOnly)}}
+            @onChange={{this.setNotificationsOnly}}
           >
             Uitsluitend in notificaties zoeken
           </AuToggleSwitch>
