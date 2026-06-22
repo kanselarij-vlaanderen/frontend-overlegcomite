@@ -6,8 +6,20 @@ export default class MeetingDocumentsRoute extends Route {
 
   async model() {
     const meeting = this.modelFor('meeting');
-    // Documents are included in the parent route
-    const documents = await meeting.documents;
+    // eslint-disable-next-line warp-drive/no-legacy-request-patterns
+    const reloadedMeeting = await this.store.findRecord('meeting', meeting.id, {
+      include: [
+        'documents.document-versions.file',
+        'documents.document-versions.access-level',
+      ],
+      reload: true
+    });
+
+    // The relation between meeting and documents is currently defined in only one way.
+    // Therefore we cannot query the documents and need to fetch them from the meeting.
+    // By including the documents in the meeting request above, we ensure we have
+    // the full list in an unpaginated way.
+    const documents = await reloadedMeeting.documents;
 
     return { meeting, documents };
   }

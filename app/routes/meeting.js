@@ -7,14 +7,7 @@ export default class MeetingRoute extends Route {
 
   model({ meeting_id }) {
     // eslint-disable-next-line warp-drive/no-legacy-request-patterns
-    return this.store.findRecord('meeting', meeting_id, {
-      include: [
-        'agenda-items.submitters',
-        // We load these for the meeting/documents route
-        'documents.document-versions.file',
-        'documents.document-versions.access-level',
-      ],
-    });
+    return this.store.findRecord('meeting', meeting_id);
   }
 
   setupController(controller, model) {
