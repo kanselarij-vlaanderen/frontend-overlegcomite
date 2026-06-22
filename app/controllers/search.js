@@ -1,7 +1,6 @@
 import Controller from '@ember/controller';
 import { tracked } from '@glimmer/tracking';
 import { task, timeout } from 'ember-concurrency';
-import { modifier } from 'ember-modifier';
 
 const SEARCH_DEBOUNCE = 1000;
 
@@ -18,17 +17,17 @@ export default class SearchController extends Controller {
       return this._searchTextInput;
     }
   }
-  set searchTextInput(newInput) {
-    this._searchTextInput = newInput;
-    this.updateSearchText.perform(newInput);
+  set searchTextInput(event) {
+    this._searchTextInput = event.target.value;
+    this.updateSearchText.perform(event.target.value, event.target);
   }
 
   updateSearchText = task(
     {
       restartable: true,
     },
-    async (newText) => {
-      this.animateProgressBar();
+    async (newText, element) => {
+      this.animateProgressBar(element);
       await timeout(SEARCH_DEBOUNCE);
       this.searchText = newText;
       this.page = 0;
@@ -39,12 +38,8 @@ export default class SearchController extends Controller {
   @tracked page = 0;
   @tracked size = 20;
 
-  asProgressBar = modifier((element) => {
-    this.progressBar = element;
-  });
-
-  animateProgressBar() {
-    this.progressBar.animate(
+  animateProgressBar(element) {
+    element.animate(
       {
         backgroundPositionX: ['0%', '100%'],
         offset: [0.05, 1],

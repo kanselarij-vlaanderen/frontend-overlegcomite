@@ -18,8 +18,7 @@
             @iconAlignment="right"
             @width="block"
             class="oc-u-subtle-progress-bar"
-            {{this.asProgressBar}}
-            {{on "input" (with-value (fn (mut this.searchTextInput)))}}
+            {{on "input" (fn (mut this.searchTextInput))}}
           />
         </div>
         <div class="au-o-grid__item au-u-1-2@small">
