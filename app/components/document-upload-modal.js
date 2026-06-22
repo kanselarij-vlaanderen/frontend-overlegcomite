@@ -14,19 +14,15 @@ export default class DocumentUploadModal extends Component {
   @tracked documents = trackedArray([]);
   @tracked documentTypes = [];
 
-  get defaultDocumentAttrs() {
-    return this.args.defaultDocumentAttrs || {};
-  }
-
   constructor() {
     super(...arguments);
     this.init.perform();
   }
 
   init = task(async () => {
-    this.documentTypes = await this.store.findAll('document-type', {
+    this.documentTypes = (await this.store.queryAll('document-type', {
       sort: '-priority',
-    });
+    })).toArray();
   });
 
   @action
@@ -44,7 +40,7 @@ export default class DocumentUploadModal extends Component {
         name: file.filenameWithoutExtension,
         documentVersions: [documentVersion],
       },
-      this.defaultDocumentAttrs,
+      this.args.defaultDocumentAttrs || {},
     );
     const document = this.store.createRecord('document', documentAttributes);
     this.documents.push(document);
@@ -75,7 +71,7 @@ export default class DocumentUploadModal extends Component {
       this.documents.map(async (document) => {
         await Promise.allSettled(
           document.documentVersions.map(async (version) => {
-            await version.file.destroyRecord();
+            await (await version.file).destroyRecord();
             await version.destroyRecord();
           }),
         );

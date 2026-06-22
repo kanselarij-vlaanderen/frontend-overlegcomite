@@ -46,17 +46,22 @@
                   <AuLabel for="document-type-{{id}}" class="au-u-1-6">
                     Type
                   </AuLabel>
-                  <PowerSelect
-                    id="document-type-{{id}}"
-                    @selected={{document.type}}
-                    @onChange={{fn (mut document.type)}}
-                    @options={{this.documentTypes}}
-                    @allowClear={{true}}
-                    class="au-c-input"
-                    as |type|
-                  >
-                    {{type.label}}
-                  </PowerSelect>
+                  <Await @promise={{document.type}}>
+                    <:success as |selectedDocumentType|>
+                      <PowerSelect
+                        id="document-type-{{id}}"
+                        @disabled={{this.init.isRunning}}
+                        @selected={{selectedDocumentType}}
+                        @onChange={{fn (mut document.type)}}
+                        @options={{this.documentTypes}}
+                        @allowClear={{true}}
+                        class="au-c-input"
+                        as |type|
+                      >
+                        {{type.label}}
+                      </PowerSelect>
+                    </:success>
+                  </Await>
                 </AuFormRow>
               {{/let}}
             </c.content>
