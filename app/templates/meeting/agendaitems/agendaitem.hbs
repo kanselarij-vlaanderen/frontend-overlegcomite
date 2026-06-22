@@ -1,7 +1,7 @@
 <div class="au-u-padding">
   <AuToolbar @size="medium" @border="bottom" as |Group|>
     <Group>
-      <AuHeading @skin={{4}}>
+      <AuHeading @skin={{3}}>
         {{@model.subject}}
       </AuHeading>
       {{#if @model.case.identifier}}
@@ -30,7 +30,7 @@
   </AuToolbar>
 </div>
 
-<div class="au-o-layout au-o-region au-o-flow">
+<div class="oc-container au-o-flow--large">
   <AgendaitemDocuments @agendaitem={{@model}} />
 </div>
 

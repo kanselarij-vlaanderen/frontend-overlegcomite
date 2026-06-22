@@ -1,8 +1,8 @@
 {{page-title "Documenten"}}
 
-<AuContent class="au-o-region">
-  <div class="au-o-flow au-o-flow--small au-o-layout">
-    <AuHeading @level="2" @skin="3">
+<div class="oc-container">
+  <div class="au-o-flow--small">
+    <AuHeading @level="4" @skin="4">
       Documenten
       {{#if @model.documents}}
         ({{@model.documents.length}})
@@ -24,7 +24,7 @@
       Document toevoegen
     </AuButton>
   </div>
-</AuContent>
+</div>
 
 <DocumentUploadModal
   @modalOpen={{this.isDocumentUploadModalOpen}}

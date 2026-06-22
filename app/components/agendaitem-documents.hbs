@@ -1,74 +1,78 @@
-<AuHeading @level={{3}} @skin={{3}}>
-  Notificatie
-</AuHeading>
-<div class="au-o-flow au-o-flow--small">
-  {{#if @agendaitem.notification}}
-    <Await @promise={{@agendaitem.notification}}>
-      <:pending>
-        <AuLoader />
-      </:pending>
-      <:success as |notification|>
-        <DocumentCard @document={{notification}} />
-      </:success>
-    </Await>
-  {{else}}
-    <AuAlert @title="Geen notificatie beschikbaar" @icon="circle-info">
-      Dit agendapunt heeft nog geen notificatie.
-    </AuAlert>
-    <AuButton
-      {{on "click" this.openNotificationUploadModal}}
-      @disabled={{this.init.isRunning}}
-      @icon="plus"
-      @skin="secondary"
-    >
-      Notificatie toevoegen
-    </AuButton>
-    <DocumentUploadModal
-      @modalOpen={{this.isNotificationUploadModalOpen}}
-      @onSave={{this.saveNotification}}
-      @onCancel={{fn (mut this.isNotificationUploadModalOpen) false}}
-      @defaultDocumentAttrs={{this.defaultNotificationAttrs}}
-      @multiple={{false}}
-    />
-  {{/if}}
-</div>
-<AuHeading @level={{3}} @skin={{3}}>
-  Documenten
-  {{#if @agendaitem.documents}}
-    ({{@agendaitem.documents.length}})
-  {{/if}}
-</AuHeading>
-<div class="au-o-flow au-o-flow--small">
-  <Await @promise={{@agendaitem.documents}}>
-    <:pending>
-      <AuLoader>
-        Documenten ophalen
-      </AuLoader>
-    </:pending>
-    <:success as |documents|>
-      {{#each documents as |document|}}
-        <DocumentCard @document={{document}} />
-      {{/each}}
-      {{#unless documents}}
-        <AuAlert @title="Geen documenten beschikbaar" @icon="circle-info">
-          Dit agendapunt heeft nog geen documenten.
-        </AuAlert>
-      {{/unless}}
+<div>
+  <div class="au-o-flow--small">
+    <AuHeading @level={{4}} @skin={{4}}>
+      Notificatie
+    </AuHeading>
+    {{#if @agendaitem.notification}}
+      <Await @promise={{@agendaitem.notification}}>
+        <:pending>
+          <AuLoader />
+        </:pending>
+        <:success as |notification|>
+          <DocumentCard @document={{notification}} />
+        </:success>
+      </Await>
+    {{else}}
+      <AuAlert @title="Geen notificatie beschikbaar" @icon="circle-info">
+        Dit agendapunt heeft nog geen notificatie.
+      </AuAlert>
       <AuButton
-        {{on "click" this.openDocumentUploadModal}}
+        {{on "click" this.openNotificationUploadModal}}
         @disabled={{this.init.isRunning}}
         @icon="plus"
         @skin="secondary"
       >
-        Documenten toevoegen
+        Notificatie toevoegen
       </AuButton>
       <DocumentUploadModal
-        @modalOpen={{this.isDocumentUploadModalOpen}}
-        @onSave={{this.saveDocuments}}
-        @onCancel={{fn (mut this.isDocumentUploadModalOpen) false}}
-        @defaultDocumentAttrs={{this.defaultDocumentAttrs}}
-        @multiple={{true}}
-      />
-    </:success>
-  </Await>
+        @modalOpen={{this.isNotificationUploadModalOpen}}
+        @onSave={{this.saveNotification}}
+        @onCancel={{fn (mut this.isNotificationUploadModalOpen) false}}
+        @defaultDocumentAttrs={{this.defaultNotificationAttrs}}
+        @multiple={{false}}
+        />
+    {{/if}}
+  </div>
+</div>
+<div>
+  <div class="au-o-flow au-o-flow--small">
+    <AuHeading @level={{4}} @skin={{4}}>
+      Documenten
+      {{#if @agendaitem.documents}}
+        ({{@agendaitem.documents.length}})
+      {{/if}}
+    </AuHeading>
+    <Await @promise={{@agendaitem.documents}}>
+      <:pending>
+        <AuLoader>
+          Documenten ophalen
+        </AuLoader>
+      </:pending>
+      <:success as |documents|>
+        {{#each documents as |document|}}
+          <DocumentCard @document={{document}} />
+        {{/each}}
+        {{#unless documents}}
+          <AuAlert @title="Geen documenten beschikbaar" @icon="circle-info">
+            Dit agendapunt heeft nog geen documenten.
+          </AuAlert>
+        {{/unless}}
+        <AuButton
+          {{on "click" this.openDocumentUploadModal}}
+          @disabled={{this.init.isRunning}}
+          @icon="plus"
+          @skin="secondary"
+        >
+          Documenten toevoegen
+        </AuButton>
+        <DocumentUploadModal
+          @modalOpen={{this.isDocumentUploadModalOpen}}
+          @onSave={{this.saveDocuments}}
+          @onCancel={{fn (mut this.isDocumentUploadModalOpen) false}}
+          @defaultDocumentAttrs={{this.defaultDocumentAttrs}}
+          @multiple={{true}}
+          />
+      </:success>
+    </Await>
+  </div>
 </div>
