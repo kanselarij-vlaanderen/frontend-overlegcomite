@@ -9,8 +9,6 @@ export default async function muSearch(
     Object.entries({
       'page[size]': size,
       'page[number]': page,
-      // eslint-disable-next-line camelcase
-      collapse_uuids: 't',
     }),
   );
 
