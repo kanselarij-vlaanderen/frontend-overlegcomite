@@ -31,13 +31,12 @@ export default class SearchRoute extends Route {
       filter: {
         [`:sqs:${textSearchFields}`]: params.searchText || '*',
       },
-      dataMapping(agendaitem) {
-        const {
-          attributes: { meetingDate },
-        } = agendaitem;
-
-        agendaitem.attributes.meetingDate =
-          datetimeTransform.deserialize(meetingDate);
+      dataMapping(searchResult) {
+        const agendaitem = Object.assign({},
+          { id: searchResult.id },
+          searchResult.attributes
+        );
+        agendaitem.meetingDate = datetimeTransform.deserialize(agendaitem.meetingDate);
 
         return agendaitem;
       },

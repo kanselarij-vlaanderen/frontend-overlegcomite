@@ -63,16 +63,16 @@
       <c.body as |agendaitem|>
         <td>
           Vergadering van
-          {{format-datetime agendaitem.attributes.meetingDate}}
+          {{format-datetime agendaitem.meetingDate}}
         </td>
         <td>
-          {{agendaitem.attributes.subject}}
+          {{agendaitem.subject}}
         </td>
         <td class="au-u-text-center">
           <AuLink
             @route="meeting.agendaitems.agendaitem"
             @models={{array
-              (or agendaitem.attributes.meetingId "NO_MEETING_ID")
+              (or agendaitem.meetingId "NO_MEETING_ID")
               agendaitem.id
             }}
             @icon="chevron-right"
