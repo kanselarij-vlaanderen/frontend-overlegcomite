@@ -1,0 +1,74 @@
+{{#if this.isEditMode}}
+  <div class="au-u-flex--inline au-u-flex--spaced-tiny">
+    <AuInput
+      id="document-name-{{@document.id}}"
+      value={{this.documentNameInput}}
+      disabled={{this.save.isRunning}}
+      {{on "input" (with-value (fn (mut this.documentNameInput)))}}
+    />
+    <AuButtonGroup>
+      <AuButton
+        @icon="check"
+        @skin="secondary"
+        @hideText="true"
+        @loading={{this.save.isRunning}}
+        {{on "click" this.save.perform}}
+      >
+        Opslaan
+      </AuButton>
+      {{#unless this.save.isRunning}}
+        <AuButton
+          @icon="cross"
+          @skin="secondary"
+          @alert={{true}}
+          @hideText="true"
+          {{on "click" this.cancelEdit}}
+        >
+          Annuleren
+        </AuButton>
+      {{/unless}}
+    </AuButtonGroup>
+  </div>
+{{else}}
+  <div class="au-u-flex au-u-flex--row au-u-flex--vertical-baseline au-u-flex--spaced-tiny">
+    {{#if @documentVersion}}
+      <AuHeading @level="5" @skin="5">
+        <AuLink
+          @skin="bold"
+          @route="view-document"
+          @model={{@documentVersion}}
+          target="_blank"
+        >
+          {{format-versioned-document-name @documentVersion @document}}
+        </AuLink>
+      </AuHeading>
+    {{else}}
+      <AuHeading @level="5" @skin="5">
+        {{@document.name}}
+      </AuHeading>
+    {{/if}}
+    <AuButton
+      @skin="naked"
+      @icon="pencil"
+      @hideText={{true}}
+      {{on "click" this.openEditMode}}
+    >
+      Documentnaam wijzigen
+    </AuButton>
+    {{#if @documentVersion}}
+      <Await @promise={{@documentVersion.file}}>
+        <:success as |file|>
+          <AuLinkExternal
+            href={{document-version/download-link @document file}}
+            download={{document-version/download-filename @document file}}
+            @skin="naked"
+            @icon="file-download"
+            @hideText={{true}}
+          >
+            Document downloaden
+          </AuLinkExternal>
+        </:success>
+      </Await>
+    {{/if}}
+  </div>
+{{/if}}

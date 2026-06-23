@@ -8,10 +8,7 @@ import { task } from 'ember-concurrency';
 export default class DocumentCard extends Component {
   @service store;
 
-  @tracked accessLevelOptions = [];
   @tracked documentVersions = [];
-
-  @tracked isEditingDocumentName = false;
 
   constructor() {
     super(...arguments);
@@ -21,10 +18,6 @@ export default class DocumentCard extends Component {
 
   init = task(async () => {
     this.documentVersions = await this.args.document.documentVersions;
-
-    this.accessLevelOptions = (
-      await this.store.queryAll('access-level', { sort: 'priority' })
-    ).toArray();
   });
 
   get sortedDocumentVersions() {
@@ -39,17 +32,5 @@ export default class DocumentCard extends Component {
 
   get hasMultipleVersions() {
     return this.sortedDocumentVersions?.length > 1;
-  }
-
-  @action
-  async saveDocumentName() {
-    await this.args.document.save();
-    this.isEditingDocumentName = false;
-  }
-
-  @action
-  cancelEditingDocumentName() {
-    this.store.cache.rollbackAttrs(cacheKeyFor(this.args.document));
-    this.isEditingDocumentName = false;
   }
 }

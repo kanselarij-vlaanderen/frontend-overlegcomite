@@ -3,7 +3,6 @@
     <:success as |accessLevel|>
       <AccessLevelPill
         @accessLevel={{accessLevel}}
-        @onCancel={{this.cancelEditingAccessLevel}}
         @onSave={{this.saveAccessLevel}}
       />
     </:success>
@@ -20,16 +19,14 @@
     {{/if}}
   </AuPill>
 {{/if}}
-<AuDropdown @title="Meer opties" @icon="three-dots" @hideText="true">
-  {{#if this.file}}
-    <AuLinkExternal
-      href={{document-version/download-link @document this.file}}
-      download={{document-version/download-filename @document this.file}}
-      role="menuitem"
-    >
-      Document downloaden
-    </AuLinkExternal>
-  {{/if}}
+<AuDropdown
+  @title="Meer opties"
+  @icon="three-dots"
+  @size="large"
+  @skin="naked"
+  @hideText="true"
+  class="au-u-flex"
+>
   {{#if @document}}
     <AuButton
       {{on "click" (fn (mut this.isAddingVersion) true)}}
@@ -37,9 +34,6 @@
       role="menuitem"
     >
       Nieuwe versie uploaden
-    </AuButton>
-    <AuButton {{on "click" @onEditDocumentName}} @skin="link" role="menuitem">
-      Documentnaam wijzigen
     </AuButton>
   {{/if}}
   <AuHr />

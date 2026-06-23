@@ -55,7 +55,6 @@ export default class AccessLevelPillComponent extends Component {
 
   cancelEdit = () => {
     this.isEditMode = false;
-    this.args.onCancel();
   }
 
   save = () => {

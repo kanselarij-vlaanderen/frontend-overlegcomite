@@ -16,50 +16,10 @@
         {{/unless}}
       </Group>
     </AuToolbar>
-    <div>
-      {{#if this.isEditingDocumentName}}
-        <AuInput
-          id="document-name-{{@document.id}}"
-          {{on "input" (with-value (fn (mut @document.name)))}}
-          value={{@document.name}}
-        />
-        <AuButton
-          {{on "click" this.saveDocumentName}}
-          @icon="check"
-          @skin="naked"
-          @hideText="true"
-        >
-          Opslaan
-        </AuButton>
-        <AuButton
-          {{on "click" this.cancelEditingDocumentName}}
-          @icon="cross"
-          @skin="naked"
-          @hideText="true"
-          @alert={{true}}
-        >
-          Annuleren
-        </AuButton>
-      {{else}}
-        {{#if this.latestVersion}}
-          <AuHeading @level="5" @skin="5">
-            <AuLink
-              @skin="bold"
-              @route="view-document"
-              @model={{this.latestVersion}}
-              target="_blank"
-            >
-              {{format-versioned-document-name this.latestVersion @document}}
-            </AuLink>
-          </AuHeading>
-        {{else}}
-          <AuHeading @level="5" @skin="5">
-            {{@document.name}}
-          </AuHeading>
-          (Geen versies beschikbaar)
-        {{/if}}
-      {{/if}}
-    </div>
+    <DocumentCard::DocumentName
+      @document={{@document}}
+      @documentVersion={{this.latestVersion}}
+    />
     <p class="au-u-muted">
       Aangemaakt op
       <span>

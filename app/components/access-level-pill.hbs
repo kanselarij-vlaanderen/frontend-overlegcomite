@@ -1,5 +1,5 @@
 {{#if this.isEditMode}}
-  <div class="au-u-flex--inline">
+  <div class="au-u-flex--inline au-u-flex--spaced-tiny">
     <PowerSelect
       @options={{this.accessLevelOptions}}
       @selected={{this.selectedAccessLevel}}
@@ -9,7 +9,7 @@
     >
       {{accessLevel.label}}
     </PowerSelect>
-    <AuButtonGroup @inline={{true}}>
+    <AuButtonGroup>
       <AuButton
         @icon="check"
         @skin="secondary"
@@ -21,6 +21,7 @@
       <AuButton
         @icon="cross"
         @skin="secondary"
+        @alert={{true}}
         @hideText="true"
         {{on "click" this.cancelEdit}}
       >
