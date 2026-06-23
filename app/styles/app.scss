@@ -109,6 +109,14 @@ th.data-table-search-agendaitems-subject {
   }
 }
 
+.oc-document-card {
+  h6 {
+    text-transform: uppercase;
+    letter-spacing: .05rem;
+    color: var(--au-gray-500);
+  }
+}
+
 .oc-u-sticky-top,
 .oc-c-sticky-header {
   position: sticky;

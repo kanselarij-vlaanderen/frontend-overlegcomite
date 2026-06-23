@@ -5,7 +5,7 @@ import { action } from '@ember/object';
 import { cacheKeyFor } from '@warp-drive/core';
 import { task } from 'ember-concurrency';
 
-export default class FileCard extends Component {
+export default class DocumentCard extends Component {
   @service store;
 
   @tracked accessLevelOptions = [];
@@ -20,7 +20,7 @@ export default class FileCard extends Component {
   }
 
   init = task(async () => {
-    this.documentVersions = await this.document.documentVersions;
+    this.documentVersions = await this.args.document.documentVersions;
 
     this.accessLevelOptions = (
       await this.store.queryAll('access-level', { sort: 'priority' })
@@ -32,27 +32,24 @@ export default class FileCard extends Component {
       (v1, v2) => v2.versionNumber - v1.versionNumber,
     );
   }
-  get selectedVersion() {
+
+  get latestVersion() {
     return this.sortedDocumentVersions[0];
   }
 
-  get document() {
-    return this.args.document;
-  }
-
-  get showFooter() {
+  get hasMultipleVersions() {
     return this.sortedDocumentVersions?.length > 1;
   }
 
   @action
   async saveDocumentName() {
-    await this.document.save();
+    await this.args.document.save();
     this.isEditingDocumentName = false;
   }
 
   @action
   cancelEditingDocumentName() {
-    this.store.cache.rollbackAttrs(cacheKeyFor(this.document));
+    this.store.cache.rollbackAttrs(cacheKeyFor(this.args.document));
     this.isEditingDocumentName = false;
   }
 }

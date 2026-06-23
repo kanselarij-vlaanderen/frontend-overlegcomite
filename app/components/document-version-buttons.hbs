@@ -41,25 +41,17 @@
       {{or @version.accessLevel.label "Geen toegangsniveau"}}
     </AuPill>
   {{/if}}
-  <AuButton
-    @icon={{if @version.confidential "lock" "lock-unlock"}}
-    {{on "click" this.toggleConfidential}}
-    @skin="naked"
-    @hideText="true"
+  <AuPill
+    @skin={{if @version.confidential "warning" "default"}}
+    @actionIcon={{if @version.confidential "lock-closed" "lock-open"}}
+    @onClickAction={{this.toggleConfidential}}
   >
-    Wissel openbaarheid
-  </AuButton>
-  <LinkTo
-    @route="view-document"
-    @model={{@version}}
-    target="_blank"
-    class="au-c-button au-c-button--naked au-c-button--icon-only"
-  >
-    <AuIcon @icon="book" />
-    <span class="au-u-hidden-visually">
-      Lees document
-    </span>
-  </LinkTo>
+    {{#if @version.confidential}}
+      Vertrouwelijk
+    {{else}}
+      Openbaar
+    {{/if}}
+  </AuPill>
 {{/if}}
 <AuDropdown @title="Meer opties" @icon="three-dots" @hideText="true">
   {{#if this.file}}

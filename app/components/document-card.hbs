@@ -1,29 +1,27 @@
-<AuCard @flex={{true}} as |c|>
+<AuCard @flex={{true}} @size="small" class="oc-document-card" as |c|>
   <c.header @badgeIcon="file">
-    <AuToolbar as |Group|>
+    <AuToolbar class="au-u-flex--vertical-end" as |Group|>
       <Group>
-        <div class="au-o-flow">
-          <p class="au-c-heading au-c-heading--4">
-            {{or this.document.type.label "Document (Overig)"}}
-          </p>
-        </div>
+        <AuHeading @level="6" @skin="6">
+          {{or @document.type.label "Document (Overig)"}}
+        </AuHeading>
       </Group>
       <Group>
         {{#unless this.init.isRunning}}
           <DocumentVersionButtons
-            @version={{this.selectedVersion}}
-            @document={{this.document}}
+            @version={{this.latestVersion}}
+            @document={{@document}}
             @onEditDocumentName={{fn (mut this.isEditingDocumentName) true}}
           />
         {{/unless}}
       </Group>
     </AuToolbar>
-    <p>
+    <div>
       {{#if this.isEditingDocumentName}}
         <AuInput
-          id="document-name-{{this.document.id}}"
-          {{on "input" (with-value (fn (mut this.document.name)))}}
-          value={{this.document.name}}
+          id="document-name-{{@document.id}}"
+          {{on "input" (with-value (fn (mut @document.name)))}}
+          value={{@document.name}}
         />
         <AuButton
           {{on "click" this.saveDocumentName}}
@@ -43,27 +41,33 @@
           Annuleren
         </AuButton>
       {{else}}
-        {{#if this.selectedVersion}}
-          {{format-versioned-document-name this.selectedVersion this.document}}
+        {{#if this.latestVersion}}
+          <AuHeading @level="5" @skin="5">
+            <AuLink
+              @skin="bold"
+              @route="view-document"
+              @model={{this.latestVersion}}
+              target="_blank"
+            >
+              {{format-versioned-document-name this.latestVersion @document}}
+            </AuLink>
+          </AuHeading>
         {{else}}
-          {{this.document.name}}
+          <AuHeading @level="5" @skin="5">
+            {{@document.name}}
+          </AuHeading>
           (Geen versies beschikbaar)
         {{/if}}
       {{/if}}
-    </p>
+    </div>
     <p class="au-u-muted">
-      Geupload op
-      <AuTooltip @placement="bottom" as |tooltip|>
-        <span class="au-u-italic" {{tooltip.target}}>
-          {{format-datetime this.document.created}}
-        </span>
-        <tooltip.Content>
-          {{format-datetime this.document.created "full"}}
-        </tooltip.Content>
-      </AuTooltip>
+      Aangemaakt op
+      <span>
+        {{format-datetime @document.created}}
+      </span>
     </p>
   </c.header>
-  {{#if this.showFooter}}
+  {{#if this.hasMultipleVersions}}
     <c.footer>
       <details class="oc-c-card-footer--details">
         <summary class="oc-c-card-footer--summary">
@@ -83,7 +87,7 @@
               />
               <div>
                 <p class="au-u-medium">
-                  {{format-versioned-document-name version this.document}}
+                  {{format-versioned-document-name version @document}}
                 </p>
                 <p class="au-u-muted">
                   {{format-datetime version.created}}

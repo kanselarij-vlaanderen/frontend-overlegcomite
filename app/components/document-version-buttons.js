@@ -29,17 +29,16 @@ export default class DocumentVersionButtons extends Component {
     this.isEditingAccessLevel = false;
     await this.args.version.save();
   }
+
   @action
   cancelEditingAccessLevel() {
     this.store.cache.rollbackRelationships(cacheKeyFor(this.args.version));
     this.isEditingAccessLevel = false;
   }
 
-  @action
-  toggleConfidential() {
-    const version = this.args.version;
-    version.confidential = !version.confidential;
-    version.save();
+  toggleConfidential = () => {
+    this.args.version.confidential = !this.args.version.confidential;
+    this.args.version.save();
   }
 
   @action
