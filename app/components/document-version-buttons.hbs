@@ -1,46 +1,13 @@
 {{#if @version}}
-  {{#if this.isEditingAccessLevel}}
-    <Await @promise={{@version.accessLevel}}>
-      <:success as |selected|>
-        <PowerSelect
-          @allowClear={{true}}
-          @placeholder="Geen toegangsniveau"
-          @options={{this.accessLevelOptions}}
-          @selected={{selected}}
-          @onChange={{fn (mut @version.accessLevel)}}
-          as |accessLevel|
-        >
-          <span class="au-u-{{get-access-level-style accessLevel}}">
-            {{accessLevel.label}}
-          </span>
-        </PowerSelect>
-      </:success>
-    </Await>
-    <AuButton
-      {{on "click" this.saveAccessLevel}}
-      @icon="check"
-      @skin="naked"
-      @hideText="true"
-    >
-      Opslaan
-    </AuButton>
-    <AuButton
-      {{on "click" this.cancelEditingAccessLevel}}
-      @icon="cross"
-      @skin="naked"
-      @hideText="true"
-      @alert={{true}}
-    >
-      Annuleren
-    </AuButton>
-  {{else}}
-    <AuPill
-      {{on "click" (fn (mut this.isEditingAccessLevel) true)}}
-      @skin={{get-access-level-style @version.accessLevel}}
-    >
-      {{or @version.accessLevel.label "Geen toegangsniveau"}}
-    </AuPill>
-  {{/if}}
+  <Await @promise={{@version.accessLevel}}>
+    <:success as |accessLevel|>
+      <AccessLevelPill
+        @accessLevel={{accessLevel}}
+        @onCancel={{this.cancelEditingAccessLevel}}
+        @onSave={{this.saveAccessLevel}}
+      />
+    </:success>
+  </Await>
   <AuPill
     @skin={{if @version.confidential "warning" "default"}}
     @actionIcon={{if @version.confidential "lock-closed" "lock-open"}}

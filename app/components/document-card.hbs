@@ -6,7 +6,7 @@
           {{or @document.type.label "Document (Overig)"}}
         </AuHeading>
       </Group>
-      <Group>
+      <Group class="au-u-flex--vertical-end">
         {{#unless this.init.isRunning}}
           <DocumentVersionButtons
             @version={{this.latestVersion}}

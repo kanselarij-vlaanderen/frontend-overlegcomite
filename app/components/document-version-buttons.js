@@ -8,10 +8,8 @@ import { task } from 'ember-concurrency';
 export default class DocumentVersionButtons extends Component {
   @service store;
 
-  @tracked isEditingAccessLevel = false;
   @tracked isAddingVersion = false;
 
-  @tracked accessLevelOptions = [];
   @tracked document = null;
   @tracked file = null;
 
@@ -24,16 +22,13 @@ export default class DocumentVersionButtons extends Component {
     this.file = await this.args.version?.file;
   });
 
-  @action
-  async saveAccessLevel() {
-    this.isEditingAccessLevel = false;
+  saveAccessLevel = async (accessLevel) => {
+    this.args.version.accessLevel = accessLevel;
     await this.args.version.save();
   }
 
-  @action
-  cancelEditingAccessLevel() {
+  cancelEditingAccessLevel = () => {
     this.store.cache.rollbackRelationships(cacheKeyFor(this.args.version));
-    this.isEditingAccessLevel = false;
   }
 
   toggleConfidential = () => {
