@@ -21,7 +21,7 @@
       @documentVersion={{this.latestDocumentVersion}}
     />
     <p class="au-u-para-small au-u-muted">
-      Aangemaakt op {{format-datetime this.latestDocumentVersion.created}}
+      Aangemaakt op {{format-datetime (or this.latestDocumentVersion.created @document.created)}}
     </p>
   </c.header>
   {{#if this.hasMultipleDocumentVersions}}
