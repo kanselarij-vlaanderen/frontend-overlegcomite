@@ -1,11 +1,9 @@
 import Component from '@glimmer/component';
 import { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
-import { action } from '@ember/object';
-import { cacheKeyFor } from '@warp-drive/core';
 import { task } from 'ember-concurrency';
 
-export default class DocumentCard extends Component {
+export default class DocumentCardComponent extends Component {
   @service store;
 
   @tracked documentVersions = [];
@@ -17,11 +15,15 @@ export default class DocumentCard extends Component {
   }
 
   init = task(async () => {
-    this.documentVersions = await this.args.document.documentVersions;
+    this.documentVersions = await this.store.queryAll('document-version', {
+      'filter[document][:id:]': this.args.document.id,
+      sort: '-version-number',
+      include: 'file,document'
+    });
   });
 
   get sortedDocumentVersions() {
-    return this.documentVersions.toSorted(
+    return this.documentVersions.slice().sort(
       (v1, v2) => v2.versionNumber - v1.versionNumber,
     );
   }
