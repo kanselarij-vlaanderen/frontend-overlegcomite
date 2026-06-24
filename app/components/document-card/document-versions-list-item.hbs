@@ -36,7 +36,7 @@
       Aangemaakt op {{format-datetime @documentVersion.created}}
     </p>
   </div>
-  <div>
+  <div class="au-u-flex au-u-flex--vertical-center au-u-flex--spaced-small">
     <Await @promise={{@documentVersion.accessLevel}}>
       <:success as |accessLevel|>
         <AccessLevelPill
@@ -56,5 +56,15 @@
         Openbaar
       {{/if}}
     </AuPill>
+    <AuButton
+      @skin="naked"
+      @icon="trash"
+      @alert={{true}}
+      @hideText={{true}}
+      {{on "click" this.deleteDocumentVersion}}
+    >
+      Versie verwijderen
+    </AuButton>
+
   </div>
 </div>

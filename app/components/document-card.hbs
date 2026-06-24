@@ -33,6 +33,7 @@
               <DocumentCard::DocumentVersionsListItem
                 @document={{@document}}
                 @documentVersion={{documentVersion}}
+                @onUpdate={{this.init.perform}}
               />
             </Item>
           {{/each}}

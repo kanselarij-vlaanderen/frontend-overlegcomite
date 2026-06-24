@@ -10,4 +10,11 @@ export default class DocumentCardDocumentVersionsListItemComponent extends Compo
     this.args.documentVersion.confidential = !this.args.documentVersion.confidential;
     this.args.documentVersion.save();
   }
+
+  deleteDocumentVersion = async () => {
+    const file = await this.args.documentVersion.file;
+    await file.destroyRecord();
+    await this.args.documentVersion.destroyRecord();
+    this.args.onUpdate();
+  }
 }
