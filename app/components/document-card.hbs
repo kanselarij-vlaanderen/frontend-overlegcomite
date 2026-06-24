@@ -1,0 +1,44 @@
+<AuCard @flex={{true}} @size="small" class="oc-document-card" as |c|>
+  <c.header @badgeIcon="file">
+    <AuToolbar class="au-u-flex--vertical-end" as |Group|>
+      <Group>
+        <AuHeading @level="6" @skin="6">
+          {{or @document.type.label "Document (Overig)"}}
+        </AuHeading>
+      </Group>
+      <Group class="au-u-flex--vertical-end">
+        {{#unless this.init.isRunning}}
+          <DocumentCard::DocumentActions
+            @document={{@document}}
+            @documentVersion={{this.latestDocumentVersion}}
+            @onUpdate={{this.init.perform}}
+          />
+        {{/unless}}
+      </Group>
+    </AuToolbar>
+    <DocumentCard::DocumentName
+      @document={{@document}}
+      @documentVersion={{this.latestDocumentVersion}}
+    />
+    <p class="au-u-para-small au-u-muted">
+      Aangemaakt op {{format-datetime (or this.latestDocumentVersion.created @document.created)}}
+    </p>
+  </c.header>
+  {{#if this.hasMultipleDocumentVersions}}
+    <c.footer>
+      <AuAccordion @buttonLabel="Alle versies" @reverse={{true}}>
+        <AuList @divider={{true}} as |Item|>
+          {{#each this.sortedDocumentVersions as |documentVersion|}}
+            <Item>
+              <DocumentCard::DocumentVersionsListItem
+                @document={{@document}}
+                @documentVersion={{documentVersion}}
+                @onUpdate={{this.init.perform}}
+              />
+            </Item>
+          {{/each}}
+        </AuList>
+      </AuAccordion>
+    </c.footer>
+  {{/if}}
+</AuCard>

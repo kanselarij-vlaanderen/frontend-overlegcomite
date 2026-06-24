@@ -1,0 +1,78 @@
+{{#if this.isEditMode}}
+  <div class="au-u-flex--inline au-u-flex--spaced-tiny">
+    <AuInput
+      id="document-name-{{@document.id}}"
+      value={{this.documentNameInput}}
+      disabled={{this.save.isRunning}}
+      {{on "input" (with-value (fn (mut this.documentNameInput)))}}
+    />
+    <AuButtonGroup>
+      <AuButton
+        @icon="check"
+        @skin="secondary"
+        @hideText="true"
+        @loading={{this.save.isRunning}}
+        {{on "click" this.save.perform}}
+      >
+        Opslaan
+      </AuButton>
+      {{#unless this.save.isRunning}}
+        <AuButton
+          @icon="cross"
+          @skin="secondary"
+          @alert={{true}}
+          @hideText="true"
+          {{on "click" this.cancelEdit}}
+        >
+          Annuleren
+        </AuButton>
+      {{/unless}}
+    </AuButtonGroup>
+  </div>
+{{else}}
+  <div class="oc-document-card--document-name au-u-flex au-u-flex--row au-u-flex--vertical-center au-u-flex--spaced-tiny">
+    {{#if @documentVersion}}
+      <AuHeading @level="5" @skin="5">
+        <AuLink
+          @skin="bold"
+          @route="document-versions.document-version"
+          @model={{@documentVersion.id}}
+          target="_blank"
+        >
+          {{@document.name}} {{document-version/latin-adverbial-numeral @documentVersion}}
+        </AuLink>
+      </AuHeading>
+    {{else}}
+      <AuHeading @level="5" @skin="5">
+        {{@document.name}}
+      </AuHeading>
+    {{/if}}
+    <AuButtonGroup @inline={{true}}>
+      <AuButton
+        @skin="naked"
+        @icon="pencil"
+        @hideText={{true}}
+        {{on "click" this.openEditMode}}
+      >
+        Documentnaam wijzigen
+      </AuButton>
+      {{#if @documentVersion}}
+        <Await @promise={{@documentVersion.file}}>
+          <:success as |file|>
+            {{#if file}}
+              <AuLinkExternal
+                href={{document-version/download-link @document file}}
+                download={{document-version/download-filename @document file}}
+                @skin="button-naked"
+                @icon="download"
+                @hideText={{true}}
+              >
+                Document downloaden
+              </AuLinkExternal>
+            {{/if}}
+          </:success>
+        </Await>
+      {{/if}}
+    </AuButtonGroup>
+  </div>
+{{/if}}

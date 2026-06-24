@@ -1,0 +1,41 @@
+{{page-title
+  (concat @model.document.name " " (document-version/latin-adverbial-numeral @model.documentVersion))
+}}
+
+<object
+  class="au-u-height-full"
+  title="Document {{concat
+    @model.document.name
+    " "
+    (document-version/latin-adverbial-numeral @model.documentVersion)
+  }}"
+  type={{@model.file.format}}
+  data={{document-version/download-link @model.document @model.file "inline"}}
+>
+  <div class="au-o-region">
+    <div class="au-o-layout">
+      <AuAlert
+        @icon="document"
+        @skin="warning"
+        @title="Kan document niet laden"
+      >
+        <AuContent @skin="small">
+          <p>
+            Document '{{concat
+               @model.document.name
+               " "
+               (document-version/latin-adverbial-numeral @model.documentVersion)
+            }}' kan niet in de browser bekeken worden.
+          </p>
+          <AuLinkExternal
+            href={{document-version/download-link @model.document @model.file}}
+            @skin="bold"
+            @icon="download"
+          >
+            Document downloaden
+          </AuLinkExternal>
+        </AuContent>
+      </AuAlert>
+    </div>
+  </div>
+</object>

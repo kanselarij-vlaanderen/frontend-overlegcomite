@@ -11,7 +11,7 @@ export default class MeetingsRoute extends Route {
     page: { refreshModel: true },
     size: { refreshModel: true },
     dateFilter: { refreshModel: true },
-  }
+  };
 
   model(params) {
     const dateRange = textToDateRange(params.dateFilter);
@@ -38,5 +38,3 @@ export default class MeetingsRoute extends Route {
     controller.newMeeting = null;
   }
 }
-
-

@@ -1,7 +1,7 @@
 <div class="au-u-padding">
   <AuToolbar @size="medium" @border="bottom" as |Group|>
     <Group>
-      <AuHeading @skin={{4}}>
+      <AuHeading @skin={{3}}>
         {{@model.subject}}
       </AuHeading>
       {{#if @model.case.identifier}}
@@ -11,22 +11,34 @@
       {{/if}}
     </Group>
     <Group>
-      <AuButton @skin="secondary" @icon="pencil"
-        {{on "click" this.openEditAgendaitemModal}}>
+      <AuButton
+        @skin="secondary"
+        @icon="pencil"
+        {{on "click" this.openEditAgendaitemModal}}
+      >
         Wijzigen
       </AuButton>
-      <AuButton @skin="secondary" @icon="trash" @alert={{true}}
-        {{on "click" this.openDeleteAgendaitemModal}}>
+      <AuButton
+        @skin="secondary"
+        @icon="trash"
+        @alert={{true}}
+        {{on "click" this.openDeleteAgendaitemModal}}
+      >
         Verwijderen
       </AuButton>
     </Group>
   </AuToolbar>
 </div>
 
+<div class="oc-container au-o-flow--large">
+  <AgendaitemDocuments @agendaitem={{@model}} />
+</div>
+
 <AuModal
   @modalOpen={{this.isOpenEditAgendaitemModal}}
   @closeModal={{this.cancelEditAgendaitem}}
-  @overflow={{true}}>
+  @overflow={{true}}
+>
   <:title>
     Agendapunt wijzigen
   </:title>
@@ -37,8 +49,11 @@
           Aan het laden
         </AuLoader>
       </:pending>
-      <:success as |case|>
-        <AgendaitemForm @agendaitem={{@model}} @caseIdentifier={{this.caseIdentifier}} />
+      <:success>
+        <AgendaitemForm
+          @agendaitem={{@model}}
+          @caseIdentifier={{this.caseIdentifier}}
+        />
       </:success>
     </Await>
   </:body>
@@ -47,10 +62,12 @@
       <AuButton {{on "click" this.cancelEditAgendaitem}} @skin="naked">
         Annuleren
       </AuButton>
-      <AuButton @skin="primary"
+      <AuButton
+        @skin="primary"
         @loading={{this.saveAgendaitem.isRunning}}
         @disabled={{not this.formValid}}
-        {{on "click" this.saveAgendaitem.perform}}>
+        {{on "click" this.saveAgendaitem.perform}}
+      >
         Opslaan
       </AuButton>
     </AuToolbar>
@@ -61,7 +78,8 @@
   @modalOpen={{this.isOpenDeleteAgendaitemModal}}
   @onClose={{this.closeDeleteAgendaitemModal}}
   @onConfirm={{this.deleteAgendaitem.perform}}
-  @isLoading={{this.deleteAgendaitem.isRunning}}>
+  @isLoading={{this.deleteAgendaitem.isRunning}}
+>
   <:title>
     Agendapunt verwijderen
   </:title>

@@ -40,6 +40,10 @@ th.data-table-search-agendaitems-subject {
   cursor: pointer;
 }
 
+.oc-container {
+  padding: 2.4rem 4.8rem;
+}
+
 .oc-meeting-header,
 .oc-search-header {
   .au-c-toolbar {
@@ -102,6 +106,57 @@ th.data-table-search-agendaitems-subject {
   /* Agendaitems list view customizations */
   &.au-o-flow .oc-agendaitem-list-group-content ul {
     gap: 0.6rem;
+  }
+}
+
+.oc-document-card {
+  h6 {
+    text-transform: uppercase;
+    letter-spacing: .05rem;
+    color: var(--au-gray-500);
+  }
+
+  .ember-power-select-trigger {
+    width: 200px;
+  }
+
+  .au-c-card__footer {
+    background: var(--au-gray-100);
+    padding: 0;
+
+    .au-c-accordion {
+      padding-bottom: 0;
+
+      .au-c-accordion__toggle {
+        background: var(--au-white);
+        padding: 0.6rem 1.2rem;
+        margin-bottom: 0;
+        border-top: 0.1rem solid var(--au-gray-200);
+
+        .au-c-accordion__button {
+          text-decoration: none;
+          font-weight: var(--au-medium);
+        }
+      }
+
+      .au-c-list {
+        border-top: 0.1rem solid var(--au-gray-200);
+
+        .au-c-list__item {
+          padding: 2.0rem 2.4rem 1.4rem 2.4rem;
+        }
+      }
+    }
+  }
+
+  .oc-document-versions-list-item--icon {
+    margin-top: 0.25rem;
+    color: var(--au-gray-700);
+  }
+
+  .oc-document-versions-list-item--name .au-c-button,
+  .oc-document-card--document-name .au-c-button {
+    height: auto;
   }
 }
 

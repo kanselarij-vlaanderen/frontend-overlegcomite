@@ -5,4 +5,5 @@ export default class MeetingModel extends Model {
   @attr('datetime') startedAt;
 
   @hasMany('agendaitem', { inverse: 'meeting', async: true }) agendaItems;
+  @hasMany('document', { inverse: null, async: true }) documents;
 }

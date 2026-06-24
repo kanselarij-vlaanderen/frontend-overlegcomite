@@ -2,7 +2,10 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { service } from '@ember/service';
 import { task } from 'ember-concurrency';
-import { caseIdentifierValid, caseIdentifierValidStrict } from '../utils/case-identifier-validation';
+import {
+  caseIdentifierValid,
+  caseIdentifierValidStrict,
+} from '../utils/case-identifier-validation';
 import ensureCaseWithIdentifier from '../utils/ensure-case-with-identifier';
 
 export default class extends Component {
@@ -25,10 +28,10 @@ export default class extends Component {
   }
 
   init = task(async () => {
-    const latestAgendaitem = (await this.store.queryOne('agendaitem', {
+    const latestAgendaitem = await this.store.queryOne('agendaitem', {
       'filter[meeting][:uri:]': this.args.meeting.uri,
       sort: '-priority',
-    }));
+    });
 
     this.agendaitem = this.store.createRecord('agendaitem', {
       meeting: this.args.meeting,
@@ -37,7 +40,11 @@ export default class extends Component {
   });
 
   saveNewAgendaitem = task(async () => {
-    const _case = await ensureCaseWithIdentifier(this.store, null, this.caseIdentifier);
+    const _case = await ensureCaseWithIdentifier(
+      this.store,
+      null,
+      this.caseIdentifier,
+    );
     this.agendaitem.case = _case;
     // eslint-disable-next-line warp-drive/no-legacy-request-patterns
     await this.agendaitem.save();
@@ -47,5 +54,5 @@ export default class extends Component {
   cancelNewAgendaitem = () => {
     this.agendaitem.deleteRecord();
     this.args.onCancel();
-  }
+  };
 }

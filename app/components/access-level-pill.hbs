@@ -1,0 +1,41 @@
+{{#if this.isEditMode}}
+  <div class="au-u-flex--inline au-u-flex--spaced-tiny">
+    <PowerSelect
+      @options={{this.accessLevelOptions}}
+      @selected={{this.selectedAccessLevel}}
+      @allowClear={{true}}
+      @onChange={{fn (mut this.selectedAccessLevel)}}
+      as |accessLevel|
+    >
+      {{accessLevel.label}}
+    </PowerSelect>
+    <AuButtonGroup>
+      <AuButton
+        @icon="check"
+        @skin="secondary"
+        @hideText="true"
+        {{on "click" this.save}}
+      >
+        Opslaan
+      </AuButton>
+      <AuButton
+        @icon="cross"
+        @skin="secondary"
+        @alert={{true}}
+        @hideText="true"
+        {{on "click" this.cancelEdit}}
+      >
+        Annuleren
+      </AuButton>
+    </AuButtonGroup>
+  </div>
+{{else}}
+  <AuPill
+    @skin={{this.skin}}
+    @icon={{this.icon}}
+    @actionIcon="pencil"
+    @onClickAction={{this.openEditMode}}
+  >
+    {{or @accessLevel.label "Geen toegangsniveau"}}
+  </AuPill>
+{{/if}}

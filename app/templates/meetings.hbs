@@ -40,13 +40,15 @@
   @sort={{this.sort}}
   @page={{this.page}}
   @size={{this.size}}
-  as |t|>
+  as |t|
+>
   <t.content as |c|>
     <c.header>
       <AuDataTableThSortable
         @field="startedAt"
         @currentSorting={{this.sort}}
-        @label="Datum" />
+        @label="Datum"
+      />
       <th class="data-table-row-navigation" />
     </c.header>
     <c.body @onClickRow={{this.goToMeeting}} as |meeting|>
@@ -56,7 +58,8 @@
           @route="meeting"
           @model={{meeting.id}}
           @icon="chevron-right"
-          @hideText={{true}}>
+          @hideText={{true}}
+        >
           Ga naar vergadering
         </AuLink>
       </td>
@@ -67,7 +70,8 @@
 <AuModal
   @modalOpen={{this.isOpenNewMeetingModal}}
   @closeModal={{this.closeNewMeetingModal}}
-  @overflow={{true}}>
+  @overflow={{true}}
+>
   <:title>
     Nieuwe vergadering
   </:title>
@@ -82,7 +86,8 @@
       <AuButton
         @skin="primary"
         @loading={{this.saveNewMeeting.isRunning}}
-        {{on "click" this.saveNewMeeting.perform}}>
+        {{on "click" this.saveNewMeeting.perform}}
+      >
         Aanmaken
       </AuButton>
     </AuToolbar>

@@ -1,1 +1,1 @@
-export { Await as default } from "@warp-drive/ember";
+export { Await as default } from '@warp-drive/ember';
