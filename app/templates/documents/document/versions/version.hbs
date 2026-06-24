@@ -1,12 +1,13 @@
 {{page-title
-  (format-versioned-document-name @model.documentVersion @model.document)
+  (concat @model.document.name " " (document-version/latin-adverbial-numeral @model.documentVersion))
 }}
 
 <object
   class="au-u-height-full"
-  title="Document {{format-versioned-document-name
-    @model.documentVersion
-    @model.document
+  title="Document {{concat
+    @model.document.name
+    " "
+    (document-version/latin-adverbial-numeral @model.documentVersion)
   }}"
   type={{@model.file.format}}
   data={{document-version/download-link @model.document @model.file "inline"}}
@@ -20,14 +21,15 @@
       >
         <AuContent @skin="small">
           <p>
-            '{{format-versioned-document-name
-              @model.documentVersion
-              @model.document
+            Document '{{concat
+               @model.document.name
+               " "
+               (document-version/latin-adverbial-numeral @model.documentVersion)
             }}' kan niet in de browser bekeken worden.
           </p>
           <AuLinkExternal
             href={{document-version/download-link @model.document @model.file}}
-            @skin="button"
+            @skin="bold"
             @icon="download"
           >
             Document downloaden
