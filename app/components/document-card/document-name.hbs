@@ -30,7 +30,7 @@
     </AuButtonGroup>
   </div>
 {{else}}
-  <div class="au-u-flex au-u-flex--row au-u-flex--vertical-baseline au-u-flex--spaced-tiny">
+  <div class="oc-document-card--document-name au-u-flex au-u-flex--row au-u-flex--vertical-center au-u-flex--spaced-tiny">
     {{#if @documentVersion}}
       <AuHeading @level="5" @skin="5">
         <AuLink
@@ -39,7 +39,7 @@
           @model={{@documentVersion}}
           target="_blank"
         >
-          {{format-versioned-document-name @documentVersion @document}}
+          {{@document.name}} {{document-version/latin-adverbial-numeral @documentVersion}}
         </AuLink>
       </AuHeading>
     {{else}}
@@ -47,28 +47,30 @@
         {{@document.name}}
       </AuHeading>
     {{/if}}
-    <AuButton
-      @skin="naked"
-      @icon="pencil"
-      @hideText={{true}}
-      {{on "click" this.openEditMode}}
-    >
-      Documentnaam wijzigen
-    </AuButton>
-    {{#if @documentVersion}}
-      <Await @promise={{@documentVersion.file}}>
-        <:success as |file|>
-          <AuLinkExternal
-            href={{document-version/download-link @document file}}
-            download={{document-version/download-filename @document file}}
-            @skin="naked"
-            @icon="file-download"
-            @hideText={{true}}
-          >
-            Document downloaden
-          </AuLinkExternal>
-        </:success>
-      </Await>
-    {{/if}}
+    <AuButtonGroup @inline={{true}}>
+      <AuButton
+        @skin="naked"
+        @icon="pencil"
+        @hideText={{true}}
+        {{on "click" this.openEditMode}}
+      >
+        Documentnaam wijzigen
+      </AuButton>
+      {{#if @documentVersion}}
+        <Await @promise={{@documentVersion.file}}>
+          <:success as |file|>
+            <AuLinkExternal
+              href={{document-version/download-link @document file}}
+              download={{document-version/download-filename @document file}}
+              @skin="button-naked"
+              @icon="download"
+              @hideText={{true}}
+            >
+              Document downloaden
+            </AuLinkExternal>
+          </:success>
+        </Await>
+      {{/if}}
+    </AuButtonGroup>
   </div>
 {{/if}}

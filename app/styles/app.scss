@@ -119,6 +119,45 @@ th.data-table-search-agendaitems-subject {
   .ember-power-select-trigger {
     width: 200px;
   }
+
+  .au-c-card__footer {
+    background: var(--au-gray-100);
+    padding: 0;
+
+    .au-c-accordion {
+      padding-bottom: 0;
+
+      .au-c-accordion__toggle {
+        background: var(--au-white);
+        padding: 0.6rem 1.2rem;
+        margin-bottom: 0;
+        border-top: 0.1rem solid var(--au-gray-200);
+
+        .au-c-accordion__button {
+          text-decoration: none;
+          font-weight: var(--au-medium);
+        }
+      }
+
+      .au-c-list {
+        border-top: 0.1rem solid var(--au-gray-200);
+
+        .au-c-list__item {
+          padding: 2.0rem 2.4rem 1.4rem 2.4rem;
+        }
+      }
+    }
+  }
+
+  .oc-document-versions-list-item--icon {
+    margin-top: 0.25rem;
+    color: var(--au-gray-700);
+  }
+
+  .oc-document-versions-list-item--name .au-c-button,
+  .oc-document-card--document-name .au-c-button {
+    height: auto;
+  }
 }
 
 .oc-u-sticky-top,
@@ -139,54 +178,6 @@ th.data-table-search-agendaitems-subject {
 .oc-c-sticky-header:first-child {
   border-top: $au-navigation-list-border solid var(--au-divider-color);
   margin-top: -$au-navigation-list-border;
-}
-
-.oc-c-card-footer--content {
-  margin-top: $au-unit-small;
-  margin-bottom: -$au-unit;
-  margin-left: -$au-unit;
-  margin-right: -$au-unit;
-  padding: $au-unit;
-
-  background: var(--au-gray-100);
-  border-top: 0.1rem solid $au-card-border-color;
-}
-
-.oc-c-card-footer--details {
-  >.oc-c-card-footer--summary {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    color: var(--au-blue-900);
-
-    >.au-c-icon {
-      transform: rotate(0);
-      transition: transform var(--au-transition);
-      margin-right: $au-unit-small;
-    }
-  }
-
-  &[open] {
-    >.oc-c-card-footer--summary .au-c-icon {
-      transform: rotate(90deg);
-    }
-  }
-}
-
-.oc-c-timeline {
-  .oc-c-timeline__item {
-    position: relative;
-
-    &:not(:last-child)::before {
-      content: '';
-      position: absolute;
-      height: calc(100% - var(--au-icon-size)/2);
-      width: var(--au-border);
-      left: calc($au-unit-small + var(--au-icon-size)/2 - var(--au-border)/2);
-      top: calc($au-unit-small * 2 + var(--au-icon-size));
-      background: var(--au-gray-500);
-    }
-  }
 }
 
 .oc-u-subtle-progress-bar {

@@ -20,48 +20,24 @@
       @document={{@document}}
       @documentVersion={{this.latestVersion}}
     />
-    <p class="au-u-muted">
-      Aangemaakt op
-      <span>
-        {{format-datetime @document.created}}
-      </span>
+    <p class="au-u-para-small au-u-muted">
+      Aangemaakt op {{format-datetime this.latestVersion.created}}
     </p>
   </c.header>
   {{#if this.hasMultipleVersions}}
     <c.footer>
-      <details class="oc-c-card-footer--details">
-        <summary class="oc-c-card-footer--summary">
-          <AuIcon @icon="chevron-right" />
-          Alle versies
-        </summary>
-        <ol
-          class="oc-c-card-footer--content oc-c-timeline au-c-list au-c-list--vertical au-o-flow"
-        >
-          {{#each this.sortedDocumentVersions as |version index|}}
-            <li
-              class="oc-c-timeline__item au-c-list__item au-u-flex au-u-flex--row"
-            >
-              <AuIcon
-                @icon={{if index "clock-rewind" "chevron-right"}}
-                class="au-o-box au-o-box--small"
+      <AuAccordion @buttonLabel="Alle versies" @reverse={{true}}>
+        <AuList @divider={{true}} as |Item|>
+          {{#each this.sortedDocumentVersions as |documentVersion|}}
+            <Item>
+              <DocumentCard::DocumentVersionsListItem
+                @document={{@document}}
+                @documentVersion={{documentVersion}}
               />
-              <div>
-                <p class="au-u-medium">
-                  {{format-versioned-document-name version @document}}
-                </p>
-                <p class="au-u-muted">
-                  {{format-datetime version.created}}
-                </p>
-              </div>
-              {{#if index}}
-                <div class="au-u-flex-self-start au-u-margin-left">
-                  <DocumentVersionButtons @version={{version}} />
-                </div>
-              {{/if}}
-            </li>
+            </Item>
           {{/each}}
-        </ol>
-      </details>
+        </AuList>
+      </AuAccordion>
     </c.footer>
   {{/if}}
 </AuCard>
