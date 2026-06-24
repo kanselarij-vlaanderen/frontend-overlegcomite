@@ -10,13 +10,13 @@
   </:title>
   <:body>
     <div class="au-o-flow au-o-flow--small">
-      {{#if this.saveDocuments.isRunning}}
+      {{#if this.saveUpload.isRunning}}
         <AuLoader @message="Aan het opslaan" />
       {{else}}
         {{#if (or @multiple (not this.files))}}
           <AuFileUpload
             @endpoint={{this.endpoint}}
-            @onFinishUpload={{this.onFinishUpload}}
+            @onFinishUpload={{this.addFile}}
             @multiple={{@multiple}}
           />
         {{/if}}

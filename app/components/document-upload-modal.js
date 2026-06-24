@@ -26,8 +26,8 @@ export default class DocumentUploadModal extends Component {
   });
 
   @action
-  async createDocument(id) {
-    const file = await this.store.findRecord('file', id);
+  async createDocument(fileId) {
+    const file = await this.store.findRecord('file', fileId);
     const now = Temporal.Now.zonedDateTimeISO();
     const documentVersion = this.store.createRecord('document-version', {
       created: now,
