@@ -20,7 +20,16 @@ Router.map(function() {
     this.route('documents', { path: '/documenten' });
   });
 
-  this.route('view-document', { path: '/documenten/:document_id/versies/:version_number/bekijken'});
+  this.route('documents', { path: '/documenten' }, function() {
+    this.route('document', { path: '/:document_id' }, function() {
+      this.route('versions', { path: '/versies' }, function() {
+        this.route('version', { path: '/:version_number/bekijken' })
+      });
+    });
+  });
+  this.route('document-versions', { path: '/document-versies/' }, function() {
+    this.route('document-version', { path: '/:document_version_id' })
+  });
 
   this.route('search', { path: '/zoeken' });
 

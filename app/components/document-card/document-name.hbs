@@ -35,8 +35,8 @@
       <AuHeading @level="5" @skin="5">
         <AuLink
           @skin="bold"
-          @route="view-document"
-          @model={{@documentVersion}}
+          @route="document-versions.document-version"
+          @model={{@documentVersion.id}}
           target="_blank"
         >
           {{@document.name}} {{document-version/latin-adverbial-numeral @documentVersion}}
