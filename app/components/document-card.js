@@ -18,7 +18,7 @@ export default class DocumentCardComponent extends Component {
     this.documentVersions = await this.store.queryAll('document-version', {
       'filter[document][:id:]': this.args.document.id,
       sort: '-version-number',
-      include: 'file,document'
+      include: 'file,document,access-level'
     });
   });
 
@@ -28,11 +28,11 @@ export default class DocumentCardComponent extends Component {
     );
   }
 
-  get latestVersion() {
+  get latestDocumentVersion() {
     return this.sortedDocumentVersions[0];
   }
 
-  get hasMultipleVersions() {
+  get hasMultipleDocumentVersions() {
     return this.sortedDocumentVersions?.length > 1;
   }
 }

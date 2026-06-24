@@ -8,23 +8,23 @@
       </Group>
       <Group class="au-u-flex--vertical-end">
         {{#unless this.init.isRunning}}
-          <DocumentVersionButtons
-            @version={{this.latestVersion}}
+          <DocumentCard::DocumentActions
             @document={{@document}}
-            @onEditDocumentName={{fn (mut this.isEditingDocumentName) true}}
+            @documentVersion={{this.latestDocumentVersion}}
+            @onUpdate={{this.init.perform}}
           />
         {{/unless}}
       </Group>
     </AuToolbar>
     <DocumentCard::DocumentName
       @document={{@document}}
-      @documentVersion={{this.latestVersion}}
+      @documentVersion={{this.latestDocumentVersion}}
     />
     <p class="au-u-para-small au-u-muted">
-      Aangemaakt op {{format-datetime this.latestVersion.created}}
+      Aangemaakt op {{format-datetime this.latestDocumentVersion.created}}
     </p>
   </c.header>
-  {{#if this.hasMultipleVersions}}
+  {{#if this.hasMultipleDocumentVersions}}
     <c.footer>
       <AuAccordion @buttonLabel="Alle versies" @reverse={{true}}>
         <AuList @divider={{true}} as |Item|>

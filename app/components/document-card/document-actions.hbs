@@ -1,5 +1,5 @@
-{{#if @version}}
-  <Await @promise={{@version.accessLevel}}>
+{{#if @documentVersion}}
+  <Await @promise={{@documentVersion.accessLevel}}>
     <:success as |accessLevel|>
       <AccessLevelPill
         @accessLevel={{accessLevel}}
@@ -8,11 +8,11 @@
     </:success>
   </Await>
   <AuPill
-    @skin={{if @version.confidential "warning" "default"}}
-    @actionIcon={{if @version.confidential "lock-closed" "lock-open"}}
+    @skin={{if @documentVersion.confidential "warning" "default"}}
+    @actionIcon={{if @documentVersion.confidential "lock-closed" "lock-open"}}
     @onClickAction={{this.toggleConfidential}}
   >
-    {{#if @version.confidential}}
+    {{#if @documentVersion.confidential}}
       Vertrouwelijk
     {{else}}
       Openbaar
@@ -29,7 +29,7 @@
 >
   {{#if @document}}
     <AuButton
-      {{on "click" (fn (mut this.isAddingVersion) true)}}
+      {{on "click" (fn (mut this.isAddingDocumentVersion) true)}}
       @skin="link"
       role="menuitem"
     >
@@ -37,9 +37,9 @@
     </AuButton>
   {{/if}}
   <AuHr />
-  {{#if @version}}
+  {{#if @documentVersion}}
     <AuButton
-      {{on "click" (fn this.deleteVersion @version)}}
+      {{on "click" (fn this.deleteDocumentVersion @documentVersion)}}
       @skin="link"
       @alert={{true}}
       role="menuitem"
@@ -49,7 +49,7 @@
   {{/if}}
   {{#if @document}}
     <AuButton
-      {{on "click" (fn this.deleteDocument @document)}}
+      {{on "click" this.deleteDocument}}
       @skin="link"
       @alert={{true}}
       role="menuitem"
@@ -60,8 +60,8 @@
 </AuDropdown>
 
 <FileUploadModal
-  @modalOpen={{this.isAddingVersion}}
+  @modalOpen={{this.isAddingDocumentVersion}}
   @multiple={{false}}
-  @onSave={{this.addVersion}}
-  @onCancel={{fn (mut this.isAddingVersion) false}}
+  @onSave={{this.addDocumentVersion}}
+  @onCancel={{fn (mut this.isAddingDocumentVersion) false}}
 />

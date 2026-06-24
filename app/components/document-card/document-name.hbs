@@ -59,15 +59,17 @@
       {{#if @documentVersion}}
         <Await @promise={{@documentVersion.file}}>
           <:success as |file|>
-            <AuLinkExternal
-              href={{document-version/download-link @document file}}
-              download={{document-version/download-filename @document file}}
-              @skin="button-naked"
-              @icon="download"
-              @hideText={{true}}
-            >
-              Document downloaden
-            </AuLinkExternal>
+            {{#if file}}
+              <AuLinkExternal
+                href={{document-version/download-link @document file}}
+                download={{document-version/download-filename @document file}}
+                @skin="button-naked"
+                @icon="download"
+                @hideText={{true}}
+              >
+                Document downloaden
+              </AuLinkExternal>
+            {{/if}}
           </:success>
         </Await>
       {{/if}}
