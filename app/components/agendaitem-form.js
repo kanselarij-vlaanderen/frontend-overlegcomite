@@ -19,8 +19,10 @@ export default class AgendaitemForm extends Component {
   }
 
   fetchGovernmentBodies = task(async () => {
-    this.governmentBodies = (await this.store.queryAll('government-body', {
-      sort: '-name'
-    })).toArray();
+    this.governmentBodies = (
+      await this.store.queryAll('government-body', {
+        sort: '-name',
+      })
+    ).toArray();
   });
 }

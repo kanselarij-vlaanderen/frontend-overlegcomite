@@ -17,7 +17,22 @@ Router.map(function() {
     this.route('agendaitems', { path: '/agendapunten' }, function() {
       this.route('agendaitem', { path: '/:agendaitem_id' });
     });
+    this.route('documents', { path: '/documenten' });
   });
+
+  this.route('documents', { path: '/documenten' }, function() {
+    this.route('document', { path: '/:document_id' }, function() {
+      this.route('versions', { path: '/versies' }, function() {
+        this.route('version', { path: '/:version_number/bekijken' })
+      });
+    });
+  });
+  this.route('document-versions', { path: '/document-versies/' }, function() {
+    this.route('document-version', { path: '/:document_version_id' })
+  });
+
+  this.route('search', { path: '/zoeken' });
+
   this.route('error', { path: 'fout/*path'});
   this.route('mock-login');
 });

@@ -1,0 +1,70 @@
+<div class="au-u-flex au-u-flex--row au-u-flex--spaced-small">
+  <div class="oc-document-versions-list-item--icon">
+    <AuIcon @icon="clock-rewind" @size="large" />
+  </div>
+  <div class="au-u-flex-grow">
+    <div class="oc-document-versions-list-item--name au-u-flex au-u-flex--row au-u-flex--vertical-center au-u-flex--spaced-tiny">
+      <AuHeading @level="6" @skin="6">
+        <AuLink
+          @skin="bold"
+          @route="document-versions.document-version"
+          @model={{@documentVersion}}
+          target="_blank"
+        >
+          {{@document.name}} {{document-version/latin-adverbial-numeral @documentVersion}}
+        </AuLink>
+      </AuHeading>
+      {{#if @documentVersion}}
+        <Await @promise={{@documentVersion.file}}>
+          <:success as |file|>
+            {{#if file}}
+              <AuLinkExternal
+                href={{document-version/download-link @document file}}
+                download={{document-version/download-filename @document file}}
+                @skin="button-naked"
+                @icon="download"
+                @hideText={{true}}
+              >
+                Document downloaden
+              </AuLinkExternal>
+            {{/if}}
+          </:success>
+        </Await>
+      {{/if}}
+    </div>
+    <p class="au-u-para-small au-u-muted">
+      Aangemaakt op {{format-datetime @documentVersion.created}}
+    </p>
+  </div>
+  <div class="au-u-flex au-u-flex--vertical-center au-u-flex--spaced-small">
+    <Await @promise={{@documentVersion.accessLevel}}>
+      <:success as |accessLevel|>
+        <AccessLevelPill
+          @accessLevel={{accessLevel}}
+          @onSave={{this.saveAccessLevel}}
+          />
+      </:success>
+    </Await>
+    <AuPill
+      @skin={{if @documentVersion.confidential "warning" "default"}}
+      @actionIcon={{if @documentVersion.confidential "lock-closed" "lock-open"}}
+      @onClickAction={{this.toggleConfidential}}
+    >
+      {{#if @documentVersion.confidential}}
+        Vertrouwelijk
+      {{else}}
+        Openbaar
+      {{/if}}
+    </AuPill>
+    <AuButton
+      @skin="naked"
+      @icon="trash"
+      @alert={{true}}
+      @hideText={{true}}
+      {{on "click" this.deleteDocumentVersion}}
+    >
+      Versie verwijderen
+    </AuButton>
+
+  </div>
+</div>

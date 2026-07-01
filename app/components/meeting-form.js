@@ -21,7 +21,7 @@ export default class MeetingForm extends Component {
     this.args.meeting.startedAt = this.args.meeting.startedAt.with({
       year: newDate.year,
       month: newDate.month,
-      day: newDate.day
+      day: newDate.day,
     });
   }
 
@@ -29,7 +29,7 @@ export default class MeetingForm extends Component {
   setStartedAtTime(time) {
     this.args.meeting.startedAt = this.args.meeting.startedAt.with({
       hour: time.hours,
-      minute: time.minutes
-    })
+      minute: time.minutes,
+    });
   }
 }

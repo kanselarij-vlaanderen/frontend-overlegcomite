@@ -9,4 +9,7 @@ export default class AgendaitemModel extends Model {
   @belongsTo('meeting', { inverse: 'agendaItems', async: true }) meeting;
   @belongsTo('case', { inverse: 'agendaItems', async: true }) case;
   @hasMany('government-body', { inverse: null, async: true }) submitters;
+
+  @belongsTo('document', { inverse: null, async: true }) notification;
+  @hasMany('document', { inverse: null, async: true }) documents;
 }

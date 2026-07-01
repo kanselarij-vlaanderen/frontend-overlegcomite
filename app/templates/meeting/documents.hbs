@@ -1,0 +1,34 @@
+{{page-title "Documenten"}}
+
+<div class="oc-container">
+  <div class="au-o-flow--small">
+    <AuHeading @level="4" @skin="4">
+      Documenten
+      {{#if @model.documents}}
+        ({{@model.documents.length}})
+      {{/if}}
+    </AuHeading>
+    {{#unless @model.documents}}
+      <AuAlert @title="Geen documenten beschikbaar" @icon="circle-info">
+        Deze vergadering heeft nog geen documenten.
+      </AuAlert>
+    {{/unless}}
+    {{#each @model.documents as |document|}}
+      <DocumentCard @document={{document}} />
+    {{/each}}
+    <AuButton
+      {{on "click" (fn (mut this.isDocumentUploadModalOpen) true)}}
+      @icon="plus"
+      @skin="secondary"
+    >
+      Document toevoegen
+    </AuButton>
+  </div>
+</div>
+
+<DocumentUploadModal
+  @modalOpen={{this.isDocumentUploadModalOpen}}
+  @onSave={{this.saveDocuments}}
+  @onCancel={{fn (mut this.isDocumentUploadModalOpen) false}}
+  @multiple={{true}}
+/>
