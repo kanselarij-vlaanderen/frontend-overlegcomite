@@ -4,6 +4,7 @@ import textToDateRange from '../utils/text-to-date-range';
 import { formatDateForFilter } from '../utils/format-date-for-filter';
 
 export default class MeetingsRoute extends Route {
+  @service session;
   @service store;
 
   queryParams = {
@@ -12,6 +13,10 @@ export default class MeetingsRoute extends Route {
     size: { refreshModel: true },
     dateFilter: { refreshModel: true },
   };
+
+  beforeModel(transition) {
+    this.session.requireAuthentication(transition, 'auth.login-redirect');
+  }
 
   model(params) {
     const dateRange = textToDateRange(params.dateFilter);

@@ -8,6 +8,9 @@ export default {
     KABINET_ADVIES: 'http://kanselarij.vo.data.gift/id/concept/toegangs-niveaus/abe4c18d-13a9-45f0-8cdd-c493eabbbe29',
     INTERN_OVERHEID: 'http://kanselarij.vo.data.gift/id/concept/toegangs-niveaus/e3d64f24-4feb-4770-8212-e9e3e23a7d29',
   },
+  SERVICE_PROVIDERS: {
+    MOCK_LOGIN: 'https://github.com/kanselarij-vlaanderen/mock-login-service',
+  },
   LATIN_ADVERBIAL_NUMERALS: {
     1: '',
     2: 'bis',

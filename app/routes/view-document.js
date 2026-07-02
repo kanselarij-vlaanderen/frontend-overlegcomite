@@ -2,7 +2,12 @@ import Route from '@ember/routing/route';
 import { service } from '@ember/service';
 
 export default class ViewDocumentRoute extends Route {
+  @service session;
   @service store;
+
+  beforeModel(transition) {
+    this.session.requireAuthentication(transition, 'auth.login-redirect');
+  }
 
   async model({ document_id, version_number }) {
     const documentVersion = await this.store.queryOne('document-version', {

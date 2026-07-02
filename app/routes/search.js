@@ -7,6 +7,7 @@ import DatetimeTransform from '../transforms/datetime';
 const datetimeTransform = new DatetimeTransform();
 
 export default class SearchRoute extends Route {
+  @service session;
   @service store;
 
   queryParams = {
@@ -16,6 +17,10 @@ export default class SearchRoute extends Route {
     notificationsOnly: { refreshModel: true },
     searchText: { refreshModel: true },
   };
+
+  beforeModel(transition) {
+    this.session.requireAuthentication(transition, 'auth.login-redirect');
+  }
 
   async model(params) {
     const index = params.notificationsOnly

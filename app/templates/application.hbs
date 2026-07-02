@@ -4,32 +4,58 @@
 <AuModalContainer />
 
 <AuApp {{on-global-error this.showError}}>
-  <AuMainHeader
-    @brandLink="https://www.vlaanderen.be/nl"
-    @homeRoute="index"
-    @appTitle="Overlegcomité"
-  />
-  <AuToolbar @skin="tint">
-    <AuTabs as |Tab|>
-      <Tab>
-        <AuLink @route="meetings">Vergaderingen</AuLink>
-      </Tab>
-      <Tab>
-        <AuLink @route="search">Zoeken</AuLink>
-      </Tab>
-      <Tab>
-        <AuLink @route="index">Gebruikersbeheer</AuLink>
-      </Tab>
-    </AuTabs>
-  </AuToolbar>
+    <AuMainHeader
+      @brandLink="https://www.vlaanderen.be/nl"
+      @homeRoute="index"
+      @appTitle="Overlegcomité"
+    >
+      {{#if this.currentSession.hasAccessToApplication}}
+        <AuDropdown @title={{this.currentSession.user.firstName}} @alignment="right" role="menu">
+          <div class="au-u-padding-small">
+            <div class="au-u-flex au-u-flex-row au-u-flex--spaced-small au-u-flex--vertical-center">
+              <div class="oc-avatar au-u-flex-grow-0">
+                <AuIcon @icon="user" />
+              </div>
+            <div>
+              <p class="">{{this.currentSession.user.fullName}}</p>
+              <p class="au-u-para-small au-u-muted">
+                {{or this.currentSession.organization.name this.currentSession.organization.identifier}}
+              </p>
+              <p class="au-u-para-small au-u-muted">
+                {{this.currentSession.role.label}}
+              </p>
+            </div>
+          </div>
+          <AuHr />
+          <AuLink @route="auth.logout" @icon="logout" role="menuitem">
+            Afmelden
+          </AuLink>
+                    </div>
+        </AuDropdown>
+      {{/if}}
+    </AuMainHeader>
+  {{#if this.currentSession.hasAccessToApplication}}
+    <AuToolbar @skin="tint">
+      <AuTabs as |Tab|>
+        <Tab>
+          <AuLink @route="meetings">Vergaderingen</AuLink>
+        </Tab>
+        <Tab>
+          <AuLink @route="search">Zoeken</AuLink>
+        </Tab>
+      </AuTabs>
+    </AuToolbar>
 
-  <AuMainContainer @scroll={{true}} @size="regular" as |main|>
-    <main.content>
-      <AuBodyContainer @scroll={{true}} class="au-u-background-gray-100">
-        {{outlet}}
-      </AuBodyContainer>
-    </main.content>
-  </AuMainContainer>
+    <AuMainContainer @scroll={{true}} @size="regular" as |main|>
+      <main.content>
+        <AuBodyContainer @scroll={{true}} class="au-u-background-gray-100">
+          {{outlet}}
+        </AuBodyContainer>
+      </main.content>
+    </AuMainContainer>
+  {{else}}
+    {{outlet}}
+  {{/if}}
 </AuApp>
 
 <AuToaster />

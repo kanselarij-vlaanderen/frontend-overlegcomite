@@ -1,0 +1,51 @@
+<AuMainContainer @scroll={{true}} @size="small" as |main|>
+  <main.content>
+    <div class="au-u-flex au-u-flex--center au-u-flex--vertical-center au-u-margin-huge">
+      <div class="au-u-max-width-xsmall ">
+      <AuHeading @skin="5">Aanmelden als bepaald profiel</AuHeading>
+      <p class="auk-u-mb-4">Kies een type gebruiker om mee aan te melden:</p>
+
+        <MockLogin as |login|>
+          {{#if login.errorMessage}}
+            {{#if (includes "403" (w (lowercase login.errorMessage)))}}
+              <AuAlert
+                @skin="error"
+                @icon="circle-x"
+                @size="small"
+              >
+                <p>U hebt geen toegang tot de applicatie</p>
+              </AuAlert>
+            {{else}}
+              <AuAlert
+                @skin="error"
+                @icon="circle-x"
+                @size="small"
+              >
+                <p>{{login.errorMessage}}</p>
+              </AuAlert>
+            {{/if}}
+          {{/if}}
+          {{#if this.model.length}}
+            <AuList @divider={{true}} class="au-u-margin-top" as |Item|>
+              {{#each this.model as |account|}}
+                <Item class="au-u-padding">
+                  <AuButton
+                    @skin="link-bold"
+                    @size="large"
+                    @icon="chevron-right"
+                    @iconAlignment="right"
+                    {{on "click" (fn login.login account.id)}}
+                  >
+                    {{account.user.firstName}} {{account.user.lastName}}
+                  </AuButton>
+                </Item>
+              {{/each}}
+            </AuList>
+          {{else}}
+            Geen accounts gevonden.
+          {{/if}}
+        </MockLogin>
+      </div>
+    </div>
+  </main.content>
+</AuMainContainer>

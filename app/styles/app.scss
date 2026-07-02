@@ -44,6 +44,24 @@ th.data-table-search-agendaitems-subject {
   padding: 2.4rem 4.8rem;
 }
 
+.au-c-main-header {
+  .oc-avatar {
+    background: var(--au-gray-200);
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .au-c-icon {
+      color: var(--au-gray-700);
+      width: 2rem;
+      height: 2rem;
+    }
+  }
+}
+
 .oc-meeting-header,
 .oc-search-header {
   .au-c-toolbar {

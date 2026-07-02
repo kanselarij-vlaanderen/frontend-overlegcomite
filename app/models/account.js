@@ -1,7 +1,7 @@
-import Model, { attr, belongsTo, hasMany } from '@warp-drive/legacy/model';
+import Model, { attr, belongsTo } from '@warp-drive/legacy/model';
 
 export default class AccountModel extends Model {
-  @attr('string') accountName;
+  @attr('string') name;
 
   @belongsTo('user', { inverse: 'account', async: true }) user;
 }
