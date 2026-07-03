@@ -13,7 +13,18 @@ module.exports = function(environment) {
         // e.g. EMBER_NATIVE_DECORATOR_SUPPORT: true
       },
     },
-
+    acmidm: {
+      clientId: '{{OAUTH_CLIENT_ID}}',
+      authUrl: '{{OAUTH_BASE_URL}}',
+      authRedirectUrl: '{{OAUTH_REDIRECT_URL}}',
+      logoutUrl: '{{OAUTH_LOGOUT_URL}}',
+      scope: [
+        'vo',
+        'profile',
+        'openid',
+        'dkboverlegcomite'
+      ].join(' '),
+    },
     plausible: {
       domain: '{{ANALYTICS_APP_DOMAIN}}',
       apiHost: '{{ANALYTICS_API_HOST}}',
