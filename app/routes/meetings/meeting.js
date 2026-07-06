@@ -1,14 +1,9 @@
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
-import Distribution from '../utils/distribution';
+import Distribution from '../../utils/distribution';
 
-export default class MeetingRoute extends Route {
-  @service session;
+export default class MeetingsMeetingRoute extends Route {
   @service store;
-
-  beforeModel(transition) {
-    this.session.requireAuthentication(transition, 'auth.login-redirect');
-  }
 
   model({ meeting_id }) {
     // eslint-disable-next-line warp-drive/no-legacy-request-patterns

@@ -3,7 +3,7 @@ import { tracked } from '@glimmer/tracking';
 import { service } from '@ember/service';
 import { task } from 'ember-concurrency';
 
-export default class MeetingController extends Controller {
+export default class MeetingsMeetingController extends Controller {
   @service store;
   @service router;
 
@@ -49,10 +49,10 @@ export default class MeetingController extends Controller {
 
   goToAgendaitem = (agendaitem) => {
     this.closeNewAgendaitemModal();
-    // force rerun of the meeting.agendaitems model hook to update list of agendaitems
-    this.router.refresh('meeting.agendaitems');
+    // force rerun of the meetings.meeting.agendaitems model hook to update list of agendaitems
+    this.router.refresh('meetings.meeting.agendaitems');
     this.router.transitionTo(
-      'meeting.agendaitems.agendaitem',
+      'meetings.meeting.agendaitems.agendaitem',
       this.model.id,
       agendaitem.id,
     );

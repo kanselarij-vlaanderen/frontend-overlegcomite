@@ -61,6 +61,6 @@ export default class MeetingsIndexController extends Controller {
   });
 
   goToMeeting = (meeting) => {
-    this.router.transitionTo('meeting', meeting.id);
+    this.router.transitionTo('meetings.meeting', meeting.id);
   }
 }

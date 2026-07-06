@@ -2,10 +2,10 @@ import Controller from '@ember/controller';
 import { tracked } from '@glimmer/tracking';
 import { service } from '@ember/service';
 import { task } from 'ember-concurrency';
-import { caseIdentifierValid } from '../../../utils/case-identifier-validation';
-import ensureCaseWithIdentifier from '../../../utils/ensure-case-with-identifier';
+import { caseIdentifierValid } from '../../../../utils/case-identifier-validation';
+import ensureCaseWithIdentifier from '../../../../utils/ensure-case-with-identifier';
 
-export default class MeetingAgendaitemsAgendaitemController extends Controller {
+export default class MeetingsMeetingAgendaitemsAgendaitemController extends Controller {
   @service store;
   @service router;
 
@@ -32,8 +32,8 @@ export default class MeetingAgendaitemsAgendaitemController extends Controller {
     this.model.case = newCase;
     // eslint-disable-next-line warp-drive/no-legacy-request-patterns
     await this.model.save();
-    // force rerun of the meeting.agendaitems model hook to update grouping of agendaitems
-    this.router.refresh('meeting.agendaitems');
+    // force rerun of the meetings.meeting.agendaitems model hook to update grouping of agendaitems
+    this.router.refresh('meetings.meeting.agendaitems');
     this.closeEditAgendaitemModal();
   });
 
@@ -52,8 +52,8 @@ export default class MeetingAgendaitemsAgendaitemController extends Controller {
     // eslint-disable-next-line warp-drive/no-legacy-request-patterns
     await case_.destroyRecord();
     this.closeDeleteAgendaitemModal();
-    // force rerun of the meeting.agendaitems model hook to update list of agendaitems
-    this.router.refresh('meeting.agendaitems');
-    this.router.transitionTo('meeting.agendaitems.index', meeting.id);
+    // force rerun of the meetings.meeting.agendaitems model hook to update list of agendaitems
+    this.router.refresh('meetings.meeting.agendaitems');
+    this.router.transitionTo('meetings.meeting.agendaitems.index', meeting.id);
   });
 }

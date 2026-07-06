@@ -20,7 +20,7 @@
           {{#each agendaitemGroup.agendaitems as |agendaitem|}}
             <Item class="au-u-background-white">
               <LinkTo
-                @route="meeting.agendaitems.agendaitem"
+                @route="meetings.meeting.agendaitems.agendaitem"
                 @model={{agendaitem.id}}
               >
                 <span>{{agendaitem.priority}}.{{agendaitem.subPriority}}</span>

@@ -1,11 +1,11 @@
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
 
-export default class MeetingAgendaitemsRoute extends Route {
+export default class MeetingsMeetingAgendaitemsRoute extends Route {
   @service store;
 
   async model() {
-    const meeting = this.modelFor('meeting');
+    const meeting = this.modelFor('meetings.meeting');
     const agendaitems = await this.store.queryAll('agendaitem', {
       'filter[meeting][:uri:]': meeting.uri,
       include: 'case,submitters',

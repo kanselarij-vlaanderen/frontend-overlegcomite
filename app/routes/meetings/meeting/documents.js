@@ -1,11 +1,11 @@
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
 
-export default class MeetingDocumentsRoute extends Route {
+export default class MeetingsMeetingDocumentsRoute extends Route {
   @service store;
 
   async model() {
-    const meeting = this.modelFor('meeting');
+    const meeting = this.modelFor('meetings.meeting');
     // eslint-disable-next-line warp-drive/no-legacy-request-patterns
     const reloadedMeeting = await this.store.findRecord('meeting', meeting.id, {
       include: [

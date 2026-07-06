@@ -1,7 +1,7 @@
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
 
-export default class MeetingAgendaitemsAgendaitemRoute extends Route {
+export default class MeetingsMeetingAgendaitemsAgendaitemRoute extends Route {
   @service store;
 
   async model({ agendaitem_id }) {

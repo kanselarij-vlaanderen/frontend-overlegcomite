@@ -29,11 +29,11 @@
         </Tab>
         <Tab>
           <AuLink
-            @route="meeting.agendaitems.index"
+            @route="meetings.meeting.agendaitems.index"
             @model={{@model.id}}
           >Overzicht</AuLink>
         </Tab>
-        {{#if (this.routeIsActive "meeting.agendaitems.agendaitem")}}
+        {{#if (this.routeIsActive "meetings.meeting.agendaitems.agendaitem")}}
           <Tab>
             <AuLink @route={{this.target.currentRouteName}}>
               Detail
@@ -41,7 +41,7 @@
           </Tab>
         {{/if}}
         <Tab>
-          <AuLink @route="meeting.documents">Documenten</AuLink>
+          <AuLink @route="meetings.meeting.documents">Documenten</AuLink>
         </Tab>
       </AuTabs>
     </Group>
