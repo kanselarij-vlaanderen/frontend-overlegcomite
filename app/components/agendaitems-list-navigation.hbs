@@ -24,16 +24,18 @@
                 @model={{agendaitem.id}}
               >
                 <span>{{agendaitem.priority}}.{{agendaitem.subPriority}}</span>
-                {{if agendaitem.subject agendaitem.subject "Naamloos"}}
-                <Await @promise={{agendaitem.case}}>
-                  <:success as |case|>
-                    {{#if case.identifier}}
-                      <AuPill @skin="border" class="au-u-margin-left-small">
-                        {{case.identifier}}
-                      </AuPill>
-                    {{/if}}
-                  </:success>
-                </Await>
+                <span class="au-u-flex au-u-flex--column au-u-flex--vertical-start au-u-flex--spaced-tiny">
+                  <span>{{if agendaitem.subject agendaitem.subject "Naamloos"}}</span>
+                  <Await @promise={{agendaitem.case}}>
+                    <:success as |case|>
+                      {{#if case.identifier}}
+                        <AuPill @skin="border">
+                          {{case.identifier}}
+                        </AuPill>
+                      {{/if}}
+                    </:success>
+                  </Await>
+                </span>
               </LinkTo>
             </Item>
           {{/each}}

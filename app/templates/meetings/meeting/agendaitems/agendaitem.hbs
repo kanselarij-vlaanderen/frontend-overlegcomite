@@ -1,14 +1,14 @@
 <div class="au-u-padding">
   <AuToolbar @size="medium" @border="bottom" as |Group|>
     <Group>
-      <AuHeading @skin={{3}}>
+      <AuHeading @skin={{4}}>
         {{@model.subject}}
+        {{#if @model.case.identifier}}
+          <AuPill class="au-u-margin-left-tiny">
+            {{@model.case.identifier}}
+          </AuPill>
+        {{/if}}
       </AuHeading>
-      {{#if @model.case.identifier}}
-        <AuPill>
-          {{@model.case.identifier}}
-        </AuPill>
-      {{/if}}
     </Group>
     {{#if (user-may "manage-agendaitems")}}
       <Group>

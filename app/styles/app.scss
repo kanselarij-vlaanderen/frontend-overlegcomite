@@ -1,5 +1,3 @@
-/* Ember supports plain CSS out of the box. More info: https://cli.emberjs.com/release/advanced-use/stylesheets/ */
-
 @import "@appuniversum/ember-appuniversum/styles";
 
 /*
@@ -16,17 +14,17 @@
 
 $au-navigation-list-border: 1px;
 
+.au-u-monospace {
+  font-family: monospace;
+}
+
+.au-u-scrollable {
+  overflow: auto;
+}
+
 /*
  * Overlegcomite customizations
  */
-
-.cursor-pointer {
-  cursor: pointer;
-}
-
-.oc-u-monospace {
-  font-family: monospace;
-}
 
 th.data-table-row-navigation {
   width: 5%;
@@ -70,6 +68,17 @@ th.data-table-search-agendaitems-subject {
   }
 }
 
+.oc-agendaitem-list-sidebar {
+  width: 480px;
+  flex-shrink: 0;
+  border-right: 0.1rem solid var(--au-divider-color);
+
+  .oc-agendaitem-list-group-header {
+    position: sticky;
+    top: 0;
+  }
+}
+
 .oc-agendaitem-list {
   .au-c-panel {
     border: 0;
@@ -85,14 +94,13 @@ th.data-table-search-agendaitems-subject {
         a {
           display: flex;
           width: 100%;
-          gap: 0.6rem;
-          align-items: center;
+          gap: 2rem;
+          align-items: start;
           justify-content: left;
           padding: 1.2rem 2.4rem;
 
           color: var(--au-gray-900);
           font-size: var(--au-h6);
-          line-height: 3.2rem;
           font-family: var(--au-font);
           font-weight: var(--au-medium);
           text-decoration: none;
@@ -121,7 +129,6 @@ th.data-table-search-agendaitems-subject {
     }
   }
 
-  /* Agendaitems list view customizations */
   &.au-o-flow .oc-agendaitem-list-group-content ul {
     gap: 0.6rem;
   }
@@ -176,26 +183,6 @@ th.data-table-search-agendaitems-subject {
   .oc-document-card--document-name .au-c-button {
     height: auto;
   }
-}
-
-.oc-u-sticky-top,
-.oc-c-sticky-header {
-  position: sticky;
-  top: -$au-navigation-list-border;
-}
-
-.oc-c-sticky-header {
-  background: var(--au-page-bg);
-  margin-bottom: -$au-navigation-list-border;
-}
-
-.oc-c-sticky-header.oc-c-sticky-header--tint {
-  background: var(--au-gray-100);
-}
-
-.oc-c-sticky-header:first-child {
-  border-top: $au-navigation-list-border solid var(--au-divider-color);
-  margin-top: -$au-navigation-list-border;
 }
 
 .oc-u-subtle-progress-bar {
