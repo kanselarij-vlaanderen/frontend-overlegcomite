@@ -3,6 +3,7 @@ import { service } from '@ember/service';
 import { getOwner, setOwner } from '@ember/application';
 import { task, timeout } from 'ember-concurrency';
 import DatetimeTransform from '../transforms/datetime';
+import { DISTRIBUTION_STATUS_UPDATE_TIMEOUT } from '../config/config';
 
 const datetimeTransform = new DatetimeTransform();
 
@@ -100,7 +101,7 @@ export default class Distribution {
     },
     async () => {
       while (this.loading) {
-        await timeout(10000);
+        await timeout(DISTRIBUTION_STATUS_UPDATE_TIMEOUT);
         await this.fetchStatus.perform();
       }
     },

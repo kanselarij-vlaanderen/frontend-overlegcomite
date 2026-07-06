@@ -4,6 +4,7 @@ export const PAGE_SIZE = {
 };
 
 export const LIVE_SEARCH_DEBOUNCE_TIME = 500;
+export const DISTRIBUTION_STATUS_UPDATE_TIMEOUT = 5000;
 
 export const FILE_UPLOAD_ENDPOINT = '/files';
 
