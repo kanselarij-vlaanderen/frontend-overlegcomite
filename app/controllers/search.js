@@ -1,9 +1,12 @@
 import Controller from '@ember/controller';
+import { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import { task, timeout } from 'ember-concurrency';
 import { LIVE_SEARCH_DEBOUNCE_TIME, PAGE_SIZE } from '../config/config';
 
 export default class SearchController extends Controller {
+  @service router;
+
   @tracked sort = '-meeting-date';
   @tracked page = 0;
   @tracked size = PAGE_SIZE.SEARCH;
@@ -52,6 +55,14 @@ export default class SearchController extends Controller {
         duration: LIVE_SEARCH_DEBOUNCE_TIME,
         iterations: 1,
       },
+    );
+  }
+
+  goToAgendaitem = async (agendaitem) => {
+    this.router.transitionTo(
+      'meetings.meeting.agendaitems.agendaitem',
+      agendaitem.meetingId,
+      agendaitem.id
     );
   }
 }

@@ -59,7 +59,7 @@
         </th>
         <th class="data-table-row-navigation" />
       </c.header>
-      <c.body as |agendaitem|>
+      <c.body @onClickRow={{this.goToAgendaitem}} as |agendaitem|>
         <td>
           Vergadering van
           {{format-datetime agendaitem.meetingDate}}
