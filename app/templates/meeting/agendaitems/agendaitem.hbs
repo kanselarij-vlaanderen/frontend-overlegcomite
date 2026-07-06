@@ -10,23 +10,25 @@
         </AuPill>
       {{/if}}
     </Group>
-    <Group>
-      <AuButton
-        @skin="secondary"
-        @icon="pencil"
-        {{on "click" this.openEditAgendaitemModal}}
-      >
-        Wijzigen
-      </AuButton>
-      <AuButton
-        @skin="secondary"
-        @icon="trash"
-        @alert={{true}}
-        {{on "click" this.openDeleteAgendaitemModal}}
-      >
-        Verwijderen
-      </AuButton>
-    </Group>
+    {{#if (user-may "manage-agendaitems")}}
+      <Group>
+        <AuButton
+          @skin="secondary"
+          @icon="pencil"
+          {{on "click" this.openEditAgendaitemModal}}
+        >
+          Wijzigen
+        </AuButton>
+        <AuButton
+          @skin="secondary"
+          @icon="trash"
+          @alert={{true}}
+          {{on "click" this.openDeleteAgendaitemModal}}
+        >
+          Verwijderen
+        </AuButton>
+      </Group>
+    {{/if}}
   </AuToolbar>
 </div>
 

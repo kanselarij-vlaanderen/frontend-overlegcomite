@@ -48,14 +48,16 @@
       </AuHeading>
     {{/if}}
     <AuButtonGroup @inline={{true}}>
-      <AuButton
-        @skin="naked"
-        @icon="pencil"
-        @hideText={{true}}
-        {{on "click" this.openEditMode}}
-      >
-        Documentnaam wijzigen
-      </AuButton>
+      {{#if (user-may "manage-documents")}}
+        <AuButton
+          @skin="naked"
+          @icon="pencil"
+          @hideText={{true}}
+          {{on "click" this.openEditMode}}
+        >
+          Documentnaam wijzigen
+        </AuButton>
+      {{/if}}
       {{#if @documentVersion}}
         <Await @promise={{@documentVersion.file}}>
           <:success as |file|>

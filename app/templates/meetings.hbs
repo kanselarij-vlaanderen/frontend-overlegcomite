@@ -24,13 +24,15 @@
         {{on "input" (with-value (fn (mut this.dateFilterInput)))}}
       />
     </AuFormRow>
-    <AuButton
-      {{on "click" this.openNewMeetingModal}}
-      @skin="primary"
-      @icon="plus"
-    >
-      Nieuwe vergadering
-    </AuButton>
+    {{#if (user-may "manage-meetings")}}
+      <AuButton
+        {{on "click" this.openNewMeetingModal}}
+        @skin="primary"
+        @icon="plus"
+      >
+        Nieuwe vergadering
+      </AuButton>
+    {{/if}}
   </Group>
 </AuToolbar>
 

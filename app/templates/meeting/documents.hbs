@@ -16,13 +16,15 @@
     {{#each @model.documents as |document|}}
       <DocumentCard @document={{document}} />
     {{/each}}
-    <AuButton
-      {{on "click" (fn (mut this.isDocumentUploadModalOpen) true)}}
-      @icon="plus"
-      @skin="secondary"
-    >
-      Document toevoegen
-    </AuButton>
+    {{#if (user-may "manage-documents")}}
+      <AuButton
+        {{on "click" (fn (mut this.isDocumentUploadModalOpen) true)}}
+        @icon="plus"
+        @skin="secondary"
+      >
+        Document toevoegen
+      </AuButton>
+    {{/if}}
   </div>
 </div>
 

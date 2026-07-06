@@ -47,48 +47,56 @@
     </Group>
     <Group>
       <AuButtonGroup>
-        <AuButton
-          @skin="primary"
-          @icon="plus"
-          {{on "click" this.openNewAgendaitemModal}}
-        >
-          Nieuw agendapunt
-        </AuButton>
-        <AuDropdown @title="Acties" @alignment="right" @skin="secondary">
+        {{#if (user-may "manage-agendaitems")}}
           <AuButton
-            {{on "click" (fn this.runDistribution this.agendaDistribution)}}
-            @skin="link"
-            role="menuitem"
+            @skin="primary"
+            @icon="plus"
+            {{on "click" this.openNewAgendaitemModal}}
           >
-            Agenda vrijgeven
+            Nieuw agendapunt
           </AuButton>
-          <AuButton
-            {{on
+        {{/if}}
+        {{#if (or (user-may "manage-agendapublications") (user-may "manage-meetings"))}}
+          <AuDropdown @title="Acties" @alignment="right" @skin="secondary">
+            {{#if (user-may "manage-agenda-publications")}}
+              <AuButton
+                {{on "click" (fn this.runDistribution this.agendaDistribution)}}
+                @skin="link"
+                role="menuitem"
+              >
+                Agenda vrijgeven
+              </AuButton>
+              <AuButton
+                {{on
               "click"
               (fn this.runDistribution this.notificationsDistribution)
             }}
-            @skin="link"
-            role="menuitem"
-          >
-            Notificaties vrijgeven
-          </AuButton>
-          <AuHr />
-          <AuButton
-            @skin="link"
-            role="menuitem"
-            {{on "click" this.openEditMeetingModal}}
-          >
-            Vergadering wijzigen
-          </AuButton>
-          <AuButton
-            @skin="link"
-            @alert={{true}}
-            role="menuitem"
-            {{on "click" this.openDeleteMeetingModal}}
-          >
-            Vergadering verwijderen
-          </AuButton>
-        </AuDropdown>
+                @skin="link"
+                role="menuitem"
+              >
+                Notificaties vrijgeven
+              </AuButton>
+              <AuHr />
+            {{/if}}
+            {{#if (user-may "manage-meetings")}}
+              <AuButton
+                @skin="link"
+                role="menuitem"
+                {{on "click" this.openEditMeetingModal}}
+              >
+                Vergadering wijzigen
+              </AuButton>
+              <AuButton
+                @skin="link"
+                @alert={{true}}
+                role="menuitem"
+                {{on "click" this.openDeleteMeetingModal}}
+              >
+                Vergadering verwijderen
+              </AuButton>
+            {{/if}}
+          </AuDropdown>
+        {{/if}}
       </AuButtonGroup>
     </Group>
   </AuToolbar>

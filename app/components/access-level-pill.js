@@ -48,6 +48,10 @@ export default class AccessLevelPillComponent extends Component {
     }
   }
 
+  get isEditable() {
+    return this.args.onSave != null;
+  }
+
   openEditMode = () => {
     this.selectedAccessLevel = this.args.accessLevel;
     this.isEditMode = true;

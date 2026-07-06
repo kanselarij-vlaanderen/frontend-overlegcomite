@@ -1,6 +1,7 @@
 import Service, { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import { isPresent } from '@ember/utils';
+import { findGroupByRole } from 'frontend-overlegcomite/config/permissions';
 
 export default class CurrentSessionService extends Service {
   @service session;
@@ -39,5 +40,18 @@ export default class CurrentSessionService extends Service {
 
   get hasAccessToApplication() {
     return this.session.isAuthenticated && isPresent(this.role);
+  }
+
+  get userGroup() {
+    return this.role && findGroupByRole(this.role.uri);
+  }
+
+
+  may(permission) {
+    if (this.userGroup) {
+      return this.userGroup.permissions.includes(permission);
+    } else {
+      return false;
+    }
   }
 }

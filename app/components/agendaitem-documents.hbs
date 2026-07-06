@@ -14,21 +14,23 @@
          <AuAlert @title="Geen notificatie beschikbaar" @icon="circle-info">
            Dit agendapunt heeft nog geen notificatie.
          </AuAlert>
-         <AuButton
-           {{on "click" this.openNotificationUploadModal}}
-           @disabled={{this.init.isRunning}}
-           @icon="plus"
-           @skin="secondary"
-         >
-           Notificatie toevoegen
-         </AuButton>
-         <DocumentUploadModal
-           @modalOpen={{this.isNotificationUploadModalOpen}}
-           @onSave={{this.saveNotification}}
-           @onCancel={{fn (mut this.isNotificationUploadModalOpen) false}}
-           @defaultDocumentAttrs={{this.defaultNotificationAttrs}}
-           @multiple={{false}}
-           />
+         {{#if (user-may "manage-documents")}}
+           <AuButton
+             {{on "click" this.openNotificationUploadModal}}
+             @disabled={{this.init.isRunning}}
+             @icon="plus"
+             @skin="secondary"
+           >
+             Notificatie toevoegen
+           </AuButton>
+           <DocumentUploadModal
+             @modalOpen={{this.isNotificationUploadModalOpen}}
+             @onSave={{this.saveNotification}}
+             @onCancel={{fn (mut this.isNotificationUploadModalOpen) false}}
+             @defaultDocumentAttrs={{this.defaultNotificationAttrs}}
+             @multiple={{false}}
+             />
+         {{/if}}
        {{/if}}
       </:success>
     </Await>
@@ -56,21 +58,23 @@
             Dit agendapunt heeft nog geen documenten.
           </AuAlert>
         {{/each}}
-        <AuButton
-          {{on "click" this.openDocumentUploadModal}}
-          @disabled={{this.init.isRunning}}
-          @icon="plus"
-          @skin="secondary"
-        >
-          Documenten toevoegen
-        </AuButton>
-        <DocumentUploadModal
-          @modalOpen={{this.isDocumentUploadModalOpen}}
-          @onSave={{this.saveDocuments}}
-          @onCancel={{fn (mut this.isDocumentUploadModalOpen) false}}
-          @defaultDocumentAttrs={{this.defaultDocumentAttrs}}
-          @multiple={{true}}
-          />
+        {{#if (user-may "manage-documents")}}
+          <AuButton
+            {{on "click" this.openDocumentUploadModal}}
+            @disabled={{this.init.isRunning}}
+            @icon="plus"
+            @skin="secondary"
+          >
+            Documenten toevoegen
+          </AuButton>
+          <DocumentUploadModal
+            @modalOpen={{this.isDocumentUploadModalOpen}}
+            @onSave={{this.saveDocuments}}
+            @onCancel={{fn (mut this.isDocumentUploadModalOpen) false}}
+            @defaultDocumentAttrs={{this.defaultDocumentAttrs}}
+            @multiple={{true}}
+            />
+        {{/if}}
       </:success>
     </Await>
   </div>

@@ -30,12 +30,18 @@
     </AuButtonGroup>
   </div>
 {{else}}
-  <AuPill
-    @skin={{this.skin}}
-    @icon={{this.icon}}
-    @actionIcon="pencil"
-    @onClickAction={{this.openEditMode}}
-  >
-    {{or @accessLevel.label "Geen toegangsniveau"}}
-  </AuPill>
+  {{#if this.isEditable}}
+    <AuPill
+      @skin={{this.skin}}
+      @icon={{this.icon}}
+      @actionIcon="pencil"
+      @onClickAction={{this.openEditMode}}
+    >
+      {{or @accessLevel.label "Geen toegangsniveau"}}
+    </AuPill>
+  {{else}}
+    <AuPill @skin={{this.skin}}>
+      {{or @accessLevel.label "Geen toegangsniveau"}}
+    </AuPill>
+  {{/if}}
 {{/if}}
