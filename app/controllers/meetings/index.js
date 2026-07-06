@@ -2,10 +2,10 @@ import Controller from '@ember/controller';
 import { tracked } from '@glimmer/tracking';
 import { service } from '@ember/service';
 import { task } from 'ember-concurrency';
-import textToDateRange from '../utils/text-to-date-range';
-import { PAGE_SIZE } from '../config/config';
+import textToDateRange from '../../utils/text-to-date-range';
+import { PAGE_SIZE } from '../../config/config';
 
-export default class MeetingsController extends Controller {
+export default class MeetingsIndexController extends Controller {
   @service store;
   @service router;
 

@@ -16,8 +16,7 @@ Router.map(function() {
     this.route('logout');
   });
 
-  this.route('meetings', {
-    path: 'vergaderingen',
+  this.route('meetings', { path: 'vergaderingen' }, function () {
   });
 
   // TODO nest under meetings route and move current meetings route to meetings.index

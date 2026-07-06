@@ -40,7 +40,7 @@ export default class MeetingController extends Controller {
     // eslint-disable-next-line warp-drive/no-legacy-request-patterns
     await this.model.destroyRecord();
     this.closeDeleteMeetingModal();
-    this.router.transitionTo('meetings');
+    this.router.transitionTo('meetings.index');
   });
 
   async runDistribution(distribution) {
