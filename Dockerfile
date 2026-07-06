@@ -3,17 +3,16 @@ FROM madnificent/ember:6.8.1 AS builder
 LABEL maintainer="info@redpencil.io"
 
 WORKDIR /app
-COPY package.json package-lock.json .
+COPY package.json package-lock.json ./
 RUN npm ci
 COPY . .
 
 RUN npm run build -prod
 
-FROM semtech/ember-proxy-service:1.4.0
+FROM semtech/static-file-service:0.3.0
 
-ENV STATIC_FOLDERS_REGEX "^/(assets|fonts|files|ember-pdfjs-wrapper)/"
-
-COPY ./proxy/torii-authorization.conf /config/torii-authorization.conf
+COPY ./proxy/compression.conf /config/compression.conf
 COPY ./proxy/file-upload.conf /config/file-upload.conf
+COPY ./proxy/file-download.conf /config/file-download.conf
 
-COPY --from=builder /app/dist /app
+COPY --from=builder /app/dist /data
