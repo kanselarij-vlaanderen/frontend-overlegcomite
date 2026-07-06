@@ -1,7 +1,7 @@
 {{page-title "Agenda"}}
 
 <div class="au-u-flex au-u-scrollable">
-  <div class="{{unless this.isIndexRoute 'oc-agendaitem-list-sidebar au-u-scrollable'}}">
+  <div class="{{if this.isIndexRoute 'au-u-flex-grow' 'oc-agendaitem-list-sidebar au-u-scrollable'}}">
     {{#if @model}}
       <AgendaitemsListNavigation
         @agendaitemGroups={{@model}}
@@ -9,11 +9,11 @@
           {{if this.isIndexRoute 'au-u-margin au-o-flow'}}"
       />
     {{else}}
-      <AuAlert @title="Geen agendapunten">
-        <p>
+      <div class="oc-container">
+        <AuAlert @title="Geen agendapunten" @icon="circle-info">
           Deze vergadering heeft nog geen agendapunten
-        </p>
-      </AuAlert>
+        </AuAlert>
+      </div>
     {{/if}}
   </div>
   {{#unless this.isIndexRoute}}
