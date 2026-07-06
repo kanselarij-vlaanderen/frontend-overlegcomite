@@ -16,6 +16,7 @@ export default class MeetingRoute extends Route {
   }
 
   setupController(controller, model) {
+    super.setupController(...arguments);
     controller.agendaDistribution = new Distribution(model, 'agenda');
     controller.notificationsDistribution = new Distribution(model, 'notifications');
   }
