@@ -59,7 +59,7 @@
         </th>
         <th class="data-table-row-navigation" />
       </c.header>
-      <c.body @onClickRow={{this.goToAgendaitem}} as |agendaitem|>
+      <c.body @onClickRow={{this.goToAgendaitem}} class="au-c-table--middle" as |agendaitem|>
         <td>
           Vergadering van
           {{format-datetime agendaitem.meetingDate}}
@@ -67,7 +67,7 @@
         <td>
           <span class="au-u-newlines">{{agendaitem.subject}}</span>
         </td>
-        <td class="au-u-text-center">
+        <td class="au-u-text-center ">
           <AuLink
             @route="meetings.meeting.agendaitems.agendaitem"
             @models={{array

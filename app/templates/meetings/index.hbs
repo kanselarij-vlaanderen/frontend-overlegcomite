@@ -53,7 +53,7 @@
       />
       <th class="data-table-row-navigation" />
     </c.header>
-    <c.body @onClickRow={{this.goToMeeting}} as |meeting|>
+    <c.body @onClickRow={{this.goToMeeting}} class="au-c-table--middle" as |meeting|>
       <td>Vergadering van {{format-datetime meeting.startedAt}}</td>
       <td class="au-u-text-center">
         <AuLink
