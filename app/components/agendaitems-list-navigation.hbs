@@ -25,7 +25,7 @@
               >
                 <span>{{agendaitem.priority}}.{{agendaitem.subPriority}}</span>
                 <span class="au-u-flex au-u-flex--column au-u-flex--vertical-start au-u-flex--spaced-tiny">
-                  <span>{{if agendaitem.subject agendaitem.subject "Naamloos"}}</span>
+                  <span class="au-u-newlines">{{if agendaitem.subject agendaitem.subject "Naamloos"}}</span>
                   <Await @promise={{agendaitem.case}}>
                     <:success as |case|>
                       {{#if case.identifier}}

@@ -2,7 +2,7 @@
   <AuToolbar @size="medium" @border="bottom" as |Group|>
     <Group>
       <AuHeading @skin={{4}}>
-        {{@model.subject}}
+        <span class="au-u-newlines">{{@model.subject}}</span>
         {{#if @model.case.identifier}}
           <AuPill class="au-u-margin-left-tiny">
             {{@model.case.identifier}}
