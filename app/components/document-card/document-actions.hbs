@@ -1,12 +1,14 @@
 {{#if @documentVersion}}
-  <Await @promise={{@documentVersion.accessLevel}}>
-    <:success as |accessLevel|>
-      <AccessLevelPill
-        @accessLevel={{accessLevel}}
-        @onSave={{if (user-may "manage-document-access-levels") this.saveAccessLevel}}
-      />
-    </:success>
-  </Await>
+  {{#unless @documentVersion.confidential}}
+    <Await @promise={{@documentVersion.accessLevel}}>
+      <:success as |accessLevel|>
+        <AccessLevelPill
+          @accessLevel={{accessLevel}}
+          @onSave={{if (user-may "manage-document-access-levels") this.saveAccessLevel}}
+          />
+      </:success>
+    </Await>
+  {{/unless}}
   {{#if (user-may "manage-document-access-levels")}}
     <AuPill
       @skin={{if @documentVersion.confidential "warning" "default"}}

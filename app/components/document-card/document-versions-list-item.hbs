@@ -37,14 +37,16 @@
     </p>
   </div>
   <div class="au-u-flex au-u-flex--vertical-center au-u-flex--spaced-small">
-    <Await @promise={{@documentVersion.accessLevel}}>
-      <:success as |accessLevel|>
-        <AccessLevelPill
-          @accessLevel={{accessLevel}}
-          @onSave={{this.saveAccessLevel}}
-          />
-      </:success>
-    </Await>
+    {{#unless @documentVersion.confidential}}
+      <Await @promise={{@documentVersion.accessLevel}}>
+        <:success as |accessLevel|>
+          <AccessLevelPill
+            @accessLevel={{accessLevel}}
+            @onSave={{this.saveAccessLevel}}
+            />
+        </:success>
+      </Await>
+    {{/unless}}
     <AuPill
       @skin={{if @documentVersion.confidential "warning" "default"}}
       @actionIcon={{if @documentVersion.confidential "lock-closed" "lock-open"}}
