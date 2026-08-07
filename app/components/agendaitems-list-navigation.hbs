@@ -4,7 +4,6 @@
       <Section
         class="oc-agendaitem-list-group-header au-u-background-yellow-300"
       >
-        {{! TODO: Make heading sticky on scroll }}
         <AuToolbar as |Group|>
           <Group>
             <AuHeading @level={{3}} @skin={{6}}>
@@ -18,12 +17,12 @@
       >
         <AuList as |Item|>
           {{#each agendaitemGroup.agendaitems as |agendaitem|}}
-            <Item class="au-u-background-white">
+            <Item class="">
               <LinkTo
                 @route="meetings.meeting.agendaitems.agendaitem"
                 @model={{agendaitem.id}}
               >
-                <span>{{agendaitem.priority}}.{{agendaitem.subPriority}}</span>
+                <span class="oc-agendaitem-priority">{{agendaitem.priority}}.{{agendaitem.subPriority}}</span>
                 <span class="au-u-flex au-u-flex--column au-u-flex--vertical-start au-u-flex--spaced-tiny">
                   <span class="au-u-newlines">{{if agendaitem.subject agendaitem.subject "Naamloos"}}</span>
                   <Await @promise={{agendaitem.case}}>
