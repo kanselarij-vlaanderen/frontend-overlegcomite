@@ -60,9 +60,10 @@
       <AuLabel for="agendaitem-subject">
         Titel
       </AuLabel>
-      <AuInput
+      <AuTextarea
         id="agendaitem-subject"
         @width="block"
+        rows="4"
         value={{@agendaitem.subject}}
         {{on "input" (with-value (fn (mut @agendaitem.subject)))}}
       />

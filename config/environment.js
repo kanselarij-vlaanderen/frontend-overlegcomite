@@ -42,6 +42,10 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
+    ENV.acmidm.clientId = 'b882fde4-56e4-4423-be1a-6b424ea6f7b1';
+    ENV.acmidm.authUrl = 'https://authenticatie-ti.vlaanderen.be/op/v1/auth';
+    ENV.acmidm.authRedirectUrl = 'https://overlegcomite-dev.vlaanderen.be/authorization/callback';
+    ENV.acmidm.logoutUrl = 'https://authenticatie-ti.vlaanderen.be/op/v1/logout';
   }
 
   if (environment === 'test') {
