@@ -8,8 +8,8 @@
   background: var(--au-white);
 }
 
-.au-u-background-yellow-300 {
-  background: var(--au-yellow-300);
+.au-u-background-gray-300 {
+  background: var(--au-gray-300);
 }
 
 $au-navigation-list-border: 1px;
@@ -87,6 +87,7 @@ th.data-table-search-agendaitems-subject {
 
     a {
       background-color: var(--au-gray-100);
+      font-size: var(--au-small);
 
       &.active {
         background-color: var(--au-white);

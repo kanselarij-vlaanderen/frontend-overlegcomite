@@ -1,8 +1,8 @@
 <div class="au-u-padding">
   <AuToolbar @size="medium" @border="bottom" as |Group|>
     <Group>
-      <AuHeading @skin={{4}}>
-        <span class="au-u-newlines">{{@model.subject}}</span>
+      <AuHeading @level={{4}} @skin={{4}}>
+        Agendapunt
         {{#if @model.case.identifier}}
           <AuPill class="au-u-margin-left-tiny">
             {{@model.case.identifier}}
@@ -30,6 +30,10 @@
       </Group>
     {{/if}}
   </AuToolbar>
+</div>
+
+<div class="oc-container">
+  <span class="au-u-newlines au-u-medium">{{@model.subject}}</span>
 </div>
 
 <div class="oc-container au-o-flow--large">
