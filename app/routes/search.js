@@ -26,7 +26,7 @@ export default class SearchRoute extends Route {
     const index = params.notificationsOnly
       ? 'agendaitems-by-notification'
       : 'agendaitems-by-documents';
-    const textSearchFields = ['subject', 'data'].join(',');
+    const textSearchFields = ['subject', 'data.content'].join(',');
 
     const data = await muSearch(this.store.requestManager, {
       index,
