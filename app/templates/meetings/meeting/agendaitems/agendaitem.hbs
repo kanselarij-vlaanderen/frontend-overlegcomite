@@ -1,84 +1,89 @@
-<div class="au-u-padding">
-  <AuToolbar @size="medium" @border="bottom" as |Group|>
-    <Group>
-      <AuHeading @level={{4}} @skin={{4}}>
-        Agendapunt
-        {{#if @model.case.identifier}}
-          <AuPill class="au-u-margin-left-tiny">
-            {{@model.case.identifier}}
-          </AuPill>
-        {{/if}}
-      </AuHeading>
-    </Group>
-    {{#if (user-may "manage-agendaitems")}}
+{{! The delete action takes some time.
+    Rerendering during the delete action yields errors.
+    Therefore we only render the details if the record is not deleted yet.}}
+{{#unless @model.isDeleted}}
+  <div class="au-u-padding">
+    <AuToolbar @size="medium" @border="bottom" as |Group|>
       <Group>
-        <AuButton
-          @skin="secondary"
-          @icon="pencil"
-          {{on "click" this.openEditAgendaitemModal}}
-        >
-          Wijzigen
-        </AuButton>
-        <AuButton
-          @skin="secondary"
-          @icon="trash"
-          @alert={{true}}
-          {{on "click" this.openDeleteAgendaitemModal}}
-        >
-          Verwijderen
-        </AuButton>
+        <AuHeading @level={{4}} @skin={{4}}>
+          Agendapunt
+          {{#if @model.case.identifier}}
+            <AuPill class="au-u-margin-left-tiny">
+              {{@model.case.identifier}}
+            </AuPill>
+          {{/if}}
+        </AuHeading>
       </Group>
-    {{/if}}
-  </AuToolbar>
-</div>
-
-<div class="oc-container">
-  <span class="au-u-newlines au-u-medium">{{@model.subject}}</span>
-</div>
-
-<div class="oc-container au-o-flow--large">
-  <AgendaitemDocuments @agendaitem={{@model}} />
-</div>
-
-<AuModal
-  @modalOpen={{this.isOpenEditAgendaitemModal}}
-  @closeModal={{this.cancelEditAgendaitem}}
-  @overflow={{true}}
->
-  <:title>
-    Agendapunt wijzigen
-  </:title>
-  <:body>
-    <Await @promise={{@model.case}}>
-      <:pending>
-        <AuLoader @centered={{true}}>
-          Aan het laden
-        </AuLoader>
-      </:pending>
-      <:success>
-        <AgendaitemForm
-          @agendaitem={{@model}}
-          @caseIdentifier={{this.caseIdentifier}}
-        />
-      </:success>
-    </Await>
-  </:body>
-  <:footer>
-    <AuToolbar>
-      <AuButton {{on "click" this.cancelEditAgendaitem}} @skin="naked">
-        Annuleren
-      </AuButton>
-      <AuButton
-        @skin="primary"
-        @loading={{this.saveAgendaitem.isRunning}}
-        @disabled={{not this.formValid}}
-        {{on "click" this.saveAgendaitem.perform}}
-      >
-        Opslaan
-      </AuButton>
+      {{#if (user-may "manage-agendaitems")}}
+        <Group>
+          <AuButton
+            @skin="secondary"
+            @icon="pencil"
+            {{on "click" this.openEditAgendaitemModal}}
+          >
+            Wijzigen
+          </AuButton>
+          <AuButton
+            @skin="secondary"
+            @icon="trash"
+            @alert={{true}}
+            {{on "click" this.openDeleteAgendaitemModal}}
+          >
+            Verwijderen
+          </AuButton>
+        </Group>
+      {{/if}}
     </AuToolbar>
-  </:footer>
-</AuModal>
+  </div>
+
+  <div class="oc-container">
+    <span class="au-u-newlines au-u-medium">{{@model.subject}}</span>
+  </div>
+
+  <div class="oc-container au-o-flow--large">
+    <AgendaitemDocuments @agendaitem={{@model}} />
+  </div>
+
+  <AuModal
+    @modalOpen={{this.isOpenEditAgendaitemModal}}
+    @closeModal={{this.cancelEditAgendaitem}}
+    @overflow={{true}}
+  >
+    <:title>
+      Agendapunt wijzigen
+    </:title>
+    <:body>
+      <Await @promise={{@model.case}}>
+        <:pending>
+          <AuLoader @centered={{true}}>
+            Aan het laden
+          </AuLoader>
+        </:pending>
+        <:success>
+          <AgendaitemForm
+            @agendaitem={{@model}}
+            @caseIdentifier={{this.caseIdentifier}}
+            />
+        </:success>
+      </Await>
+    </:body>
+    <:footer>
+      <AuToolbar>
+        <AuButton {{on "click" this.cancelEditAgendaitem}} @skin="naked">
+          Annuleren
+        </AuButton>
+        <AuButton
+          @skin="primary"
+          @loading={{this.saveAgendaitem.isRunning}}
+          @disabled={{not this.formValid}}
+          {{on "click" this.saveAgendaitem.perform}}
+        >
+          Opslaan
+        </AuButton>
+      </AuToolbar>
+    </:footer>
+  </AuModal>
+{{/unless}}
 
 <DeleteConfirmationModal
   @modalOpen={{this.isOpenDeleteAgendaitemModal}}
