@@ -37,6 +37,25 @@ export default class MeetingsMeetingController extends Controller {
   };
 
   deleteMeeting = task(async () => {
+    const agendaitems = await this.store.queryAll('agendaitem', {
+      'filter[meeting][:uri:]': this.model.uri,
+      include: 'case',
+      sort: 'priority,sub-priority',
+    });
+
+    const cases = (
+      await Promise.all(agendaitems.map((agendaitem) => agendaitem.case))
+    ).filter((c) => c);
+
+    // eslint-disable-next-line warp-drive/no-legacy-request-patterns
+    await Promise.all(agendaitems.map((agendaitem) => agendaitem.destroyRecord()));
+    for (const case_ of cases) {
+      const agendaitemsOnCase = await case_.agendaItems;
+      if (agendaitemsOnCase.length == 0) {
+        // eslint-disable-next-line warp-drive/no-legacy-request-patterns
+        await case_.destroyRecord();
+      }
+    }
     // eslint-disable-next-line warp-drive/no-legacy-request-patterns
     await this.model.destroyRecord();
     this.closeDeleteMeetingModal();
