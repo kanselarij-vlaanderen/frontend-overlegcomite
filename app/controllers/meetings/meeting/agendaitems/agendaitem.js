@@ -47,10 +47,13 @@ export default class MeetingsMeetingAgendaitemsAgendaitemController extends Cont
   deleteAgendaitem = task(async () => {
     const meeting = await this.model.meeting;
     const case_ = await this.model.case;
+    const agendaitemsOnCase = await case_.agendaItems;
+    if (agendaitemsOnCase.length == 1) {
+      // eslint-disable-next-line warp-drive/no-legacy-request-patterns
+      await case_.destroyRecord();
+    }
     // eslint-disable-next-line warp-drive/no-legacy-request-patterns
     await this.model.destroyRecord();
-    // eslint-disable-next-line warp-drive/no-legacy-request-patterns
-    await case_.destroyRecord();
     this.closeDeleteAgendaitemModal();
     // force rerun of the meetings.meeting.agendaitems model hook to update list of agendaitems
     this.router.refresh('meetings.meeting.agendaitems');
