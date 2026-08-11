@@ -14,7 +14,7 @@ export default function extractErrors(error) {
   } else {
     return [{
       title: `Fout: ${error.name}`,
-      description: `Er is een fout voorgekomen: ${error.message}`,
+      description: `Er heeft zich een fout voorgedaan. Indien deze blijft voorkomen, neem dan contact op met uw ICT-beheerder en vermeld daarbij volgende foutmelding: ${error.message}`,
       details: error.stack
     }]
   }
