@@ -16,21 +16,21 @@
               <div class="oc-avatar au-u-flex-grow-0">
                 <AuIcon @icon="user" />
               </div>
-            <div>
-              <p class="">{{this.currentSession.user.fullName}}</p>
-              <p class="au-u-para-small au-u-muted">
-                {{or this.currentSession.organization.name this.currentSession.organization.identifier}}
-              </p>
-              <p class="au-u-para-small au-u-muted">
-                {{this.currentSession.role.label}}
-              </p>
+              <div>
+                <p class="">{{this.currentSession.user.fullName}}</p>
+                <p class="au-u-para-small au-u-muted">
+                  {{or this.currentSession.organization.name this.currentSession.organization.identifier}}
+                </p>
+                <p class="au-u-para-small au-u-muted">
+                  {{this.currentSession.role.label}}
+                </p>
+              </div>
             </div>
+            <AuHr />
+            <AuLink @route="auth.logout" @icon="logout" role="menuitem">
+              Afmelden
+            </AuLink>
           </div>
-          <AuHr />
-          <AuLink @route="auth.logout" @icon="logout" role="menuitem">
-            Afmelden
-          </AuLink>
-                    </div>
         </AuDropdown>
       {{/if}}
     </AuMainHeader>
@@ -43,9 +43,11 @@
         <Tab>
           <AuLink @route="search">Zoeken</AuLink>
         </Tab>
-        <Tab>
-          <AuLink @route="settings.users">Gebruikersbeheer</AuLink>
-        </Tab>
+        {{#if (user-may "manage-settings")}}
+          <Tab>
+            <AuLink @route="settings.users">Gebruikersbeheer</AuLink>
+          </Tab>
+        {{/if}}
       </AuTabs>
     </AuToolbar>
 
