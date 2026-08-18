@@ -20,6 +20,7 @@ Available permissions are
 - manage-documents: Uploading and editing documents, uploading new versions, ...
 - manage-document-access-levels: Modify document access levels
 - manage-agenda-publications: publishing agendas and notifications to other Overlegcomite profiles
+- manage-settings: Manage application settings
  */
 const groups = [
   {
@@ -30,7 +31,8 @@ const groups = [
       'manage-agendaitems',
       'manage-documents',
       'manage-document-access-levels',
-      'manage-agenda-publications'
+      'manage-agenda-publications',
+      'manage-settings'
     ]
   },
   {

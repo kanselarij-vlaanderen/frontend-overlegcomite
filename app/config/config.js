@@ -1,5 +1,6 @@
 export const PAGE_SIZE = {
   MEETINGS: 20,
+  USERS: 20,
   SEARCH: 20,
 };
 

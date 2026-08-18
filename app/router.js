@@ -38,5 +38,9 @@ Router.map(function() {
 
   this.route('search', { path: '/zoeken' });
 
+  this.route('settings', { path: '/instellingen', }, function() {
+    this.route('users', { path: '/gebruikers', })
+  });
+
   this.route('error', { path: 'fout/*path'});
 });

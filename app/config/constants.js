@@ -17,6 +17,10 @@ export default {
     OVERHEIDSORGANISATIE: 'http://kanselarij.vo.data.gift/id/gebruikersrollen/f5b1e170-ed56-42fa-b3ac-5358c30a33e9',
     VLAAMS_PARLEMENT: 'http://kanselarij.vo.data.gift/id/gebruikersrollen/0da9f8ce-0f6f-4086-8db5-53e44bd6215d'
   },
+  USER_ACCESS_STATUSES: {
+    ALLOWED: 'http://themis.vlaanderen.be/id/concept/43ba4953-3484-4ec7-9741-6e709befc531',
+    BLOCKED: 'http://themis.vlaanderen.be/id/concept/ffd0d21a-3beb-44c4-b3ff-06fe9561282a',
+  },
   SERVICE_PROVIDERS: {
     MOCK_LOGIN: 'https://github.com/kanselarij-vlaanderen/mock-login-service',
   },
