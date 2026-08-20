@@ -1,11 +1,13 @@
 {
   "name": "frontend-overlegcomite",
-  "version": "1.8.2",
-  "private": true,
-  "description": "Small description for frontend-overlegcomite goes here",
-  "repository": "",
+  "version": "2.0.0",
+  "description": "Frontend for the Overlegcomite application",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kanselarij-vlaanderen/frontend-overlegcomite.git"
+  },
   "license": "MIT",
-  "author": "",
+  "author": "redpencil.io <info@redpencil.io>",
   "directories": {
     "doc": "doc",
     "test": "tests"
