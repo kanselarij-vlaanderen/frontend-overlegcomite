@@ -12,6 +12,7 @@ export default class SettingsUsersRoute extends Route {
     page: { refreshModel: true },
     size: { refreshModel: true },
     filter: { refreshModel: true },
+    roleIds: { refreshModel: true },
   };
 
   model(params) {
@@ -35,8 +36,20 @@ export default class SettingsUsersRoute extends Route {
       );
     }
 
+    if (params.roleIds.length) {
+      options['filter[memberships][role][:id:]'] =
+        params.roleIds.join(',');
+    } else {
+      options['filter[memberships][:has-no:role]'] = true;
+    }
+
     // eslint-disable-next-line warp-drive/no-legacy-request-patterns
     return this.store.query('user', options);
+  }
+
+  setupController(controller) {
+    super.setupController(...arguments);
+    controller.loadSelectedRoles.perform();
   }
 
   @action

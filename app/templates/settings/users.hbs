@@ -1,111 +1,129 @@
-{{page-title "Vergaderingen"}}
+{{page-title "Gebruikers"}}
 
-<div class="oc-settings-users-header au-u-padding-bottom">
-  <AuToolbar @size="medium" @skin="tint" as |Group|>
-    <Group>
-      <AuHeading @skin="2">Gebruikers</AuHeading>
-    </Group>
-  </AuToolbar>
-  <AuToolbar @size="medium" @skin="tint" as |Group|>
-    <Group class="au-u-flex-grow au-u-flex">
-      <form {{on "submit" this.search}} class="au-u-flex au-u-flex-grow au-u-flex--spaced-tiny">
-        <AuInput
-          type="search"
-          placeholder="Gebruiker zoeken"
-          value={{this.searchTextBuffer}}
-          class="au-u-flex-grow"
-          {{on "input" (with-value (fn (mut this.searchTextBuffer)))}}/>
-        <AuButton
-          @skin="primary"
-          @icon="search"
-          type="submit"
-          class="au-u-flex-shrink-0">
-          Zoeken
-        </AuButton>
-      </form>
-    </Group>
-  </AuToolbar>
-</div>
+<div class="au-o-grid au-o-grid--stretch">
+  <div class="au-u-1-5">
+    <div class="au-o-box au-o-box--small au-o-flow au-o-flow--tiny au-u-padding-right-none">
+      <div class="au-c-card au-o-box au-o-box--small">
+        <UserRoleFilter
+          @selected={{this.selectedRoles}}
+          @onChange={{perform this.setRoles}}
+          @defaultEnableAllRoles={{is-empty this.selectedRoles}}
+        />
+      </div>
+    </div>
+  </div>
+  <div class="au-u-4-5">
+    <div class="oc-settings-users-header au-u-padding-bottom">
+      <AuToolbar @size="medium" @skin="tint" as |Group|>
+        <Group>
+          <AuHeading @skin="2">Gebruikers</AuHeading>
+        </Group>
+      </AuToolbar>
+      <AuToolbar @size="medium" @skin="tint" as |Group|>
+        <Group class="au-u-flex-grow au-u-flex">
+          <form {{on "submit" this.search}} class="au-u-flex au-u-flex-grow au-u-flex--spaced-tiny">
+            <AuInput
+              type="search"
+              placeholder="Gebruiker zoeken"
+              value={{this.searchTextBuffer}}
+              class="au-u-flex-grow"
+              {{on "input" (with-value (fn (mut this.searchTextBuffer)))}}/>
+            <AuButton
+              @skin="primary"
+              @icon="search"
+              type="submit"
+              class="au-u-flex-shrink-0">
+              Zoeken
+            </AuButton>
+          </form>
+        </Group>
+      </AuToolbar>
+    </div>
 
-<AuDataTable
-  @content={{@model}}
-  @noDataMessage="Geen gebruikers gevonden"
-  @sort={{this.sort}}
-  @page={{this.page}}
-  @size={{this.size}}
-  as |t|
->
-  <t.content as |c|>
-    <c.header>
-      <AuDataTableThSortable
-        @field="firstName"
-        @currentSorting={{this.sort}}
-        @label="Naam"
-      />
-      <th>Organisatie</th>
-      <th>Groep</th>
-      <th class="data-table-row-navigation" />
-    </c.header>
-    <c.body class="au-c-table--middle"
- as |user|>
-      <td>
-        <span class="au-u-flex au-u-flex--vertical-center au-u-flex--spaced-small {{if user.isBlocked "au-u-muted"}}">
-          {{user.fullName}}
-          {{#if user.isBlocked}}
-            <AuPill @icon="circle-x" @skin="error" @size="small">
-              Gebruiker geblokkeerd
-            </AuPill>
-          {{/if}}
-        </span>
-      </td>
-      <td class="au-o-flow au-o-flow--tiny">
-        {{#each user.memberships as |membership|}}
-          <div class="au-u-flex au-u-flex--vertical-center au-u-flex--spaced-small">
-            <div>
-              <p class="au-u-muted au-u-h-functional">
-                {{membership.organization.identifier}}
-              </p>
-              <p class="au-u-flex au-u-flex--vertical-center au-u-flex--spaced-small">
-                {{membership.organization.name}}
-              </p>
+    <AuDataTable
+      @content={{@model}}
+      @noDataMessage="Geen gebruikers gevonden"
+      @isLoading={{this.isLoadingModel}}
+      @sort={{this.sort}}
+      @page={{this.page}}
+      @size={{this.size}}
+      as |t|
+    >
+      <t.content as |c|>
+        <c.header>
+          <AuDataTableThSortable
+            @field="firstName"
+            @currentSorting={{this.sort}}
+            @label="Naam"
+          />
+          <th>Organisatie</th>
+          <th>Groep</th>
+          <th class="data-table-row-navigation" />
+        </c.header>
+        <c.body class="au-c-table--middle"
+        as |user|>
+          <td>
+            <span class="au-u-flex au-u-flex--vertical-center au-u-flex--spaced-small {{if user.isBlocked "au-u-muted"}}">
+              {{user.fullName}}
+              {{#if user.isBlocked}}
+                <AuPill @icon="circle-x" @skin="error" @size="small">
+                  Gebruiker geblokkeerd
+                </AuPill>
+              {{/if}}
+            </span>
+          </td>
+          <td class="au-o-flow au-o-flow--tiny">
+            {{#each user.memberships as |membership|}}
+              <div class="au-u-flex au-u-flex--vertical-center au-u-flex--spaced-small">
+                <div>
+                  <p class="au-u-muted au-u-h-functional">
+                    {{membership.organization.identifier}}
+                  </p>
+                  <p class="au-u-flex au-u-flex--vertical-center au-u-flex--spaced-small">
+                    {{membership.organization.name}}
+                  </p>
+                </div>
+              </div>
+            {{/each}}
+          </td>
+          <td>
+            <div class="au-u-flex au-u-flex--column au-u-flex--spaced">
+              {{#each user.memberships as |membership|}}
+                <p>{{membership.role.label}}</p>
+              {{/each}}
             </div>
-          </div>
-        {{/each}}
-      </td>
-      <td>
-        <div class="au-u-flex au-u-flex--column au-u-flex--spaced">
-          {{#each user.memberships as |membership|}}
-            <p>{{membership.role.label}}</p>
-          {{/each}}
-        </div>
-      </td>
-      <td class="auk-u-text-align--right">
-        <div class="auk-o-flex auk-o-flex--justify-end">
-          <AuDropdown
-            @skin="naked"
-            @hideText={{true}}
-            @alignment="right"
-            @icon="three-dots">
-            {{#if user.isBlocked}}
-              <AuButton
+          </td>
+          <td class="auk-u-text-align--right">
+            {{!-- template-lint-disable require-context-role --}}
+            <div class="auk-o-flex auk-o-flex--justify-end">
+              <AuDropdown
                 @skin="naked"
-                role="menuitem"
-                {{on "click" (perform this.unblockUser user)}}>
-                Gebruiker deblokkeren
-              </AuButton>
-            {{else}}
-              <AuButton
-                data-test-route-settings-users-row-action-block-user
-                @skin="naked"
-                @alert={{true}}
-                role="menuitem"
-                {{on "click" (perform this.blockUser user)}}>
-                Gebruiker blokkeren
-              </AuButton>
-            {{/if}}
-          </AuDropdown>
-        </div>
-      </td>
-    </c.body>
-  </t.content>
-</AuDataTable>
+                @hideText={{true}}
+                @alignment="right"
+                @icon="three-dots">
+                {{#if user.isBlocked}}
+                  <AuButton
+                    @skin="naked"
+                    role="menuitem"
+                    {{on "click" (perform this.unblockUser user)}}>
+                    Gebruiker deblokkeren
+                  </AuButton>
+                {{else}}
+                  <AuButton
+                    data-test-route-settings-users-row-action-block-user
+                    @skin="naked"
+                    @alert={{true}}
+                    role="menuitem"
+                    {{on "click" (perform this.blockUser user)}}>
+                    Gebruiker blokkeren
+                  </AuButton>
+                {{/if}}
+              </AuDropdown>
+              {{!-- template-lint-enable require-context-role --}}
+            </div>
+          </td>
+        </c.body>
+      </t.content>
+    </AuDataTable>
+  </div>
+</div>

@@ -1,4 +1,7 @@
 export default {
+  CONCEPT_SCHEMES: {
+    USER_ROLES: 'http://kanselarij.vo.data.gift/id/gebruikersrollen/a45c71ac-710e-4497-b37f-12c7f3147459',
+  },
   DOCUMENT_TYPES: {
     VERSLAG: 'http://kanselarij.vo.data.gift/id/concept/document-type-codes/436a37c1-ecf0-44a4-8d44-7440c4a89df6',
     NOTIFICATIE: 'http://kanselarij.vo.data.gift/id/concept/document-type-codes/ee8bb6f1-5bcb-45b5-afd3-b103ef185a2b'

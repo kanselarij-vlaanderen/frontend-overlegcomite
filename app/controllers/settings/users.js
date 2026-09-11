@@ -17,6 +17,9 @@ export default class UsersSettingsController extends Controller {
 
   @tracked searchTextBuffer;
 
+  @tracked roleIds = [];
+  @tracked selectedRoles = [];
+
   @tracked isLoadingModel = false;
 
   search = (e) => {
@@ -24,6 +27,18 @@ export default class UsersSettingsController extends Controller {
     this.filter = this.searchTextBuffer;
     this.page = 0;
   }
+
+  setRoles = task(async (roles) => {
+    this.roleIds = roles.map((role) => role.id);
+    this.selectedRoles = roles;
+    this.page = 0;
+  });
+
+  loadSelectedRoles = task(async () => {
+    // eslint-disable-next-line warp-drive/no-legacy-request-patterns
+    const records = await Promise.all(this.roleIds.map((id) => this.store.findRecord('role', id)));
+    this.selectedRoles = records.slice();
+  });
 
   blockUser = task(async (user) => {
     const blocked = await this.store.findRecordByUri(

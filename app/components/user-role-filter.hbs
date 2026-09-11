@@ -1,0 +1,20 @@
+{{#if this.loadData.isRunning}}
+  <AuLoader />
+{{else}}
+  <AuFieldset as |Fieldset|>
+    <Fieldset.legend>Filter op rechten</Fieldset.legend>
+    <Fieldset.content>
+      <AuCheckboxGroup
+        @selected={{this.selected}}
+        @onChange={{this.toggleRole}}
+        as |Group|
+      >
+        {{#each this.options as |role|}}
+          <Group.Checkbox @value={{role}}>
+            {{role.label}}
+          </Group.Checkbox>
+        {{/each}}
+      </AuCheckboxGroup>
+    </Fieldset.content>
+  </AuFieldset>
+{{/if}}
