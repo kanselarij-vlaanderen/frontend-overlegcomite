@@ -20,6 +20,9 @@ export default class UsersSettingsController extends Controller {
   @tracked roleIds = [];
   @tracked selectedRoles = [];
 
+  @tracked organizationIds = [];
+  @tracked selectedOrganizations = [];
+
   @tracked isLoadingModel = false;
 
   search = (e) => {
@@ -38,6 +41,20 @@ export default class UsersSettingsController extends Controller {
     // eslint-disable-next-line warp-drive/no-legacy-request-patterns
     const records = await Promise.all(this.roleIds.map((id) => this.store.findRecord('role', id)));
     this.selectedRoles = records.slice();
+  });
+
+  setOrganizations = task(async (organizations) => {
+    this.organizationIds = organizations.map((organization) => organization.id);
+    this.selectedOrganizations = organizations;
+    this.page = 0;
+  });
+
+  loadSelectedOrganizations = task(async () => {
+    const records = await Promise.all(
+      // eslint-disable-next-line warp-drive/no-legacy-request-patterns
+      this.organizationIds.map((id) => this.store.findRecord('user-organization', id))
+    );
+    this.selectedOrganizations = records.slice();
   });
 
   blockUser = task(async (user) => {

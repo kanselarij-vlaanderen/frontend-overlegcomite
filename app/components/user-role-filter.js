@@ -5,10 +5,6 @@ import { tracked } from '@glimmer/tracking';
 import { task } from 'ember-concurrency';
 import CONSTANTS from 'frontend-overlegcomite/config/constants';
 
-/**
- * @param selected {Role[]}
- * @param defaultEnableAllRoles {boolean}
- */
 export default class UserRoleFilterComponent extends Component {
   @service store;
 

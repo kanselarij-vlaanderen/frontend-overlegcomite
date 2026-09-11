@@ -13,6 +13,7 @@ export default class SettingsUsersRoute extends Route {
     size: { refreshModel: true },
     filter: { refreshModel: true },
     roleIds: { refreshModel: true },
+    organizationIds: { refreshModel: true },
   };
 
   model(params) {
@@ -43,6 +44,11 @@ export default class SettingsUsersRoute extends Route {
       options['filter[memberships][:has-no:role]'] = true;
     }
 
+    if (params.organizationIds.length) {
+      options['filter[memberships][organization][:id:]'] =
+        params.organizationIds.join(',');
+    }
+
     // eslint-disable-next-line warp-drive/no-legacy-request-patterns
     return this.store.query('user', options);
   }
@@ -50,6 +56,7 @@ export default class SettingsUsersRoute extends Route {
   setupController(controller) {
     super.setupController(...arguments);
     controller.loadSelectedRoles.perform();
+    controller.loadSelectedOrganizations.perform();
   }
 
   @action

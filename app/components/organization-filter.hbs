@@ -1,0 +1,41 @@
+<AuLabel>Filter op organisatie</AuLabel>
+<PowerSelect
+  @placeholder="Organisatie ID of naam"
+  @search={{perform this.search}}
+  @searchMessage="Zoek op organisatie ID of naam"
+  @searchEnabled={{true}}
+  @noMatchesMessage="Geen resultaten gevonden"
+  @loadingMessage="Bezig met opzoeken..."
+  @onChange={{this.toggleSelected}}
+  as |organization|
+>
+  {{organization.name}} - {{organization.identifier}}
+</PowerSelect>
+
+{{#if @selected}}
+  <AuHr />
+  <div class="au-u-flex au-u-flex--column">
+    {{#each @selected as |organization|}}
+      <div class="au-u-flex au-u-flex--spaced-tiny au-u-flex--between au-u-flex--vertical-center">
+        <div>
+          <p class="au-u-muted">
+            {{organization.identifier}}
+          </p>
+          <p>
+            {{organization.name}}
+          </p>
+        </div>
+        <div>
+          <AuButton
+            @skin="naked"
+            @icon="x"
+            @hideText={{true}}
+            {{on "click" (fn this.toggleSelected organization)}}
+          >
+            Verwijderen
+          </AuButton>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+{{/if}}

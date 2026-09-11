@@ -3,6 +3,16 @@
 <div class="oc-settings-users-page">
   <div class="oc-settings-users-page__sidebar">
     <div class="oc-settings-users-filter au-c-card">
+      {{#if this.loadSelectedOrganizations.isRunning}}
+        <AuLoader />
+      {{else}}
+        <OrganizationFilter
+          @selected={{this.selectedOrganizations}}
+          @onChange={{perform this.setOrganizations}}
+        />
+      {{/if}}
+    </div>
+    <div class="oc-settings-users-filter au-c-card">
       <UserRoleFilter
         @selected={{this.selectedRoles}}
         @onChange={{perform this.setRoles}}
