@@ -1,25 +1,23 @@
 {{page-title "Gebruikers"}}
 
-<div class="au-o-grid au-o-grid--stretch">
-  <div class="au-u-1-5">
-    <div class="au-o-box au-o-box--small au-o-flow au-o-flow--tiny au-u-padding-right-none">
-      <div class="au-c-card au-o-box au-o-box--small">
-        <UserRoleFilter
-          @selected={{this.selectedRoles}}
-          @onChange={{perform this.setRoles}}
-          @defaultEnableAllRoles={{is-empty this.selectedRoles}}
-        />
-      </div>
+<div class="oc-settings-users-page">
+  <div class="oc-settings-users-page__sidebar">
+    <div class="oc-settings-users-filter au-c-card">
+      <UserRoleFilter
+        @selected={{this.selectedRoles}}
+        @onChange={{perform this.setRoles}}
+        @defaultEnableAllRoles={{is-empty this.selectedRoles}}
+      />
     </div>
   </div>
-  <div class="au-u-4-5">
-    <div class="oc-settings-users-header au-u-padding-bottom">
-      <AuToolbar @size="medium" @skin="tint" as |Group|>
+  <div class="oc-settings-users-page__content">
+    <div class="oc-settings-users-header">
+      <AuToolbar @size="medium" as |Group|>
         <Group>
           <AuHeading @skin="2">Gebruikers</AuHeading>
         </Group>
       </AuToolbar>
-      <AuToolbar @size="medium" @skin="tint" as |Group|>
+      <AuToolbar @size="medium" as |Group|>
         <Group class="au-u-flex-grow au-u-flex">
           <form {{on "submit" this.search}} class="au-u-flex au-u-flex-grow au-u-flex--spaced-tiny">
             <AuInput

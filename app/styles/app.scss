@@ -30,6 +30,32 @@ $au-navigation-list-border: 1px;
  * Overlegcomite customizations
  */
 
+.oc-settings-users-page {
+  display: flex;
+  align-items: stretch;
+  gap: var(--au-unit);
+}
+
+.oc-settings-users-page__sidebar {
+  flex-shrink: 0;
+  width: 20%;
+  min-width: 14rem;
+}
+
+.oc-settings-users-page__content {
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.oc-settings-users-filter {
+  padding: 1.2rem;
+  margin: 1.2rem;
+
+  .au-c-control-group {
+    gap: 0.8rem;
+  }
+}
+
 th.data-table-row-navigation {
   width: 5%;
 }
@@ -64,9 +90,18 @@ th.data-table-search-agendaitems-subject {
   }
 }
 
-.oc-meeting-header,
 .oc-search-header,
 .oc-settings-users-header {
+  margin-top: 1.2rem;
+  margin-bottom: 1.2rem;
+
+  .au-c-toolbar {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}
+
+.oc-meeting-header {
   .au-c-toolbar {
     padding-top: 0;
     padding-bottom: 0;
