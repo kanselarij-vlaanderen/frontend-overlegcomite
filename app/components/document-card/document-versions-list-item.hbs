@@ -3,7 +3,9 @@
     <AuIcon @icon="clock-rewind" @size="large" />
   </div>
   <div class="au-u-flex-grow">
-    <div class="oc-document-versions-list-item--name au-u-flex au-u-flex--row au-u-flex--vertical-center au-u-flex--spaced-tiny">
+    <div
+      class="oc-document-versions-list-item--name au-u-flex au-u-flex--row au-u-flex--vertical-center au-u-flex--spaced-tiny"
+    >
       <AuHeading @level="6" @skin="6">
         <AuLink
           @skin="bold"
@@ -11,7 +13,8 @@
           @model={{@documentVersion}}
           target="_blank"
         >
-          {{@document.name}} {{document-version/latin-adverbial-numeral @documentVersion}}
+          {{@document.name}}
+          {{document-version/latin-adverbial-numeral @documentVersion}}
         </AuLink>
       </AuHeading>
       {{#if @documentVersion}}
@@ -33,7 +36,8 @@
       {{/if}}
     </div>
     <p class="au-u-para-small au-u-muted">
-      Aangemaakt op {{format-datetime @documentVersion.created}}
+      Aangemaakt op
+      {{format-datetime @documentVersion.created}}
     </p>
   </div>
   <div class="au-u-flex au-u-flex--vertical-center au-u-flex--spaced-small">
@@ -43,21 +47,29 @@
           <AccessLevelPill
             @accessLevel={{accessLevel}}
             @onSave={{this.saveAccessLevel}}
-            />
+          />
         </:success>
       </Await>
     {{/unless}}
-    <AuPill
-      @skin={{if @documentVersion.confidential "warning" "default"}}
-      @actionIcon={{if @documentVersion.confidential "lock-closed" "lock-open"}}
-      @onClickAction={{this.toggleConfidential}}
-    >
-      {{#if @documentVersion.confidential}}
+    {{#if @documentVersion.confidential}}
+      <AuPill
+        @skin="warning"
+        @actionIcon="lock-closed"
+        @onClickAction={{this.toggleConfidential}}
+      >
         Vertrouwelijk
-      {{else}}
-        Niet vertrouwelijk
-      {{/if}}
-    </AuPill>
+      </AuPill>
+    {{else}}
+      <AuButton
+        @skin="naked"
+        @icon="lock-open"
+        @hideText={{true}}
+        title="Als vertrouwelijk markeren"
+        {{on "click" this.toggleConfidential}}
+      >
+        Als vertrouwelijk markeren
+      </AuButton>
+    {{/if}}
     <AuButton
       @skin="naked"
       @icon="trash"

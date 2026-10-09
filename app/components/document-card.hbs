@@ -1,12 +1,12 @@
 <AuCard @flex={{true}} @size="small" class="oc-document-card" as |c|>
   <c.header @badgeIcon="file">
-    <AuToolbar class="au-u-flex--vertical-end" as |Group|>
+    <AuToolbar class="au-u-flex--vertical-center" as |Group|>
       <Group>
         <AuHeading @level="6" @skin="6">
           {{or @document.type.label "Document (Overig)"}}
         </AuHeading>
       </Group>
-      <Group class="au-u-flex--vertical-end">
+      <Group class="au-u-flex--vertical-center">
         {{#unless this.init.isRunning}}
           <DocumentCard::DocumentActions
             @document={{@document}}
